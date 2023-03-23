@@ -1,4 +1,4 @@
-# SoPra FS23 - Client Template with build pack
+# SoPra FS23 - Group 04 - Client Template with build pack
 
 ## Getting started
 
