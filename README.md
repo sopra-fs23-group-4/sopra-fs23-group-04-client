@@ -14,7 +14,7 @@ Next, there are two other technologies that you should look at:
 * [react-hooks](https://reactrouter.com/web/api/Hooks) let you access the router's state and perform navigation from inside your components.
 
 ## Prerequisites and Installation
-For your local development environment, you will need Node.js. You can download it [here](https://nodejs.org). All other dependencies, including React, get installed with:
+For your local development environment, you will need Node.js. You can download it [here](https://nodejs.org). All other dependencies, including React, get installed withff:
 
 ```npm install```
 
