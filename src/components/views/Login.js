@@ -63,7 +63,7 @@ const Login = props => {
       <div className="login container">
         <div className="login form">
           <FormField
-            label="Username"
+            label="Group 4"
             value={username}
             onChange={un => setUsername(un)}
           />
