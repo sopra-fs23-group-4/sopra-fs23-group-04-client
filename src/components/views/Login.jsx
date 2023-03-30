@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
 import { Button, Container, Group, LoadingOverlay, PasswordInput, Stack, TextInput, Title } from "@mantine/core";
+import StandardButton from "../ui/StandardButton";
 
 /*
 It is possible to add multiple components inside a single file,
@@ -62,8 +63,8 @@ const Login = (props) => {
                         <Stack spacing="lg"></Stack>
                     </Container>
                     <Group sx={{ paddingTop: 10 }}>
-                        <Button size="md">Login</Button>
-                        <Button size="md">sign up</Button>
+                        <StandardButton>Login</StandardButton>
+                        <StandardButton>sign up</StandardButton>
                     </Group>
                 </Stack>
             </Container>
