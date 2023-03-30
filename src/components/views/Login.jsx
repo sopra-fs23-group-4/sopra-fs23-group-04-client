@@ -4,7 +4,7 @@ import User from "models/User";
 import { useHistory } from "react-router-dom";
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
-import { Button, Container, Group, LoadingOverlay, PasswordInput, Stack, TextInput, Title } from "@mantine/core";
+import { Button, Container, Group, Input, LoadingOverlay, PasswordInput, Rating, Stack, TextInput, Title } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
 
 /*
@@ -59,12 +59,16 @@ const Login = (props) => {
                     <Title order={1} sx={{ color: "white", padding: 5 }}>
                         Login
                     </Title>{" "}
-                    <Container size={200}>
-                        <Stack spacing="lg"></Stack>
+                    <Container size={250}>
+                        <Stack>
+                            <TextInput label="username:" placeholder="username" radius="lg" size="xl" />
+                            <PasswordInput label="password:" placeholder="Password" radius="lg" size="xl" />
+                        </Stack>
                     </Container>
                     <Group sx={{ paddingTop: 10 }}>
                         <StandardButton>Login</StandardButton>
                         <StandardButton>sign up</StandardButton>
+                        <Rating defaultValue={2} size="xl" />
                     </Group>
                 </Stack>
             </Container>
