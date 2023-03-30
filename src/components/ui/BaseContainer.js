@@ -1,11 +1,8 @@
 import "styles/ui/BaseContainer.scss";
 import PropTypes from "prop-types";
+import { Box } from "@mantine/core";
 
-const BaseContainer = (props) => (
-    <div {...props} className={`base-container ${props.className ?? ""}`}>
-        {props.children}
-    </div>
-);
+const BaseContainer = ({ children }) => <Box>{children}</Box>;
 
 BaseContainer.propTypes = {
     children: PropTypes.node,
