@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { api, handleError } from "helpers/api";
 import User from "models/User";
 import { useHistory } from "react-router-dom";
-import { Button } from "components/ui/Button";
-import "styles/views/Login.scss";
 import BaseContainer from "components/ui/BaseContainer";
 import PropTypes from "prop-types";
+import { Button, Container, Group, LoadingOverlay, PasswordInput, Stack, TextInput, Title } from "@mantine/core";
 
 /*
 It is possible to add multiple components inside a single file,
@@ -53,17 +52,21 @@ const Login = (props) => {
 
     return (
         <BaseContainer>
-            <div className="login container">
-                <div className="login form">
-                    <FormField label="Group 4" value={username} onChange={(un) => setUsername(un)} />
-                    <FormField label="Name" value={name} onChange={(n) => setName(n)} />
-                    <div className="login button-container">
-                        <Button disabled={!username || !name} width="100%" onClick={() => doLogin()}>
-                            Login
-                        </Button>
-                    </div>
-                </div>
-            </div>
+            <LoadingOverlay />
+            <Container size="sm">
+                <Stack align="center">
+                    <Title order={1} sx={{ color: "white", padding: 5 }}>
+                        Login
+                    </Title>{" "}
+                    <Container size={200}>
+                        <Stack spacing="lg"></Stack>
+                    </Container>
+                    <Group sx={{ paddingTop: 10 }}>
+                        <Button size="md">Login</Button>
+                        <Button size="md">sign up</Button>
+                    </Group>
+                </Stack>
+            </Container>
         </BaseContainer>
     );
 };
