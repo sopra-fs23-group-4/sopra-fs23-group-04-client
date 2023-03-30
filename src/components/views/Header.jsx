@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { Stack } from "@mantine/core";
 
 /**
  * This is an example of a Functional and stateless component (View) in React. Functional components are not classes and thus don't handle internal state changes.
@@ -9,15 +9,13 @@ import PropTypes from "prop-types";
  * https://reactjs.org/docs/components-and-props.html
  * @FunctionalComponent
  */
-const Header = (props) => (
-    <div className="header container" style={{ height: props.height }}>
-        <h1 className="header title">Stadt, Land, +</h1>
+const Header = () => (
+    <div>
+        <Stack align="center">
+            <h1 className="header title">Stadt, Land, +</h1>
+        </Stack>
     </div>
 );
-
-Header.propTypes = {
-    height: PropTypes.string,
-};
 
 /**
  * Don't forget to export your component!
