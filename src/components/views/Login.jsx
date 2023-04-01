@@ -1,5 +1,5 @@
 import BaseContainer from "components/ui/BaseContainer";
-import { Container, Group, LoadingOverlay, PasswordInput, Rating, Stack, TextInput, Title } from "@mantine/core";
+import { Container, Group, PasswordInput, Stack, TextInput, Title } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
 
 /*
@@ -8,7 +8,7 @@ however be sure not to clutter your files with an endless amount!
 As a rule of thumb, use one file per component and only add small,
 specific components that belong to the main one in the same file.
  */
-const Login = (props) => {
+const Login = () => {
     return (
         <BaseContainer>
             <Container size="sm">
@@ -18,20 +18,8 @@ const Login = (props) => {
                     </Title>{" "}
                     <Container size={250}>
                         <Stack>
-                            <TextInput
-                                label="username:"
-                                sx={{ ["& .mantine-TextInput-label"]: { color: "white" } }}
-                                placeholder="username"
-                                radius="lg"
-                                size="xl"
-                            />
-                            <PasswordInput
-                                label="password:"
-                                sx={{ ["& .mantine-PasswordInput-label"]: { color: "white" } }}
-                                placeholder="Password"
-                                radius="lg"
-                                size="xl"
-                            />
+                            <TextInput label="username:" placeholder="username" radius="lg" size="xl" />
+                            <PasswordInput label="password:" placeholder="Password" radius="lg" size="xl" />
                         </Stack>
                     </Container>
                     <Group sx={{ paddingTop: 10 }}>
