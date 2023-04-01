@@ -1,6 +1,7 @@
 import BaseContainer from "components/ui/BaseContainer";
 import { Container, Group, PasswordInput, Stack, TextInput, Title } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
+import { Link } from "react-router-dom";
 
 /*
 It is possible to add multiple components inside a single file,
@@ -13,18 +14,41 @@ const Login = () => {
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{ color: "white" }}>
+                    <Title
+                        order={1}
+                        sx={{ color: "white" }}
+                    >
                         Login
                     </Title>{" "}
                     <Container size={250}>
                         <Stack>
-                            <TextInput label="username:" placeholder="username" radius="lg" size="xl" />
-                            <PasswordInput label="password:" placeholder="Password" radius="lg" size="xl" />
+                            <TextInput
+                                label="username:"
+                                placeholder="username"
+                                radius="lg"
+                                size="xl"
+                            />
+                            <PasswordInput
+                                label="password:"
+                                placeholder="Password"
+                                radius="lg"
+                                size="xl"
+                            />
                         </Stack>
                     </Container>
                     <Group sx={{ paddingTop: 10 }}>
-                        <StandardButton>Login</StandardButton>
-                        <StandardButton>sign up</StandardButton>
+                        <StandardButton
+                            component={Link}
+                            to="/dashboard"
+                        >
+                            Login
+                        </StandardButton>
+                        <StandardButton
+                            component={Link}
+                            to="/registration"
+                        >
+                            sign up
+                        </StandardButton>
                     </Group>
                 </Stack>
             </Container>
