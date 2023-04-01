@@ -16,7 +16,14 @@ const StandardButton = (props) => (
                 }),
             },
         })}
-        sx={{ color: "black" }}
+        sx={{
+            color: "black",
+            "&:disabled": {
+                color: "black",
+                backgroundColor: "#f8af05",
+                opacity: 0.5,
+            },
+        }}
     >
         {props.children}
     </Button>
