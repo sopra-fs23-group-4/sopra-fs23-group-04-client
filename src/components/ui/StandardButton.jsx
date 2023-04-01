@@ -4,7 +4,7 @@ const StandardButton = (props) => (
     <Button
         {...props}
         variant="gradient"
-        gradient={{ from: "yellow", to: "yellow", deg: 60 }}
+        gradient={{ from: "#f8af05", to: "#f8af05", deg: 70 }}
         size="md"
         styles={(theme) => ({
             root: {
