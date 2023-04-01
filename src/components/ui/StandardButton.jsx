@@ -1,7 +1,8 @@
 import { Button, rem } from "@mantine/core";
 
-const StandardButton = ({ children }) => (
+const StandardButton = (props) => (
     <Button
+        {...props}
         variant="gradient"
         gradient={{ from: "yellow", to: "yellow", deg: 60 }}
         size="md"
@@ -17,7 +18,7 @@ const StandardButton = ({ children }) => (
         })}
         sx={{ color: "black" }}
     >
-        {children}
+        {props.children}
     </Button>
 );
 
