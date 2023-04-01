@@ -1,6 +1,7 @@
 import Header from "components/ui/Header";
 import AppRouter from "components/routing/routers/AppRouter";
 import { Background } from "./components/ui/Background";
+import { MantineProvider } from "@mantine/core";
 
 /**
  * Happy coding!
@@ -10,9 +11,11 @@ import { Background } from "./components/ui/Background";
 const App = () => {
     return (
         <div>
-            <Background />
-            <Header height="100" />
-            <AppRouter />
+            <MantineProvider theme={{}} withGlobalStyles withNormalizeCSS>
+                <Background />
+                <Header height="100" />
+                <AppRouter />
+            </MantineProvider>
         </div>
     );
 };
