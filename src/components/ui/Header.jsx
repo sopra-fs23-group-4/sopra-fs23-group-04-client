@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack } from "@mantine/core";
+import { Stack, Title } from "@mantine/core";
 
 /**
  * This is an example of a Functional and stateless component (View) in React. Functional components are not classes and thus don't handle internal state changes.
@@ -12,7 +12,7 @@ import { Stack } from "@mantine/core";
 const Header = () => (
     <div>
         <Stack align="center">
-            <h1 className="header title">Stadt, Land, +</h1>
+            <Title sx={{ color: "lightblue", padding: 5 }}>Stadt, Land, +</Title>
         </Stack>
     </div>
 );
