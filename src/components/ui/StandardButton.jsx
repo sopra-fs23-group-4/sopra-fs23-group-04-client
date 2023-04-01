@@ -3,7 +3,7 @@ import { Button, rem } from "@mantine/core";
 const StandardButton = ({ children }) => (
     <Button
         variant="gradient"
-        gradient={{ from: "teal", to: "blue", deg: 60 }}
+        gradient={{ from: "yellow", to: "yellow", deg: 60 }}
         size="md"
         styles={(theme) => ({
             root: {
@@ -15,6 +15,7 @@ const StandardButton = ({ children }) => (
                 }),
             },
         })}
+        sx={{ color: "black" }}
     >
         {children}
     </Button>
