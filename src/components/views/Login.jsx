@@ -13,19 +13,30 @@ const Login = (props) => {
         <BaseContainer>
             <Container size="sm">
                 <Stack align="center">
-                    <Title order={1} sx={{ color: "white", padding: 5 }}>
+                    <Title order={1} sx={{ color: "white" }}>
                         Login
                     </Title>{" "}
                     <Container size={250}>
                         <Stack>
-                            <TextInput label="username:" placeholder="username" radius="lg" size="xl" />
-                            <PasswordInput label="password:" placeholder="Password" radius="lg" size="xl" />
+                            <TextInput
+                                label="username:"
+                                sx={{ ["& .mantine-TextInput-label"]: { color: "white" } }}
+                                placeholder="username"
+                                radius="lg"
+                                size="xl"
+                            />
+                            <PasswordInput
+                                label="password:"
+                                sx={{ ["& .mantine-PasswordInput-label"]: { color: "white" } }}
+                                placeholder="Password"
+                                radius="lg"
+                                size="xl"
+                            />
                         </Stack>
                     </Container>
                     <Group sx={{ paddingTop: 10 }}>
                         <StandardButton>Login</StandardButton>
                         <StandardButton>sign up</StandardButton>
-                        <Rating defaultValue={2} size="xl" />
                     </Group>
                 </Stack>
             </Container>
