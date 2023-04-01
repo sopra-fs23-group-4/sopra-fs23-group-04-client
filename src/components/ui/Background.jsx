@@ -16,7 +16,7 @@ export const useStyles = createStyles(() => ({
         left: 0,
         overflow: "hidden",
         zIndex: -1,
-        background: "linear-gradient(rgb(63 29 126) 0%, rgb(172 2 208) 100%)",
+        background: "linear-gradient(rgb(0 128 128) 0%, rgb(32 178 170) 100%)", // top left to bottom
         transition: "all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275) 0s",
         "&:before": {
             content: '""',
@@ -24,9 +24,9 @@ export const useStyles = createStyles(() => ({
             width: "140%",
             height: "140%",
             position: "absolute",
-            top: "-40%",
+            top: "-30%",
             right: "-50%",
-            background: "radial-gradient(at center center, rgb(190 15 227) 0%, rgba(62, 79, 249, 0) 64%)",
+            background: "radial-gradient(at center center, rgb(0 0 205) 0%, rgba(30, 144, 255, 0) 64%)", // top right
         },
         "&:after": {
             content: '""',
@@ -36,7 +36,7 @@ export const useStyles = createStyles(() => ({
             position: "absolute",
             bottom: "-65%",
             left: "-20%",
-            background: "radial-gradient(at center center, rgb(216 99 59) 0%, rgba(247, 237, 225, 0) 70%)",
+            background: "radial-gradient(at center center, rgb(0 0 128) 0%, rgba(247, 237, 225, 0) 70%)",
             transform: "rotate(30deg)",
         },
     },
