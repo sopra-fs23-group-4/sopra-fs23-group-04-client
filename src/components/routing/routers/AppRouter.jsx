@@ -1,6 +1,9 @@
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { LoginGuard } from "components/routing/routeProtectors/LoginGuard";
 import Login from "components/views/Login";
+import Registration from "../../views/Registration";
+import { DashboardGuard } from "../routeProtectors/DashboardGuard";
+import Dashboard from "../../views/Dashboard";
 
 /**
  * Main router of your application.
@@ -20,15 +23,25 @@ const AppRouter = () => {
                         <Login />
                     </LoginGuard>
                 </Route>
-                <Route exact path="/">
-                    <Redirect to="/game" />
+
+                <Route exact path="/registration">
+                    <LoginGuard>
+                        <Registration />
+                    </LoginGuard>
+                </Route>
+
+                <Route exact path="/dashboard">
+                    <DashboardGuard>
+                        <Dashboard />
+                    </DashboardGuard>
+                </Route>
+
+                <Route path="/">
+                    <Redirect to="/login" />
                 </Route>
             </Switch>
         </BrowserRouter>
     );
 };
 
-/*
- * Don't forget to export your component!
- */
 export default AppRouter;
