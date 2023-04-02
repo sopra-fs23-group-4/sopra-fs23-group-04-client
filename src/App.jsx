@@ -7,7 +7,9 @@ const App = () => {
     return (
         <div>
             <MantineProvider
-                theme={{ colorScheme: "dark" }}
+                theme={{
+                    colorScheme: "light",
+                }}
                 withGlobalStyles
                 withNormalizeCSS
             >
