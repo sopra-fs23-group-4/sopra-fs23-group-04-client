@@ -18,6 +18,7 @@ const Login = () => {
 
             const user = new User(response.data);
             sessionStorage.setItem("token", user.token);
+            sessionStorage.setItem("user_id", user.id);
             history.push(`/dashboard`);
         } catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
@@ -54,16 +55,16 @@ const Login = () => {
                     </Container>
                     <Group sx={{ paddingTop: 10 }}>
                         <StandardButton
-                            disabled={!username || !password}
-                            onClick={() => doLogin()}
-                        >
-                            Login
-                        </StandardButton>
-                        <StandardButton
                             component={Link}
                             to="/registration"
                         >
                             Sign up
+                        </StandardButton>
+                        <StandardButton
+                            disabled={!username || !password}
+                            onClick={() => doLogin()}
+                        >
+                            Login
                         </StandardButton>
                     </Group>
                 </Stack>
