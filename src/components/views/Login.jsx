@@ -1,15 +1,29 @@
 import BaseContainer from "components/ui/BaseContainer";
 import { Container, Group, PasswordInput, Stack, TextInput, Title } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useState } from "react";
+import User from "../../models/User";
+import { api, handleError } from "../../helpers/api";
 
-/*
-It is possible to add multiple components inside a single file,
-however be sure not to clutter your files with an endless amount!
-As a rule of thumb, use one file per component and only add small,
-specific components that belong to the main one in the same file.
- */
 const Login = () => {
+    const history = useHistory();
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+
+    const doLogin = async () => {
+        try {
+            const requestBody = JSON.stringify({ username, password });
+            const response = await api.put("/login", requestBody);
+
+            const user = new User(response.data);
+            localStorage.setItem("token", user.token);
+            history.push(`/dashboard`);
+        } catch (error) {
+            alert(`Something went wrong during the login: \n${handleError(error)}`);
+        }
+    };
+
     return (
         <BaseContainer>
             <Container size="sm">
@@ -27,19 +41,21 @@ const Login = () => {
                                 placeholder="username"
                                 radius="lg"
                                 size="lg"
+                                onChange={(event) => setUsername(event.currentTarget.value)}
                             />
                             <PasswordInput
                                 label="password:"
                                 placeholder="Password"
                                 radius="lg"
                                 size="lg"
+                                onChange={(event) => setPassword(event.currentTarget.value)}
                             />
                         </Stack>
                     </Container>
                     <Group sx={{ paddingTop: 10 }}>
                         <StandardButton
-                            component={Link}
-                            to="/dashboard"
+                            disabled={!username || !password}
+                            onClick={() => doLogin()}
                         >
                             Login
                         </StandardButton>
@@ -47,7 +63,7 @@ const Login = () => {
                             component={Link}
                             to="/registration"
                         >
-                            sign up
+                            Sign up
                         </StandardButton>
                     </Group>
                 </Stack>
