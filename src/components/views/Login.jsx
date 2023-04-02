@@ -14,10 +14,10 @@ const Login = () => {
     const doLogin = async () => {
         try {
             const requestBody = JSON.stringify({ username, password });
-            const response = await api.put("/login", requestBody);
+            const response = await api.post("/login", requestBody);
 
             const user = new User(response.data);
-            localStorage.setItem("token", user.token);
+            sessionStorage.setItem("token", user.token);
             history.push(`/dashboard`);
         } catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
