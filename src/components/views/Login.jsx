@@ -26,13 +26,13 @@ const Login = () => {
                                 label="username:"
                                 placeholder="username"
                                 radius="lg"
-                                size="xl"
+                                size="lg"
                             />
                             <PasswordInput
                                 label="password:"
                                 placeholder="Password"
                                 radius="lg"
-                                size="xl"
+                                size="lg"
                             />
                         </Stack>
                     </Container>

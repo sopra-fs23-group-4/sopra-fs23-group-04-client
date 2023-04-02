@@ -45,7 +45,7 @@ const Registration = () => {
                                 label="username:"
                                 placeholder="username"
                                 radius="lg"
-                                size="xl"
+                                size="lg"
                                 value={username}
                                 onChange={(event) => setUsername(event.currentTarget.value)}
                             />
@@ -53,7 +53,7 @@ const Registration = () => {
                                 label="password:"
                                 placeholder="Password"
                                 radius="lg"
-                                size="xl"
+                                size="lg"
                                 value={password}
                                 onChange={(event) => setPassword(event.currentTarget.value)}
                             />
@@ -61,7 +61,7 @@ const Registration = () => {
                                 label="repeat password:"
                                 placeholder="Password"
                                 radius="lg"
-                                size="xl"
+                                size="lg"
                                 value={password2}
                                 onChange={(event) => setPassword2(event.currentTarget.value)}
                             />
