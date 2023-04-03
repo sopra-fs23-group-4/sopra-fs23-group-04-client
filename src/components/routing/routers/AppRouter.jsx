@@ -4,6 +4,7 @@ import Login from "components/views/Login";
 import Registration from "../../views/Registration";
 import { DashboardGuard } from "../routeProtectors/DashboardGuard";
 import Dashboard from "../../views/Dashboard";
+import ProfileRouter from "./ProfileRouter";
 
 /**
  * Main router of your application.
@@ -18,21 +19,36 @@ const AppRouter = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path="/login">
+                <Route
+                    exact
+                    path="/login"
+                >
                     <LoginGuard>
                         <Login />
                     </LoginGuard>
                 </Route>
 
-                <Route exact path="/registration">
+                <Route
+                    exact
+                    path="/registration"
+                >
                     <LoginGuard>
                         <Registration />
                     </LoginGuard>
                 </Route>
 
-                <Route exact path="/dashboard">
+                <Route
+                    exact
+                    path="/dashboard"
+                >
                     <DashboardGuard>
                         <Dashboard />
+                    </DashboardGuard>
+                </Route>
+
+                <Route path="/profile">
+                    <DashboardGuard>
+                        <ProfileRouter base="/profile" />
                     </DashboardGuard>
                 </Route>
 
