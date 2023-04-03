@@ -28,7 +28,7 @@ const Edit = () => {
         }
 
         fetchData();
-    }, [id]);
+    }, [user]);
 
     return (
         <BaseContainer>
