@@ -6,7 +6,7 @@ import { api, handleError } from "../../helpers/api";
 import StandardButton from "../ui/StandardButton";
 
 const Dashboard = () => {
-    useHistory();
+    const history = useHistory();
     const [user, setUser] = useState(null);
 
     useEffect(() => {
@@ -47,6 +47,7 @@ const Dashboard = () => {
                         src="../../resources/emptyProfile.png"
                         alt="it's me"
                         size="xl"
+                        onClick={() => history.push("/profile/edit")}
                     />
                     <Button
                         color="green"
