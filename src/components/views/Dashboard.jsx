@@ -1,4 +1,4 @@
-import { Avatar, Button, Container, Stack, Text, Title } from "@mantine/core";
+import { Avatar, Button, Container, Text, Title } from "@mantine/core";
 import BaseContainer from "../ui/BaseContainer";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
@@ -30,37 +30,33 @@ const Dashboard = () => {
 
     return (
         <BaseContainer>
-            <Container size="sm">
-                <Stack align="center">
-                    <Title
-                        align="center"
-                        order={1}
-                        sx={{ color: "white" }}
-                    >
-                        userName
-                        <Text
-                            align="center"
-                            sx={{ color: "white", fontSize: "small" }}
-                        ></Text>
-                    </Title>
-                    <Avatar
-                        src="../../resources/emptyProfile.png"
-                        alt="it's me"
-                        size="xl"
-                        onClick={() => history.push("/profile/edit")}
-                    />
-                    <Button
-                        color="green"
-                        radius="xl"
-                        size="lg"
-                        sx={{ width: "160px", color: "black" }}
-                    >
-                        PLAY
-                    </Button>
-                    <Container sx={{ color: "white", border: "2px solid white", height: "100px", width: "160px" }}>Leaderboard: see more...</Container>
-                    <StandardButton>Logout</StandardButton>
-                </Stack>
-            </Container>
+            <Title
+                align="center"
+                order={1}
+                sx={{ color: "white" }}
+            >
+                userName
+                <Text
+                    align="center"
+                    sx={{ color: "white", fontSize: "small" }}
+                ></Text>
+            </Title>
+            <Avatar
+                src="../../resources/emptyProfile.png"
+                alt="it's me"
+                size="xl"
+                onClick={() => history.push("/profile/edit")}
+            />
+            <Button
+                color="green"
+                radius="xl"
+                size="lg"
+                sx={{ width: "160px", color: "black" }}
+            >
+                PLAY
+            </Button>
+            <Container sx={{ color: "white", border: "2px solid white", height: "100px", width: "160px" }}>Leaderboard: see more...</Container>
+            <StandardButton>Logout</StandardButton>
         </BaseContainer>
     );
 };

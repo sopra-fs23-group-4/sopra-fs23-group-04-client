@@ -1,4 +1,4 @@
-import { Avatar, Container, Stack, Text, Title } from "@mantine/core";
+import { Avatar, Text, Title } from "@mantine/core";
 import StandardButton from "../../ui/StandardButton";
 import { Link, useHistory } from "react-router-dom";
 import BaseContainer from "../../ui/BaseContainer";
@@ -32,47 +32,43 @@ const Edit = () => {
 
     return (
         <BaseContainer>
-            <Container size="sm">
-                <Stack align="center">
-                    <Title
-                        align="center"
-                        order={1}
-                        color="white"
-                        //onClick={change to inputfield and add save button next to it?}
-                    >
-                        userName
-                        <EditIcon />
-                    </Title>
-                    <Avatar
-                        src="../../resources/emptyProfile.png"
-                        alt="it's me"
-                        size="xl"
-                    />
-                    <StandardButton
-                        gradient={{ from: "teal", to: "lime", deg: 105 }}
-                        component={Link}
-                        to="/profile/edit/picture"
-                    >
-                        Edit Picture
-                    </StandardButton>
-                    <Text
-                        align="center"
-                        size="md"
-                        color="white"
-                        fw={500}
-                        sx={{ width: "80%", marginTop: "5%", marginBottom: "10%" }}
-                        onClick={() => history.push("/profile/edit/quote")}
-                    >
-                        "this is a very creative, generated quote, which shows everyone how cool userName is!" <EditIcon size={18} />
-                    </Text>
-                    <StandardButton
-                        component={Link}
-                        to="/dashboard"
-                    >
-                        Back
-                    </StandardButton>
-                </Stack>
-            </Container>
+            <Title
+                align="center"
+                order={1}
+                color="white"
+                //onClick={change to inputfield and add save button next to it?}
+            >
+                userName
+                <EditIcon />
+            </Title>
+            <Avatar
+                src="../../resources/emptyProfile.png"
+                alt="it's me"
+                size="xl"
+            />
+            <StandardButton
+                gradient={{ from: "teal", to: "lime", deg: 105 }}
+                component={Link}
+                to="/profile/edit/picture"
+            >
+                Edit Picture
+            </StandardButton>
+            <Text
+                align="center"
+                size="md"
+                color="white"
+                fw={500}
+                sx={{ width: "80%", marginTop: "5%", marginBottom: "10%" }}
+                onClick={() => history.push("/profile/edit/quote")}
+            >
+                "this is a very creative, generated quote, which shows everyone how cool userName is!" <EditIcon size={18} />
+            </Text>
+            <StandardButton
+                component={Link}
+                to="/dashboard"
+            >
+                Back
+            </StandardButton>
         </BaseContainer>
     );
 };
