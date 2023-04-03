@@ -1,5 +1,5 @@
 import BaseContainer from "../ui/BaseContainer";
-import { Container, Group, PasswordInput, Stack, TextInput, Title } from "@mantine/core";
+import { Container, Group, PasswordInput, rem, Stack, TextInput, Title } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
 import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
@@ -67,16 +67,18 @@ const Registration = () => {
                     </Container>
                     <Group sx={{ paddingTop: 10 }}>
                         <StandardButton
-                            disabled={!username || !password || !password2 || username === "" || password === "" || password2 === "" || password !== password2}
-                            onClick={() => doRegistration()}
-                        >
-                            Register
-                        </StandardButton>
-                        <StandardButton
+                            w={rem(100)}
                             component={Link}
                             to="/login"
                         >
                             Back
+                        </StandardButton>
+                        <StandardButton
+                            w={rem(100)}
+                            disabled={!username || !password || !password2 || username === "" || password === "" || password2 === "" || password !== password2}
+                            onClick={() => doRegistration()}
+                        >
+                            Register
                         </StandardButton>
                     </Group>
                 </Stack>

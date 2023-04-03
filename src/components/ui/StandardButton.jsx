@@ -10,8 +10,10 @@ const StandardButton = (props) => (
         styles={(theme) => ({
             root: {
                 border: 0,
+                paddingLeft: rem(20),
+                paddingRight: rem(20),
                 height: rem(42),
-                width: rem(120),
+                display: "inline-block",
                 "&:not([data-disabled])": theme.fn.hover({
                     backgroundColor: theme.fn.darken("#00acee", 0.05),
                 }),
