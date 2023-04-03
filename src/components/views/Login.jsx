@@ -32,50 +32,48 @@ const Login = () => {
 
     return (
         <BaseContainer>
-            <Container size="sm">
-                <Stack align="center">
-                    <Title
-                        order={1}
-                        sx={{ color: "white" }}
-                    >
-                        Login
-                    </Title>{" "}
-                    <Container size={250}>
-                        <Stack>
-                            <TextInput
-                                label="username:"
-                                placeholder="username"
-                                radius="lg"
-                                size="lg"
-                                onChange={(event) => setUsername(event.currentTarget.value)}
-                            />
-                            <PasswordInput
-                                label="password:"
-                                placeholder="Password"
-                                radius="lg"
-                                size="lg"
-                                onChange={(event) => setPassword(event.currentTarget.value)}
-                            />
-                        </Stack>
-                    </Container>
-                    <Group sx={{ paddingTop: 10 }}>
-                        <StandardButton
-                            w={rem(100)}
-                            component={Link}
-                            to="/registration"
-                        >
-                            Sign up
-                        </StandardButton>
-                        <StandardButton
-                            w={rem(100)}
-                            disabled={!username || !password}
-                            onClick={() => doLogin()}
-                        >
-                            Login
-                        </StandardButton>
-                    </Group>
+            <Title
+                order={1}
+                sx={{ color: "white" }}
+            >
+                Login
+            </Title>{" "}
+            <Container size={250}>
+                <Stack>
+                    <TextInput
+                        label="username:"
+                        placeholder="username"
+                        radius="lg"
+                        size="lg"
+                        onChange={(event) => setUsername(event.currentTarget.value)}
+                        sx={{ "& .mantine-TextInput-label": { color: "white" } }}
+                    />
+                    <PasswordInput
+                        label="password:"
+                        placeholder="Password"
+                        radius="lg"
+                        size="lg"
+                        onChange={(event) => setPassword(event.currentTarget.value)}
+                        sx={{ "& .mantine-PasswordInput-label": { color: "white" } }}
+                    />
                 </Stack>
             </Container>
+            <Group sx={{ paddingTop: 10 }}>
+                <StandardButton
+                    w={rem(100)}
+                    component={Link}
+                    to="/registration"
+                >
+                    Sign up
+                </StandardButton>
+                <StandardButton
+                    w={rem(100)}
+                    disabled={!username || !password}
+                    onClick={() => doLogin()}
+                >
+                    Login
+                </StandardButton>
+            </Group>
         </BaseContainer>
     );
 };
