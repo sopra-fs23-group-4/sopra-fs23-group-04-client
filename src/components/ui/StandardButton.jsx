@@ -8,6 +8,7 @@ const StandardButton = (props) => (
         radius="xl"
         styles={(theme) => ({
             root: {
+                color: "black",
                 border: 0,
                 paddingTop: rem(5),
                 paddingBottom: rem(5),
@@ -20,9 +21,8 @@ const StandardButton = (props) => (
             },
         })}
         sx={{
-            color: "black",
             "&:disabled": {
-                color: "black",
+                color: "inherit",
                 backgroundColor: "#f8af05",
                 opacity: 0.5,
             },
