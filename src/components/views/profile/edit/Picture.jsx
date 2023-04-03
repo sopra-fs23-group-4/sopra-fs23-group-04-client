@@ -1,7 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Container, Group, PasswordInput, Stack, TextInput, Title } from "@mantine/core";
-import StandardButton from "../../../ui/StandardButton";
-import { Link } from "react-router-dom";
+import { Container, Stack } from "@mantine/core";
 
 const Picture = () => {
     return (
