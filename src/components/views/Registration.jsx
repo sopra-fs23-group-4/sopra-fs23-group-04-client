@@ -22,6 +22,7 @@ const Registration = () => {
 
             // Store the id into the session storage.
             sessionStorage.setItem("token", user.token);
+            sessionStorage.setItem("id", user.id);
 
             history.push(`/dashboard`);
         } catch (error) {
