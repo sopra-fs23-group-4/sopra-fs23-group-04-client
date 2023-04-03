@@ -1,4 +1,4 @@
-import { Avatar, Button, Container, List, Paper, Text, Title } from "@mantine/core";
+import { Avatar, Button, Container, List, Paper, Stack, Text, Title } from "@mantine/core";
 import BaseContainer from "../ui/BaseContainer";
 import { Link, useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
@@ -36,43 +36,45 @@ const Dashboard = () => {
 
     return (
         <BaseContainer>
-            <Title
+            <Stack
                 align="center"
-                order={1}
-                sx={{ color: "white" }}
-                onClick={() => history.push("/profile/edit/quote")}
+                spacing="xs"
             >
-                wigeto{" "}
-                <EditIcon
-                    color="#f8af05"
-                    size={22}
+                <Title
+                    align="center"
+                    order={1}
+                    sx={{ color: "white" }}
+                    onClick={() => history.push("/profile/edit/quote")}
+                >
+                    wigeto{" "}
+                    <EditIcon
+                        color="#f8af05"
+                        size={22}
+                    />
+                </Title>
+                <Avatar
+                    src="../../resources/emptyProfile.png"
+                    alt="it's me"
+                    size="xl"
+                    onClick={() => history.push("/profile/edit/picture")}
                 />
                 <Text
                     align="center"
-                    sx={{ color: "white", fontSize: "small" }}
-                ></Text>{" "}
-            </Title>
-            <Avatar
-                src="../../resources/emptyProfile.png"
-                alt="it's me"
-                size="xl"
-                onClick={() => history.push("/profile/edit/picture")}
-            />
-            <Text
-                align="center"
-                size="md"
-                color="white"
-                fw={500}
-                sx={{ width: "80%", marginBottom: "2%" }}
-                onClick={() => history.push("/profile/edit/quote")}
-            >
-                "this is a very creative, generated quote, which shows everyone how cool I am!"{" "}
-                <EditIcon
-                    color="#f8af05"
-                    size={18}
-                />
-            </Text>
+                    size="md"
+                    color="white"
+                    fw={500}
+                    sx={{ width: "80%", marginBottom: "2%" }}
+                    onClick={() => history.push("/profile/edit/quote")}
+                >
+                    "this is a very creative, generated quote, which shows everyone how cool I am!"{" "}
+                    <EditIcon
+                        color="#f8af05"
+                        size={18}
+                    />
+                </Text>
+            </Stack>
             <Button
+                onClick={() => history.push("/game/")}
                 variant="gradient"
                 gradient={{ from: "teal", to: "lime", deg: 105 }}
                 radius="xl"
@@ -93,7 +95,7 @@ const Dashboard = () => {
             >
                 <Paper>
                     <Text color="black">
-                        <strong>ALL TIME BEST:</strong>
+                        <strong>ALL-TIME BEST:</strong>
                     </Text>
                     <List
                         align="center"
@@ -104,11 +106,15 @@ const Dashboard = () => {
                         <List.Item>wigeto</List.Item>
                         <List.Item>Queenslayer</List.Item>
                     </List>
-                    <Link>see more...</Link>
+                    <Link onClick={() => history.push("/users/")}>see more... </Link>
                 </Paper>
             </Container>
-            {/*<Container sx={{ color: "white", border: "2px solid white", height: "100px", width: "160px" }}>Leaderboard: see more...</Container>*/}
-            <StandardButton onClick={() => logout()}>Logout </StandardButton>
+            <StandardButton
+                onClick={() => logout()}
+                sx={{ marginTop: "0px" }}
+            >
+                Logout{" "}
+            </StandardButton>
         </BaseContainer>
     );
 };
