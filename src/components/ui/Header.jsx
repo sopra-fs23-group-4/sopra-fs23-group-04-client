@@ -12,7 +12,13 @@ import { Stack, Title } from "@mantine/core";
 const Header = () => (
     <div>
         <Stack align="center">
-            <Title sx={{ color: "lightblue", padding: 5 }}>Stadt, Land, +</Title>
+            <Title
+                variant="gradient"
+                gradient={{ from: "teal", to: "lime", deg: 105 }}
+                sx={{ padding: 5 }}
+            >
+                Stadt, Land, +
+            </Title>
         </Stack>
     </div>
 );
