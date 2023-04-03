@@ -13,7 +13,7 @@ const Dashboard = () => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
             try {
-                const response = await api.get(`/users/${sessionStorage.getItem("id")}`);
+                const response = await api.get(`/users/${sessionStorage.getItem("user_id")}`);
                 await new Promise((resolve) => setTimeout(resolve, 1000));
                 setUser(response.data);
                 console.log(response);
