@@ -44,7 +44,7 @@ const Dashboard = () => {
                         ></Text>
                     </Title>
                     <Avatar
-                        src="../ui/emptyProfile.png"
+                        src="../../resources/emptyProfile.png"
                         alt="it's me"
                         size="xl"
                     />
