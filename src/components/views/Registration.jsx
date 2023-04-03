@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 import { api, handleError } from "../../helpers/api";
 import User from "../../models/User";
+import { generalLoginProcedure } from "./Login";
 
 const Registration = () => {
     const history = useHistory();
@@ -17,13 +18,9 @@ const Registration = () => {
             const requestBody = JSON.stringify({ username, password });
             const response = await api.post("/users", requestBody);
 
-            // Get the returned user and update a new object.
             const user = new User(response.data);
 
-            // Store the id into the session storage.
-            sessionStorage.setItem("token", user.token);
-            sessionStorage.setItem("id", user.id);
-
+            generalLoginProcedure(user);
             history.push(`/dashboard`);
         } catch (error) {
             alert(`Something went wrong during the Registration: \n${handleError(error)}`);

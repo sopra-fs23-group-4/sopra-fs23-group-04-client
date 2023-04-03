@@ -6,6 +6,11 @@ import { useState } from "react";
 import User from "../../models/User";
 import { api, handleError } from "../../helpers/api";
 
+export const generalLoginProcedure = (user) => {
+    sessionStorage.setItem("token", user.token);
+    sessionStorage.setItem("user_id", user.id);
+};
+
 const Login = () => {
     const history = useHistory();
     const [username, setUsername] = useState("");
@@ -17,8 +22,8 @@ const Login = () => {
             const response = await api.post("/login", requestBody);
 
             const user = new User(response.data);
-            sessionStorage.setItem("token", user.token);
-            sessionStorage.setItem("user_id", user.id);
+
+            generalLoginProcedure(user);
             history.push(`/dashboard`);
         } catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
