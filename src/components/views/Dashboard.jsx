@@ -1,4 +1,4 @@
-import { Avatar, Button, Container, List, Paper, Stack, Text, Title } from "@mantine/core";
+import { Avatar, Button, Container, Loader, MantineProvider, Stack, Text, Title } from "@mantine/core";
 import BaseContainer from "../ui/BaseContainer";
 import { Link, useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
@@ -8,17 +8,17 @@ import { Edit as EditIcon } from "tabler-icons-react";
 
 const Dashboard = () => {
     const history = useHistory();
-    const [user, setUser] = useState("");
+    const [user, setUser] = useState(null);
     const [users, setUsers] = useState(null);
 
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
             try {
-                const response = await api.get(`/users/${sessionStorage.getItem("user_id")}`);
+                const responseUserId = await api.get(`/users/${sessionStorage.getItem("user_id")}`);
                 await new Promise((resolve) => setTimeout(resolve, 1000));
-                setUser(response.data);
-                console.log(response);
+                setUser(responseUserId.data);
+                console.log(responseUserId);
             } catch (error) {
                 console.error(`Something went wrong while fetching the user: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -45,12 +45,14 @@ const Dashboard = () => {
         history.push("/login");
     };
 
-    let contentUserName = <Text>loading...</Text>;
+    let contentUserName = <Loader />;
+    let contentQuote = "no Quote";
     if (user) {
         contentUserName = user.username;
+        contentQuote = user.quote;
     }
 
-    let contentUsers = <Text>loading</Text>;
+    let contentUsers = <Loader />;
     if (users) {
         contentUsers = "here come the users";
     }
@@ -87,7 +89,7 @@ const Dashboard = () => {
                     sx={{ width: "80%", marginBottom: "2%" }}
                     onClick={() => history.push("/profile/edit/quote")}
                 >
-                    "this is a very creative, generated quote, which shows everyone how cool I am!"{" "}
+                    {contentQuote}{" "}
                     <EditIcon
                         color="#f8af05"
                         size={18}
@@ -104,29 +106,22 @@ const Dashboard = () => {
             >
                 PLAY
             </Button>
+
             <Container
                 align="center"
-                sx={{
-                    color: "white",
-
-                    height: "140px",
-                    width: "160px",
-                    marginBottom: "0%",
-                }}
+                sx={{ color: "white", border: "1px solid white", height: "100px", width: "180px" }}
             >
-                <Paper>
-                    <Text color="black">
-                        <strong>ALL-TIME BEST:</strong>
-                    </Text>
-                    <List
-                        align="center"
-                        type="ordered"
-                        size="sm"
-                    >
-                        {contentUsers}
-                    </List>
+                <strong>ALL-TIME BEST:</strong>
+                <div> {contentUsers} </div>
+                <MantineProvider
+                    theme={{
+                        colorScheme: "dark",
+                    }}
+                    withGlobalStyles
+                    withNormalizeCSS
+                >
                     <Link onClick={() => history.push("/users/")}>see more... </Link>
-                </Paper>
+                </MantineProvider>
             </Container>
             <StandardButton
                 onClick={() => logout()}
