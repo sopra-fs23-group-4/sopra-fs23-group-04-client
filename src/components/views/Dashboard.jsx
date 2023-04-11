@@ -47,9 +47,11 @@ const Dashboard = () => {
 
     let contentUserName = <Loader />;
     let contentQuote = "no Quote";
+    let contentPicture = "";
     if (user) {
         contentUserName = user.username;
         contentQuote = user.quote;
+        contentPicture = user.picture;
     }
 
     let contentUsers = <Loader />;
@@ -76,7 +78,7 @@ const Dashboard = () => {
                     />
                 </Title>
                 <Avatar
-                    src="../../resources/emptyProfile.png"
+                    src={contentPicture}
                     alt="it's me"
                     size="xl"
                     onClick={() => history.push("/profile/edit/picture")}
