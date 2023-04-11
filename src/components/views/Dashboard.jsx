@@ -40,10 +40,16 @@ const Dashboard = () => {
     }, [user]);
 
     const logout = async () => {
-        await api.put(`/logout/${localStorage.getItem("id")}`);
-        localStorage.removeItem("token");
-        localStorage.removeItem("id");
-        history.push("/login");
+        try {
+            await api.put(`/logout/${sessionStorage.getItem("user_id")}`);
+            sessionStorage.removeItem("token");
+            sessionStorage.removeItem("user_id");
+            history.push("/login");
+        } catch (error) {
+            console.error(`Something went wrong while logging out: \n${handleError(error)}`);
+            console.error("Details:", error);
+            alert("Something went wrong while logging out! See the console for details.");
+        }
     };
 
     let contentUserName = <Loader />;
