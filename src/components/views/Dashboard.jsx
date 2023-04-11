@@ -1,4 +1,4 @@
-import { Avatar, Button, Container, Loader, MantineProvider, Stack, Text, Title } from "@mantine/core";
+import { Avatar, Button, Container, Loader, MantineProvider, rem, Stack, Text, Title } from "@mantine/core";
 import BaseContainer from "../ui/BaseContainer";
 import { Link, useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
@@ -63,7 +63,13 @@ const Dashboard = () => {
 
     let contentUsers = <Loader />;
     if (users) {
-        contentUsers = "here come the users";
+        contentUsers = (
+            <div>
+                <div>insert user here</div>
+                <div>insert user here</div>
+                <div>insert user here</div>
+            </div>
+        );
     }
 
     return (
@@ -118,7 +124,7 @@ const Dashboard = () => {
 
             <Container
                 align="center"
-                sx={{ color: "white", border: "1px solid white", height: "100px", width: "180px" }}
+                sx={{ color: "white", border: "1px solid white", minHeight: rem(100), width: "180px" }}
             >
                 <strong>ALL-TIME BEST:</strong>
                 <div> {contentUsers} </div>
