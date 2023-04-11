@@ -8,7 +8,8 @@ import { Edit as EditIcon } from "tabler-icons-react";
 
 const Dashboard = () => {
     const history = useHistory();
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState("");
+    const [users, setUsers] = useState(null);
 
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
@@ -18,6 +19,16 @@ const Dashboard = () => {
                 await new Promise((resolve) => setTimeout(resolve, 1000));
                 setUser(response.data);
                 console.log(response);
+            } catch (error) {
+                console.error(`Something went wrong while fetching the user: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the user! See the console for details.");
+            }
+            try {
+                const responseUsers = await api.get(`/users/`);
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                setUsers(responseUsers.data);
+                console.log(responseUsers);
             } catch (error) {
                 console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -34,6 +45,16 @@ const Dashboard = () => {
         history.push("/login");
     };
 
+    let contentUserName = <Text>loading...</Text>;
+    if (user) {
+        contentUserName = user.username;
+    }
+
+    let contentUsers = <Text>loading</Text>;
+    if (users) {
+        contentUsers = "here come the users";
+    }
+
     return (
         <BaseContainer>
             <Stack
@@ -46,7 +67,7 @@ const Dashboard = () => {
                     sx={{ color: "white" }}
                     onClick={() => history.push("/profile/edit/quote")}
                 >
-                    wigeto{" "}
+                    {contentUserName}{" "}
                     <EditIcon
                         color="#f8af05"
                         size={22}
@@ -102,9 +123,7 @@ const Dashboard = () => {
                         type="ordered"
                         size="sm"
                     >
-                        <List.Item>LexuTros</List.Item>
-                        <List.Item>wigeto</List.Item>
-                        <List.Item>Queenslayer</List.Item>
+                        {contentUsers}
                     </List>
                     <Link onClick={() => history.push("/users/")}>see more... </Link>
                 </Paper>
