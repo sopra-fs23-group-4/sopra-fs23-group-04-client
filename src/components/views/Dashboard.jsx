@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { api, handleError } from "../../helpers/api";
 import StandardButton from "../ui/StandardButton";
 import { Edit as EditIcon } from "tabler-icons-react";
+import User from "../../models/User";
 
 const Dashboard = () => {
     const history = useHistory();
@@ -17,7 +18,7 @@ const Dashboard = () => {
             try {
                 const responseUserId = await api.get(`/users/${sessionStorage.getItem("user_id")}`);
                 await new Promise((resolve) => setTimeout(resolve, 1000));
-                setUser(responseUserId.data);
+                setUser(new User(responseUserId.data));
                 console.log(responseUserId);
             } catch (error) {
                 console.error(`Something went wrong while fetching the user: \n${handleError(error)}`);

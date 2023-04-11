@@ -10,7 +10,7 @@ class User {
         this.creationDate = null;
         this.quote = null;
         this.picture = null;
-        this.Object.assign(this, data);
+        Object.assign(this, data);
     }
 }
 export default User;
