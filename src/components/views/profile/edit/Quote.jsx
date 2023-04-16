@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Textarea, Title, Text, Loader } from "@mantine/core";
+import { Textarea, Title, Text, Loader, NativeSelect } from "@mantine/core";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import User from "../../../../models/User";
 import { useEffect, useState } from "react";
@@ -9,7 +9,7 @@ import StandardButton from "../../../ui/StandardButton";
 const Quote = () => {
     const history = useHistory();
     const [user, setUser] = useState(null);
-    const [quote, setQuote] = useState(null);
+    const [quote, setQuote] = useState("new quote");
 
     useEffect(() => {
         async function fetchData() {
@@ -49,14 +49,25 @@ const Quote = () => {
             <Text color="white">"{contentQuote}"</Text>
 
             <Textarea
-                placeholder="Your new quote"
+                value={quote}
                 onChange={(event) => setQuote(event.currentTarget.value)}
             />
             <StandardButton
                 onClick={() => doChangeQuote()}
                 sx={{ marginTop: "0px" }}
             >
-                Save{" "}
+                SAVE{" "}
+            </StandardButton>
+
+            <NativeSelect
+                data={["DADJOKE", "CHUCKNORRIS", "COMPUTERS", "GREAT"]}
+                description="select a category"
+            />
+            <StandardButton
+                onClick={() => doChangeQuote()}
+                sx={{ marginTop: "0px" }}
+            >
+                GENERATE{" "}
             </StandardButton>
 
             <StandardButton
