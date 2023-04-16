@@ -2,10 +2,10 @@ import { Avatar, Button, Container, Loader, MantineProvider, rem, Stack, Text, T
 import BaseContainer from "../ui/BaseContainer";
 import { Link, useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { api, handleError } from "../../helpers/api";
 import StandardButton from "../ui/StandardButton";
 import { Edit as EditIcon } from "tabler-icons-react";
 import User from "../../models/User";
+import { RestApi, handleError } from "../../helpers/RestApi";
 
 const Dashboard = () => {
     const history = useHistory();
@@ -16,20 +16,16 @@ const Dashboard = () => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
             try {
-                const responseUserId = await api.get(`/users/${sessionStorage.getItem("user_id")}`);
-                await new Promise((resolve) => setTimeout(resolve, 1000));
+                const responseUserId = await RestApi.getUser();
                 setUser(new User(responseUserId.data));
-                console.log(responseUserId);
             } catch (error) {
                 console.error(`Something went wrong while fetching the user: \n${handleError(error)}`);
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the user! See the console for details.");
             }
             try {
-                const responseUsers = await api.get(`/users/`);
-                await new Promise((resolve) => setTimeout(resolve, 1000));
+                const responseUsers = await RestApi.getUsers();
                 setUsers(responseUsers.data);
-                console.log(responseUsers);
             } catch (error) {
                 console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -41,9 +37,7 @@ const Dashboard = () => {
 
     const logout = async () => {
         try {
-            await api.put(`/logout/${sessionStorage.getItem("user_id")}`);
-            sessionStorage.removeItem("token");
-            sessionStorage.removeItem("user_id");
+            await RestApi.logout();
             history.push("/login");
         } catch (error) {
             console.error(`Something went wrong while logging out: \n${handleError(error)}`);

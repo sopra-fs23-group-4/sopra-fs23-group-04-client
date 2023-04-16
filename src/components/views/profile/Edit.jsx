@@ -1,13 +1,12 @@
-import { Avatar, Text, Title } from "@mantine/core";
+/*import { Avatar, Text, Title } from "@mantine/core";
 import StandardButton from "../../ui/StandardButton";
 import { Link, useHistory } from "react-router-dom";
 import BaseContainer from "../../ui/BaseContainer";
 import { useEffect, useState } from "react";
-import { api, handleError } from "../../../helpers/api";
-import { Edit as EditIcon } from "tabler-icons-react";
+import { Edit as EditIcon } from "tabler-icons-react";*/
 
 const Edit = () => {
-    const history = useHistory();
+    /*    const history = useHistory();
     const [user, setUser] = useState(null);
 
     const id = sessionStorage.getItem("user_id");
@@ -70,7 +69,7 @@ const Edit = () => {
                 Back
             </StandardButton>
         </BaseContainer>
-    );
+    );*/
 };
 
 export default Edit;

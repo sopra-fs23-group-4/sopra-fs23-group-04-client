@@ -3,13 +3,7 @@ import { Container, Group, PasswordInput, rem, Stack, TextInput, Title } from "@
 import StandardButton from "../ui/StandardButton";
 import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
-import User from "../../models/User";
-import { api, handleError } from "../../helpers/api";
-
-export const generalLoginProcedure = (user) => {
-    sessionStorage.setItem("token", user.token);
-    sessionStorage.setItem("user_id", user.id);
-};
+import { handleError, RestApi } from "../../helpers/RestApi";
 
 const Login = () => {
     const history = useHistory();
@@ -18,12 +12,7 @@ const Login = () => {
 
     const doLogin = async () => {
         try {
-            const requestBody = JSON.stringify({ username, password });
-            const response = await api.post("/login", requestBody);
-
-            const user = new User(response.data);
-
-            generalLoginProcedure(user);
+            await RestApi.login(username, password);
             history.push(`/dashboard`);
         } catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);

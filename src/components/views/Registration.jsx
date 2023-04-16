@@ -3,9 +3,7 @@ import { Container, Group, PasswordInput, rem, Stack, TextInput, Title } from "@
 import StandardButton from "../ui/StandardButton";
 import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
-import { api, handleError } from "../../helpers/api";
-import User from "../../models/User";
-import { generalLoginProcedure } from "./Login";
+import { RestApi, handleError } from "../../helpers/RestApi";
 
 const Registration = () => {
     const history = useHistory();
@@ -15,12 +13,7 @@ const Registration = () => {
 
     const doRegistration = async () => {
         try {
-            const requestBody = JSON.stringify({ username, password });
-            const response = await api.post("/users", requestBody);
-
-            const user = new User(response.data);
-
-            generalLoginProcedure(user);
+            await RestApi.registration(username, password);
             history.push(`/dashboard`);
         } catch (error) {
             alert(`Something went wrong during the Registration: \n${handleError(error)}`);
