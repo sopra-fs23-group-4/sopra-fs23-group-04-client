@@ -1,6 +1,6 @@
-import { Avatar, Button, Container, Loader, MantineProvider, rem, Stack, Text, Title } from "@mantine/core";
+import { Avatar, Button, Loader, Stack, Text, Title } from "@mantine/core";
 import BaseContainer from "../ui/BaseContainer";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import StandardButton from "../ui/StandardButton";
 import { Edit as EditIcon } from "tabler-icons-react";
@@ -10,7 +10,7 @@ import { RestApi, handleError } from "../../helpers/RestApi";
 const Dashboard = () => {
     const history = useHistory();
     const [user, setUser] = useState(null);
-    const [users, setUsers] = useState(null);
+    /*    const [users, setUsers] = useState(null);*/
 
     useEffect(() => {
         // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
@@ -23,14 +23,14 @@ const Dashboard = () => {
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the user! See the console for details.");
             }
-            try {
+            /*            try {
                 const responseUsers = await RestApi.getUsers();
                 setUsers(responseUsers.data);
             } catch (error) {
                 console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the users! See the console for details.");
-            }
+            }*/
         }
         fetchData();
     }, [user]);
@@ -55,7 +55,7 @@ const Dashboard = () => {
         contentPicture = user.picture;
     }
 
-    let contentUsers = <Loader />;
+    /*    let contentUsers = <Loader />;
     if (users) {
         contentUsers = (
             <div>
@@ -64,7 +64,7 @@ const Dashboard = () => {
                 <div>insert user here</div>
             </div>
         );
-    }
+    }*/
 
     return (
         <BaseContainer>
@@ -79,14 +79,14 @@ const Dashboard = () => {
                     onClick={() => history.push("/profile/edit/quote")}
                 >
                     {contentUserName}{" "}
-                    <EditIcon
+                    {/*                    <EditIcon
                         color="#f8af05"
                         size={22}
-                    />
+                    />*/}
                 </Title>
                 <Avatar
                     src={contentPicture}
-                    alt="it's me"
+                    alt="click to change"
                     size="xl"
                     onClick={() => history.push("/profile/edit/picture")}
                 />
@@ -115,7 +115,7 @@ const Dashboard = () => {
             >
                 PLAY
             </Button>
-
+            {/*
             <Container
                 align="center"
                 sx={{ color: "white", border: "1px solid white", minHeight: rem(100), width: "180px" }}
@@ -133,7 +133,7 @@ const Dashboard = () => {
                         <Text color="gold"> see more...</Text>{" "}
                     </Link>
                 </MantineProvider>
-            </Container>
+            </Container>*/}
             <StandardButton
                 onClick={() => logout()}
                 sx={{ marginTop: "0px" }}
