@@ -82,6 +82,7 @@ const Dashboard = () => {
     return (
         <BaseContainer>
             <Stack
+                sx={{ width: "180px" }}
                 align="center"
                 spacing="xs"
             >
@@ -99,7 +100,6 @@ const Dashboard = () => {
                 </Title>
 
                 <Dialog
-                    allign="center"
                     opened={opened}
                     withCloseButton
                     transition="slide-up"
@@ -108,6 +108,7 @@ const Dashboard = () => {
                     onClose={close}
                     size="lg"
                     radius="md"
+                    sx={{ width: "260px", color: "black", marginBottom: "2%" }}
                 >
                     <Text
                         size="sm"
