@@ -1,13 +1,21 @@
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
+import Game from "../../views/Game";
 
 const GameRouter = (props) => {
     return (
-        <Route
-            exact
-            path={`${props.base}`}
-        >
-            <Redirect to={`${props.base}/dashboard`} />
-        </Route>
+        <Switch>
+            <Route
+                exact
+                path={`${props.base}`}
+                component={Game}
+            />
+            <Route
+                exact
+                path={`${props.base}`}
+            >
+                <Redirect to={`${props.base}`} />
+            </Route>
+        </Switch>
     );
 };
 
