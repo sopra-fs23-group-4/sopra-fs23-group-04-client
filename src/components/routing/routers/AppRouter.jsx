@@ -5,6 +5,7 @@ import Registration from "../../views/Registration";
 import { DashboardGuard } from "../routeProtectors/DashboardGuard";
 import Dashboard from "../../views/Dashboard";
 import ProfileRouter from "./ProfileRouter";
+import GameRouter from "./GameRouter";
 
 /**
  * Main router of your application.
@@ -49,6 +50,12 @@ const AppRouter = () => {
                 <Route path="/profile">
                     <DashboardGuard>
                         <ProfileRouter base="/profile" />
+                    </DashboardGuard>
+                </Route>
+
+                <Route path="/game">
+                    <DashboardGuard>
+                        <GameRouter base="/game" />
                     </DashboardGuard>
                 </Route>
 

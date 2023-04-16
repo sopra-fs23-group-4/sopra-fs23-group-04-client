@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@mantine/core": "^6.0.5",
+    "@mantine/hooks": "^6.0.7",
     "axios": "^0.24.0",
     "node-gyp": "^8.4.1",
     "node-sass": "^8.0.0",
