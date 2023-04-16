@@ -47,8 +47,13 @@ export class RestApi {
         const requestBody = JSON.stringify({ user });
         return await restApi.put(`/users/${sessionStorage.getItem("user_id")}`, requestBody);
     }
-}
 
+    static async getQuoteCategories() {
+        const response = await restApi.get(`/quotes/`);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        return response.data.categories;
+    }
+}
 export const handleError = (error) => {
     const response = error.response;
 

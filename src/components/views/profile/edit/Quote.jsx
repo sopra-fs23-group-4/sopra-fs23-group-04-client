@@ -10,6 +10,7 @@ const Quote = () => {
     const history = useHistory();
     const [user, setUser] = useState(null);
     const [quote, setQuote] = useState("new quote");
+    const [quoteCategories, setQuoteCategories] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
@@ -20,6 +21,13 @@ const Quote = () => {
                 console.error(`Something went wrong while fetching the user: \n${handleError(error)}`);
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the user! See the console for details.");
+            }
+            try {
+                setQuoteCategories(await RestApi.getQuoteCategories());
+            } catch (error) {
+                console.error(`Something went wrong while fetching the categories: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the categories! See the console for details.");
             }
         }
         fetchData();
@@ -60,7 +68,7 @@ const Quote = () => {
             </StandardButton>
 
             <NativeSelect
-                data={["DADJOKE", "CHUCKNORRIS", "COMPUTERS", "GREAT"]}
+                data={quoteCategories}
                 description="select a category"
             />
             <StandardButton
