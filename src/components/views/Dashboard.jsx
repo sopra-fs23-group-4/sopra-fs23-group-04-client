@@ -35,15 +35,9 @@ const Dashboard = () => {
         fetchData();
     }, [user]);
 
-    const logout = async () => {
-        try {
-            await RestApi.logout();
-            history.push("/login");
-        } catch (error) {
-            console.error(`Something went wrong while logging out: \n${handleError(error)}`);
-            console.error("Details:", error);
-            alert("Something went wrong while logging out! See the console for details.");
-        }
+    const doLogout = async () => {
+        sessionStorage.clear();
+        history.push("/login");
     };
 
     let contentUserName = <Loader />;
@@ -137,7 +131,7 @@ const Dashboard = () => {
                 </MantineProvider>
             </Container>*/}
             <StandardButton
-                onClick={() => logout()}
+                onClick={() => doLogout()}
                 sx={{ marginTop: "0px" }}
             >
                 Logout{" "}

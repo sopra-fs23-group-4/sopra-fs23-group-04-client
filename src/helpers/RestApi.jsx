@@ -17,6 +17,7 @@ export class RestApi {
         const requestBody = JSON.stringify({ username, password });
         const response = await restApi.post("/login", requestBody);
         const user = new User(response.data);
+        user.token = response.headers.Authorization;
         generalLoginProcedure(user);
         return user;
     }
@@ -27,10 +28,6 @@ export class RestApi {
         const user = new User(response.data);
         generalLoginProcedure(user);
         return user;
-    }
-
-    static async logout() {
-        await restApi.put(`/logout/${sessionStorage.getItem("user_id")}`);
     }
 
     static async getUser() {
