@@ -4,24 +4,23 @@ import React from "react";
 import StandardButton from "../../ui/StandardButton";
 import { useHistory } from "react-router-dom";
 
+const Category = ({ category }) => {
+    return (
+        <div className="player container">
+            <Chip
+                color="yellow"
+                size="xl"
+                value={category}
+            >
+                {category}
+            </Chip>
+        </div>
+    );
+};
+
 const Categories = () => {
     const history = useHistory();
-
-    /*    const [AllCategories, setAllCategories] = useState([]);
-
-    //PROVISORISCH BIS BACKEND STEHT
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                setAllCategories(await RestApi.getQuoteCategories());
-            } catch (error) {
-                console.error(`Something went wrong while fetching the categories: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the categories! See the console for details.");
-            }
-        }
-        fetchData();
-    }, [user]);*/
+    const categories = ["city", "country", "profession"];
 
     return (
         <BaseContainer>
@@ -32,30 +31,21 @@ const Categories = () => {
                 mt="md"
                 defaultChecked
             >
-                <Group>
-                    <Chip
-                        color="yellow"
-                        value="1"
-                    >
-                        Multiple chips
-                    </Chip>
-                    <Chip
-                        color="yellow"
-                        value="2"
-                    >
-                        Can be selected
-                    </Chip>
-                    <Chip
-                        color="yellow"
-                        value="3"
-                    >
-                        At a time
-                    </Chip>
+                <Group sx={{ marginTop: "5%" }}>
+                    {categories.map((category) => (
+                        <Category category={category} />
+                    ))}
                 </Group>
             </Chip.Group>
             <StandardButton
-                onClick={() => history.push("/game")}
-                sx={{ marginTop: "3%" }}
+                onClick={() => history.push("/game/settings")}
+                sx={{ marginTop: "5%" }}
+            >
+                Done
+            </StandardButton>
+            <StandardButton
+                onClick={() => history.push("/game/")}
+                sx={{ marginTop: "5%" }}
             >
                 Leave
             </StandardButton>
