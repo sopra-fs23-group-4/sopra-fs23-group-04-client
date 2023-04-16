@@ -33,7 +33,7 @@ const Game = () => {
         <BaseContainer>
             <Title color="white">{contentUserName}</Title>
             <Text color="white">create a new Game as HOST:</Text>
-            <StandardButton>Create Game</StandardButton>
+            <StandardButton onClick={() => history.push("/game/categories")}>Create Game</StandardButton>
             <Text
                 color="white"
                 sx={{ marginTop: "2%" }}
