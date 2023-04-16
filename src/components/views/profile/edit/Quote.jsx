@@ -35,7 +35,7 @@ const Quote = () => {
     }, [user]);
 
     useEffect(() => {
-        if (quoteCategories.length > 0) {
+        if (quoteCategories.length > 0 && quote == null) {
             setCategory(quoteCategories[0]);
         }
     }, [quoteCategories]);
