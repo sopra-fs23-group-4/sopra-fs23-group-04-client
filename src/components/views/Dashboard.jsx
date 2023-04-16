@@ -1,4 +1,6 @@
 import { Avatar, Button, Loader, Stack, Text, Title } from "@mantine/core";
+import { Dialog, Group, TextInput } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 import BaseContainer from "../ui/BaseContainer";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
@@ -39,6 +41,8 @@ const Dashboard = () => {
         sessionStorage.clear();
         history.push("/login");
     };
+
+    const [opened, { toggle, close }] = useDisclosure(false);
 
     let contentUserName = <Loader />;
     let contentQuote = "";
@@ -85,7 +89,7 @@ const Dashboard = () => {
                     align="center"
                     order={1}
                     sx={{ color: "white" }}
-                    onClick={() => history.push("/profile/edit/quote")}
+                    onClick={toggle}
                 >
                     {contentUserName}{" "}
                     {/*                    <EditIcon
@@ -93,6 +97,40 @@ const Dashboard = () => {
                         size={22}
                     />*/}
                 </Title>
+
+                <Dialog
+                    allign="center"
+                    opened={opened}
+                    withCloseButton
+                    transition="slide-up"
+                    transitionDuration={300}
+                    transitionTimingFunction="ease"
+                    onClose={close}
+                    size="lg"
+                    radius="md"
+                >
+                    <Text
+                        size="sm"
+                        mb="sm"
+                        weight={500}
+                    >
+                        Change username:
+                    </Text>
+
+                    <Group align="flex-end">
+                        <TextInput
+                            placeholder="enter new username"
+                            sx={{ flex: 1 }}
+                        />
+                        <StandardButton
+                            size="sm"
+                            onClick={close}
+                        >
+                            save
+                        </StandardButton>
+                    </Group>
+                </Dialog>
+
                 <Avatar
                     src={contentPicture}
                     alt="click to change"
@@ -132,7 +170,7 @@ const Dashboard = () => {
             </Container>*/}
             <StandardButton
                 onClick={() => doLogout()}
-                sx={{ marginTop: "0px" }}
+                sx={{ marginTop: "5%" }}
             >
                 Logout{" "}
             </StandardButton>
