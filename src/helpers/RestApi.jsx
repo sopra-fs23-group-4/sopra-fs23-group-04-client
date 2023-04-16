@@ -44,6 +44,12 @@ export class RestApi {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         return response;
     }
+
+    static async changeUser(user) {
+        // how send a user as Body?
+        const requestBody = JSON.stringify({ user });
+        return await restApi.put(`/users/${sessionStorage.getItem("user_id")}`, requestBody);
+    }
 }
 
 export const handleError = (error) => {
