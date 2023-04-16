@@ -135,7 +135,9 @@ const Dashboard = () => {
                     withGlobalStyles
                     withNormalizeCSS
                 >
-                    <Link onClick={() => history.push("/users/")}>see more... </Link>
+                    <Link onClick={() => history.push("/users/")}>
+                        <Text color="gold"> see more...</Text>{" "}
+                    </Link>
                 </MantineProvider>
             </Container>
             <StandardButton
