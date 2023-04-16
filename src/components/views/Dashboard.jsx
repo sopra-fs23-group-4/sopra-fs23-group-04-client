@@ -47,11 +47,26 @@ const Dashboard = () => {
     };
 
     let contentUserName = <Loader />;
-    let contentQuote = "no Quote";
+    let contentQuote = "";
     let contentPicture = "";
     if (user) {
         contentUserName = user.username;
-        contentQuote = user.quote;
+        contentQuote = (
+            <Text
+                align="center"
+                size="md"
+                color="white"
+                fw={500}
+                sx={{ width: "80%", marginBottom: "2%" }}
+                onClick={() => history.push("/profile/edit/quote")}
+            >
+                {user.quote}{" "}
+                <EditIcon
+                    color="#f8af05"
+                    size={18}
+                />
+            </Text>
+        );
         contentPicture = user.picture;
     }
 
@@ -90,20 +105,7 @@ const Dashboard = () => {
                     size="xl"
                     onClick={() => history.push("/profile/edit/picture")}
                 />
-                <Text
-                    align="center"
-                    size="md"
-                    color="white"
-                    fw={500}
-                    sx={{ width: "80%", marginBottom: "2%" }}
-                    onClick={() => history.push("/profile/edit/quote")}
-                >
-                    {contentQuote}{" "}
-                    <EditIcon
-                        color="#f8af05"
-                        size={18}
-                    />
-                </Text>
+                {contentQuote}
             </Stack>
             <Button
                 onClick={() => history.push("/game/")}
