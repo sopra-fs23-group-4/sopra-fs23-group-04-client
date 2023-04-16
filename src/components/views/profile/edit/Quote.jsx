@@ -38,7 +38,7 @@ const Quote = () => {
         if (quoteCategories.length > 0 && quote == null) {
             setCategory(quoteCategories[0]);
         }
-    }, [quoteCategories]);
+    }, [quoteCategories, quote]);
 
     const doGenerateQuote = async () => {
         try {
