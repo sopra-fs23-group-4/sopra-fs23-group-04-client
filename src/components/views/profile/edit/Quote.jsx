@@ -11,6 +11,7 @@ const Quote = () => {
     const [user, setUser] = useState(null);
     const [quote, setQuote] = useState("new quote");
     const [quoteCategories, setQuoteCategories] = useState([]);
+    const [category, setCategory] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
@@ -32,6 +33,20 @@ const Quote = () => {
         }
         fetchData();
     }, [user]);
+
+    useEffect(() => {
+        if (quoteCategories.length > 0) {
+            setCategory(quoteCategories[0]);
+        }
+    }, [quoteCategories]);
+
+    const doGenerateQuote = async () => {
+        try {
+            setQuote(await RestApi.generateQuote(category));
+        } catch (error) {
+            alert(`Something went wrong during changing the quote: \n${handleError(error)}`);
+        }
+    };
 
     const doChangeQuote = async () => {
         try {
@@ -59,6 +74,9 @@ const Quote = () => {
             <Textarea
                 value={quote}
                 onChange={(event) => setQuote(event.currentTarget.value)}
+                autosize
+                minRows={2}
+                style={{ width: "80%" }}
             />
             <StandardButton
                 onClick={() => doChangeQuote()}
@@ -70,9 +88,10 @@ const Quote = () => {
             <NativeSelect
                 data={quoteCategories}
                 description="select a category"
+                onChange={(event) => setCategory(event.currentTarget.value)}
             />
             <StandardButton
-                onClick={() => doChangeQuote()}
+                onClick={() => doGenerateQuote()}
                 sx={{ marginTop: "0px" }}
             >
                 GENERATE{" "}
@@ -80,7 +99,7 @@ const Quote = () => {
 
             <StandardButton
                 onClick={() => history.push("/dashboard")}
-                sx={{ marginTop: "0px" }}
+                sx={{ marginTop: "3%" }}
             >
                 Back{" "}
             </StandardButton>

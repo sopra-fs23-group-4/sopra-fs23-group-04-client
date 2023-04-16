@@ -53,6 +53,12 @@ export class RestApi {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         return response.data.categories;
     }
+
+    static async generateQuote(category) {
+        const response = await restApi.get(`/quotes/${category}`);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        return response.data.quote;
+    }
 }
 export const handleError = (error) => {
     const response = error.response;
