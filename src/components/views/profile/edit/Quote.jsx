@@ -34,14 +34,11 @@ const Quote = () => {
         fetchData();
     }, [user]);
 
-    useEffect(() => {
-        if (quoteCategories.length > 0 && quote == null) {
-            setCategory(quoteCategories[0]);
-        }
-    }, [quoteCategories, quote]);
-
     const doGenerateQuote = async () => {
         try {
+            if (quoteCategories.length > 0 && category === null) {
+                setCategory(quoteCategories[0]);
+            }
             setQuote(await RestApi.generateQuote(category));
         } catch (error) {
             alert(`Something went wrong during changing the quote: \n${handleError(error)}`);
