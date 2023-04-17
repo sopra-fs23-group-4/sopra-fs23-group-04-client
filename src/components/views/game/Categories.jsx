@@ -1,26 +1,27 @@
 import BaseContainer from "../../ui/BaseContainer";
 import { Chip, Group, Title } from "@mantine/core";
-import React from "react";
+import React, { useState } from "react";
 import StandardButton from "../../ui/StandardButton";
 import { useHistory } from "react-router-dom";
-
-const Category = ({ category }) => {
-    return (
-        <div className="player container">
-            <Chip
-                color="yellow"
-                size="xl"
-                value={category}
-            >
-                {category}
-            </Chip>
-        </div>
-    );
-};
 
 const Categories = () => {
     const history = useHistory();
     const categories = ["city", "country", "profession"];
+    const [categoriesSelected, setCategoriesSelected] = useState([]);
+
+    const Category = ({ category }) => {
+        return (
+            <div className="player container">
+                <Chip
+                    color="yellow"
+                    size="xl"
+                    value={category}
+                >
+                    {category}
+                </Chip>
+            </div>
+        );
+    };
 
     return (
         <BaseContainer>
@@ -30,10 +31,14 @@ const Categories = () => {
                 position="center"
                 mt="md"
                 defaultChecked
+                onChange={setCategoriesSelected}
             >
                 <Group sx={{ marginTop: "5%" }}>
                     {categories.map((category) => (
-                        <Category category={category} />
+                        <Category
+                            key={category}
+                            category={category}
+                        />
                     ))}
                 </Group>
             </Chip.Group>
@@ -41,6 +46,7 @@ const Categories = () => {
                 onClick={() => history.push("/game/settings")}
                 sx={{ marginTop: "5%" }}
             >
+                {categoriesSelected}
                 Done
             </StandardButton>
             <StandardButton
