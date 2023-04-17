@@ -143,10 +143,10 @@ const Dashboard = () => {
             <Button
                 onClick={() => history.push("/game/")}
                 variant="gradient"
-                gradient={{ from: "teal", to: "lime", deg: 105 }}
+                gradient={{ from: "#f8af05", to: "#f8af05", deg: 105 }}
                 radius="xl"
                 size="lg"
-                sx={{ width: "180px", color: "black", marginBottom: "2%" }}
+                sx={{ width: "140px", color: "black", marginBottom: "2%" }}
             >
                 PLAY
             </Button>
