@@ -35,7 +35,7 @@ const Dashboard = () => {
             }*/
         }
         fetchData();
-    }, [user]);
+    }, []);
 
     const doLogout = async () => {
         sessionStorage.clear();

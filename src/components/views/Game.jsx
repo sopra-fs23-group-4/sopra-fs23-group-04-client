@@ -22,7 +22,7 @@ const Game = () => {
             }
         }
         fetchData();
-    }, [user]);
+    }, []);
 
     let contentUserName = <Loader />;
     if (user) {

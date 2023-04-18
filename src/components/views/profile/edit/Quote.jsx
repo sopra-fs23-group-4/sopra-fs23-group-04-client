@@ -32,7 +32,7 @@ const Quote = () => {
             }
         }
         fetchData();
-    }, [user]);
+    }, []);
 
     const doGenerateQuote = async () => {
         try {
