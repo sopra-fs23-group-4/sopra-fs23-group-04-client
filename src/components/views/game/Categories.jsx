@@ -9,6 +9,11 @@ const Categories = () => {
     const categories = ["city", "country", "profession"];
     const [categoriesSelected, setCategoriesSelected] = useState([]);
 
+    const doContinue = () => {
+        history.push("/game/settings");
+        sessionStorage.setItem("categories", categoriesSelected);
+    };
+
     const Category = ({ category }) => {
         return (
             <div className="player container">
@@ -43,10 +48,9 @@ const Categories = () => {
                 </Group>
             </Chip.Group>
             <StandardButton
-                onClick={() => history.push("/game/settings")}
+                onClick={() => doContinue()}
                 sx={{ marginTop: "5%" }}
             >
-                {categoriesSelected}
                 Done
             </StandardButton>
             <StandardButton
