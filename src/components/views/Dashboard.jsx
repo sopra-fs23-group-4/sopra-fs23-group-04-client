@@ -82,7 +82,7 @@ const Dashboard = () => {
     return (
         <BaseContainer>
             <Stack
-                sx={{ width: "180px" }}
+                style={{ width: "80%" }}
                 align="center"
                 spacing="xs"
             >

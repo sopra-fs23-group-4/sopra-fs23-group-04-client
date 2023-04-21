@@ -11,7 +11,7 @@ const Quote = () => {
     const [user, setUser] = useState(null);
     const [quote, setQuote] = useState("new quote");
     const [quoteCategories, setQuoteCategories] = useState([]);
-    const [category, setCategory] = useState(null);
+    const [category, setCategory] = useState("business");
 
     useEffect(() => {
         async function fetchData() {
@@ -36,7 +36,7 @@ const Quote = () => {
 
     const doGenerateQuote = async () => {
         try {
-            if (quoteCategories.length > 0 && category === null) {
+            if (!category && quoteCategories[0]) {
                 setCategory(quoteCategories[0]);
             }
             setQuote(await RestApi.generateQuote(category));
@@ -48,6 +48,7 @@ const Quote = () => {
     const doChangeQuote = async () => {
         try {
             user.quote = quote;
+            user.token = sessionStorage.getItem("token");
             await RestApi.changeUser(user);
             history.push(`/dashboard`);
         } catch (error) {
@@ -66,7 +67,13 @@ const Quote = () => {
         <BaseContainer>
             <Title color="white">{contentUserName}</Title>
 
-            <Text color="white">"{contentQuote}"</Text>
+            <Text
+                align="center"
+                color="white"
+                style={{ width: "75%" }}
+            >
+                "{contentQuote}"
+            </Text>
 
             <Textarea
                 value={quote}

@@ -45,7 +45,8 @@ export class RestApi {
 
     static async changeUser(user) {
         // how send a user as Body?
-        const requestBody = JSON.stringify({ user });
+        const requestBody = JSON.stringify({ token: user.token, quote: user.quote });
+        console.log(requestBody);
         return await restApi.put(`/users/${sessionStorage.getItem("user_id")}`, requestBody);
     }
 
