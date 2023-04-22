@@ -21,7 +21,6 @@ export class RestApi {
         generalLoginProcedure(user);
         return user;
     }
-
     static async registration(username, password) {
         const requestBody = JSON.stringify({ username, password });
         const response = await restApi.post("/users", requestBody);
@@ -62,7 +61,12 @@ export class RestApi {
     }
 
     static async joinGame(pin) {
-        await restApi.put(`/games/lobbies/${pin}/join`);
+        const headers = {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: sessionStorage.getItem("token"),
+        };
+        await restApi.put(`/games/lobbies/${pin}/join`, null, { headers });
         await new Promise((resolve) => setTimeout(resolve, 1000));
     }
 }
