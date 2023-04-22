@@ -21,10 +21,8 @@ const Dashboard = () => {
                 const responseUserId = await RestApi.getUser();
                 const user = new User(responseUserId.data);
                 setUser(user);
-                console.log(!context.user || !user.equals(context.user));
                 if (!context.user || !user.equals(context.user)) {
                     context.setUser(user);
-                    console.log(context.user);
                 }
             } catch (error) {
                 console.error(`Something went wrong while fetching the user: \n${handleError(error)}`);
