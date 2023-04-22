@@ -1,28 +1,16 @@
 import BaseContainer from "../ui/BaseContainer";
 import { useHistory } from "react-router-dom";
 import { handleError, RestApi } from "../../helpers/RestApi";
-import User from "../../models/User";
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Loader, PinInput, Title, Text } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
+import { Context } from "../../context";
 
 const Game = () => {
     const history = useHistory();
-    const [user, setUser] = useState(null);
+    const context = useContext(Context);
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const responseUserId = await RestApi.getUser();
-                setUser(new User(responseUserId.data));
-            } catch (error) {
-                console.error(`Something went wrong while fetching the user: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the user! See the console for details.");
-            }
-        }
-        fetchData();
-    }, []);
+    const user = context.user;
 
     const doJoin = async (pin) => {
         try {
