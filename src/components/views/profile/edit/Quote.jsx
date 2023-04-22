@@ -1,28 +1,22 @@
 import BaseContainer from "../../../ui/BaseContainer";
 import { Textarea, Title, Text, Loader, NativeSelect } from "@mantine/core";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
-import User from "../../../../models/User";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import StandardButton from "../../../ui/StandardButton";
+import { Context } from "../../../../context";
 
 const Quote = () => {
     const history = useHistory();
-    const [user, setUser] = useState(null);
+    const context = useContext(Context);
+
+    const user = context.user;
     const [quote, setQuote] = useState("new quote");
     const [quoteCategories, setQuoteCategories] = useState([]);
     const [category, setCategory] = useState("business");
 
     useEffect(() => {
         async function fetchData() {
-            try {
-                const responseUserId = await RestApi.getUser();
-                setUser(new User(responseUserId.data));
-            } catch (error) {
-                console.error(`Something went wrong while fetching the user: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the user! See the console for details.");
-            }
             try {
                 setQuoteCategories(await RestApi.getQuoteCategories());
             } catch (error) {
