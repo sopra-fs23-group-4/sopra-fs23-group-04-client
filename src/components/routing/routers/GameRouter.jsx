@@ -1,6 +1,7 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import Game from "../../views/Game";
 import Categories from "../../views/game/Categories";
+import Settings from "../../views/game/Settings";
 
 const GameRouter = (props) => {
     return (
@@ -12,8 +13,13 @@ const GameRouter = (props) => {
             />
             <Route
                 exact
-                path={`${props.base}/categories/`}
+                path={`${props.base}/categories`}
                 component={Categories}
+            />
+            <Route
+                exact
+                path={`${props.base}/settings`}
+                component={Settings}
             />
             <Route
                 exact
