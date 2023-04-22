@@ -12,10 +12,8 @@ import { RestApi, handleError } from "../../helpers/RestApi";
 const Dashboard = () => {
     const history = useHistory();
     const [user, setUser] = useState(null);
-    /*    const [users, setUsers] = useState(null);*/
 
     useEffect(() => {
-        // effect callbacks are synchronous to prevent race conditions. So we put the async function inside:
         async function fetchData() {
             try {
                 const responseUserId = await RestApi.getUser();
@@ -25,14 +23,6 @@ const Dashboard = () => {
                 console.error("Details:", error);
                 alert("Something went wrong while fetching the user! See the console for details.");
             }
-            /*            try {
-                const responseUsers = await RestApi.getUsers();
-                setUsers(responseUsers.data);
-            } catch (error) {
-                console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the users! See the console for details.");
-            }*/
         }
         fetchData();
     }, []);
@@ -67,17 +57,6 @@ const Dashboard = () => {
         );
         contentPicture = user.picture;
     }
-
-    /*    let contentUsers = <Loader />;
-    if (users) {
-        contentUsers = (
-            <div>
-                <div>insert user here</div>
-                <div>insert user here</div>
-                <div>insert user here</div>
-            </div>
-        );
-    }*/
 
     return (
         <BaseContainer>
@@ -150,25 +129,6 @@ const Dashboard = () => {
             >
                 PLAY
             </Button>
-            {/*
-            <Container
-                align="center"
-                sx={{ color: "white", border: "1px solid white", minHeight: rem(100), width: "180px" }}
-            >
-                <strong>ALL-TIME BEST:</strong>
-                <div> {contentUsers} </div>
-                <MantineProvider
-                    theme={{
-                        colorScheme: "dark",
-                    }}
-                    withGlobalStyles
-                    withNormalizeCSS
-                >
-                    <Link onClick={() => history.push("/users/")}>
-                        <Text color="gold"> see more...</Text>{" "}
-                    </Link>
-                </MantineProvider>
-            </Container>*/}
             <StandardButton
                 onClick={() => doLogout()}
                 sx={{ marginTop: "5%" }}
