@@ -124,7 +124,7 @@ const Dashboard = () => {
                     src={contentPicture}
                     alt="click to change"
                     size="xl"
-                    onClick={() => history.push("/profile/edit/picture")}
+                    // onClick={() => history.push("/profile/edit/picture")}
                 />
                 {contentQuote}
             </Stack>
