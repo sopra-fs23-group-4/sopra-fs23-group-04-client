@@ -3,21 +3,27 @@ import { Dialog, Group, TextInput } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import BaseContainer from "../ui/BaseContainer";
 import { useHistory } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import StandardButton from "../ui/StandardButton";
 import { Edit as EditIcon } from "tabler-icons-react";
 import User from "../../models/User";
 import { RestApi, handleError } from "../../helpers/RestApi";
+import { Context } from "../../context";
 
 const Dashboard = () => {
     const history = useHistory();
+    const context = useContext(Context);
+
     const [user, setUser] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
             try {
                 const responseUserId = await RestApi.getUser();
-                setUser(new User(responseUserId.data));
+                const user = new User(responseUserId.data);
+                setUser(user);
+                context.setUser(user);
+                console.log(context.user);
             } catch (error) {
                 console.error(`Something went wrong while fetching the user: \n${handleError(error)}`);
                 console.error("Details:", error);
