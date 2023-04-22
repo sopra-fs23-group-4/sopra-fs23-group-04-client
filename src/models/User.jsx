@@ -12,5 +12,17 @@ class User {
         this.picture = null;
         Object.assign(this, data);
     }
+
+    equals(user) {
+        return (
+            this.id === user.id &&
+            this.username === user.username &&
+            this.status === user.status &&
+            this.token === user.token &&
+            this.creationDate === user.creationDate &&
+            this.quote === user.quote &&
+            this.picture === user.picture
+        );
+    }
 }
 export default User;
