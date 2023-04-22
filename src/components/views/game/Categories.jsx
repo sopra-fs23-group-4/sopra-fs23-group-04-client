@@ -11,7 +11,7 @@ const Categories = () => {
 
     const doContinue = () => {
         history.push("/game/settings");
-        sessionStorage.setItem("categories", categoriesSelected);
+        sessionStorage.setItem("categories", JSON.stringify(categoriesSelected));
     };
 
     const Category = ({ category }) => {
