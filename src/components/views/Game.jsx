@@ -24,6 +24,15 @@ const Game = () => {
         fetchData();
     }, []);
 
+    const doJoin = async (pin) => {
+        try {
+            await RestApi.joinGame(pin);
+            history.push(`/games/${pin}/lobby`);
+        } catch (error) {
+            alert(`Something went wrong joining the lobby: \n${handleError(error)}`);
+        }
+    };
+
     let contentUserName = <Loader />;
     if (user) {
         contentUserName = user.username;
@@ -41,7 +50,7 @@ const Game = () => {
                 Join existing Game with PIN:
             </Text>
             <PinInput></PinInput>
-            <StandardButton>Join Game{"   "}</StandardButton>
+            <StandardButton onClick={() => doJoin(1111)}>Join Game{"   "}</StandardButton>
             <StandardButton
                 sx={{ marginTop: "5%" }}
                 onClick={() => history.push("/dashboard")}

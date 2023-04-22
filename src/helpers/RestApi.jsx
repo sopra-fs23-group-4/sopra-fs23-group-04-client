@@ -4,7 +4,7 @@ import User from "../models/User";
 
 export const restApi = axios.create({
     baseURL: getDomain(),
-    headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+    headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", Authorization: sessionStorage.getItem("token") },
 });
 
 export const generalLoginProcedure = (user) => {
@@ -46,7 +46,6 @@ export class RestApi {
     static async changeUser(user) {
         // how send a user as Body?
         const requestBody = JSON.stringify({ token: user.token, quote: user.quote });
-        console.log(requestBody);
         return await restApi.put(`/users/${sessionStorage.getItem("user_id")}`, requestBody);
     }
 
@@ -60,6 +59,11 @@ export class RestApi {
         const response = await restApi.get(`/quotes/${category}`);
         await new Promise((resolve) => setTimeout(resolve, 1000));
         return response.data.quote;
+    }
+
+    static async joinGame(pin) {
+        await restApi.put(`/games/lobbies/${pin}/join`);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
     }
 }
 export const handleError = (error) => {
