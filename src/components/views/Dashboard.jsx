@@ -1,6 +1,4 @@
 import { Avatar, Button, Loader, Stack, Text, Title } from "@mantine/core";
-import { Dialog, Group, TextInput } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import BaseContainer from "../ui/BaseContainer";
 import { useHistory } from "react-router-dom";
 import React, { useContext, useEffect, useState } from "react";
@@ -41,7 +39,7 @@ const Dashboard = () => {
         history.push("/login");
     };
 
-    const [opened, { toggle, close }] = useDisclosure(false);
+    /*    const [opened, { toggle, close }] = useDisclosure(false);*/
 
     let contentUserName = <Loader />;
     let contentQuote = "";
@@ -78,7 +76,7 @@ const Dashboard = () => {
                     align="center"
                     order={1}
                     sx={{ color: "white" }}
-                    onClick={toggle}
+                    /*onClick={toggle}*/
                 >
                     {contentUserName}{" "}
                     {/*                    <EditIcon
@@ -87,6 +85,7 @@ const Dashboard = () => {
                     />*/}
                 </Title>
 
+                {/*
                 <Dialog
                     opened={opened}
                     withCloseButton
@@ -119,6 +118,7 @@ const Dashboard = () => {
                         </StandardButton>
                     </Group>
                 </Dialog>
+*/}
 
                 <Avatar
                     src={contentPicture}
