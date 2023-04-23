@@ -12,7 +12,6 @@ const Answer = () => {
     const [categories, setCategories] = useState(["City", "Country", "FirstName", "Musical Instrument"]);
     const [answers, setAnswers] = useState(["Appenzell", "Andorra", null, "Audi"]);
     const category = categories[answerIndex];
-    const placeholder = `${letter}...`;
     const lastElement = answers.length - 1;
 
     const handleAnswerChange = (event) => {
@@ -49,7 +48,7 @@ const Answer = () => {
             </Title>
             <Title color="white">{category}</Title>
             <TextInput
-                placeholder={placeholder}
+                value={answers[answerIndex] ? answers[answerIndex] : letter}
                 radius="xl"
                 size="lg"
                 onChange={handleAnswerChange}
