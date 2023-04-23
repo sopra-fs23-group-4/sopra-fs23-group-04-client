@@ -1,4 +1,4 @@
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { Checkbox as CheckIcon } from "tabler-icons-react";
 import React, { useEffect, useState } from "react";
 import BaseContainer from "../../../ui/BaseContainer";
@@ -9,6 +9,7 @@ import { handleError } from "../../../../helpers/RestApi";
 
 const Board = () => {
     const history = useHistory();
+    const { gameId } = useParams();
 
     const [letter, setLetter] = useState("A");
     const [categories, setCategories] = useState(["City", "Country", "FirstName", "Musical Instrument"]);
@@ -71,7 +72,7 @@ const Board = () => {
                     size="lg"
                     sx={{ minWidth: "200px", color: "Black", marginBottom: "2%" }}
                     value={category}
-                    onClick={() => history.push(`/game/board/${index}`)}
+                    onClick={() => history.push(`/game/${gameId}/board/${index}`)}
                 >
                     {category}&nbsp; {iconContent}
                 </Button>

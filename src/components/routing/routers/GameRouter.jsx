@@ -26,7 +26,7 @@ const GameRouter = (props) => {
                 />
                 <Route
                     exact
-                    path={`${props.base}/board`}
+                    path={`${props.base}/:gameId/board`}
                     component={Board}
                 />
                 <Route
