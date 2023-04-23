@@ -2,17 +2,20 @@ import BaseContainer from "components/ui/BaseContainer";
 import { Container, Group, PasswordInput, rem, Stack, TextInput, Title } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
 import { Link, useHistory } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { handleError, RestApi } from "../../helpers/RestApi";
+import { Context } from "../../context";
 
 const Login = () => {
+    const context = useContext(Context);
     const history = useHistory();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     const doLogin = async () => {
         try {
-            await RestApi.login(username, password);
+            const user = await RestApi.login(username, password);
+            context.setUser(user);
             history.push(`/dashboard`);
         } catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
