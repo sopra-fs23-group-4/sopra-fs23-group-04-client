@@ -77,7 +77,7 @@ const Answer = () => {
             </StandardButton>
             <StandardButton
                 sx={{ marginTop: "5%" }}
-                disabled="true"
+                disabled={!answers.every((value) => value !== null)}
             >
                 DONE
             </StandardButton>
