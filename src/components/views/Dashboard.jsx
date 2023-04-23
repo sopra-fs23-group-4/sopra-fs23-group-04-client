@@ -15,7 +15,6 @@ const Dashboard = () => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        let isMounted = true;
         async function fetchData() {
             try {
                 const responseUserId = await RestApi.getUser();
@@ -31,9 +30,6 @@ const Dashboard = () => {
             }
         }
         fetchData();
-        return () => {
-            isMounted = false;
-        };
     }, [context]);
 
     const doLogout = async () => {

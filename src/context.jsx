@@ -7,10 +7,10 @@ export const ContextProvider = ({ children }) => {
     const [categoriesSelected, setCategoriesSelected] = useState(null);
 
     const content = {
-        setUser,
         user,
-        setCategoriesSelected,
+        setUser,
         categoriesSelected,
+        setCategoriesSelected,
     };
 
     return (

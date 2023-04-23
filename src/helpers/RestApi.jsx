@@ -60,6 +60,12 @@ export class RestApi {
         return response.data.quote;
     }
 
+    static async getAllCategories() {
+        const response = await restApi.get(`/game/categories`);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        return response.data.categories;
+    }
+
     static async joinGame(pin) {
         const headers = {
             "Content-Type": "application/json",
