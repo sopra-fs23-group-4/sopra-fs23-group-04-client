@@ -1,5 +1,5 @@
 import BaseContainer from "../../ui/BaseContainer";
-import { Chip, Group, Title } from "@mantine/core";
+import { Chip, Group, Loader, Title } from "@mantine/core";
 import React, { useContext, useEffect, useState } from "react";
 import StandardButton from "../../ui/StandardButton";
 import { useHistory } from "react-router-dom";
@@ -52,9 +52,9 @@ const Categories = () => {
         );
     };
 
-    return (
-        <BaseContainer align="center">
-            <Title color="white">Category Selection</Title>{" "}
+    let contentCategory = <Loader />;
+    if (categories.length !== 0) {
+        contentCategory = (
             <Chip.Group
                 multiple
                 position="center"
@@ -74,6 +74,12 @@ const Categories = () => {
                     ))}
                 </Group>
             </Chip.Group>
+        );
+    }
+
+    return (
+        <BaseContainer align="center">
+            <Title color="white">Category Selection</Title> {contentCategory}
             <StandardButton
                 onClick={() => doContinue()}
                 sx={{ marginTop: "5%" }}
