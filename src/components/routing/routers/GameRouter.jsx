@@ -2,6 +2,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import Game from "../../views/Game";
 import Categories from "../../views/game/Categories";
 import Settings from "../../views/game/Settings";
+import InGameRouter from "./InGameRouter";
 
 const GameRouter = (props) => {
     return (
@@ -22,9 +23,10 @@ const GameRouter = (props) => {
                 component={Settings}
             />
             <Route
-                exact
-                path={`${props.base}`}
-            >
+                path={`${props.base}/:gamePin`}
+                component={InGameRouter}
+            />
+            <Route path={`${props.base}`}>
                 <Redirect to={`${props.base}`} />
             </Route>
         </Switch>
