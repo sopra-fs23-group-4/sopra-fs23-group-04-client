@@ -15,7 +15,7 @@ const Game = () => {
     const doJoin = async (pin) => {
         try {
             await RestApi.joinGame(pin);
-            history.push(`/games/${pin}/lobby`);
+            history.push(`/game/${pin}/lobby`);
         } catch (error) {
             alert(`Something went wrong joining the lobby: \n${handleError(error)}`);
         }

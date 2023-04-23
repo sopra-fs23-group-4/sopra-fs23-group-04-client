@@ -66,6 +66,17 @@ export class RestApi {
         return response.data.categories;
     }
 
+    static async createGame(rounds, roundLength, categories) {
+        const headers = {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: sessionStorage.getItem("token"),
+        };
+        const requestBody = JSON.stringify({ rounds, roundLength, categories });
+        const response = await restApi.post("/games/lobbies/creation", requestBody, { headers });
+        return response.data;
+    }
+
     static async joinGame(pin) {
         const headers = {
             "Content-Type": "application/json",
