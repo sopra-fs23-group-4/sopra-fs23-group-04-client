@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Textarea, Title, Text, Loader, NativeSelect } from "@mantine/core";
+import { Textarea, Title, Text, NativeSelect } from "@mantine/core";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -45,29 +45,23 @@ const Quote = () => {
             user.quote = quote;
             user.token = storageManager.getToken();
             await RestApi.changeUser(user);
+            storageManager.setQuote(quote);
             history.push(`/dashboard`);
         } catch (error) {
             alert(`Something went wrong during changing the quote: \n${handleError(error)}`);
         }
     };
 
-    let contentUserName = <Loader />;
-    let contentQuote = <Loader />;
-    if (user) {
-        contentUserName = user.username;
-        contentQuote = user.quote;
-    }
-
     return (
         <BaseContainer>
-            <Title color="white">{contentUserName}</Title>
+            <Title color="white">{storageManager.getUsername()}</Title>
 
             <Text
                 align="center"
                 color="white"
                 style={{ width: "75%" }}
             >
-                "{contentQuote}"
+                "{storageManager.getQuote()}"
             </Text>
 
             <Textarea
