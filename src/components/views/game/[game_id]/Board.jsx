@@ -1,18 +1,20 @@
 import { useHistory, useParams } from "react-router-dom";
 import { Checkbox as CheckIcon } from "tabler-icons-react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import BaseContainer from "../../../ui/BaseContainer";
 import StandardButton from "../../../ui/StandardButton";
 import { Edit as EditIcon } from "tabler-icons-react";
 import { Button, Stack, Title } from "@mantine/core";
 import { handleError } from "../../../../helpers/RestApi";
+import { Context } from "../../../../context";
 
 const Board = () => {
     const history = useHistory();
     const { gameId } = useParams();
+    const context = useContext(Context);
 
-    const [letter, setLetter] = useState("A");
-    const [categories, setCategories] = useState(["City", "Country", "FirstName", "Musical Instrument"]);
+    const [letter, setLetter] = useState(null);
+    const [categories, setCategories] = useState(null);
     const [answers, setAnswers] = useState(["Appenzell", "Andorra", null, "Audi"]);
 
     useEffect(() => {
@@ -21,13 +23,15 @@ const Board = () => {
             try {
                 if (isMounted) {
                     if (!letter) {
-                        setLetter(null);
+                        setLetter("A");
+                        context.setLetter("A");
                     }
                     if (!categories) {
-                        setCategories(null);
+                        setCategories(["City", "Country", "FirstName", "Musical Instrument"]);
+                        context.setCategories(["City", "Country", "FirstName", "Musical Instrument"]);
                     }
                     if (!answers) {
-                        setAnswers(null);
+                        setAnswers(Array(4).fill(null));
                     }
                 }
             } catch (error) {
@@ -93,12 +97,13 @@ const Board = () => {
                 position="center"
                 sx={{ marginTop: "2%" }}
             >
-                {categories.map((category) => (
-                    <Category
-                        key={category}
-                        category={category}
-                    />
-                ))}
+                {categories &&
+                    categories.map((category) => (
+                        <Category
+                            key={category}
+                            category={category}
+                        />
+                    ))}
             </Stack>
             <StandardButton
                 position="center"
