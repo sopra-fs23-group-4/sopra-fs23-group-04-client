@@ -1,5 +1,7 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import Lobby from "../../views/game/[game_id]/Lobby";
+import Board from "../../views/game/[game_id]/Board";
+import Answer from "../../views/game/[game_id]/Answer";
 
 const InGameRouter = () => {
     const base = "/game/:gamePin";
@@ -24,12 +26,12 @@ const InGameRouter = () => {
             <Route
                 exact
                 path={`${base}/board`}
-                component={Lobby}
+                component={Board}
             />
             <Route
                 exact
-                path={`${base}/answer`}
-                component={Lobby}
+                path={`${base}/board/:answerIndex`}
+                component={Answer}
             />
             <Route
                 exact

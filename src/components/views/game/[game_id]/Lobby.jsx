@@ -1,9 +1,6 @@
 import BaseContainer from "../../../ui/BaseContainer";
 import { Title, Flex, Stack, Paper } from "@mantine/core";
 import StandardButton from "../../../ui/StandardButton";
-import { useHistory } from "react-router-dom";
-import { Context } from "../../../../context";
-import { useContext, useState } from "react";
 
 const Player = (props) => (
     <Title
@@ -17,10 +14,9 @@ const Player = (props) => (
 
 const Lobby = (props) => {
     const gamePin = props.match.params["gamePin"];
-    const context = useContext(Context);
-    const user = context.user;
+    const user = sessionStorage.getItem("username");
 
-    const [users, setUsers] = useState();
+    // const [users, setUsers] = useState();
 
     return (
         <BaseContainer>

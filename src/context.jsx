@@ -5,12 +5,21 @@ export const Context = createContext("Default Value");
 export const ContextProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [categoriesSelected, setCategoriesSelected] = useState(null);
+    const [categories, setCategories] = useState(null);
+    const [letter, setLetter] = useState(null);
+    const [answers, setAnswers] = useState(null);
 
     const content = {
         user,
         setUser,
         categoriesSelected,
         setCategoriesSelected,
+        answers,
+        setAnswers,
+        letter,
+        setLetter,
+        categories,
+        setCategories,
     };
 
     return (
