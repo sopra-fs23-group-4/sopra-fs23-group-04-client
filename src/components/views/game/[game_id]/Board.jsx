@@ -28,8 +28,9 @@ const Board = () => {
                     }
                     if (!categories) {
                         setCategories(["City", "Country", "FirstName", "Musical Instrument"]);
-                        context.setCategories(["City", "Country", "FirstName", "Musical Instrument"]);
                     }
+                    if (!context.categories) context.setCategories(["City", "Country", "FirstName", "Musical Instrument"]);
+
                     if (!answers) {
                         setAnswers(Array(4).fill(null));
                     }
@@ -44,7 +45,7 @@ const Board = () => {
         return () => {
             isMounted = false;
         };
-    }, []);
+    }, [answers, categories, context, letter]);
 
     const Category = ({ category }) => {
         let index = categories.indexOf(category);
