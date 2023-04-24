@@ -1,7 +1,7 @@
 import BaseContainer from "../ui/BaseContainer";
 import { useHistory } from "react-router-dom";
 import { handleError, RestApi } from "../../helpers/RestApi";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Loader, PinInput, Title, Text } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
 import { Context } from "../../context";
@@ -11,6 +11,11 @@ const Game = () => {
     const context = useContext(Context);
 
     const user = context.user;
+    const [pin, setPin] = useState("");
+
+    const handlePinChange = (newValue) => {
+        setPin(newValue);
+    };
 
     const doJoin = async (pin) => {
         try {
@@ -37,8 +42,8 @@ const Game = () => {
             >
                 Join existing Game with PIN:
             </Text>
-            <PinInput></PinInput>
-            <StandardButton onClick={() => doJoin(1111)}>Join Game{"   "}</StandardButton>
+            <PinInput onChange={handlePinChange} />
+            <StandardButton onClick={() => doJoin(pin)}>Join Game{"   "}</StandardButton>
             <StandardButton
                 sx={{ marginTop: "5%" }}
                 onClick={() => history.push("/dashboard")}
