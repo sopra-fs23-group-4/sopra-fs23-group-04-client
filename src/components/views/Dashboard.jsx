@@ -1,67 +1,24 @@
-import { Avatar, Button, Loader, Stack, Text, Title } from "@mantine/core";
+import { Avatar, Button, Stack, Text, Title } from "@mantine/core";
 import BaseContainer from "../ui/BaseContainer";
 import { useHistory } from "react-router-dom";
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import StandardButton from "../ui/StandardButton";
 import { Edit as EditIcon } from "tabler-icons-react";
-import User from "../../models/User";
-import { RestApi, handleError } from "../../helpers/RestApi";
-import { Context } from "../../context";
+import { storageManager } from "../../helpers/storageManager";
 
 const Dashboard = () => {
     const history = useHistory();
-    const context = useContext(Context);
 
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const responseUserId = await RestApi.getUser();
-                const user = new User(responseUserId.data);
-                setUser(user);
-                if (!context.user || !user.equals(context.user)) {
-                    context.setUser(user);
-                }
-            } catch (error) {
-                console.error(`Something went wrong while fetching the user: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the user! See the console for details.");
-            }
-        }
-        fetchData();
-    }, [context]);
+    const username = storageManager.getUsername();
+    const quote = storageManager.getQuote();
+    const picture = storageManager.getPicture();
 
     const doLogout = async () => {
-        sessionStorage.clear();
+        storageManager.clearAll();
         history.push("/login");
     };
 
     /*    const [opened, { toggle, close }] = useDisclosure(false);*/
-
-    let contentUserName = <Loader />;
-    let contentQuote = "";
-    let contentPicture = "";
-    if (user) {
-        contentUserName = user.username;
-        contentQuote = (
-            <Text
-                align="center"
-                size="md"
-                color="white"
-                fw={500}
-                sx={{ width: "80%", marginBottom: "2%" }}
-                onClick={() => history.push("/profile/edit/quote")}
-            >
-                {user.quote}{" "}
-                <EditIcon
-                    color="#f8af05"
-                    size={18}
-                />
-            </Text>
-        );
-        contentPicture = user.picture;
-    }
 
     return (
         <BaseContainer>
@@ -76,13 +33,12 @@ const Dashboard = () => {
                     sx={{ color: "white" }}
                     /*onClick={toggle}*/
                 >
-                    {contentUserName}{" "}
+                    {username}{" "}
                     {/*                    <EditIcon
                         color="#f8af05"
                         size={22}
                     />*/}
                 </Title>
-
                 {/*
                 <Dialog
                     opened={opened}
@@ -117,14 +73,26 @@ const Dashboard = () => {
                     </Group>
                 </Dialog>
 */}
-
                 <Avatar
-                    src={contentPicture}
+                    src={picture}
                     alt="click to change"
                     size="xl"
                     // onClick={() => history.push("/profile/edit/picture")}
                 />
-                {contentQuote}
+                <Text
+                    align="center"
+                    size="md"
+                    color="white"
+                    fw={500}
+                    sx={{ width: "80%", marginBottom: "2%" }}
+                    onClick={() => history.push("/profile/edit/quote")}
+                >
+                    {quote}{" "}
+                    <EditIcon
+                        color="#f8af05"
+                        size={18}
+                    />
+                </Text>
             </Stack>
             <Button
                 onClick={() => history.push("/game/")}

@@ -1,16 +1,15 @@
 import axios from "axios";
 import { getDomain } from "helpers/getDomain";
 import User from "../models/User";
+import { storageManager } from "./storageManager";
 
 export const restApi = axios.create({
     baseURL: getDomain(),
-    headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", Authorization: sessionStorage.getItem("token") },
+    headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", Authorization: storageManager.getToken() },
 });
 
 export const generalLoginProcedure = (user) => {
-    sessionStorage.setItem("token", user.token);
-    sessionStorage.setItem("user_id", user.id);
-    sessionStorage.setItem("username", user.username);
+    storageManager.initializeUser(user);
 };
 
 export class RestApi {
@@ -32,7 +31,7 @@ export class RestApi {
     }
 
     static async getUser() {
-        const response = await restApi.get(`/users/${sessionStorage.getItem("user_id")}`);
+        const response = await restApi.get(`/users/${storageManager.getUserId()}`);
         await new Promise((resolve) => setTimeout(resolve, 1000));
         return response;
     }
@@ -46,7 +45,7 @@ export class RestApi {
     static async changeUser(user) {
         // how send a user as Body?
         const requestBody = JSON.stringify({ token: user.token, quote: user.quote });
-        return await restApi.put(`/users/${sessionStorage.getItem("user_id")}`, requestBody);
+        return await restApi.put(`/users/${storageManager.getUserId()}`, requestBody);
     }
 
     static async getQuoteCategories() {
@@ -71,7 +70,7 @@ export class RestApi {
         const headers = {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
-            Authorization: sessionStorage.getItem("token"),
+            Authorization: storageManager.getToken(),
         };
         const requestBody = JSON.stringify({ rounds, roundLength, categories });
         const response = await restApi.post("/games/lobbies/creation", requestBody, { headers });
@@ -82,7 +81,7 @@ export class RestApi {
         const headers = {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
-            Authorization: sessionStorage.getItem("token"),
+            Authorization: storageManager.getToken(),
         };
         await restApi.put(`/games/lobbies/${pin}/join`, null, { headers });
         await new Promise((resolve) => setTimeout(resolve, 1000));

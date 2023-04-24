@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import StandardButton from "../../../ui/StandardButton";
 import { Context } from "../../../../context";
+import { storageManager } from "../../../../helpers/storageManager";
 
 const Quote = () => {
     const history = useHistory();
@@ -42,7 +43,7 @@ const Quote = () => {
     const doChangeQuote = async () => {
         try {
             user.quote = quote;
-            user.token = sessionStorage.getItem("token");
+            user.token = storageManager.getToken();
             await RestApi.changeUser(user);
             history.push(`/dashboard`);
         } catch (error) {

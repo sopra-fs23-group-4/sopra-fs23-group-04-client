@@ -14,7 +14,7 @@ const Player = (props) => (
 
 const Lobby = (props) => {
     const gamePin = props.match.params["gamePin"];
-    const user = sessionStorage.getItem("username");
+    const user = StorageManager.getUsername();
 
     // const [users, setUsers] = useState();
 
