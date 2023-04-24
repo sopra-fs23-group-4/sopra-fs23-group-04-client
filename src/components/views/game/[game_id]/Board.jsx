@@ -10,7 +10,7 @@ import { Context } from "../../../../context";
 
 const Board = () => {
     const history = useHistory();
-    const { gameId } = useParams();
+    const { gamePin } = useParams();
     const context = useContext(Context);
 
     const [letter, setLetter] = useState(null);
@@ -76,7 +76,7 @@ const Board = () => {
                     size="lg"
                     sx={{ minWidth: "200px", color: "Black", marginBottom: "2%" }}
                     value={category}
-                    onClick={() => history.push(`/game/${gameId}/board/${index}`)}
+                    onClick={() => history.push(`/game/${gamePin}/board/${index}`)}
                 >
                     {category}&nbsp; {iconContent}
                 </Button>

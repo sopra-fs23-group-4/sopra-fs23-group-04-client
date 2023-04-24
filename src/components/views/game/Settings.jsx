@@ -2,12 +2,15 @@ import BaseContainer from "../../ui/BaseContainer";
 import StandardButton from "../../ui/StandardButton";
 import { Link, useHistory } from "react-router-dom";
 import { Container, SegmentedControl, Slider, Space, Title } from "@mantine/core";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { Context } from "../../../context";
+import { handleError, RestApi } from "../../../helpers/RestApi";
 
 const Settings = () => {
     const history = useHistory();
+    const context = useContext(Context);
     const [rounds, setRounds] = useState(15);
-    const [roundLength, setRoundLength] = useState("short");
+    const [roundLength, setRoundLength] = useState("SHORT");
 
     const MARKS = [
         { value: 5, label: "5" },
@@ -16,8 +19,14 @@ const Settings = () => {
         { value: 20, label: "20" },
     ];
 
-    const createLobby = () => {
-        // API Call etc.
+    const createLobby = async () => {
+        try {
+            let categories = context.categoriesSelected;
+            const pin = await RestApi.createGame(rounds, roundLength, categories);
+            history.push(`/game/${pin}/lobby`);
+        } catch (error) {
+            alert(`Something went wrong whilst creating the lobby: \n${handleError(error)}`);
+        }
     };
 
     return (
@@ -41,9 +50,9 @@ const Settings = () => {
             <SegmentedControl
                 color="blue"
                 data={[
-                    { label: "short", value: "short" },
-                    { label: "normal", value: "normal" },
-                    { label: "loooong", value: "long" },
+                    { label: "short", value: "SHORT" },
+                    { label: "normal", value: "MEDIUM" },
+                    { label: "loooong", value: "LONG" },
                 ]}
                 value={roundLength}
                 onChange={setRoundLength}

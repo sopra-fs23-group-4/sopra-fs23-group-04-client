@@ -10,6 +10,7 @@ export const restApi = axios.create({
 export const generalLoginProcedure = (user) => {
     sessionStorage.setItem("token", user.token);
     sessionStorage.setItem("user_id", user.id);
+    sessionStorage.setItem("username", user.username);
 };
 
 export class RestApi {
@@ -64,6 +65,17 @@ export class RestApi {
         const response = await restApi.get(`/game/categories`);
         await new Promise((resolve) => setTimeout(resolve, 1000));
         return response.data.categories;
+    }
+
+    static async createGame(rounds, roundLength, categories) {
+        const headers = {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: sessionStorage.getItem("token"),
+        };
+        const requestBody = JSON.stringify({ rounds, roundLength, categories });
+        const response = await restApi.post("/games/lobbies/creation", requestBody, { headers });
+        return response.data;
     }
 
     static async joinGame(pin) {
