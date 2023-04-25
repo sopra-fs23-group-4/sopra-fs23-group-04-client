@@ -1,14 +1,13 @@
 import BaseContainer from "../../ui/BaseContainer";
 import { Chip, Group, Loader, Title } from "@mantine/core";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import StandardButton from "../../ui/StandardButton";
 import { useHistory } from "react-router-dom";
 import { handleError, RestApi } from "../../../helpers/RestApi";
-import { Context } from "../../../context";
+import { storageManager } from "../../../helpers/storageManager";
 
 const Categories = () => {
     const history = useHistory();
-    const context = useContext(Context);
 
     const [categories, setCategories] = useState([]);
     const [categoriesSelected, setCategoriesSelected] = useState(null);
@@ -35,7 +34,7 @@ const Categories = () => {
 
     const doContinue = () => {
         history.push("/game/settings");
-        context.setCategoriesSelected(categoriesSelected);
+        storageManager.setCategoriesSelected(categoriesSelected);
     };
 
     const Category = ({ category }) => {

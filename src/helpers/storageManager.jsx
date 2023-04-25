@@ -44,4 +44,31 @@ export class storageManager {
     static getQuote() {
         return sessionStorage.getItem("quote");
     }
+
+    static setCategoriesSelected(categories) {
+        sessionStorage.setItem("categoriesSelected", JSON.stringify(categories));
+    }
+    static getCategoriesSelected() {
+        const categories = sessionStorage.getItem("categoriesSelected");
+        return categories ? JSON.parse(categories) : [];
+    }
+
+    static removeCategoriesSelected() {
+        sessionStorage.removeItem("categoriesSelected");
+    }
+
+    static setCategories(categories) {
+        sessionStorage.setItem("categories", JSON.stringify(categories));
+    }
+    static getCategories() {
+        const categories = sessionStorage.getItem("categories");
+        return categories ? JSON.parse(categories) : [];
+    }
+
+    static setLetter(letter) {
+        sessionStorage.setItem("letter", letter);
+    }
+    static getLetter() {
+        return sessionStorage.getItem("letter");
+    }
 }

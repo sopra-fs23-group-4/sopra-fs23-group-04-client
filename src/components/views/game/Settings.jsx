@@ -2,13 +2,12 @@ import BaseContainer from "../../ui/BaseContainer";
 import StandardButton from "../../ui/StandardButton";
 import { Link, useHistory } from "react-router-dom";
 import { Container, SegmentedControl, Slider, Space, Title } from "@mantine/core";
-import React, { useContext, useState } from "react";
-import { Context } from "../../../context";
+import React, { useState } from "react";
 import { handleError, RestApi } from "../../../helpers/RestApi";
+import { storageManager } from "../../../helpers/storageManager";
 
 const Settings = () => {
     const history = useHistory();
-    const context = useContext(Context);
     const [rounds, setRounds] = useState(15);
     const [roundLength, setRoundLength] = useState("SHORT");
 
@@ -21,8 +20,9 @@ const Settings = () => {
 
     const createLobby = async () => {
         try {
-            let categories = context.categoriesSelected;
+            let categories = storageManager.getCategoriesSelected();
             const pin = await RestApi.createGame(rounds, roundLength, categories);
+            storageManager.removeCategoriesSelected();
             history.push(`/game/${pin}/lobby`);
         } catch (error) {
             alert(`Something went wrong whilst creating the lobby: \n${handleError(error)}`);
