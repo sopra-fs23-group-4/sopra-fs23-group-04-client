@@ -5,7 +5,7 @@ import Answer from "../../views/game/[game_id]/Answer";
 import Letter from "../../views/game/[game_id]/Letter";
 
 const InGameRouter = () => {
-    const base = "/game/:gamePin";
+    const base = `/game/:gamePin`;
 
     return (
         <Switch>
@@ -60,7 +60,7 @@ const InGameRouter = () => {
                 component={Lobby}
             />
             <Route path={`${base}`}>
-                <Redirect to={`${base}/lobby`} />
+                <Redirect to={`/Dashboard`} />
             </Route>
         </Switch>
     );
