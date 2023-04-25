@@ -1,49 +1,20 @@
 import BaseContainer from "../../../ui/BaseContainer";
 import { useHistory, useParams } from "react-router-dom";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Group, TextInput, Title } from "@mantine/core";
 import StandardButton from "../../../ui/StandardButton";
-import { handleError } from "../../../../helpers/RestApi";
-import Categories from "../Categories";
-import { Context } from "../../../../context";
+import { storageManager } from "../../../../helpers/storageManager";
 
 const Answer = () => {
     const history = useHistory();
     const { gameId, answerIndex } = useParams();
-    const context = useContext(Context);
 
-    const [letter, setLetter] = useState("A");
-    const [categories, setCategories] = useState(["City", "Country", "FirstName", "Musical Instrument"]);
+    const letter = storageManager.getLetter();
+    const categories = storageManager.getCategories();
     const [answers, setAnswers] = useState(["Appenzell", "Andorra", null, "Audi"]);
+
     const category = categories[answerIndex];
     const lastElement = answers.length - 1;
-
-    useEffect(() => {
-        let isMounted = true;
-        async function fetchData() {
-            try {
-                console.log("hello");
-                if (isMounted) {
-                    if (!letter) {
-                        setLetter("A");
-                        context.setLetter("A");
-                    }
-                    if (!Categories) {
-                        setCategories(["City", "Country", "FirstName", "Musical Instrument"]);
-                        context.setCategories(["City", "Country", "FirstName", "Musical Instrument"]);
-                    }
-                }
-            } catch (error) {
-                console.error(`Something went wrong while fetching the categories: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the categories! See the console for details.");
-            }
-        }
-        fetchData();
-        return () => {
-            isMounted = false;
-        };
-    }, [letter, categories, context]);
 
     const handleAnswerChange = (event) => {
         const newAnswers = [...answers];

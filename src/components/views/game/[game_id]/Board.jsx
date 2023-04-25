@@ -1,17 +1,16 @@
 import { useHistory, useParams } from "react-router-dom";
 import { Checkbox as CheckIcon } from "tabler-icons-react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import BaseContainer from "../../../ui/BaseContainer";
 import StandardButton from "../../../ui/StandardButton";
 import { Edit as EditIcon } from "tabler-icons-react";
 import { Button, Stack, Title } from "@mantine/core";
 import { handleError } from "../../../../helpers/RestApi";
-import { Context } from "../../../../context";
+import { storageManager } from "../../../../helpers/storageManager";
 
 const Board = () => {
     const history = useHistory();
     const { gamePin } = useParams();
-    const context = useContext(Context);
 
     const [letter, setLetter] = useState(null);
     const [categories, setCategories] = useState(null);
@@ -23,13 +22,13 @@ const Board = () => {
             try {
                 if (isMounted) {
                     if (!letter) {
-                        setLetter("A");
-                        context.setLetter("A");
+                        storageManager.setLetter("A");
+                        setLetter(storageManager.getLetter());
                     }
                     if (!categories) {
-                        setCategories(["City", "Country", "FirstName", "Musical Instrument"]);
+                        storageManager.setCategories(["City", "Country", "FirstName", "Musical Instrument"]);
+                        setCategories(storageManager.getCategories());
                     }
-                    if (!context.categories) context.setCategories(["City", "Country", "FirstName", "Musical Instrument"]);
 
                     if (!answers) {
                         setAnswers(Array(4).fill(null));
@@ -45,7 +44,7 @@ const Board = () => {
         return () => {
             isMounted = false;
         };
-    }, [answers, categories, context, letter]);
+    }, [answers, categories, letter]);
 
     const Category = ({ category }) => {
         let index = categories.indexOf(category);
