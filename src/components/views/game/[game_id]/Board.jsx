@@ -5,6 +5,8 @@ import BaseContainer from "../../../ui/BaseContainer";
 import StandardButton from "../../../ui/StandardButton";
 import { Button, Stack, Title } from "@mantine/core";
 import { storageManager } from "../../../../helpers/storageManager";
+import { handleError, RestApi } from "../../../../helpers/RestApi";
+import * as gameFunctions from "../../../../helpers/gameFunction";
 
 const Board = () => {
     const history = useHistory();
@@ -45,17 +47,17 @@ const Board = () => {
         };
     }, []);*/
 
-    const createAnswerDictionary = (categories, answers) => {
-        const answerDict = {};
-        for (let i = 0; i < categories.length; i++) {
-            const key = categories[i];
-            answerDict[key] = answers[i];
+    const postAnswers = async (answersDict) => {
+        try {
+            await RestApi.postAnswers(gamePin, round, answersDict);
+            history.push(`/game/${gamePin}/round/${round}/scoreboard`);
+        } catch (error) {
+            alert(`Something went wrong while sending the answers: \n${handleError(error)}`);
         }
-        return answerDict;
     };
-
     const doDone = () => {
-        console.log(createAnswerDictionary(categories, answers));
+        const answersDict = gameFunctions.createAnswerDictionary(categories, answers);
+        postAnswers(answersDict);
     };
 
     const doAnswer = (index) => {

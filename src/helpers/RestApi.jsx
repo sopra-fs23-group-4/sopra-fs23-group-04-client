@@ -86,6 +86,17 @@ export class RestApi {
         await restApi.put(`/games/lobbies/${pin}/join`, null, { headers });
         await new Promise((resolve) => setTimeout(resolve, 1000));
     }
+
+    static async postAnswers(gamePin, round, answers) {
+        const requestBody = JSON.stringify(answers);
+        const headers = {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: storageManager.getToken(),
+        };
+        console.log(requestBody);
+        await restApi.post(`/games/${gamePin}/${round}`, requestBody, { headers });
+    }
 }
 export const handleError = (error) => {
     const response = error.response;

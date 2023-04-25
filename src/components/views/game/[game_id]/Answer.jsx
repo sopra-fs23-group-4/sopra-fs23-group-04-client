@@ -4,10 +4,12 @@ import React, { useState } from "react";
 import { Group, TextInput, Title } from "@mantine/core";
 import StandardButton from "../../../ui/StandardButton";
 import { storageManager } from "../../../../helpers/storageManager";
+import { handleError, RestApi } from "../../../../helpers/RestApi";
+import * as gameFunctions from "../../../../helpers/gameFunction";
 
 const Answer = () => {
     const history = useHistory();
-    const { gameId, round, answerIndex } = useParams();
+    const { gamePin, round, answerIndex } = useParams();
 
     const letter = storageManager.getLetter();
     const categories = storageManager.getCategories();
@@ -27,40 +29,42 @@ const Answer = () => {
         storageManager.setAnswers(answers);
     };
 
-    const createAnswerDictionary = (categories, answers) => {
-        const answerDict = {};
-        for (let i = 0; i < categories.length; i++) {
-            const key = categories[i];
-            answerDict[key] = answers[i];
-        }
-        return answerDict;
-    };
-
-    const doDone = () => {
-        saveAnswers();
-        console.log(createAnswerDictionary(categories, answers));
-    };
     const handlePrevious = () => {
         saveAnswers();
         if (parseInt(answerIndex) !== 0) {
-            history.push(`/game/${gameId}/round/${round}/board/${answerIndex - 1}`);
+            history.push(`/game/${gamePin}/round/${round}/board/${answerIndex - 1}`);
         } else {
-            history.push(`/game/${gameId}/round/${round}/board/${lastElement}`);
+            history.push(`/game/${gamePin}/round/${round}/board/${lastElement}`);
         }
     };
 
     const handleNext = () => {
         saveAnswers();
         if (parseInt(answerIndex) !== lastElement) {
-            history.push(`/game/${gameId}/round/${round}/board/${parseInt(answerIndex) + 1}`);
+            history.push(`/game/${gamePin}/round/${round}/board/${parseInt(answerIndex) + 1}`);
         } else {
-            history.push(`/game/${gameId}/round/${round}/board/0`);
+            history.push(`/game/${gamePin}/round/${round}/board/0`);
         }
     };
 
     const handleOverview = () => {
         saveAnswers();
-        history.push(`/game/${gameId}/round/${round}/board/`);
+        history.push(`/game/${gamePin}/round/${round}/board/`);
+    };
+
+    const postAnswers = async (answersDict) => {
+        try {
+            await RestApi.postAnswers(gamePin, round, answersDict);
+            history.push(`/game/${gamePin}/round/${round}/scoreboard`);
+        } catch (error) {
+            alert(`Something went wrong while sending the answers: \n${handleError(error)}`);
+        }
+    };
+
+    const doDone = () => {
+        saveAnswers();
+        const answersDict = gameFunctions.createAnswerDictionary(categories, answers);
+        postAnswers(answersDict);
     };
 
     return (
