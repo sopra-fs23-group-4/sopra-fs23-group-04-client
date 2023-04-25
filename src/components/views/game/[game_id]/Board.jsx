@@ -1,29 +1,28 @@
 import { useHistory, useParams } from "react-router-dom";
-import { Checkbox as CheckIcon } from "tabler-icons-react";
-import React, { useEffect, useState } from "react";
+import { Checkbox as CheckIcon, Edit as EditIcon } from "tabler-icons-react";
+import React from "react";
 import BaseContainer from "../../../ui/BaseContainer";
 import StandardButton from "../../../ui/StandardButton";
-import { Edit as EditIcon } from "tabler-icons-react";
 import { Button, Stack, Title } from "@mantine/core";
-import { handleError } from "../../../../helpers/RestApi";
 import { storageManager } from "../../../../helpers/storageManager";
 
 const Board = () => {
     const history = useHistory();
-    const { gamePin } = useParams();
+    const { gamePin, round } = useParams();
 
-    const [letter, setLetter] = useState(null);
-    const [categories, setCategories] = useState(null);
-    const [answers, setAnswers] = useState(["Appenzell", "Andorra", null, "Audi"]);
+    const letter = storageManager.getLetter();
+    const categories = storageManager.getCategories();
+    const answers = storageManager.getAnswers();
 
-    useEffect(() => {
+    /*    useEffect(() => {
         let isMounted = true;
         async function fetchData() {
             try {
                 if (isMounted) {
                     if (!letter) {
-                        storageManager.setLetter("A");
-                        setLetter(storageManager.getLetter());
+                        sessionStorage.setItem("letter", "A");
+                        setLetter(sessionStorage.getItem("letter"));
+                        console.log(sessionStorage);
                     }
                     if (!categories) {
                         storageManager.setCategories(["City", "Country", "FirstName", "Musical Instrument"]);
@@ -44,7 +43,27 @@ const Board = () => {
         return () => {
             isMounted = false;
         };
-    }, [answers, categories, letter]);
+    }, []);*/
+
+    const createAnswerDictionary = (categories, answers) => {
+        const answerDict = {};
+        for (let i = 0; i < categories.length; i++) {
+            const key = categories[i];
+            answerDict[key] = answers[i];
+        }
+        return answerDict;
+    };
+
+    const doDone = () => {
+        console.log(createAnswerDictionary(categories, answers));
+    };
+
+    const doAnswer = (index) => {
+        storageManager.setLetter(letter);
+        storageManager.setAnswers(answers);
+        storageManager.setCategories(categories);
+        history.push(`/game/${gamePin}/round/${round}/board/${index}`);
+    };
 
     const Category = ({ category }) => {
         let index = categories.indexOf(category);
@@ -76,7 +95,7 @@ const Board = () => {
                     size="lg"
                     sx={{ minWidth: "200px", color: "Black", marginBottom: "2%" }}
                     value={category}
-                    onClick={() => history.push(`/game/${gamePin}/board/${index}`)}
+                    onClick={() => doAnswer(index)}
                 >
                     {category}&nbsp; {iconContent}
                 </Button>
@@ -109,6 +128,7 @@ const Board = () => {
                 position="center"
                 sx={{ marginTop: "5%" }}
                 disabled={!answers.every((value) => value !== null)}
+                onClick={() => doDone()}
             >
                 DONE
             </StandardButton>

@@ -71,4 +71,18 @@ export class storageManager {
     static getLetter() {
         return sessionStorage.getItem("letter");
     }
+
+    static setAnswers(answers) {
+        sessionStorage.setItem("answers", JSON.stringify(answers));
+    }
+    static getAnswers() {
+        const answers = sessionStorage.getItem("answers");
+        return answers ? JSON.parse(answers) : [];
+    }
+
+    static resetRound() {
+        sessionStorage.removeItem("categories");
+        sessionStorage.removeItem("letter");
+        sessionStorage.removeItem("answers");
+    }
 }
