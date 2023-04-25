@@ -1,6 +1,7 @@
 import BaseContainer from "../../../ui/BaseContainer";
 import { Title, Flex, Stack, Paper } from "@mantine/core";
 import StandardButton from "../../../ui/StandardButton";
+import { storageManager } from "../../../../helpers/storageManager";
 
 const Player = (props) => (
     <Title
@@ -14,7 +15,7 @@ const Player = (props) => (
 
 const Lobby = (props) => {
     const gamePin = props.match.params["gamePin"];
-    const user = StorageManager.getUsername();
+    const user = storageManager.getUsername();
 
     // const [users, setUsers] = useState();
 
