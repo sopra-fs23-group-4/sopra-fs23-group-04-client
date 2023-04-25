@@ -35,7 +35,7 @@ const Letter = () => {
         return () => {
             isMounted = false;
         };
-    }, []);
+    }, [letter, categories]);
 
     const doStart = () => {
         storageManager.resetRound();
