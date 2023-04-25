@@ -33,13 +33,13 @@ export class RestApi {
     static async getUser() {
         const response = await restApi.get(`/users/${storageManager.getUserId()}`);
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        return response;
+        return new User(response.data);
     }
 
     static async getUsers() {
         const response = await restApi.get(`/users/`);
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        return response;
+        return response.data;
     }
 
     static async changeUser(user) {

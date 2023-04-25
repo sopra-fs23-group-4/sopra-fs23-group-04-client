@@ -1,12 +1,16 @@
 import BaseContainer from "../../../ui/BaseContainer";
 import { Title, Flex, Stack, Paper } from "@mantine/core";
 import StandardButton from "../../../ui/StandardButton";
+import { storageManager } from "../../../../helpers/storageManager";
+import { useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { handleError, RestApi } from "../../../../helpers/RestApi";
 
 const Player = (props) => (
     <Title
         color="white"
         order={3}
-        onClick={props.onClickBehaviour}
+        {...props}
     >
         {props.user}
     </Title>
@@ -14,9 +18,26 @@ const Player = (props) => (
 
 const Lobby = (props) => {
     const gamePin = props.match.params["gamePin"];
-    const user = StorageManager.getUsername();
+    const history = useHistory();
 
-    // const [users, setUsers] = useState();
+    const [users, setUsers] = useState([]);
+    const user = storageManager.getUsername();
+
+    useEffect(() => {
+      async function fetchData() {
+        try {
+          const responseUsers = await RestApi.getUsers();
+          setUsers(responseUsers);
+
+        } catch (error) {
+          console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+          console.error("Details:", error);
+          alert("Something went wrong while fetching the users! See the console for details.");
+        }
+      }
+      fetchData();
+    }, []);
+
 
     return (
         <BaseContainer>
@@ -48,7 +69,7 @@ const Lobby = (props) => {
                         Host:
                     </Title>
                     <Player
-                        user={user.username}
+                        user={user}
                         onClickBehaviour={() => console.log("click")}
                     />
                 </Flex>
@@ -57,24 +78,9 @@ const Lobby = (props) => {
                     align="center"
                     spacing="sm"
                 >
-                    <Title
-                        order={4}
-                        color="white"
-                    >
-                        User
-                    </Title>
-                    <Title
-                        order={4}
-                        color="white"
-                    >
-                        User
-                    </Title>
-                    <Title
-                        order={4}
-                        color="white"
-                    >
-                        User
-                    </Title>
+                    {users.map((user) => (
+                      <Player onClick={() => history.push(`/users/${user.id}`)}>{user.name}</Player>
+                    ))}
                 </Stack>
             </Paper>
             <StandardButton>Leave</StandardButton>
