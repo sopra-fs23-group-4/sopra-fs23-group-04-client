@@ -87,6 +87,16 @@ export class RestApi {
         await new Promise((resolve) => setTimeout(resolve, 1000));
     }
 
+    static async leaveGame(pin) {
+        const headers = {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: storageManager.getToken(),
+        };
+        await restApi.put(`/games/lobbies/${pin}/leave`, null, { headers });
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
+
     static async postAnswers(gamePin, round, answers) {
         const requestBody = JSON.stringify(answers);
         const headers = {
