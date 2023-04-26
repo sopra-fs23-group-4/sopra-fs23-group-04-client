@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Title, Flex, Stack, Paper } from "@mantine/core";
+import { Title, Flex, Stack, Paper, Loader, Container } from "@mantine/core";
 import StandardButton from "../../../ui/StandardButton";
 import { storageManager } from "../../../../helpers/storageManager";
 import { useHistory } from "react-router-dom";
@@ -13,7 +13,7 @@ const Player = (props) => (
         order={3}
         {...props}
     >
-        {props.user}
+        {props.username}
     </Title>
 );
 
@@ -35,12 +35,12 @@ const Lobby = (props) => {
     const history = useHistory();
 
     const [users, setUsers] = useState([]);
-    const user = storageManager.getUsername();
 
     useEffect(() => {
       async function fetchData() {
         try {
           const responseUsers = await RestApi.getUsers();
+          console.log(responseUsers);
           setUsers(responseUsers);
 
         } catch (error) {
@@ -53,7 +53,32 @@ const Lobby = (props) => {
     }, []);
 
 
-    return (
+    let content =
+      <Container align="center"><Loader /></Container>;
+    if(users.length !== 0) {
+      content = (
+        <Stack
+          justify="flex-start"
+          align="center"
+          spacing="sm"
+        >
+          {users.map((user) => (
+            <Player key={user.id} onClick={() => history.push(`/users/${user.id}`)} username={user.username}/>
+          ))}
+        </Stack>
+      )
+    }
+
+  async function doLeave() {
+    try {
+      await RestApi.leaveGame(gamePin);
+      history.push(`/game`);
+    } catch (error) {
+      alert(`Something went wrong leaving the lobby: \n${handleError(error)}`);
+    }
+  }
+
+  return (
         <BaseContainer>
           <SockJsClient
             url={SOCKET_URL}
@@ -92,21 +117,14 @@ const Lobby = (props) => {
                         Host:
                     </Title>
                     <Player
-                        user={user}
-                        onClickBehaviour={() => console.log("click")}
+                        username={storageManager.getUsername()}
+                        onClick={() => console.log("click")}
                     />
                 </Flex>
-                <Stack
-                    justify="flex-start"
-                    align="center"
-                    spacing="sm"
-                >
-                    {users.map((user) => (
-                      <Player onClick={() => history.push(`/users/${user.id}`)}>{user.name}</Player>
-                    ))}
-                </Stack>
+              {content}
             </Paper>
-            <StandardButton>Leave</StandardButton>
+            <StandardButton
+            onClick={()=>doLeave()} >Leave</StandardButton>
         </BaseContainer>
     );
 };
