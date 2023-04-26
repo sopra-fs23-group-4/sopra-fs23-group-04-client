@@ -3,8 +3,9 @@ import { Title, Flex, Stack, Paper } from "@mantine/core";
 import StandardButton from "../../../ui/StandardButton";
 import { storageManager } from "../../../../helpers/storageManager";
 import { useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
+import SockJsClient from "react-stomp";
 
 const Player = (props) => (
     <Title
@@ -17,6 +18,19 @@ const Player = (props) => (
 );
 
 const Lobby = (props) => {
+  const SOCKET_URL = 'http://localhost:8080/ws-message';
+  const [message, setMessage] = useState('You server message here.');
+
+  let onConnected = () => {
+    console.log("Connected!!")
+  }
+  let disconnect = () => {
+    console.log("disconnect")
+  }
+
+  let onMessageReceived = (msg) => {
+    setMessage(msg.type);
+  }
     const gamePin = props.match.params["gamePin"];
     const history = useHistory();
 
@@ -41,6 +55,14 @@ const Lobby = (props) => {
 
     return (
         <BaseContainer>
+          <SockJsClient
+            url={SOCKET_URL}
+            topics={[`/topic/lobbies/${gamePin}`]}
+            onConnect={onConnected}
+            onDisconnect={disconnect()}
+            onMessage={msg => onMessageReceived(msg)}
+            debug={false}
+          />
             <Flex
                 mih={50}
                 gap="md"
@@ -50,6 +72,7 @@ const Lobby = (props) => {
                 <Title color="white">PIN:</Title>
                 <Title color="white">{gamePin}</Title>
             </Flex>
+          <div>{message}</div>
             <Paper
                 shadow="xl"
                 radius="md"
