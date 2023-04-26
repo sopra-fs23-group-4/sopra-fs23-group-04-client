@@ -4,7 +4,7 @@ import { handleError, RestApi } from "../../helpers/RestApi";
 import React, { useState } from "react";
 import { PinInput, Title, Text } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
-import { storageManager } from "../../helpers/storageManager";
+import { Role, storageManager } from "../../helpers/storageManager";
 
 const Game = () => {
     const history = useHistory();
@@ -18,6 +18,7 @@ const Game = () => {
     const doJoin = async (pin) => {
         try {
             await RestApi.joinGame(pin);
+            storageManager.setRole(Role.PLAYER);
             history.push(`/game/${pin}/lobby`);
         } catch (error) {
             alert(`Something went wrong joining the lobby: \n${handleError(error)}`);
