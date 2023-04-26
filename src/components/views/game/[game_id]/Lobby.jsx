@@ -29,7 +29,7 @@ const Lobby = (props) => {
   }
 
   let onMessageReceived = (msg) => {
-    setMessage(msg.name);
+    setMessage(msg.type);
   }
     const gamePin = props.match.params["gamePin"];
     const history = useHistory();
