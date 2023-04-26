@@ -4,7 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { Container, SegmentedControl, Slider, Space, Title } from "@mantine/core";
 import React, { useState } from "react";
 import { handleError, RestApi } from "../../../helpers/RestApi";
-import { storageManager } from "../../../helpers/storageManager";
+import { Role, storageManager } from "../../../helpers/storageManager";
 
 const Settings = () => {
     const history = useHistory();
@@ -23,6 +23,7 @@ const Settings = () => {
             let categories = storageManager.getCategoriesSelected();
             const pin = await RestApi.createGame(rounds, roundLength, categories);
             storageManager.removeCategoriesSelected();
+            storageManager.setRole(Role.HOST);
             history.push(`/game/${pin}/lobby`);
         } catch (error) {
             alert(`Something went wrong whilst creating the lobby: \n${handleError(error)}`);
