@@ -4,6 +4,7 @@ import Board from "../../views/game/[game_id]/Board";
 import Answer from "../../views/game/[game_id]/Answer";
 import Letter from "../../views/game/[game_id]/Letter";
 import Voting from "../../views/game/[game_id]/Voting";
+import VotingResult from "../../views/game/[game_id]/VotingResult";
 
 const InGameRouter = () => {
     const base = `/game/:gamePin`;
@@ -48,8 +49,8 @@ const InGameRouter = () => {
 
             <Route
                 exact
-                path={`${base}/round/:round/votingresults`}
-                component={Lobby}
+                path={`${base}/round/:round/votingResults/:categoryIndex`}
+                component={VotingResult}
             />
             <Route
                 exact
