@@ -108,7 +108,7 @@ const Lobby = (props) => {
                 shadow="xl"
                 radius="md"
                 p="lg"
-                sx={{ background: "#00acee", minWidth: "70%" }}
+                sx={{ background: "#00acee", minWidth: "220px" }}
             >
                 <Flex
                     mih={50}
