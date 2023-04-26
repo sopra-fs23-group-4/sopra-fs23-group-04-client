@@ -6,6 +6,12 @@ import React, { useState } from "react";
 import { handleError, RestApi } from "../../../helpers/RestApi";
 import { Role, storageManager } from "../../../helpers/storageManager";
 
+export const RoundLength = {
+    SHORT: "SHORT",
+    MEDIUM: "MEDIUM",
+    LONG: "LONG",
+};
+
 const Settings = () => {
     const history = useHistory();
     const [rounds, setRounds] = useState(15);
@@ -51,9 +57,9 @@ const Settings = () => {
             <SegmentedControl
                 color="blue"
                 data={[
-                    { label: "short", value: "SHORT" },
-                    { label: "normal", value: "MEDIUM" },
-                    { label: "loooong", value: "LONG" },
+                    { label: "short", value: RoundLength.SHORT },
+                    { label: "normal", value: RoundLength.MEDIUM },
+                    { label: "loooong", value: RoundLength.LONG },
                 ]}
                 value={roundLength}
                 onChange={setRoundLength}
