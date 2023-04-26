@@ -18,76 +18,82 @@ const Player = (props) => (
 );
 
 const Lobby = (props) => {
-  const SOCKET_URL = 'http://localhost:8080/ws-message';
-  const [message, setMessage] = useState('You server message here.');
-
-  let onConnected = () => {
-    console.log("Connected!!")
-  }
-  let disconnect = () => {
-    console.log("disconnect")
-  }
-
-  let onMessageReceived = (msg) => {
-    setMessage(msg.type);
-  }
+    const SOCKET_URL = "http://localhost:8080/ws-message";
     const gamePin = props.match.params["gamePin"];
+
     const history = useHistory();
 
+    const [message, setMessage] = useState("You server message here.");
     const [users, setUsers] = useState([]);
 
-    useEffect(() => {
-      async function fetchData() {
-        try {
-          const responseUsers = await RestApi.getUsers();
-          console.log(responseUsers);
-          setUsers(responseUsers);
+    let onConnected = () => {
+        console.log("Connected!!");
+    };
+    let disconnect = () => {
+        console.log("disconnect");
+    };
 
+    let onMessageReceived = (msg) => {
+        setMessage(msg.type);
+    };
+
+    async function doLeave() {
+        try {
+            await RestApi.leaveGame(gamePin);
+            history.push(`/game`);
         } catch (error) {
-          console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
-          console.error("Details:", error);
-          alert("Something went wrong while fetching the users! See the console for details.");
+            alert(`Something went wrong leaving the lobby: \n${handleError(error)}`);
         }
-      }
-      fetchData();
+    }
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const responseUsers = await RestApi.getUsers();
+                console.log(responseUsers);
+                setUsers(responseUsers);
+            } catch (error) {
+                console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the users! See the console for details.");
+            }
+        }
+        fetchData();
     }, []);
 
-
-    let content =
-      <Container align="center"><Loader /></Container>;
-    if(users.length !== 0) {
-      content = (
-        <Stack
-          justify="flex-start"
-          align="center"
-          spacing="sm"
-        >
-          {users.map((user) => (
-            <Player key={user.id} onClick={() => history.push(`/users/${user.id}`)} username={user.username}/>
-          ))}
-        </Stack>
-      )
+    let content = (
+        <Container align="center">
+            <Loader />
+        </Container>
+    );
+    if (users.length !== 0) {
+        content = (
+            <Stack
+                justify="flex-start"
+                align="center"
+                spacing="sm"
+            >
+                {users.map((user) => (
+                    <Player
+                        key={user.id}
+                        onClick={() => history.push(`/users/${user.id}`)}
+                        username={user.username}
+                    />
+                ))}
+            </Stack>
+        );
     }
 
-  async function doLeave() {
-    try {
-      await RestApi.leaveGame(gamePin);
-      history.push(`/game`);
-    } catch (error) {
-      alert(`Something went wrong leaving the lobby: \n${handleError(error)}`);
-    }
-  }
-
-  return (
+    return (
         <BaseContainer>
-          <SockJsClient
-            url={SOCKET_URL}
-            topics={[`/topic/lobbies/${gamePin}`]}
-            onConnect={onConnected}
-            onDisconnect={disconnect()}
-            onMessage={msg => onMessageReceived(msg)}
-            debug={false}
-          />
+            <SockJsClient
+                url={SOCKET_URL}
+                topics={[`/topic/lobbies/${gamePin}`]}
+                onConnect={onConnected}
+                onDisconnect={disconnect()}
+                onMessage={(msg) => onMessageReceived(msg)}
+                debug={false}
+            />
             <Flex
                 mih={50}
                 gap="md"
@@ -97,7 +103,7 @@ const Lobby = (props) => {
                 <Title color="white">PIN:</Title>
                 <Title color="white">{gamePin}</Title>
             </Flex>
-          <div>{message}</div>
+            <div>{message}</div>
             <Paper
                 shadow="xl"
                 radius="md"
@@ -121,10 +127,9 @@ const Lobby = (props) => {
                         onClick={() => console.log("click")}
                     />
                 </Flex>
-              {content}
+                {content}
             </Paper>
-            <StandardButton
-            onClick={()=>doLeave()} >Leave</StandardButton>
+            <StandardButton onClick={() => doLeave()}>Leave</StandardButton>
         </BaseContainer>
     );
 };
