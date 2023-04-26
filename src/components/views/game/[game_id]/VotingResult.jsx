@@ -3,6 +3,7 @@ import BaseContainer from "../../../ui/BaseContainer";
 import React, { useState } from "react";
 import { Paper, Stack, Table, Text, Title } from "@mantine/core";
 import { storageManager } from "../../../../helpers/storageManager";
+import StandardButton from "../../../ui/StandardButton";
 
 const VotingResult = () => {
     const { categoryIndex } = useParams();
@@ -29,6 +30,11 @@ const VotingResult = () => {
             </td>
         </tr>
     ));
+
+    let contentRole = null;
+    if (storageManager.getRole() !== "player") {
+        contentRole = <StandardButton>DONE</StandardButton>;
+    }
 
     const styles = {
         tableHeader: {
@@ -79,13 +85,14 @@ const VotingResult = () => {
                         <tr>
                             <th></th>
                             <th style={styles.tableHeader}>perfect</th>
-                            <th style={styles.tableHeader}>double</th>
+                            <th style={styles.tableHeader}>duplicate</th>
                             <th style={styles.tableHeader}>wrong</th>
                         </tr>
                     </thead>
                     <tbody>{rows}</tbody>
                 </Table>
             </Paper>
+            {contentRole}
         </BaseContainer>
     );
 };

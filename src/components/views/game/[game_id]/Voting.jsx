@@ -91,7 +91,7 @@ const Voting = () => {
                         <tr>
                             <th></th>
                             <th style={styles.tableHeader}>perfect</th>
-                            <th style={styles.tableHeader}>double</th>
+                            <th style={styles.tableHeader}>duplicate</th>
                             <th style={styles.tableHeader}>wrong</th>
                         </tr>
                     </thead>
