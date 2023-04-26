@@ -1,7 +1,7 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Title, Flex, Stack, Paper, Loader, Container } from "@mantine/core";
+import { Title, Flex, Stack, Paper, Loader, Container, Group } from "@mantine/core";
 import StandardButton from "../../../ui/StandardButton";
-import { storageManager } from "../../../../helpers/storageManager";
+import { Role, storageManager } from "../../../../helpers/storageManager";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
@@ -24,7 +24,9 @@ const Lobby = (props) => {
     const history = useHistory();
 
     const [message, setMessage] = useState("You server message here.");
-    const [users, setUsers] = useState([]);
+    const [hostUsername, setHostUsername] = useState("");
+    const [usersInLobby, setUsersInLobby] = useState([]);
+    const [fetchedCategorys, setfetchedCategorys] = useState([]);
 
     let onConnected = () => {
         console.log("Connected!!");
@@ -34,7 +36,18 @@ const Lobby = (props) => {
     };
 
     let onMessageReceived = (msg) => {
-        setMessage(msg.type);
+        if (msg.type === "gameUsers") {
+            console.log("message with type gameUsers arrives");
+            console.log(msg);
+            // if (hostUsername !== msg.hostusrname)
+            //setHostUsername(msg.hostusername);
+            //setUsersInLobby(msg.usernames);
+        } else if (msg.type === "startGame") {
+            // storageManager.setAnswers(Array(msg.categories.length).fill(null));
+            // storageManager.setLetter(msg.letter);
+            // storageManager.setCategories(msg.categories);
+            // history.push(`/game/${gamePin}/round/${1}/board/`);
+        }
     };
 
     async function doLeave() {
@@ -46,12 +59,23 @@ const Lobby = (props) => {
         }
     }
 
+    async function startGame() {
+        try {
+            await RestApi.startGame(gamePin);
+        } catch (error) {
+            alert(`Something went wrong starting the game: \n${handleError(error)}`);
+        }
+    }
+
     useEffect(() => {
         async function fetchData() {
             try {
-                const responseUsers = await RestApi.getUsers();
-                console.log(responseUsers);
-                setUsers(responseUsers);
+                // update userList and check if Host value has changed
+                if (hostUsername === storageManager.getUsername()) {
+                    storageManager.setRole(Role.HOST);
+                } else {
+                    storageManager.setRole(Role.PLAYER);
+                }
             } catch (error) {
                 console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -59,29 +83,35 @@ const Lobby = (props) => {
             }
         }
         fetchData();
-    }, []);
+    }, [usersInLobby, hostUsername]);
 
-    let content = (
+    let playerListContent = (
         <Container align="center">
             <Loader />
         </Container>
     );
-    if (users.length !== 0) {
-        content = (
+    if (usersInLobby.length !== 0) {
+        playerListContent = (
             <Stack
                 justify="flex-start"
                 align="center"
                 spacing="sm"
             >
-                {users.map((user) => (
+                {usersInLobby.map((username) => (
                     <Player
-                        key={user.id}
-                        onClick={() => history.push(`/users/${user.id}`)}
-                        username={user.username}
+                        key={username}
+                        //onClick={() => history.push(`/users/${user.id}`)}
+                        username={username}
                     />
                 ))}
             </Stack>
         );
+    }
+
+    let startGameButton = " ";
+
+    if (storageManager.getRole() === Role.HOST) {
+        startGameButton = <StandardButton onClick={() => startGame()}>Start Game</StandardButton>;
     }
 
     return (
@@ -123,13 +153,16 @@ const Lobby = (props) => {
                         Host:
                     </Title>
                     <Player
-                        username={storageManager.getUsername()}
+                        username={hostUsername}
                         onClick={() => console.log("click")}
                     />
                 </Flex>
-                {content}
+                {playerListContent}
             </Paper>
-            <StandardButton onClick={() => doLeave()}>Leave</StandardButton>
+            <Group sx={{ paddingTop: "5%" }}>
+                <StandardButton onClick={() => doLeave()}>Leave</StandardButton>
+                {startGameButton}
+            </Group>
         </BaseContainer>
     );
 };
