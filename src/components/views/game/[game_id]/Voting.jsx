@@ -64,14 +64,19 @@ const Voting = () => {
             >
                 please vote:
             </Text>
-            <Title color="white">{category}</Title>
+
             <Paper
                 shadow="xl"
                 radius="md"
                 p="lg"
                 sx={{ background: "#00acee", minWidth: "70%" }}
             >
-                {" "}
+                <Title
+                    align="center"
+                    color="white"
+                >
+                    {category}
+                </Title>{" "}
                 <Text
                     align="center"
                     size="lg"
