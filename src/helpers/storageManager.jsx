@@ -1,3 +1,8 @@
+export const Role = {
+    HOST: "host",
+    PLAYER: "player",
+};
+
 export class storageManager {
     static clearAll() {
         sessionStorage.clear();
@@ -29,6 +34,13 @@ export class storageManager {
     }
     static getUsername() {
         return sessionStorage.getItem("username");
+    }
+
+    static setRole(role) {
+        sessionStorage.setItem("role", role);
+    }
+    static getRole() {
+        return sessionStorage.getItem("role");
     }
 
     static setPicture(picture) {
