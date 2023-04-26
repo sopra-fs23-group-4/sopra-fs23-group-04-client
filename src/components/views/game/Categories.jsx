@@ -89,7 +89,7 @@ const Categories = () => {
                 onClick={() => history.push("/game/")}
                 sx={{ marginTop: "5%" }}
             >
-                Leave
+                Cancel
             </StandardButton>
         </BaseContainer>
     );
