@@ -80,6 +80,7 @@ const Quote = () => {
 
             <NativeSelect
                 data={quoteCategories}
+                sx={{ "& .mantine-NativeSelect-description": { color: "white" } }}
                 description="select a category"
                 onChange={(event) => setCategory(event.currentTarget.value)}
             />
