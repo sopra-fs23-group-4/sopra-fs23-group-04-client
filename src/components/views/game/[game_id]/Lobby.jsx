@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import SockJsClient from "react-stomp";
 
-const Player = (props) => (
+export const Player = (props) => (
     <Title
         color="white"
         order={3}
