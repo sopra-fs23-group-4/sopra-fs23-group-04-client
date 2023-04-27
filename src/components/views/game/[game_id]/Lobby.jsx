@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import SockJsClient from "react-stomp";
+import { getDomain } from "../../../../helpers/getDomain";
 
 export const Player = (props) => (
     <Title
@@ -18,7 +19,7 @@ export const Player = (props) => (
 );
 
 const Lobby = (props) => {
-    const SOCKET_URL = "http://localhost:8080/ws-message";
+    const SOCKET_URL = getDomain() + "/ws-message";
     const gamePin = props.match.params["gamePin"];
 
     const history = useHistory();

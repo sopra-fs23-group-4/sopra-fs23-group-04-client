@@ -7,9 +7,10 @@ import { storageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import * as gameFunctions from "../../../../helpers/gameFunction";
 import SockJsClient from "react-stomp";
+import { getDomain } from "../../../../helpers/getDomain";
 
 const Answer = () => {
-    const SOCKET_URL = "http://localhost:8080/ws-message";
+    const SOCKET_URL = getDomain() + "/ws-message";
     const history = useHistory();
     const { gamePin, round, answerIndex } = useParams();
 
@@ -63,14 +64,14 @@ const Answer = () => {
         }
     };
 
-    const doDoneButton = () => {
-        RestApi.EndRound(gamePin, round);
+    const doDoneButton = async () => {
+        await RestApi.EndRound(gamePin, round);
     };
 
-    const doDoneWs = () => {
+    const doDoneWs = async () => {
         saveAnswers();
         const answersDict = gameFunctions.createAnswerDictionary(categories, answers);
-        postAnswers(answersDict);
+        await postAnswers(answersDict);
     };
 
     let onConnected = () => {
@@ -80,9 +81,9 @@ const Answer = () => {
         console.log("disconnect");
     };
 
-    let onMessageReceived = (msg) => {
+    let onMessageReceived = async (msg) => {
         console.log(msg);
-        doDoneWs();
+        await doDoneWs();
     };
 
     return (
