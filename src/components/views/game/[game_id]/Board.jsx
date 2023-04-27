@@ -57,7 +57,12 @@ const Board = () => {
             alert(`Something went wrong while sending the answers: \n${handleError(error)}`);
         }
     };
-    const doDone = () => {
+
+    const doDoneButton = () => {
+        RestApi.EndRound(gamePin, round);
+    };
+
+    const doDoneWs = () => {
         const answersDict = gameFunctions.createAnswerDictionary(categories, answers);
         postAnswers(answersDict);
     };
@@ -78,7 +83,7 @@ const Board = () => {
 
     let onMessageReceived = (msg) => {
         console.log(msg);
-        doDone();
+        doDoneWs();
     };
 
     const Category = ({ category }) => {
@@ -152,7 +157,7 @@ const Board = () => {
                 position="center"
                 sx={{ marginTop: "5%" }}
                 disabled={!answers.every((value) => value !== null)}
-                onClick={() => doDone()}
+                onClick={() => doDoneButton()}
             >
                 DONE
             </StandardButton>

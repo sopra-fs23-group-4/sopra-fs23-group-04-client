@@ -106,6 +106,15 @@ export class RestApi {
         await restApi.post(`/game/${gamePin}/start-game`);
     }
 
+    static EndRound(gamePin, round) {
+        const headers = {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: storageManager.getToken(),
+        };
+        restApi.put(`/games/${gamePin}/${round}/end`, { headers });
+    }
+
     static async postAnswers(gamePin, round, answers) {
         const requestBody = JSON.stringify(answers);
         const headers = {

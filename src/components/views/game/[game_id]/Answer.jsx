@@ -63,7 +63,11 @@ const Answer = () => {
         }
     };
 
-    const doDone = () => {
+    const doDoneButton = () => {
+        RestApi.EndRound(gamePin, round);
+    };
+
+    const doDoneWs = () => {
         saveAnswers();
         const answersDict = gameFunctions.createAnswerDictionary(categories, answers);
         postAnswers(answersDict);
@@ -78,7 +82,7 @@ const Answer = () => {
 
     let onMessageReceived = (msg) => {
         console.log(msg);
-        doDone();
+        doDoneWs();
     };
 
     return (
@@ -129,7 +133,7 @@ const Answer = () => {
             <StandardButton
                 sx={{ marginTop: "5%" }}
                 disabled={!answers.every((value) => value !== null)}
-                onClick={() => doDone()}
+                onClick={() => doDoneButton()}
             >
                 DONE
             </StandardButton>
