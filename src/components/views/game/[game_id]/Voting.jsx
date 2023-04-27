@@ -7,9 +7,9 @@ import { handleError, RestApi } from "../../../../helpers/RestApi";
 import SockJsClient from "react-stomp";
 
 const Voting = () => {
+    const SOCKET_URL = "http://localhost:8080/ws-message";
     const history = useHistory();
     const { gamePin, round, categoryIndex } = useParams();
-    const SOCKET_URL = "http://localhost:8080/ws-message";
 
     const letter = storageManager.getLetter();
     const categories = storageManager.getCategories();
