@@ -35,13 +35,14 @@ const Lobby = (props) => {
     };
 
     let onMessageReceived = (msg) => {
+        console.log("Websocket msg:");
         console.log(msg);
         if (msg.type === "gameUsers") {
             if (hostUsername !== msg.hostUsername) {
                 setHostUsername(msg.hostUsername);
             }
             setUsersInLobby(msg.usernames);
-        } else if (msg.type === "startGame") {
+        } else if (msg.type === "letter") {
             storageManager.setAnswers(Array(storageManager.getCategories().length).fill(null));
             storageManager.setLetter(msg.letter);
             storageManager.setRound(1);

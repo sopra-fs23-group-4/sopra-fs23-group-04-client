@@ -91,7 +91,6 @@ export class RestApi {
             Authorization: storageManager.getToken(),
         };
         await restApi.put(`/games/lobbies/${pin}/join`, null, { headers });
-        await new Promise((resolve) => setTimeout(resolve, 1000));
     }
 
     static async leaveGame(pin) {
@@ -101,10 +100,11 @@ export class RestApi {
             Authorization: storageManager.getToken(),
         };
         await restApi.put(`/games/lobbies/${pin}/leave`, null, { headers });
-        await new Promise((resolve) => setTimeout(resolve, 1000));
     }
 
-    static async startGame(pin) {}
+    static async startGame(gamePin) {
+        await restApi.post(`/game/${gamePin}/start-game`);
+    }
 
     static async postAnswers(gamePin, round, answers) {
         const requestBody = JSON.stringify(answers);
