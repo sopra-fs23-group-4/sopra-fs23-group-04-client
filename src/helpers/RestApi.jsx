@@ -107,6 +107,30 @@ export class RestApi {
         console.log(requestBody);
         await restApi.post(`/games/${gamePin}/${round}`, requestBody, { headers });
     }
+
+    static async getAnswersForCategory(gamePin, round, category) {
+        const headers = {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: storageManager.getToken(),
+            Category: category,
+        };
+        const response = await restApi.get(`/games/${gamePin}/${round}`, { headers });
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        return response.data;
+    }
+
+    static async postVotes(gamePin, round, category, votes) {
+        const requestBody = JSON.stringify(votes);
+        const headers = {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: storageManager.getToken(),
+            Category: category,
+        };
+        await restApi.post(`/games/${gamePin}/${round}`, requestBody, { headers });
+    }
 }
 export const handleError = (error) => {
     const response = error.response;
