@@ -79,9 +79,6 @@ const Lobby = (props) => {
                     setUnMounted(false);
                 }
 
-                if (storageManager.getRole() === Role.HOST) {
-                    setHostUsername(storageManager.getUsername);
-                }
                 // update sessionStorage
                 // Role
                 if (hostUsername === storageManager.getUsername()) {
