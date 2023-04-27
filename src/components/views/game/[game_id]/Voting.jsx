@@ -31,7 +31,6 @@ const Voting = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                console.log("hello");
                 setAnswersCategory(await RestApi.getAnswersForCategory(gamePin, round, category));
             } catch (error) {
                 console.error(`Something went wrong while fetching the categories: \n${handleError(error)}`);
