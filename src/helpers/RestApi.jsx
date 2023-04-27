@@ -127,7 +127,7 @@ export class RestApi {
             "Access-Control-Allow-Origin": "*",
             Authorization: storageManager.getToken(),
         };
-        await restApi.post(`/games/${gamePin}/${round}/${category}`, requestBody, { headers });
+        return await restApi.post(`/games/${gamePin}/${round}/${category}`, requestBody, { headers });
     }
 }
 export const handleError = (error) => {
