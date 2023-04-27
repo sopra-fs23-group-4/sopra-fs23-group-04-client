@@ -25,6 +25,7 @@ const Lobby = (props) => {
 
     const [hostUsername, setHostUsername] = useState("");
     const [usersInLobby, setUsersInLobby] = useState([]);
+    const [unMounted, setUnMounted] = useState(true);
 
     let onConnected = () => {
         console.log("Connected!!");
@@ -70,6 +71,13 @@ const Lobby = (props) => {
     useEffect(() => {
         async function fetchData() {
             try {
+                if (unMounted) {
+                    const response = await RestApi.getGameUsers(gamePin);
+                    setUsersInLobby(response.usernames);
+                    setHostUsername(response.hostUsername);
+                    setUnMounted(false);
+                }
+
                 if (storageManager.getRole() === Role.HOST) {
                     setHostUsername(storageManager.getUsername);
                 }
