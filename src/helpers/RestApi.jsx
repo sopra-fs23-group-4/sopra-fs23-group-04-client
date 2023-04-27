@@ -50,20 +50,27 @@ export class RestApi {
 
     static async getQuoteCategories() {
         const response = await restApi.get(`/quotes/`);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
         return response.data.categories;
     }
 
     static async generateQuote(category) {
         const response = await restApi.get(`/quotes/${category}`);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
         return response.data.quote;
     }
 
     static async getAllCategories() {
         const response = await restApi.get(`/game/categories`);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
         return response.data.categories;
+    }
+
+    static async getGameCategories(gamePin) {
+        const response = await restApi.get(`/game/${gamePin}/categories`);
+        return response.data.categories;
+    }
+
+    static async getGameUsers(gamePin) {
+        const response = await restApi.get(`/game/${gamePin}/users`);
+        return response.data;
     }
 
     static async createGame(rounds, roundLength, categories) {
@@ -96,6 +103,8 @@ export class RestApi {
         await restApi.put(`/games/lobbies/${pin}/leave`, null, { headers });
         await new Promise((resolve) => setTimeout(resolve, 1000));
     }
+
+    static async startGame(pin) {}
 
     static async postAnswers(gamePin, round, answers) {
         const requestBody = JSON.stringify(answers);
