@@ -23,9 +23,8 @@ const Lobby = (props) => {
 
     const history = useHistory();
 
-    const [hostUsername, setHostUsername] = useState("");
+    const [hostUsername, setHostUsername] = useState("loading...");
     const [usersInLobby, setUsersInLobby] = useState([]);
-    const [unMounted, setUnMounted] = useState(true);
 
     let onConnected = () => {
         console.log("Connected!!");
@@ -72,22 +71,23 @@ const Lobby = (props) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                if (unMounted) {
+                if (hostUsername === "loading...") {
                     const gameUsersResponse = await RestApi.getGameUsers(gamePin);
                     setUsersInLobby(gameUsersResponse.usernames);
                     setHostUsername(gameUsersResponse.hostUsername);
-                    setUnMounted(false);
                     await new Promise((resolve) => setTimeout(resolve, 500));
                 }
 
                 // update sessionStorage
                 // Role
-                if (hostUsername === storageManager.getUsername()) {
-                    if (storageManager.getRole() !== Role.HOST) {
-                        storageManager.setRole(Role.HOST);
+                if (hostUsername !== "loading...") {
+                    if (hostUsername === storageManager.getUsername()) {
+                        if (storageManager.getRole() !== Role.HOST) {
+                            storageManager.setRole(Role.HOST);
+                        }
+                    } else if (storageManager.getRole() !== Role.PLAYER) {
+                        storageManager.setRole(Role.PLAYER);
                     }
-                } else if (storageManager.getRole() !== Role.PLAYER) {
-                    storageManager.setRole(Role.PLAYER);
                 }
                 // Categories
                 if (storageManager.getCategories().length === 0) {
@@ -101,7 +101,7 @@ const Lobby = (props) => {
             }
         }
         fetchData();
-    }, [usersInLobby, hostUsername]);
+    }, [usersInLobby, hostUsername, gamePin]);
 
     let playerListContent = (
         <Container align="center">
