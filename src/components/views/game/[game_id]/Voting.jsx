@@ -3,10 +3,10 @@ import { Checkbox, Paper, Stack, Table, Text, Title } from "@mantine/core";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { storageManager } from "../../../../helpers/storageManager";
-import { handleError } from "../../../../helpers/RestApi";
+import { handleError, RestApi } from "../../../../helpers/RestApi";
 
 const Voting = () => {
-    const { gamePin, round, categoryIndex } = useParams();
+    const { categoryIndex } = useParams();
 
     const letter = storageManager.getLetter();
     const categories = storageManager.getCategories();
@@ -29,7 +29,8 @@ const Voting = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                setAnswersCategory([{ 1: "Arbon" }, { 2: "Appenzell" }, { 4: "Neuenburg" }, { 23: "Nyon" }]);
+                //  setAnswersCategory([{ 1: "Arbon" }, { 2: "Appenzell" }, { 4: "Neuenburg" }, { 23: "Nyon" }]);
+                setAnswersCategory(await RestApi.getAnswersForCategory(category));
             } catch (error) {
                 console.error(`Something went wrong while fetching the categories: \n${handleError(error)}`);
                 console.error("Details:", error);
