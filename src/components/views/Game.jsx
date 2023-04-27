@@ -37,7 +37,12 @@ const Game = () => {
                 Join existing Game with PIN:
             </Text>
             <PinInput onChange={handlePinChange} />
-            <StandardButton onClick={() => doJoin(pin)}>Join Game{"   "}</StandardButton>
+            <StandardButton
+                disabled={pin.length !== 4}
+                onClick={() => doJoin(pin)}
+            >
+                Join Game{"   "}
+            </StandardButton>
             <StandardButton
                 sx={{ marginTop: "5%" }}
                 onClick={() => history.push("/dashboard")}
