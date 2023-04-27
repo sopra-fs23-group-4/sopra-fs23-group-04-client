@@ -147,6 +147,15 @@ export class RestApi {
         };
         return await restApi.post(`/games/${gamePin}/${round}/${category}`, requestBody, { headers });
     }
+
+    static async getVotes(gamePin, round, category) {
+        const headers = {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: storageManager.getToken(),
+        };
+        return await restApi.post(`/games/${gamePin}/votings/${round}/${category}`, { headers });
+    }
 }
 export const handleError = (error) => {
     const response = error.response;
