@@ -1,41 +1,92 @@
 import BaseContainer from "../../../ui/BaseContainer";
 import { Checkbox, Paper, Stack, Table, Text, Title } from "@mantine/core";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { storageManager } from "../../../../helpers/storageManager";
+import { handleError } from "../../../../helpers/RestApi";
 
 const Voting = () => {
-    const { categoryIndex } = useParams();
+    const { gamePin, round, categoryIndex } = useParams();
 
     const letter = storageManager.getLetter();
     const categories = storageManager.getCategories();
     const category = categories[categoryIndex];
     const answers = storageManager.getAnswers();
     const answer = answers[categoryIndex] ? answers[categoryIndex] : "none";
-    const [answersCategory] = useState(["Amsterdam", "Kölle", "Aarau"]);
+    const [answersCategory, setAnswersCategory] = useState([{ dummy: "" }]);
+    const [votes, setVotes] = useState({});
+
+    useEffect(() => {
+        const newDict = {};
+        answersCategory.forEach((obj) => {
+            const key = Object.keys(obj)[0];
+            newDict[key] = null;
+        });
+        setVotes(newDict);
+        console.log(votes);
+    }, [answersCategory]);
+
+    useEffect(() => {
+        let isMounted = true;
+        async function fetchData() {
+            try {
+                setAnswersCategory([{ 1: "Arbon" }, { 2: "Appenzell" }, { 4: "Neuenburg" }, { 23: "Nyon" }]);
+            } catch (error) {
+                console.error(`Something went wrong while fetching the categories: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the categories! See the console for details.");
+            }
+        }
+        fetchData();
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     const rows = answersCategory.map((answer) => (
-        <tr key={answer}>
+        <tr key={Object.keys(answer)[0]}>
             <td>
-                <strong>{answer}</strong>{" "}
+                <strong>{Object.values(answer)[0]}</strong>{" "}
             </td>
             <td>
                 <Stack align="center">
                     {" "}
-                    <Checkbox checked="true" />
+                    <Checkbox
+                        color="violet"
+                        onChange={(event) => {
+                            const newVotes = { ...votes };
+                            newVotes[Object.keys(answer)[0]] = event.target.checked ? "CORRECT_UNIQUE" : null;
+                            setVotes(newVotes);
+                        }}
+                    />
                 </Stack>
             </td>
             <td>
                 <Stack align="center">
                     {" "}
-                    <Checkbox />
+                    <Checkbox
+                        color="orange"
+                        onChange={(event) => {
+                            const newVotes = { ...votes };
+                            newVotes[Object.keys(answer)[0]] = event.target.checked ? "CORRECT_NOT_UNIQUE" : null;
+                            setVotes(newVotes);
+                        }}
+                    />
                 </Stack>
             </td>
             <td>
                 {" "}
                 <Stack align="center">
                     {" "}
-                    <Checkbox />
+                    <Checkbox
+                        color="red"
+                        value="WRONG"
+                        onChange={(event) => {
+                            const newVotes = { ...votes };
+                            newVotes[Object.keys(answer)[0]] = event.target.checked ? "WRONG" : null;
+                            setVotes(newVotes);
+                        }}
+                    />
                 </Stack>
             </td>
         </tr>
@@ -54,7 +105,7 @@ const Voting = () => {
                 color="white"
                 size="80"
             >
-                {letter}
+                {letter} {gamePin} {round}
             </Title>
             <Text
                 align="center"
