@@ -52,7 +52,7 @@ const Board = () => {
     const postAnswers = async (answersDict) => {
         try {
             await RestApi.postAnswers(gamePin, round, answersDict);
-            history.push(`/game/${gamePin}/round/${round}/scoreboard`);
+            history.push(`/game/${gamePin}/round/${round}/voting/0`);
         } catch (error) {
             alert(`Something went wrong while sending the answers: \n${handleError(error)}`);
         }
@@ -83,7 +83,9 @@ const Board = () => {
 
     let onMessageReceived = (msg) => {
         console.log(msg);
-        doDoneWs();
+        if (msg === "end") {
+            doDoneWs();
+        }
     };
 
     const Category = ({ category }) => {
@@ -128,7 +130,7 @@ const Board = () => {
         <BaseContainer>
             <SockJsClient
                 url={SOCKET_URL}
-                topics={[`/topic/lobbies/${gamePin}`]}
+                topics={[`/topic/games/${gamePin}/rounds`]}
                 onConnect={onConnected}
                 onDisconnect={onDisconnected}
                 onMessage={(msg) => onMessageReceived(msg)}
