@@ -23,36 +23,34 @@ const Lobby = (props) => {
 
     const history = useHistory();
 
-    const [message, setMessage] = useState("You server message here.");
     const [hostUsername, setHostUsername] = useState("");
     const [usersInLobby, setUsersInLobby] = useState([]);
-    const [fetchedCategorys, setfetchedCategorys] = useState([]);
 
     let onConnected = () => {
         console.log("Connected!!");
     };
-    let disconnect = () => {
+    let onDisconnected = () => {
         console.log("disconnect");
     };
 
     let onMessageReceived = (msg) => {
+        console.log(msg);
         if (msg.type === "gameUsers") {
-            console.log("message with type gameUsers arrives");
-            console.log(msg);
-            // if (hostUsername !== msg.hostusrname)
-            //setHostUsername(msg.hostusername);
-            //setUsersInLobby(msg.usernames);
+            if (hostUsername !== msg.hostUsername) {
+                setHostUsername(msg.hostUsername);
+            }
+            setUsersInLobby(msg.usernames);
         } else if (msg.type === "startGame") {
-            // storageManager.setAnswers(Array(msg.categories.length).fill(null));
-            // storageManager.setLetter(msg.letter);
-            // storageManager.setCategories(msg.categories);
-            // history.push(`/game/${gamePin}/round/${1}/board/`);
+            storageManager.setAnswers(Array(storageManager.getCategories().length).fill(null));
+            storageManager.setLetter(msg.letter);
+            history.push(`/game/${gamePin}/round/${1}/board/`);
         }
     };
 
     async function doLeave() {
         try {
             await RestApi.leaveGame(gamePin);
+            sessionStorage.removeItem("categories");
             history.push(`/game`);
         } catch (error) {
             alert(`Something went wrong leaving the lobby: \n${handleError(error)}`);
@@ -70,11 +68,22 @@ const Lobby = (props) => {
     useEffect(() => {
         async function fetchData() {
             try {
-                // update userList and check if Host value has changed
+                if (storageManager.getRole() === Role.HOST) {
+                    setHostUsername(storageManager.getUsername);
+                }
+                // update sessionStorage
+                // Role
                 if (hostUsername === storageManager.getUsername()) {
-                    storageManager.setRole(Role.HOST);
-                } else {
+                    if (storageManager.getRole() !== Role.HOST) {
+                        storageManager.setRole(Role.HOST);
+                    }
+                } else if (storageManager.getRole() !== Role.PLAYER) {
                     storageManager.setRole(Role.PLAYER);
+                }
+                // Categories
+                if (storageManager.getCategories().length === 0) {
+                    const response = await RestApi.getGameCategories(gamePin);
+                    storageManager.setCategories(response);
                 }
             } catch (error) {
                 console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
@@ -120,7 +129,7 @@ const Lobby = (props) => {
                 url={SOCKET_URL}
                 topics={[`/topic/lobbies/${gamePin}`]}
                 onConnect={onConnected}
-                onDisconnect={disconnect()}
+                onDisconnect={onDisconnected}
                 onMessage={(msg) => onMessageReceived(msg)}
                 debug={false}
             />
@@ -133,7 +142,6 @@ const Lobby = (props) => {
                 <Title color="white">PIN:</Title>
                 <Title color="white">{gamePin}</Title>
             </Flex>
-            <div>{message}</div>
             <Paper
                 shadow="xl"
                 radius="md"
