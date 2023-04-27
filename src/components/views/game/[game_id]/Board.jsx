@@ -10,8 +10,8 @@ import * as gameFunctions from "../../../../helpers/gameFunction";
 import SockJsClient from "react-stomp";
 
 const Board = () => {
-    const history = useHistory();
     const SOCKET_URL = "http://localhost:8080/ws-message";
+    const history = useHistory();
     const { gamePin, round } = useParams();
 
     const letter = storageManager.getLetter();

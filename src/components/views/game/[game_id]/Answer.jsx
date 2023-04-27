@@ -6,8 +6,10 @@ import StandardButton from "../../../ui/StandardButton";
 import { storageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import * as gameFunctions from "../../../../helpers/gameFunction";
+import SockJsClient from "react-stomp";
 
 const Answer = () => {
+    const SOCKET_URL = "http://localhost:8080/ws-message";
     const history = useHistory();
     const { gamePin, round, answerIndex } = useParams();
 
@@ -67,9 +69,28 @@ const Answer = () => {
         postAnswers(answersDict);
     };
 
+    let onConnected = () => {
+        console.log("Connected!!");
+    };
+    let onDisconnected = () => {
+        console.log("disconnect");
+    };
+
+    let onMessageReceived = (msg) => {
+        console.log(msg);
+        doDone();
+    };
+
     return (
         <BaseContainer>
-            {" "}
+            <SockJsClient
+                url={SOCKET_URL}
+                topics={[`/topic/lobbies/${gamePin}`]}
+                onConnect={onConnected}
+                onDisconnect={onDisconnected}
+                onMessage={(msg) => onMessageReceived(msg)}
+                debug={false}
+            />
             <Title
                 sx={{ marginTop: "2%" }}
                 color="white"
