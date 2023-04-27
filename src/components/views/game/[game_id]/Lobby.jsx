@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Title, Flex, Stack, Paper, Container, Group } from "@mantine/core";
+import { Title, Flex, Stack, Paper, Container } from "@mantine/core";
 import StandardButton from "../../../ui/StandardButton";
 import { Role, storageManager } from "../../../../helpers/storageManager";
 import { useHistory } from "react-router-dom";
@@ -73,10 +73,11 @@ const Lobby = (props) => {
         async function fetchData() {
             try {
                 if (unMounted) {
-                    const response = await RestApi.getGameUsers(gamePin);
-                    setUsersInLobby(response.usernames);
-                    setHostUsername(response.hostUsername);
+                    const gameUsersResponse = await RestApi.getGameUsers(gamePin);
+                    setUsersInLobby(gameUsersResponse.usernames);
+                    setHostUsername(gameUsersResponse.hostUsername);
                     setUnMounted(false);
+                    await new Promise((resolve) => setTimeout(resolve, 500));
                 }
 
                 // update sessionStorage
@@ -90,8 +91,8 @@ const Lobby = (props) => {
                 }
                 // Categories
                 if (storageManager.getCategories().length === 0) {
-                    const response = await RestApi.getGameCategories(gamePin);
-                    storageManager.setCategories(response);
+                    const categoriesResponse = await RestApi.getGameCategories(gamePin);
+                    storageManager.setCategories(categoriesResponse);
                 }
             } catch (error) {
                 console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
@@ -130,10 +131,12 @@ const Lobby = (props) => {
         );
     }
 
-    let startGameButton = " ";
+    let startGameButton;
 
     if (storageManager.getRole() === Role.HOST) {
         startGameButton = <StandardButton onClick={() => startGame()}>Start Game</StandardButton>;
+    } else {
+        startGameButton = "";
     }
 
     return (
@@ -180,10 +183,8 @@ const Lobby = (props) => {
                 </Flex>
                 {playerListContent}
             </Paper>
-            <Group sx={{ paddingTop: "5%" }}>
-                <StandardButton onClick={() => doLeave()}>Leave</StandardButton>
-                {startGameButton}
-            </Group>
+            {startGameButton}
+            <StandardButton onClick={() => doLeave()}>Leave</StandardButton>
         </BaseContainer>
     );
 };
