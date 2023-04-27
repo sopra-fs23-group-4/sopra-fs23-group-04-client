@@ -77,6 +77,20 @@ export class storageManager {
         return categories ? JSON.parse(categories) : [];
     }
 
+    static setRound(round) {
+        sessionStorage.setItem("round", round);
+    }
+    static getRound() {
+        sessionStorage.getItem("round");
+    }
+
+    static setGamePin(gamePin) {
+        sessionStorage.setItem("gamePin", gamePin);
+    }
+    static getGamePin() {
+        sessionStorage.getItem("gamePin");
+    }
+
     static setLetter(letter) {
         sessionStorage.setItem("letter", letter);
     }
@@ -96,5 +110,7 @@ export class storageManager {
         sessionStorage.removeItem("categories");
         sessionStorage.removeItem("letter");
         sessionStorage.removeItem("answers");
+        sessionStorage.removeItem("round");
+        sessionStorage.removeItem("gamePin");
     }
 }
