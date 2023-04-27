@@ -27,7 +27,6 @@ const Voting = () => {
     }, [answersCategory]);
 
     useEffect(() => {
-        let isMounted = true;
         async function fetchData() {
             try {
                 setAnswersCategory([{ 1: "Arbon" }, { 2: "Appenzell" }, { 4: "Neuenburg" }, { 23: "Nyon" }]);
@@ -38,9 +37,6 @@ const Voting = () => {
             }
         }
         fetchData();
-        return () => {
-            isMounted = false;
-        };
     }, []);
 
     const rows = answersCategory.map((answer) => (
@@ -52,7 +48,8 @@ const Voting = () => {
                 <Stack align="center">
                     {" "}
                     <Checkbox
-                        color="violet"
+                        size="md"
+                        color="green"
                         onChange={(event) => {
                             const newVotes = { ...votes };
                             newVotes[Object.keys(answer)[0]] = event.target.checked ? "CORRECT_UNIQUE" : null;
@@ -65,6 +62,7 @@ const Voting = () => {
                 <Stack align="center">
                     {" "}
                     <Checkbox
+                        size="md"
                         color="orange"
                         onChange={(event) => {
                             const newVotes = { ...votes };
@@ -79,6 +77,7 @@ const Voting = () => {
                 <Stack align="center">
                     {" "}
                     <Checkbox
+                        size="md"
                         color="red"
                         value="WRONG"
                         onChange={(event) => {
@@ -101,40 +100,34 @@ const Voting = () => {
     };
     return (
         <BaseContainer>
-            <Title
-                color="white"
-                size="80"
-            >
-                {letter} {gamePin} {round}
-            </Title>
+            <Title color="white">{storageManager.getUsername()}</Title>
             <Text
                 align="center"
                 color="white"
                 size="lg"
                 fw={700}
             >
-                please vote:
+                voting
             </Text>
 
             <Paper
                 shadow="xl"
                 radius="md"
                 p="lg"
-                sx={{ background: "#00acee", minWidth: "70%" }}
+                sx={{ background: "white", minWidth: "70%" }}
             >
-                <Title
-                    align="center"
-                    color="white"
-                >
-                    {category}
+                <Title align="center">
+                    {category} ({letter})
                 </Title>{" "}
                 <Text
                     align="center"
                     size="lg"
+                    sx={{ marginTop: "1%" }}
                 >
                     your answer: <strong> {answer} </strong>
                 </Text>
                 <Table
+                    striped
                     verticalSpacing="md"
                     fontSize="md"
                 >
