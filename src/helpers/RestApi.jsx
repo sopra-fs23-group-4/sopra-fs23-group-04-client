@@ -113,9 +113,8 @@ export class RestApi {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
             Authorization: storageManager.getToken(),
-            Category: category,
         };
-        const response = await restApi.get(`/games/${gamePin}/${round}`, { headers });
+        const response = await restApi.get(`/games/${gamePin}/${round}/${category}`, { headers });
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
         return response.data;
@@ -127,9 +126,8 @@ export class RestApi {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*",
             Authorization: storageManager.getToken(),
-            Category: category,
         };
-        await restApi.post(`/games/${gamePin}/${round}`, requestBody, { headers });
+        await restApi.post(`/games/${gamePin}/${round}/${category}`, requestBody, { headers });
     }
 }
 export const handleError = (error) => {
