@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Title, Flex, Stack, Paper, Loader, Container, Group } from "@mantine/core";
+import { Title, Flex, Stack, Paper, Container, Group } from "@mantine/core";
 import StandardButton from "../../../ui/StandardButton";
 import { Role, storageManager } from "../../../../helpers/storageManager";
 import { useHistory } from "react-router-dom";
@@ -43,6 +43,8 @@ const Lobby = (props) => {
         } else if (msg.type === "startGame") {
             storageManager.setAnswers(Array(storageManager.getCategories().length).fill(null));
             storageManager.setLetter(msg.letter);
+            storageManager.setRound(1);
+            storageManager.setGamePin(gamePin);
             history.push(`/game/${gamePin}/round/${1}/board/`);
         }
     };
@@ -50,7 +52,7 @@ const Lobby = (props) => {
     async function doLeave() {
         try {
             await RestApi.leaveGame(gamePin);
-            sessionStorage.removeItem("categories");
+            storageManager.resetRound();
             history.push(`/game`);
         } catch (error) {
             alert(`Something went wrong leaving the lobby: \n${handleError(error)}`);
@@ -96,7 +98,12 @@ const Lobby = (props) => {
 
     let playerListContent = (
         <Container align="center">
-            <Loader />
+            <Title
+                order={3}
+                color="white"
+            >
+                You are alone :(
+            </Title>
         </Container>
     );
     if (usersInLobby.length !== 0) {
