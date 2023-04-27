@@ -59,17 +59,17 @@ export class RestApi {
     }
 
     static async getAllCategories() {
-        const response = await restApi.get(`/game/categories`);
+        const response = await restApi.get(`/games/categories`);
         return response.data.categories;
     }
 
     static async getGameCategories(gamePin) {
-        const response = await restApi.get(`/game/${gamePin}/categories`);
+        const response = await restApi.get(`/games/${gamePin}/categories`);
         return response.data.categories;
     }
 
     static async getGameUsers(gamePin) {
-        const response = await restApi.get(`/game/${gamePin}/users`);
+        const response = await restApi.get(`/games/${gamePin}/users`);
         return response.data;
     }
 
@@ -103,7 +103,7 @@ export class RestApi {
     }
 
     static async startGame(gamePin) {
-        await restApi.post(`/game/${gamePin}/start-game`);
+        await restApi.post(`/games/${gamePin}/start`);
     }
 
     static EndRound(gamePin, round) {
