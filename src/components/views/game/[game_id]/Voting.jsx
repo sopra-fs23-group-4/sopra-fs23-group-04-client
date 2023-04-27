@@ -6,7 +6,7 @@ import { storageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 
 const Voting = () => {
-    const { categoryIndex } = useParams();
+    const { gamePin, round, categoryIndex } = useParams();
 
     const letter = storageManager.getLetter();
     const categories = storageManager.getCategories();
@@ -23,14 +23,12 @@ const Voting = () => {
             newDict[key] = null;
         });
         setVotes(newDict);
-        console.log(votes);
     }, [answersCategory]);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                //  setAnswersCategory([{ 1: "Arbon" }, { 2: "Appenzell" }, { 4: "Neuenburg" }, { 23: "Nyon" }]);
-                setAnswersCategory(await RestApi.getAnswersForCategory(category));
+                setAnswersCategory(await RestApi.getAnswersForCategory(gamePin, round, category));
             } catch (error) {
                 console.error(`Something went wrong while fetching the categories: \n${handleError(error)}`);
                 console.error("Details:", error);
