@@ -1,12 +1,15 @@
 import { useParams } from "react-router-dom";
 import BaseContainer from "../../../ui/BaseContainer";
-import React, { useState } from "react";
-import { Paper, Stack, Table, Text, Title } from "@mantine/core";
+import React from "react";
+import { Paper, Table, Text, Title } from "@mantine/core";
+import { Check, Equal, LetterX } from "tabler-icons-react";
 import { storageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
+import SockJsClient from "react-stomp";
 
 const VotingResult = () => {
-    const { categoryIndex } = useParams();
+    const SOCKET_URL = "http://localhost:8080/ws-message";
+    const { gamePin, categoryIndex } = useParams();
 
     const letter = storageManager.getLetter();
     const categories = storageManager.getCategories();
@@ -37,6 +40,17 @@ const VotingResult = () => {
         contentRole = <StandardButton>DONE</StandardButton>;
     }
 
+    let onConnected = () => {
+        console.log("Connected!!");
+    };
+    let onDisconnected = () => {
+        console.log("disconnect");
+    };
+
+    let onMessageReceived = (msg) => {
+        console.log(msg);
+    };
+
     const stylesCenter = {
         tableHeader: {
             textAlign: "center",
@@ -54,6 +68,14 @@ const VotingResult = () => {
 
     return (
         <BaseContainer>
+            <SockJsClient
+                url={SOCKET_URL}
+                topics={[`/topic/lobbies/${gamePin}`]}
+                onConnect={onConnected}
+                onDisconnect={onDisconnected}
+                onMessage={(msg) => onMessageReceived(msg)}
+                debug={false}
+            />
             <Title color="white">{storageManager.getUsername()}</Title>
             <Text
                 align="center"
@@ -87,9 +109,27 @@ const VotingResult = () => {
                             <th style={stylesLeft.tableHeader}>user</th>
                             <th style={stylesLeft.tableHeader}>answer</th>
                             <th style={stylesLeft.tableHeader}>points</th>
-                            <th style={stylesCenter.tableHeader}>+</th>
-                            <th style={stylesCenter.tableHeader}>=</th>
-                            <th style={stylesCenter.tableHeader}>x</th>
+                            <th style={stylesCenter.tableHeader}>
+                                <Check
+                                    size={20}
+                                    strokeWidth={3}
+                                    color={"green"}
+                                />{" "}
+                            </th>
+                            <th style={stylesCenter.tableHeader}>
+                                <Equal
+                                    size={20}
+                                    strokeWidth={3}
+                                    color={"orange"}
+                                />{" "}
+                            </th>
+                            <th style={stylesCenter.tableHeader}>
+                                <LetterX
+                                    size={16}
+                                    strokeWidth={3}
+                                    color={"red"}
+                                />
+                            </th>
                         </tr>
                     </thead>
                     <tbody>{rows}</tbody>

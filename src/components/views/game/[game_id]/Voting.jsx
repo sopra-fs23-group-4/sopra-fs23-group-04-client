@@ -1,11 +1,14 @@
 import BaseContainer from "../../../ui/BaseContainer";
 import { Checkbox, Paper, Stack, Table, Text, Title } from "@mantine/core";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { storageManager } from "../../../../helpers/storageManager";
-import { handleError } from "../../../../helpers/RestApi";
+import { handleError, RestApi } from "../../../../helpers/RestApi";
+import SockJsClient from "react-stomp";
 
 const Voting = () => {
+    const SOCKET_URL = "http://localhost:8080/ws-message";
+    const history = useHistory();
     const { gamePin, round, categoryIndex } = useParams();
 
     const letter = storageManager.getLetter();
@@ -23,13 +26,13 @@ const Voting = () => {
             newDict[key] = null;
         });
         setVotes(newDict);
-        console.log(votes);
     }, [answersCategory]);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                setAnswersCategory([{ 1: "Arbon" }, { 2: "Appenzell" }, { 4: "Neuenburg" }, { 23: "Nyon" }]);
+                console.log("hello");
+                setAnswersCategory(await RestApi.getAnswersForCategory(gamePin, round, category));
             } catch (error) {
                 console.error(`Something went wrong while fetching the categories: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -38,6 +41,29 @@ const Voting = () => {
         }
         fetchData();
     }, []);
+
+    async function doDone() {
+        try {
+            console.log("hello");
+            await RestApi.postVotes(gamePin, round, category, votes);
+            history.push(`/game/${gamePin}/round/${round}/votingResults/${categoryIndex}`);
+        } catch (error) {
+            console.error(`Something went wrong while sending the votes: \n${handleError(error)}`);
+            console.error("Details:", error);
+            alert("Something went wrong while sending the votes! See the console for details.");
+        }
+    }
+    let onConnected = () => {
+        console.log("Connected!!");
+    };
+    let onDisconnected = () => {
+        console.log("disconnect");
+    };
+
+    let onMessageReceived = (msg) => {
+        console.log(msg);
+        doDone();
+    };
 
     const rows = answersCategory.map((answer) => (
         <tr key={Object.keys(answer)[0]}>
@@ -100,6 +126,14 @@ const Voting = () => {
     };
     return (
         <BaseContainer>
+            <SockJsClient
+                url={SOCKET_URL}
+                topics={[`/topic/lobbies/${gamePin}`]}
+                onConnect={onConnected}
+                onDisconnect={onDisconnected}
+                onMessage={(msg) => onMessageReceived(msg)}
+                debug={false}
+            />
             <Title color="white">{storageManager.getUsername()}</Title>
             <Text
                 align="center"

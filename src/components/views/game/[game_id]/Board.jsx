@@ -7,9 +7,11 @@ import { Button, Stack, Title } from "@mantine/core";
 import { storageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import * as gameFunctions from "../../../../helpers/gameFunction";
+import SockJsClient from "react-stomp";
 
 const Board = () => {
     const history = useHistory();
+    const SOCKET_URL = "http://localhost:8080/ws-message";
     const { gamePin, round } = useParams();
 
     const letter = storageManager.getLetter();
@@ -67,6 +69,18 @@ const Board = () => {
         history.push(`/game/${gamePin}/round/${round}/board/${index}`);
     };
 
+    let onConnected = () => {
+        console.log("Connected!!");
+    };
+    let onDisconnected = () => {
+        console.log("disconnect");
+    };
+
+    let onMessageReceived = (msg) => {
+        console.log(msg);
+        doDone();
+    };
+
     const Category = ({ category }) => {
         let index = categories.indexOf(category);
         let iconContent = (
@@ -107,6 +121,14 @@ const Board = () => {
 
     return (
         <BaseContainer>
+            <SockJsClient
+                url={SOCKET_URL}
+                topics={[`/topic/lobbies/${gamePin}`]}
+                onConnect={onConnected}
+                onDisconnect={onDisconnected}
+                onMessage={(msg) => onMessageReceived(msg)}
+                debug={false}
+            />
             <Title
                 sx={{ marginTop: "2%" }}
                 color="white"
