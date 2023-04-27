@@ -1,37 +1,62 @@
 import { useParams } from "react-router-dom";
 import BaseContainer from "../../../ui/BaseContainer";
-import React from "react";
+import React, { useEffect } from "react";
 import { Paper, Table, Text, Title } from "@mantine/core";
 import { Check, Equal, LetterX } from "tabler-icons-react";
 import { storageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
 import SockJsClient from "react-stomp";
+import { handleError, RestApi } from "../../../../helpers/RestApi";
 
 const VotingResult = () => {
     const SOCKET_URL = "http://localhost:8080/ws-message";
-    const { gamePin, categoryIndex } = useParams();
+    const { gamePin, round, categoryIndex } = useParams();
 
     const letter = storageManager.getLetter();
     const categories = storageManager.getCategories();
     const category = categories[categoryIndex];
-    const votingresults = [
-        ["wigeto", "Amsterdam", 0, 3, 0, 1],
-        ["skavnir", "Altnau", 3, 0, 0, 2],
-        ["AlexBac ", "Amsterdam", 0, 3, 0, 1],
+    const VotingResults = [
+        {
+            username: "wigeto",
+            answerString: "Amsterdam",
+            numberOfUnique: 0,
+            numberOfNotUnique: 1,
+            numberOfWrong: 2,
+        },
+        {
+            username: "skavnir",
+            answerString: "Amsterdam",
+            numberOfUnique: 0,
+            numberOfNotUnique: 1,
+            numberOfWrong: 2,
+        },
     ];
 
-    const rows = votingresults.map((result, index) => (
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                console.log(await RestApi.getVotes(gamePin, round, category));
+            } catch (error) {
+                console.error(`Something went wrong while fetching the votes: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the votes! See the console for details.");
+            }
+        }
+        fetchData();
+    }, []);
+
+    const rows = VotingResults.map((result, index) => (
         <tr key={index}>
             <td>
-                <strong> {result[0]}</strong>
+                <strong> {result.username}</strong>
             </td>
-            <td>{result[1]}</td>
+            <td>{result.answerString}</td>
             <td>
-                <strong>{result[5]}</strong>{" "}
+                <strong>{result.username}</strong>{" "}
             </td>
-            <td align="center">{result[2]}</td>
-            <td align="center">{result[3]}</td>
-            <td align="center">{result[4]}</td>
+            <td align="center">{result.numberOfUnique}</td>
+            <td align="center">{result.numberOfNotUnique}</td>
+            <td align="center">{result.numberOfWrong}</td>
         </tr>
     ));
 
