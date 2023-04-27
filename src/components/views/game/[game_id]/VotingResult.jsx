@@ -43,7 +43,7 @@ const VotingResult = () => {
             }
         }
         fetchData();
-    }, []);
+    }, [gamePin, round, category]);
 
     const rows = VotingResults.map((result, index) => (
         <tr key={index}>

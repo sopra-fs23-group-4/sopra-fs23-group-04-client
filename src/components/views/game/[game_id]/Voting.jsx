@@ -39,7 +39,7 @@ const Voting = () => {
             }
         }
         fetchData();
-    }, []);
+    }, [gamePin, round, category]);
 
     async function doDone() {
         try {
