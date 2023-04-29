@@ -1,6 +1,6 @@
 import { useHistory, useParams } from "react-router-dom";
 import { Checkbox as CheckIcon, Edit as EditIcon } from "tabler-icons-react";
-import React from "react";
+import React,{useState} from "react";
 import BaseContainer from "../../../ui/BaseContainer";
 import StandardButton from "../../../ui/StandardButton";
 import { Button, Stack, Title } from "@mantine/core";
@@ -18,6 +18,7 @@ const Board = () => {
     const letter = storageManager.getLetter();
     const categories = storageManager.getCategories();
     const answers = storageManager.getAnswers();
+    const [timer, setTimer] = useState(45);
 
     /*    useEffect(() => {
         let isMounted = true;
@@ -84,8 +85,11 @@ const Board = () => {
 
     let onMessageReceived = async (msg) => {
         console.log(msg);
-        if (msg === "end") {
+        if (msg.type === "end") {
             await doDoneWs();
+        }
+        else if (msg.type === "roundTimer") {
+            setTimer(msg.timeRemaining);
         }
     };
 
@@ -131,7 +135,7 @@ const Board = () => {
         <BaseContainer>
             <SockJsClient
                 url={SOCKET_URL}
-                topics={[`/topic/games/${gamePin}/rounds`]}
+                topics={["/topic/lobbies/${gamePin}"]}
                 onConnect={onConnected}
                 onDisconnect={onDisconnected}
                 onMessage={(msg) => onMessageReceived(msg)}
@@ -143,6 +147,9 @@ const Board = () => {
                 size="80"
             >
                 {letter}
+            </Title>
+            <Title>
+                Time remaining: {timer}
             </Title>
             <Stack
                 position="center"

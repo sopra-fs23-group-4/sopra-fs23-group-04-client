@@ -12,8 +12,9 @@ const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const doLogin = async () => {
+    const doLogin = async (e) => {
         try {
+            e.preventDefault();
             const user = await RestApi.login(username, password);
             context.setUser(user);
             history.push(`/dashboard`);
@@ -61,7 +62,7 @@ const Login = () => {
                 <StandardButton
                     w={rem(100)}
                     disabled={!username || !password}
-                    onClick={() => doLogin()}
+                    onClick={(e) => doLogin(e)}
                 >
                     Login
                 </StandardButton>
