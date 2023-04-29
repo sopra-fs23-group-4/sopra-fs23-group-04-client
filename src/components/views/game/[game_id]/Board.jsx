@@ -84,7 +84,7 @@ const Board = () => {
     };
 
     let onMessageReceived = async (msg) => {
-        console.log(msg);
+        console.log(msg.type);
         if (msg.type === "end") {
             await doDoneWs();
         }
