@@ -22,6 +22,7 @@ const VotingResult = () => {
             numberOfUnique: 0,
             numberOfNotUnique: 1,
             numberOfWrong: 2,
+            points: 1,
         },
         {
             username: "skavnir",
@@ -29,6 +30,23 @@ const VotingResult = () => {
             numberOfUnique: 0,
             numberOfNotUnique: 1,
             numberOfWrong: 2,
+            points: 99,
+        },
+        {
+            username: "a",
+            answerString: "Amsterdam",
+            numberOfUnique: 0,
+            numberOfNotUnique: 1,
+            numberOfWrong: 2,
+            points: 1,
+        },
+        {
+            username: "b",
+            answerString: "Amsterdam",
+            numberOfUnique: 0,
+            numberOfNotUnique: 1,
+            numberOfWrong: 2,
+            points: 1,
         },
     ];
 
@@ -46,13 +64,18 @@ const VotingResult = () => {
     }, [gamePin, round, category]);
 
     const rows = VotingResults.map((result, index) => (
-        <tr key={index}>
+        <tr
+            key={index}
+            style={{
+                backgroundColor: result.username === storageManager.getUsername() ? "gold" : "transparent",
+            }}
+        >
             <td>
                 <strong> {result.username}</strong>
             </td>
             <td>{result.answerString}</td>
             <td>
-                <strong>{result.username}</strong>{" "}
+                <strong>{result.points}</strong>{" "}
             </td>
             <td align="center">{result.numberOfUnique}</td>
             <td align="center">{result.numberOfNotUnique}</td>
