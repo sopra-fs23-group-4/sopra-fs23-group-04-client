@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Checkbox, Paper, Stack, Table, Text, Title } from "@mantine/core";
+import { Paper, Radio, Stack, Table, Text, Title } from "@mantine/core";
 import { useHistory, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { storageManager } from "../../../../helpers/storageManager";
@@ -17,6 +17,7 @@ const Voting = () => {
     const answers = storageManager.getAnswers();
     const answer = answers[categoryIndex] ? answers[categoryIndex] : "none";
     const [answersCategory, setAnswersCategory] = useState([{ dummy: "" }]);
+    //const [answersCategory, setAnswersCategory] = useState([{ 1: "Arbon" }, { 2: "Appenzell" }, { 4: "Neuenburg" }, { 23: "Nyon" }]);
     const [votes, setVotes] = useState({});
 
     useEffect(() => {
@@ -33,9 +34,9 @@ const Voting = () => {
             try {
                 setAnswersCategory(await RestApi.getAnswersForCategory(gamePin, round, category));
             } catch (error) {
-                console.error(`Something went wrong while fetching the categories: \n${handleError(error)}`);
+                console.error(`Something went wrong while fetching the answers: \n${handleError(error)}`);
                 console.error("Details:", error);
-                alert("Something went wrong while fetching the categories! See the console for details.");
+                alert("Something went wrong while fetching the answers! See the console for details.");
             }
         }
         fetchData();
@@ -72,12 +73,14 @@ const Voting = () => {
             <td>
                 <Stack align="center">
                     {" "}
-                    <Checkbox
-                        size="md"
+                    <Radio
                         color="green"
-                        onChange={(event) => {
+                        icon="filled"
+                        name={Object.keys(answer)[0]}
+                        checked={votes[Object.keys(answer)[0]] === "CORRECT_UNIQUE"}
+                        onChange={() => {
                             const newVotes = { ...votes };
-                            newVotes[Object.keys(answer)[0]] = event.target.checked ? "CORRECT_UNIQUE" : null;
+                            newVotes[Object.keys(answer)[0]] = "CORRECT_UNIQUE";
                             setVotes(newVotes);
                         }}
                     />
@@ -86,12 +89,14 @@ const Voting = () => {
             <td>
                 <Stack align="center">
                     {" "}
-                    <Checkbox
-                        size="md"
+                    <Radio
                         color="orange"
-                        onChange={(event) => {
+                        icon="filled"
+                        name={Object.keys(answer)[0]}
+                        checked={votes[Object.keys(answer)[0]] === "CORRECT_NOT_UNIQUE"}
+                        onChange={() => {
                             const newVotes = { ...votes };
-                            newVotes[Object.keys(answer)[0]] = event.target.checked ? "CORRECT_NOT_UNIQUE" : null;
+                            newVotes[Object.keys(answer)[0]] = "CORRECT_NOT_UNIQUE";
                             setVotes(newVotes);
                         }}
                     />
@@ -101,13 +106,14 @@ const Voting = () => {
                 {" "}
                 <Stack align="center">
                     {" "}
-                    <Checkbox
-                        size="md"
+                    <Radio
                         color="red"
-                        value="WRONG"
-                        onChange={(event) => {
+                        icon="filled"
+                        name={Object.keys(answer)[0]}
+                        checked={votes[Object.keys(answer)[0]] === "WRONG"}
+                        onChange={() => {
                             const newVotes = { ...votes };
-                            newVotes[Object.keys(answer)[0]] = event.target.checked ? "WRONG" : null;
+                            newVotes[Object.keys(answer)[0]] = "WRONG";
                             setVotes(newVotes);
                         }}
                     />
@@ -115,7 +121,6 @@ const Voting = () => {
             </td>
         </tr>
     ));
-
     const styles = {
         tableHeader: {
             textAlign: "center",
