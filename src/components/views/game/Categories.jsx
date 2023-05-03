@@ -10,7 +10,7 @@ const Categories = () => {
     const history = useHistory();
 
     const [categories, setCategories] = useState([]);
-    const [categoriesSelected, setCategoriesSelected] = useState(null);
+    const [categoriesSelected, setCategoriesSelected] = useState([]);
 
     useEffect(() => {
         let isMounted = true;
@@ -80,6 +80,7 @@ const Categories = () => {
         <BaseContainer align="center">
             <Title color="white">Category Selection</Title> {contentCategory}
             <StandardButton
+                disabled={categoriesSelected.length === 0}
                 onClick={() => doContinue()}
                 sx={{ marginTop: "5%" }}
             >
