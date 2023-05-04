@@ -168,10 +168,11 @@ const Lobby = (props) => {
                 <Title color="white">{gamePin}</Title>
             </Flex>
             <Paper
-                shadow="xl"
-                radius="md"
-                p="lg"
-                sx={{ background: "#00acee", minWidth: "220px" }}
+              radius="md"
+              shadow="xl"
+              withBorder="true"
+              p="lg"
+              sx={{ background: "inherit", minWidth: "220px", borderWidth: "thick" }}
             >
                 <Flex
                     mih={50}

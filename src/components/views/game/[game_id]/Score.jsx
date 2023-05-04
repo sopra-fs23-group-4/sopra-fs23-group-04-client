@@ -109,10 +109,11 @@ const Score = (props) => {
       />
         <Title color="white">Score</Title>
       <Paper
-        shadow="xl"
         radius="md"
+        shadow="xl"
+        withBorder="true"
         p="lg"
-        sx={{ background: "#00acee", minWidth: "220px" }}
+        sx={{ background: "inherit", minWidth: "220px" }}
       >
         {playerListContent}
       </Paper>
