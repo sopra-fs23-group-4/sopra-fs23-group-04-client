@@ -7,7 +7,7 @@ import Dashboard from "../../views/Dashboard";
 import ProfileRouter from "./ProfileRouter";
 import GameRouter from "./GameRouter";
 import Leaderboard from "../../views/Leaderboard";
-
+import Rules from "../../views/Rules";
 
 /**
  * Main router of your application.
@@ -50,11 +50,20 @@ const AppRouter = () => {
                 </Route>
 
                 <Route
-                  exact
-                  path="/leaderboard"
+                    exact
+                    path="/leaderboard"
                 >
                     <DashboardGuard>
                         <Leaderboard />
+                    </DashboardGuard>
+                </Route>
+
+                <Route
+                    exact
+                    path="/rules"
+                >
+                    <DashboardGuard>
+                        <Rules />
                     </DashboardGuard>
                 </Route>
 
