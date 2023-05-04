@@ -6,6 +6,7 @@ import Letter from "../../views/game/[game_id]/Letter";
 import Voting from "../../views/game/[game_id]/Voting";
 import VotingResult from "../../views/game/[game_id]/VotingResult";
 import Score from "../../views/game/[game_id]/Score";
+import Winner from "../../views/game/[game_id]/Winner";
 
 const InGameRouter = () => {
     const base = `/game/:gamePin`;
@@ -61,7 +62,7 @@ const InGameRouter = () => {
             <Route
                 exact
                 path={`${base}/winner`}
-                component={Lobby}
+                component={Winner}
             />
             <Route path={`${base}`}>
                 <Redirect to={`/Dashboard`} />
