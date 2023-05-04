@@ -156,6 +156,11 @@ export class RestApi {
         };
         return await restApi.post(`/games/${gamePin}/votings/${round}/${category}`, { headers });
     }
+
+    static async getLeaderboard() {
+        const response = await restApi.get('/games/lobbies/Leaderboard');
+        return response.data;
+    }
 }
 export const handleError = (error) => {
     const response = error.response;

@@ -6,6 +6,8 @@ import { DashboardGuard } from "../routeProtectors/DashboardGuard";
 import Dashboard from "../../views/Dashboard";
 import ProfileRouter from "./ProfileRouter";
 import GameRouter from "./GameRouter";
+import Leaderboard from "../../views/Leaderboard";
+
 
 /**
  * Main router of your application.
@@ -44,6 +46,15 @@ const AppRouter = () => {
                 >
                     <DashboardGuard>
                         <Dashboard />
+                    </DashboardGuard>
+                </Route>
+
+                <Route
+                  exact
+                  path="/leaderboard"
+                >
+                    <DashboardGuard>
+                        <Leaderboard />
                     </DashboardGuard>
                 </Route>
 

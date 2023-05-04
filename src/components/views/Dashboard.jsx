@@ -18,6 +18,10 @@ const Dashboard = () => {
         history.push("/login");
     };
 
+    const goToLeaderboard = () => {
+      history.push("/leaderboard");
+    };
+
     /*    const [opened, { toggle, close }] = useDisclosure(false);*/
 
     return (
@@ -104,6 +108,12 @@ const Dashboard = () => {
             >
                 PLAY
             </Button>
+            <StandardButton
+              onClick={() => goToLeaderboard()}
+              sx={{ marginTop: "5%" }}
+            >
+              Leaderboard{" "}
+            </StandardButton>
             <StandardButton
                 onClick={() => doLogout()}
                 sx={{ marginTop: "5%" }}
