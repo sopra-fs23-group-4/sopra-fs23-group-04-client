@@ -8,15 +8,23 @@ import { handleError, RestApi } from "../../../../helpers/RestApi";
 import SockJsClient from "react-stomp";
 import { getDomain } from "../../../../helpers/getDomain";
 
-export const Player = (props) => (
+export const Player = (props) => {
+    let value;
+    if (props.number === undefined) {
+        value = props.username;
+    } else {
+        value = props.number + ". " + props.username;
+    }
+    return (
     <Title
-        color="white"
-        order={3}
-        {...props}
+      color="white"
+      order={3}
+      {...props}
     >
-        {props.username}
+        {value}
     </Title>
-);
+    );
+}
 
 const Lobby = (props) => {
     const SOCKET_URL = getDomain() + "/ws-message";
