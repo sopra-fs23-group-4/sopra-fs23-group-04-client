@@ -1,9 +1,10 @@
-import { Avatar, Button, Stack, Text, Title } from "@mantine/core";
+import { Button, Menu, Stack, Text, Title } from "@mantine/core";
 import BaseContainer from "../ui/BaseContainer";
 import { useHistory } from "react-router-dom";
 import React from "react";
 import StandardButton from "../ui/StandardButton";
-import { Edit as EditIcon } from "tabler-icons-react";
+import { Edit as EditIcon, OneTwoThree, QuestionMark } from "tabler-icons-react";
+import { IconMenu2, IconMessageCircle } from "@tabler/icons-react";
 import { storageManager } from "../../helpers/storageManager";
 
 const Dashboard = () => {
@@ -11,15 +12,10 @@ const Dashboard = () => {
 
     const username = storageManager.getUsername();
     const quote = storageManager.getQuote();
-    const picture = storageManager.getPicture();
 
     const doLogout = async () => {
         storageManager.clearAll();
         history.push("/login");
-    };
-
-    const goToLeaderboard = () => {
-      history.push("/leaderboard");
     };
 
     /*    const [opened, { toggle, close }] = useDisclosure(false);*/
@@ -27,6 +23,7 @@ const Dashboard = () => {
     return (
         <BaseContainer>
             <Stack
+                sx={{ marginTop: "5%" }}
                 style={{ width: "80%" }}
                 align="center"
                 spacing="xs"
@@ -77,12 +74,12 @@ const Dashboard = () => {
                     </Group>
                 </Dialog>
 */}
-                <Avatar
+                {/*                <Avatar
                     src={picture}
                     alt="click to change"
                     size="xl"
                     // onClick={() => history.push("/profile/edit/picture")}
-                />
+                />*/}
                 <Text
                     align="center"
                     size="md"
@@ -98,6 +95,7 @@ const Dashboard = () => {
                     />
                 </Text>
             </Stack>
+
             <Button
                 onClick={() => history.push("/game/")}
                 variant="gradient"
@@ -108,12 +106,55 @@ const Dashboard = () => {
             >
                 PLAY
             </Button>
-            <StandardButton
-              onClick={() => goToLeaderboard()}
-              sx={{ marginTop: "5%" }}
+            <Menu
+                position="bottom"
+                shadow="md"
+                width={200}
+                sx={{ opacity: 0.9, marginBottom: "2%" }}
             >
-              Leaderboard{" "}
-            </StandardButton>
+                <Menu.Target>
+                    <Button
+                        variant="default"
+                        sx={{ marginBottom: "2%" }}
+                    >
+                        <IconMenu2
+                            size={18}
+                            strokeWidth={2}
+                            color={"black"}
+                        />
+                        <Text
+                            size="md"
+                            sx={{ marginLeft: "5px" }}
+                        >
+                            {" "}
+                            Menu{" "}
+                        </Text>
+                    </Button>
+                </Menu.Target>
+
+                <Menu.Dropdown position="bottom">
+                    <Menu.Label>Personal</Menu.Label>
+                    <Menu.Item
+                        icon={<IconMessageCircle size={14} />}
+                        onClick={() => history.push("/profile/edit/quote")}
+                    >
+                        Change Quote
+                    </Menu.Item>
+                    <Menu.Label>Game</Menu.Label>
+                    <Menu.Item
+                        icon={<OneTwoThree size={18} />}
+                        onClick={() => history.push("/leaderboard")}
+                    >
+                        Scoreboard
+                    </Menu.Item>
+                    <Menu.Item
+                        icon={<QuestionMark size={18} />}
+                        onClick={() => history.push("/rules")}
+                    >
+                        Rules
+                    </Menu.Item>
+                </Menu.Dropdown>
+            </Menu>
             <StandardButton
                 onClick={() => doLogout()}
                 sx={{ marginTop: "5%" }}
