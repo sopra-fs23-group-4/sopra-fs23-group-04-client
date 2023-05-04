@@ -1,11 +1,27 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Title, Stack, Paper, Container } from "@mantine/core";
+import { Title, Stack, Paper, Container, Group } from "@mantine/core";
 import { useHistory } from "react-router-dom";
 import React, { useState } from "react";
 import SockJsClient from "react-stomp";
 import { getDomain } from "../../../../helpers/getDomain";
 import { Player } from "./Lobby";
 
+
+export const ScoreboardEntry = (props) => {
+
+  return (
+    <Group position="apart">
+      <Player
+      username={props.username}
+      number={props.number} />
+      <Title
+        color="white"
+        order={3}>
+        {props.score}
+      </Title>
+    </Group>
+      );
+}
 
 const Score = (props) => {
   const SOCKET_URL = getDomain() + "/ws-message";
@@ -16,20 +32,21 @@ const Score = (props) => {
   const [usersInLobby, setUsersInLobby] = useState([]);
 
   let onConnected = () => {
+    // hardcoded sample values:
     if(usersInLobby.length === 0) {
       setUsersInLobby([
       {
-        "id": 1,
-        "username": "Günter",
+        "user": "Günter",
+        "score": 1500,
       }, {
-          "id": 2,
-          "username": "Rüdiger",
+          "user": "Rüdiger",
+          "score": 600,
         }, {
-          "id": 3,
-          "username": "Ueli",
+          "user": "Ueli",
+          "score": 2000,
         }, {
-          "id": 4,
-          "username": "Thorsten",
+          "user": "Thorsten",
+          "score": 420,
         }])
     }
     console.log("Connected!!");
@@ -59,17 +76,20 @@ const Score = (props) => {
   );
 
   if (usersInLobby.length !== 0) {
+    usersInLobby.sort((a, b) => b.score - a.score);
+
     playerListContent = (
       <Stack
         justify="flex-start"
-        align="center"
+        align="stretch"
         spacing="sm"
       >
         {usersInLobby.map((user, index) => (
-          <Player
-            key={user.id}
-            username={user.username}
+          <ScoreboardEntry
+            key={user.user}
+            username={user.user}
             number={index + 1}
+            score={user.score}
           />
         ))}
       </Stack>
