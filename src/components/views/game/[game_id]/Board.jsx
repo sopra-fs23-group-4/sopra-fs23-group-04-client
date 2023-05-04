@@ -1,9 +1,9 @@
 import { useHistory, useParams } from "react-router-dom";
 import { Checkbox as CheckIcon, Edit as EditIcon } from "tabler-icons-react";
-import React,{useState} from "react";
+import React, { useState } from "react";
 import BaseContainer from "../../../ui/BaseContainer";
 import StandardButton from "../../../ui/StandardButton";
-import { Button, Stack, Title } from "@mantine/core";
+import { Button, Stack, Title, Text } from "@mantine/core";
 import { storageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import * as gameFunctions from "../../../../helpers/gameFunction";
@@ -88,9 +88,7 @@ const Board = () => {
         if (msg.type === "roundEnd") {
             setTimer(0);
             await doDoneWs();
-
-        }
-        else if (msg.type === "roundTimer") {
+        } else if (msg.type === "roundTimer") {
             setTimer(msg.timeRemaining);
         }
     };
@@ -143,15 +141,13 @@ const Board = () => {
                 onMessage={(msg) => onMessageReceived(msg)}
                 debug={false}
             />
+            <Text color="white">Time remaining: {timer}</Text>
             <Title
                 sx={{ marginTop: "2%" }}
                 color="white"
                 size="80"
             >
                 {letter}
-            </Title>
-            <Title>
-                Time remaining: {timer}
             </Title>
             <Stack
                 position="center"
