@@ -85,8 +85,10 @@ const Board = () => {
 
     let onMessageReceived = async (msg) => {
         console.log(msg.type);
-        if (msg.type === "end") {
+        if (msg.type === "roundEnd") {
+            setTimer(0);
             await doDoneWs();
+
         }
         else if (msg.type === "roundTimer") {
             setTimer(msg.timeRemaining);
@@ -135,7 +137,7 @@ const Board = () => {
         <BaseContainer>
             <SockJsClient
                 url={SOCKET_URL}
-                topics={["/topic/lobbies/${gamePin}"]}
+                topics={[`/topic/lobbies/${gamePin}`]}
                 onConnect={onConnected}
                 onDisconnect={onDisconnected}
                 onMessage={(msg) => onMessageReceived(msg)}
