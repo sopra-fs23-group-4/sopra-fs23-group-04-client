@@ -129,7 +129,7 @@ export class RestApi {
     }
 
     static async getVotes(gamePin, round, category) {
-        return await restApi.post(`/games/${gamePin}/votings/${round}/${category}`, {});
+        return await restApi.get(`/games/${gamePin}/votings/${round}/${category}`, {});
     }
 
     static async getLeaderboard() {
