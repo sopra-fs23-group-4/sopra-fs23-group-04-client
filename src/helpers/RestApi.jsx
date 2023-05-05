@@ -102,6 +102,10 @@ export class RestApi {
         await restApi.post(`/games/${gamePin}/start`);
     }
 
+    static async startRound(gamePin, round) {
+        await restApi.put(`/games/${gamePin}/${round}/start`);
+    }
+
     static async EndRound(gamePin, round) {
         await restApi.put(`/games/${gamePin}/${round}/end`, {});
     }
@@ -130,6 +134,11 @@ export class RestApi {
 
     static async getLeaderboard() {
         const response = await restApi.get("/games/lobbies/Leaderboard");
+        return response.data;
+    }
+
+    static async getScores(gamePin) {
+        const response = await restApi.get(`/games/lobbies/${gamePin}/scoreboard`);
         return response.data;
     }
 }

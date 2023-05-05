@@ -16,15 +16,15 @@ export const Player = (props) => {
         value = props.number + ". " + props.username;
     }
     return (
-    <Title
-      color="white"
-      order={3}
-      {...props}
-    >
-        {value}
-    </Title>
+        <Title
+            color="white"
+            order={3}
+            {...props}
+        >
+            {value}
+        </Title>
     );
-}
+};
 
 const Lobby = (props) => {
     const SOCKET_URL = getDomain() + "/ws-message";
@@ -53,7 +53,7 @@ const Lobby = (props) => {
         } else if (msg.type === "letter") {
             storageManager.setAnswers(Array(storageManager.getCategories().length).fill(null));
             storageManager.setLetter(msg.letter);
-            storageManager.setRound(1);
+            storageManager.setRound(msg.round);
             storageManager.setGamePin(gamePin);
             history.push(`/game/${gamePin}/round/${1}/board/`);
         }
@@ -168,11 +168,11 @@ const Lobby = (props) => {
                 <Title color="white">{gamePin}</Title>
             </Flex>
             <Paper
-              radius="md"
-              shadow="xl"
-              withBorder="true"
-              p="lg"
-              sx={{ background: "inherit", minWidth: "220px", borderWidth: "thick" }}
+                radius="md"
+                shadow="xl"
+                withBorder="true"
+                p="lg"
+                sx={{ background: "inherit", minWidth: "220px", borderWidth: "thick" }}
             >
                 <Flex
                     mih={50}
