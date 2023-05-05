@@ -98,10 +98,14 @@ const Lobby = (props) => {
                         storageManager.setRole(Role.PLAYER);
                     }
                 }
-                // Categories
+                // Categories & Game Settings
                 if (storageManager.getCategories().length === 0) {
                     const categoriesResponse = await RestApi.getGameCategories(gamePin);
                     storageManager.setCategories(categoriesResponse);
+
+                    const gameSettingsResponse = await RestApi.getGameSettings(gamePin);
+                    storageManager.setRoundLength(gameSettingsResponse.roundLength);
+                    storageManager.setRoundAmount(gameSettingsResponse.rounds);
                 }
             } catch (error) {
                 console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);

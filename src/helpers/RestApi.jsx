@@ -79,6 +79,11 @@ export class RestApi {
         return response.data.categories;
     }
 
+    static async getGameSettings(gamePin) {
+        const response = await restApi.get(`/games/${gamePin}/settings`);
+        return response.data;
+    }
+
     static async getGameUsers(gamePin) {
         const response = await restApi.get(`/games/${gamePin}/users`);
         return response.data;
