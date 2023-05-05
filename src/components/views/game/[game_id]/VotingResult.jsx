@@ -43,7 +43,7 @@ const VotingResult = () => {
             points: 1,
         },
         {
-            username: "b",
+            username: "d",
             answerString: "Amsterdam",
             numberOfUnique: 0,
             numberOfNotUnique: 1,
@@ -69,7 +69,7 @@ const VotingResult = () => {
         <tr
             key={index}
             style={{
-                backgroundColor: result.username === storageManager.getUsername() ? "gold" : "transparent",
+                backgroundColor: result.username === storageManager.getUsername() ? "lightblue" : "transparent",
             }}
         >
             <td>
@@ -148,7 +148,7 @@ const VotingResult = () => {
                 shadow="xl"
                 radius="md"
                 p="lg"
-                sx={{ background: "white", minWidth: "70%" }}
+                sx={{ background: "azure", minWidth: "70%" }}
             >
                 <Title align="center">
                     {category} ({letter})

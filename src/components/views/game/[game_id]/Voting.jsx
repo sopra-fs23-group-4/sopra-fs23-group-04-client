@@ -154,7 +154,7 @@ const Voting = () => {
                 shadow="xl"
                 radius="md"
                 p="lg"
-                sx={{ background: "white", minWidth: "70%" }}
+                sx={{ background: "azure", minWidth: "70%" }}
             >
                 <Title align="center">
                     {category} ({letter})
@@ -167,7 +167,6 @@ const Voting = () => {
                     your answer: <strong> {answer} </strong>
                 </Text>
                 <Table
-                    striped
                     verticalSpacing="md"
                     fontSize="md"
                 >
