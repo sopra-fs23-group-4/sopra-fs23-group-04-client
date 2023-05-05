@@ -164,7 +164,7 @@ const Board = () => {
             <StandardButton
                 position="center"
                 sx={{ marginTop: "5%" }}
-                disabled={!answers.every((value) => value !== null)}
+                disabled={!answers.every((value) => value !== null && value !== "" && value !== { letter })}
                 onClick={() => doDoneButton()}
             >
                 DONE
