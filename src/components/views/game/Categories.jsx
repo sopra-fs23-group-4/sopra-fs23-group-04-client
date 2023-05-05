@@ -62,17 +62,21 @@ const Categories = () => {
     let contentCategory = <Loader />;
     if (categories.length !== 0) {
         contentCategory = (
-            <Stack>
+            <Stack sx={{ marginTop: "3%" }}>
                 <Chip.Group
                     multiple
                     position="center"
                     mt="md"
                     onChange={setCategoriesSelected}
                 >
-                    <Group
-                        sx={{ marginTop: "5%" }}
-                        position="center"
+                    <Text
+                        color="white"
+                        size="lg"
+                        align="center"
                     >
+                        click on category to select:
+                    </Text>
+                    <Group position="center">
                         {categories.map((category) => (
                             <Category
                                 key={category}
@@ -81,7 +85,7 @@ const Categories = () => {
                         ))}
                     </Group>
                     <Group
-                        sx={{ marginTop: "5%" }}
+                        sx={{ marginTop: "2%" }}
                         position="center"
                     >
                         {customCategories.map((category) => (
@@ -98,8 +102,12 @@ const Categories = () => {
 
     return (
         <BaseContainer align="center">
-            <Title color="white">Category Selection</Title> {contentCategory}
-            <Stack align="center">
+            <Title color="white">Category Selection</Title>
+
+            <Stack
+                align="center"
+                sx={{ marginTop: "3%" }}
+            >
                 <Text
                     color="white"
                     size="lg"
@@ -124,6 +132,8 @@ const Categories = () => {
                     <StandardButton onClick={addCustomCategory}>add</StandardButton>
                 </Group>
             </Stack>
+            {contentCategory}
+
             <StandardButton
                 disabled={categoriesSelected.length === 0}
                 onClick={() => doContinue()}
