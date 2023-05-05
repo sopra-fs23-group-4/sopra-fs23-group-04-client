@@ -65,17 +65,17 @@ const Registration = () => {
             <Group sx={{ paddingTop: 10 }}>
                 <StandardButton
                     w={rem(100)}
-                    component={Link}
-                    to="/login"
-                >
-                    Back
-                </StandardButton>
-                <StandardButton
-                    w={rem(100)}
                     disabled={!username || !password || !password2 || username === "" || password === "" || password2 === "" || password !== password2}
                     onClick={() => doRegistration()}
                 >
                     Register
+                </StandardButton>
+                <StandardButton
+                    w={rem(100)}
+                    component={Link}
+                    to="/login"
+                >
+                    Back
                 </StandardButton>
             </Group>
         </BaseContainer>
