@@ -1,6 +1,6 @@
 import { useHistory, useParams } from "react-router-dom";
 import BaseContainer from "../../../ui/BaseContainer";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Paper, Table, Text, Title } from "@mantine/core";
 import { Check, Equal, LetterX } from "tabler-icons-react";
 import { storageManager } from "../../../../helpers/storageManager";
@@ -52,6 +52,16 @@ const VotingResult = () => {
         },
     ];
 
+    const [disableButton, setDisableButton] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDisableButton(false);
+        }, 10000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -85,9 +95,9 @@ const VotingResult = () => {
         </tr>
     ));
 
-    let contentRole = null;
+    let contentRole = <Text color="white">wait for host to continue...</Text>;
     if (storageManager.getRole() !== "player") {
-        contentRole = <StandardButton>DONE</StandardButton>;
+        contentRole = <StandardButton disabled={disableButton}>CONTINUE</StandardButton>;
     }
 
     let onConnected = () => {
@@ -148,7 +158,7 @@ const VotingResult = () => {
                 shadow="xl"
                 radius="md"
                 p="lg"
-                sx={{ background: "azure", minWidth: "70%" }}
+                sx={{ background: "azure", minWidth: "70%", marginBottom: "1%" }}
             >
                 <Title align="center">
                     {category} ({letter})
