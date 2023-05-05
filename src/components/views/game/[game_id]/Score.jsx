@@ -5,135 +5,157 @@ import React, { useEffect, useState } from "react";
 import SockJsClient from "react-stomp";
 import { getDomain } from "../../../../helpers/getDomain";
 import { Player } from "./Lobby";
-import { handleError } from "../../../../helpers/RestApi";
+import { handleError, RestApi } from "../../../../helpers/RestApi";
+import { Role, storageManager } from "../../../../helpers/storageManager";
+import StandardButton from "../../../ui/StandardButton";
 
 export const ScoreboardEntry = (props) => {
-
-  return (
-    <Group position="apart">
-      <Player
-      username={props.username}
-      number={props.number} />
-      <Title
-        color="white"
-        order={3}>
-        {props.score}
-      </Title>
-    </Group>
-      );
-}
+    return (
+        <Group position="apart">
+            <Player
+                username={props.username}
+                number={props.number}
+            />
+            <Title
+                color="white"
+                order={3}
+            >
+                {props.score}
+            </Title>
+        </Group>
+    );
+};
 
 const Score = (props) => {
-  const SOCKET_URL = getDomain() + "/ws-message";
-  const gamePin = props.match.params["gamePin"];
+    const SOCKET_URL = getDomain() + "/ws-message";
+    const gamePin = props.match.params["gamePin"];
+    const round = props.match.params["round"];
 
-  const history = useHistory();
+    const history = useHistory();
 
-  const [usersInLobby, setUsersInLobby] = useState([]);
+    const [userScores, setUserScores] = useState([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        if (usersInLobby.length === 0) {
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                if (userScores.length === 0) {
+                    // hardcoded sample values
+                    setUserScores([
+                        {
+                            username: "Günter",
+                            score: 1500,
+                        },
+                        {
+                            username: "Rüdiger",
+                            score: 600,
+                        },
+                        {
+                            username: "Ueli",
+                            score: 2000,
+                        },
+                        {
+                            username: "Thorsten",
+                            score: 420,
+                        },
+                    ]);
 
+                    // real code
+                    // const scoreResponse = await RestApi.getScores(gamePin);
+                    // setUserScores(scoreResponse);
+                }
+            } catch (error) {
+                console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+                console.error("Details:", error);
+                alert("Something went wrong while fetching the users! See the console for details.");
+            }
         }
-      } catch (error) {
-        console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
-        console.error("Details:", error);
-        alert("Something went wrong while fetching the users! See the console for details.");
-      }
-    }
-    fetchData();
-  }, [usersInLobby, gamePin]);
+        fetchData();
+    }, [userScores, gamePin]);
 
-  let onConnected = () => {
-    // hardcoded sample values:
-    if(usersInLobby.length === 0) {
-      setUsersInLobby([
-      {
-        "user": "Günter",
-        "score": 1500,
-      }, {
-          "user": "Rüdiger",
-          "score": 600,
-        }, {
-          "user": "Ueli",
-          "score": 2000,
-        }, {
-          "user": "Thorsten",
-          "score": 420,
-        }])
-    }
-    console.log("Connected!!");
-  };
-  let onDisconnected = () => {
-    console.log("disconnect");
-  };
+    let onConnected = () => {
+        console.log("Connected!!");
+    };
+    let onDisconnected = () => {
+        console.log("disconnect");
+    };
 
-  let onMessageReceived = (msg) => {
-    console.log("Websocket msg:");
-    console.log(msg);
-    if (msg.type === "someType") {
-    } else if (msg.type === "otherType") {
-    }
-  };
+    let onMessageReceived = (msg) => {
+        console.log("Websocket msg:");
+        console.log(msg);
+        if (msg.type === "someType") {
+        } else if (msg.type === "otherType") {
+        }
+    };
 
+    const nextRound = async () => {
+        await RestApi.startRound(gamePin, round + 1);
+    };
 
-  let playerListContent = (
-    <Container align="center">
-      <Title
-        order={3}
-        color="white"
-      >
-        loading...
-      </Title>
-    </Container>
-  );
-
-  if (usersInLobby.length !== 0) {
-    usersInLobby.sort((a, b) => b.score - a.score);
-
-    playerListContent = (
-      <Stack
-        justify="flex-start"
-        align="stretch"
-        spacing="sm"
-      >
-        {usersInLobby.map((user, index) => (
-          <ScoreboardEntry
-            key={user.user}
-            username={user.user}
-            number={index + 1}
-            score={user.score}
-          />
-        ))}
-      </Stack>
+    // Scoreboard
+    let scoreboardContent = (
+        <Container align="center">
+            <Title
+                order={3}
+                color="white"
+            >
+                loading...
+            </Title>
+        </Container>
     );
-  }
 
+    if (userScores.length !== 0) {
+        userScores.sort((a, b) => b.score - a.score);
 
-  return (
-    <BaseContainer>
-      <SockJsClient
-        url={SOCKET_URL}
-        topics={[`/topic/lobbies/${gamePin}`]}
-        onConnect={onConnected}
-        onDisconnect={onDisconnected}
-        onMessage={(msg) => onMessageReceived(msg)}
-        debug={false}
-      />
-        <Title color="white">Score</Title>
-      <Paper
-        radius="md"
-        shadow="xl"
-        withBorder="true"
-        p="lg"
-        sx={{ background: "inherit", minWidth: "220px" }}
-      >
-        {playerListContent}
-      </Paper>
-    </BaseContainer>
-  );
+        scoreboardContent = (
+            <Stack
+                justify="flex-start"
+                align="stretch"
+                spacing="sm"
+            >
+                {userScores.map((user, index) => (
+                    <ScoreboardEntry
+                        key={user.username}
+                        username={user.username}
+                        number={index + 1}
+                        score={user.score}
+                    />
+                ))}
+            </Stack>
+        );
+    }
+
+    // Next Round Button
+    let nextRoundButton;
+
+    if (storageManager.getRole() === Role.HOST) {
+        nextRoundButton = <StandardButton onClick={() => nextRound()}>Next Round</StandardButton>;
+    } else {
+        nextRoundButton = "";
+    }
+
+    return (
+        <BaseContainer>
+            <SockJsClient
+                url={SOCKET_URL}
+                topics={[`/topic/lobbies/${gamePin}`]}
+                onConnect={onConnected}
+                onDisconnect={onDisconnected}
+                onMessage={(msg) => onMessageReceived(msg)}
+                debug={false}
+            />
+            <Title color="white">Score</Title>
+            <Paper
+                radius="md"
+                shadow="xl"
+                withBorder="true"
+                p="lg"
+                sx={{ background: "inherit", minWidth: "220px" }}
+            >
+                {scoreboardContent}
+            </Paper>
+            {nextRoundButton}
+        </BaseContainer>
+    );
 };
 
 export default Score;
