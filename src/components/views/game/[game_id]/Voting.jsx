@@ -80,7 +80,6 @@ const Voting = () => {
                     {" "}
                     <Radio
                         color="green"
-                        icon="filled"
                         name={Object.keys(answer)[0]}
                         checked={votes[Object.keys(answer)[0]] === "CORRECT_UNIQUE"}
                         onChange={() => {
@@ -96,7 +95,6 @@ const Voting = () => {
                     {" "}
                     <Radio
                         color="orange"
-                        icon="filled"
                         name={Object.keys(answer)[0]}
                         checked={votes[Object.keys(answer)[0]] === "CORRECT_NOT_UNIQUE"}
                         onChange={() => {
@@ -113,7 +111,6 @@ const Voting = () => {
                     {" "}
                     <Radio
                         color="red"
-                        icon="filled"
                         name={Object.keys(answer)[0]}
                         checked={votes[Object.keys(answer)[0]] === "WRONG"}
                         onChange={() => {
@@ -149,9 +146,8 @@ const Voting = () => {
                 align="center"
                 color="white"
                 size="lg"
-                fw={700}
             >
-                voting
+                please rate the answers:
             </Text>
 
             <Paper
@@ -185,6 +181,18 @@ const Voting = () => {
                     </thead>
                     <tbody>{rows}</tbody>
                 </Table>
+                <Text
+                    size="xs"
+                    sx={{ marginTop: "3%" }}
+                >
+                    <strong> *perfect:</strong> this answer is correct & unique
+                </Text>
+                <Text size="xs">
+                    <strong> *duplicate:</strong> this answer is correct but not unique
+                </Text>
+                <Text size="xs">
+                    <strong> *wrong:</strong> this answer is rubbish
+                </Text>
             </Paper>
         </BaseContainer>
     );
