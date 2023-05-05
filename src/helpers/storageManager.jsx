@@ -1,3 +1,5 @@
+import { roundLengthInSeconds } from "../components/views/game/Settings";
+
 export const Role = {
     HOST: "host",
     PLAYER: "player",
@@ -75,6 +77,20 @@ export class storageManager {
     static getCategories() {
         const categories = sessionStorage.getItem("categories");
         return categories ? JSON.parse(categories) : [];
+    }
+
+    static setRoundLength(roundLength) {
+        sessionStorage.setItem("roundLength", roundLengthInSeconds[roundLength]);
+    }
+    static getRoundLength() {
+        return sessionStorage.getItem("roundLength");
+    }
+
+    static setRoundAmount(roundAmount) {
+        sessionStorage.setItem("roundAmount", roundAmount);
+    }
+    static getRoundAmount() {
+        return sessionStorage.getItem("roundAmount");
     }
 
     static setRound(round) {
