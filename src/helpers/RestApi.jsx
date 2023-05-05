@@ -106,6 +106,10 @@ export class RestApi {
         await restApi.post(`/games/${gamePin}/start`);
     }
 
+    static async startRound(gamePin, round) {
+        await restApi.put(`/games/${gamePin}/${round}/start`);
+    }
+
     static async EndRound(gamePin, round) {
         const headers = {
             "Content-Type": "application/json",
