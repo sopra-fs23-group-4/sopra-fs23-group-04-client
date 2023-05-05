@@ -158,7 +158,12 @@ export class RestApi {
     }
 
     static async getLeaderboard() {
-        const response = await restApi.get('/games/lobbies/Leaderboard');
+        const response = await restApi.get("/games/lobbies/Leaderboard");
+        return response.data;
+    }
+
+    static async getScores(gamePin) {
+        const response = await restApi.get(`/games/lobbies/${gamePin}/scoreboard`);
         return response.data;
     }
 }
