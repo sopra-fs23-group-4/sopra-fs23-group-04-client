@@ -28,6 +28,7 @@ export const ScoreboardEntry = (props) => {
 
 const Score = (props) => {
     const SOCKET_URL = getDomain() + "/ws-message";
+
     const gamePin = props.match.params["gamePin"];
     const round = props.match.params["round"];
 
@@ -72,13 +73,13 @@ const Score = (props) => {
         fetchData();
     }, [userScores, gamePin]);
 
+    // Websocket
     let onConnected = () => {
         console.log("Connected!!");
     };
     let onDisconnected = () => {
         console.log("disconnect");
     };
-
     let onMessageReceived = (msg) => {
         console.log("Websocket msg:");
         console.log(msg);
@@ -87,12 +88,7 @@ const Score = (props) => {
             storageManager.setLetter(msg.letter);
             storageManager.setRound(msg.round);
             history.push(`/game/${gamePin}/round/${msg.round}/board/`);
-        } else if (msg.type === "otherType") {
         }
-    };
-
-    const nextRound = async () => {
-        await RestApi.startRound(gamePin, round + 1);
     };
 
     // Scoreboard
@@ -129,8 +125,11 @@ const Score = (props) => {
     }
 
     // Next Round Button
-    let nextRoundButton;
+    const nextRound = async () => {
+        await RestApi.startRound(gamePin, round + 1);
+    };
 
+    let nextRoundButton;
     if (storageManager.getRole() === Role.HOST) {
         nextRoundButton = <StandardButton onClick={() => nextRound()}>Next Round</StandardButton>;
     } else {
