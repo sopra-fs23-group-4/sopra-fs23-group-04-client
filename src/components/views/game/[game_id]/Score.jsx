@@ -1,11 +1,11 @@
 import BaseContainer from "../../../ui/BaseContainer";
 import { Title, Stack, Paper, Container, Group } from "@mantine/core";
 import { useHistory } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SockJsClient from "react-stomp";
 import { getDomain } from "../../../../helpers/getDomain";
 import { Player } from "./Lobby";
-
+import { handleError } from "../../../../helpers/RestApi";
 
 export const ScoreboardEntry = (props) => {
 
@@ -30,6 +30,21 @@ const Score = (props) => {
   const history = useHistory();
 
   const [usersInLobby, setUsersInLobby] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        if (usersInLobby.length === 0) {
+
+        }
+      } catch (error) {
+        console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+        console.error("Details:", error);
+        alert("Something went wrong while fetching the users! See the console for details.");
+      }
+    }
+    fetchData();
+  }, [usersInLobby, gamePin]);
 
   let onConnected = () => {
     // hardcoded sample values:
