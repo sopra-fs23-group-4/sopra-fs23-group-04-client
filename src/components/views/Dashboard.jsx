@@ -96,16 +96,13 @@ const Dashboard = () => {
                 </Text>
             </Stack>
 
-            <Button
+            <StandardButton
                 onClick={() => history.push("/game/")}
-                variant="gradient"
-                gradient={{ from: "#f8af05", to: "#f8af05", deg: 105 }}
-                radius="xl"
                 size="lg"
-                sx={{ width: "140px", color: "black", marginBottom: "2%" }}
+                sx={{ width: "140px", marginBottom: "2%" }}
             >
                 PLAY
-            </Button>
+            </StandardButton>
             <Menu
                 position="bottom"
                 shadow="md"
