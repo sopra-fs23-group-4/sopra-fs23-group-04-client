@@ -22,7 +22,7 @@ const Leaderboard = () => {
 
       // Find the index of the logged-in user
       const loggedInUser = storageManager.getUsername();
-      const position = data.findIndex(entry => entry.user.username === loggedInUser);
+      const position = data.findIndex(entry => entry.username === loggedInUser);
       setUserPosition(position);
     } catch (error) {
       console.error('Error fetching leaderboard:', error);
@@ -38,7 +38,7 @@ const Leaderboard = () => {
         <>
           {leaderboard.slice(0, 10).map((entry, index) => (
             <Text key={index} align="center" size="md" color="white" fw={500}>
-              {index + 1}. {entry.user.username} - {entry.accumulatedScore} points
+              {index + 1}. {entry.username} - {entry.accumulatedScore} points
             </Text>
           ))}
           {userPosition !== null && userPosition >= 10 && (
@@ -47,7 +47,7 @@ const Leaderboard = () => {
                 ...
               </Text>
               <Text align="center" size="md" color="white" fw={500}>
-                {userPosition + 1}. {leaderboard[userPosition].user.username} - {leaderboard[userPosition].accumulatedScore} points
+                {userPosition + 1}. {leaderboard[userPosition].username} - {leaderboard[userPosition].accumulatedScore} points
               </Text>
             </>
           )}
