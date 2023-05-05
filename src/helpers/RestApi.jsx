@@ -112,7 +112,7 @@ export class RestApi {
             "Access-Control-Allow-Origin": "*",
             Authorization: storageManager.getToken(),
         };
-        await restApi.put(`/games/${gamePin}/${round}/end`, { headers });
+        await restApi.put(`/games/${gamePin}/${round}/end`, {}, { headers });
     }
 
     static async postAnswers(gamePin, round, answers) {
@@ -154,11 +154,11 @@ export class RestApi {
             "Access-Control-Allow-Origin": "*",
             Authorization: storageManager.getToken(),
         };
-        return await restApi.post(`/games/${gamePin}/votings/${round}/${category}`, { headers });
+        return await restApi.post(`/games/${gamePin}/votings/${round}/${category}`, {}, { headers });
     }
 
     static async getLeaderboard() {
-        const response = await restApi.get('/games/lobbies/Leaderboard');
+        const response = await restApi.get("/games/lobbies/Leaderboard");
         return response.data;
     }
 }
