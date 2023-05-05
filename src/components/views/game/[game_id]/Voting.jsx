@@ -19,6 +19,7 @@ const Voting = () => {
     const [answersCategory, setAnswersCategory] = useState([{ dummy: "" }]);
     //const [answersCategory, setAnswersCategory] = useState([{ 1: "Arbon" }, { 2: "Appenzell" }, { 4: "Neuenburg" }, { 23: "Nyon" }]);
     const [votes, setVotes] = useState({});
+    const [timer, setTimer] = useState(45);
 
     useEffect(() => {
         const newDict = {};
@@ -60,9 +61,13 @@ const Voting = () => {
         console.log("disconnect");
     };
 
-    let onMessageReceived = (msg) => {
-        console.log(msg);
-        doDone();
+    let onMessageReceived = async (msg) => {
+        console.log(msg.type);
+        if (msg.type === "votingEnd") {
+            doDone();
+        } else if (msg.type === "votingTimer") {
+            setTimer(msg.timeRemaining);
+        }
     };
 
     const rows = answersCategory.map((answer) => (
@@ -138,6 +143,7 @@ const Voting = () => {
                 onMessage={(msg) => onMessageReceived(msg)}
                 debug={false}
             />
+            <Text color="white">Time remaining: {timer}</Text>
             <Title color="white">{storageManager.getUsername()}</Title>
             <Text
                 align="center"
