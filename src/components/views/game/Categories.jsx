@@ -62,20 +62,21 @@ const Categories = () => {
     let contentCategory = <Loader />;
     if (categories.length !== 0) {
         contentCategory = (
-            <Stack sx={{ marginTop: "3%" }}>
+            <Stack
+                align="center"
+                sx={{ marginTop: "3%" }}
+            >
+                <Text
+                    color="white"
+                    size="lg"
+                >
+                    click on category to select:
+                </Text>
                 <Chip.Group
                     multiple
-                    position="center"
                     mt="md"
                     onChange={setCategoriesSelected}
                 >
-                    <Text
-                        color="white"
-                        size="lg"
-                        align="center"
-                    >
-                        click on category to select:
-                    </Text>
                     <Group position="center">
                         {categories.map((category) => (
                             <Category
@@ -85,7 +86,7 @@ const Categories = () => {
                         ))}
                     </Group>
                     <Group
-                        sx={{ marginTop: "2%" }}
+                        sx={{ marginTop: "1%" }}
                         position="center"
                     >
                         {customCategories.map((category) => (
@@ -103,7 +104,7 @@ const Categories = () => {
     return (
         <BaseContainer align="center">
             <Title color="white">Category Selection</Title>
-
+            {contentCategory}
             <Stack
                 align="center"
                 sx={{ marginTop: "3%" }}
@@ -132,8 +133,6 @@ const Categories = () => {
                     <StandardButton onClick={addCustomCategory}>add</StandardButton>
                 </Group>
             </Stack>
-            {contentCategory}
-
             <StandardButton
                 disabled={categoriesSelected.length === 0}
                 onClick={() => doContinue()}
