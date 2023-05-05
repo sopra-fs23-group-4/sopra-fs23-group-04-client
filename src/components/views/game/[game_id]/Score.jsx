@@ -82,7 +82,11 @@ const Score = (props) => {
     let onMessageReceived = (msg) => {
         console.log("Websocket msg:");
         console.log(msg);
-        if (msg.type === "someType") {
+        if (msg.type === "letter") {
+            storageManager.setAnswers(Array(storageManager.getCategories().length).fill(null));
+            storageManager.setLetter(msg.letter);
+            storageManager.setRound(msg.round);
+            history.push(`/game/${gamePin}/round/${msg.round}/board/`);
         } else if (msg.type === "otherType") {
         }
     };
