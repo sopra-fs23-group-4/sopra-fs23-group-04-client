@@ -113,7 +113,6 @@ const VotingResult = () => {
         tableHeader: {
             textAlign: "center",
             color: "black",
-            fontStyle: "italic",
         },
     };
 
@@ -121,6 +120,7 @@ const VotingResult = () => {
         tableHeader: {
             textAlign: "left",
             color: "black",
+            textDecoration: "underline",
         },
     };
 
