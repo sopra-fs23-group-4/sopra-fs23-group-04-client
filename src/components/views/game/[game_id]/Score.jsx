@@ -150,9 +150,8 @@ const Score = (props) => {
             <Paper
                 radius="md"
                 shadow="xl"
-                withBorder="true"
                 p="lg"
-                sx={{ background: "inherit", minWidth: "220px" }}
+                sx={{ background: "inherit", minWidth: "220px", border: "4px solid white" }}
             >
                 {scoreboardContent}
             </Paper>

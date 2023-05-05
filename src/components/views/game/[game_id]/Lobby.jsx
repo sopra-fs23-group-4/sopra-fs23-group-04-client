@@ -170,9 +170,8 @@ const Lobby = (props) => {
             <Paper
                 radius="md"
                 shadow="xl"
-                withBorder="true"
                 p="lg"
-                sx={{ background: "inherit", minWidth: "220px", borderWidth: "thick" }}
+                sx={{ background: "inherit", minWidth: "220px", border: "4px solid white" }}
             >
                 <Flex
                     mih={50}

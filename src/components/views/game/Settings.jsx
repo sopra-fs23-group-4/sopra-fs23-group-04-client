@@ -11,6 +11,11 @@ export const RoundLength = {
     MEDIUM: "MEDIUM",
     LONG: "LONG",
 };
+export const roundLengthInSeconds = {
+    [RoundLength.SHORT]: "45s",
+    [RoundLength.MEDIUM]: "60s",
+    [RoundLength.LONG]: "75s",
+};
 
 const Settings = () => {
     const history = useHistory();
@@ -53,7 +58,9 @@ const Settings = () => {
                 />
             </Container>
             <Space h="xs" />
-            <Title color="white">Round Length</Title>
+            <Title color="white">
+                Round Length: <b>{roundLengthInSeconds[roundLength]}</b>
+            </Title>
             <SegmentedControl
                 color="blue"
                 data={[
