@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 import { storageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import SockJsClient from "react-stomp";
+import { getDomain } from "../../../../helpers/getDomain";
 
 const Voting = () => {
-    const SOCKET_URL = "http://localhost:8080/ws-message";
+    const SOCKET_URL = getDomain() + "/ws-message";
     const history = useHistory();
     const { gamePin, round, categoryIndex } = useParams();
 
@@ -45,7 +46,6 @@ const Voting = () => {
 
     async function doDone() {
         try {
-            console.log("hello");
             await RestApi.postVotes(gamePin, round, category, votes);
             history.push(`/game/${gamePin}/round/${round}/votingResults/${categoryIndex}`);
         } catch (error) {

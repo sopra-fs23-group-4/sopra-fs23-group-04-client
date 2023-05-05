@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import BaseContainer from "../../../ui/BaseContainer";
 import React, { useEffect } from "react";
 import { Paper, Table, Text, Title } from "@mantine/core";
@@ -7,10 +7,12 @@ import { storageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
 import SockJsClient from "react-stomp";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
+import { getDomain } from "../../../../helpers/getDomain";
 
 const VotingResult = () => {
-    const SOCKET_URL = "http://localhost:8080/ws-message";
+    const SOCKET_URL = getDomain() + "/ws-message";
     const { gamePin, round, categoryIndex } = useParams();
+    const history = useHistory();
 
     const letter = storageManager.getLetter();
     const categories = storageManager.getCategories();
@@ -95,8 +97,16 @@ const VotingResult = () => {
         console.log("disconnect");
     };
 
-    let onMessageReceived = (msg) => {
-        console.log(msg);
+    let onMessageReceived = async (msg) => {
+        console.log(msg.type);
+        if (msg.type === "resultNextVote") {
+            const nextCategoryIndex = parseInt(categoryIndex) + 1;
+            history.push(`/game/${gamePin}/round/${round}/voting/${nextCategoryIndex}`);
+        } else if (msg.type === "resultScoreboard") {
+            history.push(`/game/${gamePin}/round/${round}/scoreboard`);
+        } else if (msg.type === "resultWinner") {
+            history.push(`/game/${gamePin}/round/${round}/winner`);
+        }
     };
 
     const stylesCenter = {
