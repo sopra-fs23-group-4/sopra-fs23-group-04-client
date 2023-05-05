@@ -128,5 +128,7 @@ export class storageManager {
         sessionStorage.removeItem("answers");
         sessionStorage.removeItem("round");
         sessionStorage.removeItem("gamePin");
+        sessionStorage.removeItem("roundLength");
+        sessionStorage.removeItem("roundAmount");
     }
 }
