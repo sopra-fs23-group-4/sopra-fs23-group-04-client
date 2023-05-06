@@ -20,7 +20,7 @@ export const roundLengthInSeconds = {
 const Settings = () => {
     const history = useHistory();
     const [rounds, setRounds] = useState(15);
-    const [roundLength, setRoundLength] = useState("SHORT");
+    const [roundLength, setRoundLength] = useState(RoundLength.MEDIUM);
 
     const MARKS = [
         { value: 5, label: "5" },
@@ -66,7 +66,7 @@ const Settings = () => {
                 data={[
                     { label: "short", value: RoundLength.SHORT },
                     { label: "normal", value: RoundLength.MEDIUM },
-                    { label: "loooong", value: RoundLength.LONG },
+                    { label: "long", value: RoundLength.LONG },
                 ]}
                 value={roundLength}
                 onChange={setRoundLength}
