@@ -35,6 +35,9 @@ const Settings = () => {
             const pin = await RestApi.createGame(rounds, roundLength, categories);
             storageManager.removeCategoriesSelected();
             storageManager.setRole(Role.HOST);
+            storageManager.setRoundAmount(rounds);
+            storageManager.setRoundLength(roundLength);
+            storageManager.setCategories(categories);
             history.push(`/game/${pin}/lobby`);
         } catch (error) {
             alert(`Something went wrong whilst creating the lobby: \n${handleError(error)}`);
