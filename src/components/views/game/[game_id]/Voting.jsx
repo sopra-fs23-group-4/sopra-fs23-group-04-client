@@ -67,7 +67,7 @@ const Voting = () => {
         if (msg.type === "votingEnd") {
             if (done === false) {
                 setDone(true);
-                doDone();
+                await doDone();
             }
         } else if (msg.type === "votingTimer") {
             setTimer(msg.timeRemaining);
