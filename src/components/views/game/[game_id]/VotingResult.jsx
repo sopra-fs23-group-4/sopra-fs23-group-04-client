@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { Paper, Table, Text, Title } from "@mantine/core";
 import { Check, Equal, LetterX } from "tabler-icons-react";
 import { storageManager } from "../../../../helpers/storageManager";
-import StandardButton from "../../../ui/StandardButton";
 import SockJsClient from "react-stomp";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import { getDomain } from "../../../../helpers/getDomain";
@@ -18,20 +17,12 @@ const VotingResult = () => {
     const categories = storageManager.getCategories();
     const category = categories[categoryIndex];
     const [votes, setVotes] = useState([]);
-    const [disableButton, setDisableButton] = useState(true);
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setDisableButton(false);
-        }, 10000);
-
-        return () => clearTimeout(timer);
-    }, []);
 
     useEffect(() => {
         async function fetchData() {
             try {
                 const response = await RestApi.getVotes(gamePin, round, category);
+                console.log(response.data);
                 setVotes(response.data);
             } catch (error) {
                 console.error(`Something went wrong while fetching the votes: \n${handleError(error)}`);
@@ -61,11 +52,6 @@ const VotingResult = () => {
             <td align="center">{result.numberOfWrong}</td>
         </tr>
     ));
-
-    let contentRole = <Text color="white">wait for host to continue...</Text>;
-    if (storageManager.getRole() !== "player") {
-        contentRole = <StandardButton disabled={disableButton}>CONTINUE</StandardButton>;
-    }
 
     let onConnected = () => {
         console.log("Connected!!");
@@ -170,7 +156,6 @@ const VotingResult = () => {
                     <tbody>{rows}</tbody>
                 </Table>
             </Paper>
-            {contentRole}
         </BaseContainer>
     );
 };
