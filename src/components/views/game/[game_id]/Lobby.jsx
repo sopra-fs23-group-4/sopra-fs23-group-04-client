@@ -62,7 +62,6 @@ const Lobby = (props) => {
     async function doLeave() {
         try {
             await RestApi.leaveGame(gamePin);
-            storageManager.resetRound();
             history.push(`/game`);
         } catch (error) {
             alert(`Something went wrong leaving the lobby: \n${handleError(error)}`);
