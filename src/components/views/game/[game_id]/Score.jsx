@@ -65,9 +65,9 @@ const Score = (props) => {
                     // setUserScores(scoreResponse);
                 }
             } catch (error) {
-                console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+                console.error(`Something went wrong while fetching the scores: \n${handleError(error)}`);
                 console.error("Details:", error);
-                alert("Something went wrong while fetching the users! See the console for details.");
+                alert("Something went wrong while fetching the scores! See the console for details.");
             }
         }
         fetchData();
