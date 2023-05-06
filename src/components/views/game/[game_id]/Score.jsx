@@ -151,6 +151,7 @@ const Score = (props) => {
                 radius="md"
                 shadow="xl"
                 p="lg"
+                bg="rgba(0, 255, 0, .1)"
                 sx={{ background: "inherit", minWidth: "220px", border: "4px solid white" }}
             >
                 {scoreboardContent}
