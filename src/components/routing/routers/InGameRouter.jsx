@@ -25,11 +25,6 @@ const InGameRouter = () => {
             />
             <Route
                 exact
-                path={`${base}/Lobby`}
-                component={Lobby}
-            />
-            <Route
-                exact
                 path={`${base}/round/:round/letter`}
                 component={Letter}
             />
