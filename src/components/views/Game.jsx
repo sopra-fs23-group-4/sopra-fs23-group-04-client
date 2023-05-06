@@ -19,6 +19,14 @@ const Game = () => {
         try {
             await RestApi.joinGame(pin);
             storageManager.setRole(Role.PLAYER);
+
+            const categoriesResponse = await RestApi.getGameCategories(pin);
+            storageManager.setCategories(categoriesResponse);
+
+            const gameSettingsResponse = await RestApi.getGameSettings(pin);
+            storageManager.setRoundLength(gameSettingsResponse.roundLength);
+            storageManager.setRoundAmount(gameSettingsResponse.rounds);
+
             history.push(`/game/${pin}/lobby`);
         } catch (error) {
             alert(`Something went wrong joining the lobby: \n${handleError(error)}`);
