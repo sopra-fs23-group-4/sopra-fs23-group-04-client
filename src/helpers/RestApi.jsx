@@ -146,6 +146,11 @@ export class RestApi {
         const response = await restApi.get(`/games/lobbies/${gamePin}/scoreboard`);
         return response.data;
     }
+
+    static async getWinners(gamePin) {
+        const response = await restApi.get(`/games/lobbies/${gamePin}/winner`);
+        return response.data;
+    }
 }
 export const handleError = (error) => {
     const response = error.response;
