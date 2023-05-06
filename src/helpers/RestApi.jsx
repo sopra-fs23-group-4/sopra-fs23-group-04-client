@@ -138,7 +138,7 @@ export class RestApi {
     }
 
     static async getLeaderboard() {
-        const response = await restApi.get("/games/lobbies/Leaderboard");
+        const response = await restApi.get("/games/lobbies/leaderboard");
         return response.data;
     }
 
