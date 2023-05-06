@@ -21,6 +21,7 @@ const Voting = () => {
     //const [answersCategory, setAnswersCategory] = useState([{ 1: "Arbon" }, { 2: "Appenzell" }, { 4: "Neuenburg" }, { 23: "Nyon" }]);
     const [votes, setVotes] = useState({});
     const [timer, setTimer] = useState(45);
+    const [done, setDone] = useState(false);
 
     useEffect(() => {
         const newDict = {};
@@ -64,7 +65,10 @@ const Voting = () => {
     let onMessageReceived = async (msg) => {
         console.log(msg.type);
         if (msg.type === "votingEnd") {
-            doDone();
+            if (done === false) {
+                setDone(true);
+                doDone();
+            }
         } else if (msg.type === "votingTimer") {
             setTimer(msg.timeRemaining);
         }
