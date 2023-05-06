@@ -66,7 +66,7 @@ const VotingResult = () => {
             const nextCategoryIndex = parseInt(categoryIndex) + 1;
             history.push(`/game/${gamePin}/round/${round}/voting/${nextCategoryIndex}`);
         } else if (msg.type === "resultScoreboard") {
-            history.push(`/game/${gamePin}/round/${round}/scoreboard`);
+            history.push(`/game/${gamePin}/round/${round}/score`);
         } else if (msg.type === "resultWinner") {
             history.push(`/game/${gamePin}/round/${round}/winner`);
         }
