@@ -130,7 +130,7 @@ export class RestApi {
 
     static async postVotes(gamePin, round, category, votes) {
         const requestBody = JSON.stringify(votes);
-        return await restApi.post(`/games/${gamePin}/${round}/${category}`, requestBody);
+        return await restApi.post(`/games/${gamePin}/votings/${category}`, requestBody);
     }
 
     static async getVotes(gamePin, round, category) {
