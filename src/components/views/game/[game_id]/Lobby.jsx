@@ -62,7 +62,6 @@ const Lobby = (props) => {
     async function doLeave() {
         try {
             await RestApi.leaveGame(gamePin);
-            storageManager.resetRound();
             history.push(`/game`);
         } catch (error) {
             alert(`Something went wrong leaving the lobby: \n${handleError(error)}`);
@@ -208,6 +207,7 @@ const Lobby = (props) => {
                 radius="md"
                 shadow="xl"
                 p="lg"
+                bg="rgba(0, 255, 0, .1)"
                 sx={{ background: "inherit", minWidth: "220px", border: "4px solid white" }}
             >
                 <Flex

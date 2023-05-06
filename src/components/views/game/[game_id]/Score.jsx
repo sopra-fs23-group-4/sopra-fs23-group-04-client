@@ -6,7 +6,7 @@ import SockJsClient from "react-stomp";
 import { getDomain } from "../../../../helpers/getDomain";
 import { Player } from "./Lobby";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
-import { Role, storageManager } from "../../../../helpers/storageManager";
+import { storageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
 
 export const ScoreboardEntry = (props) => {
@@ -30,7 +30,6 @@ const Score = (props) => {
     const SOCKET_URL = getDomain() + "/ws-message";
 
     const gamePin = props.match.params["gamePin"];
-    const round = props.match.params["round"];
 
     const history = useHistory();
 
@@ -65,9 +64,9 @@ const Score = (props) => {
                     // setUserScores(scoreResponse);
                 }
             } catch (error) {
-                console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+                console.error(`Something went wrong while fetching the scores: \n${handleError(error)}`);
                 console.error("Details:", error);
-                alert("Something went wrong while fetching the users! See the console for details.");
+                alert("Something went wrong while fetching the scores! See the console for details.");
             }
         }
         fetchData();
@@ -90,6 +89,16 @@ const Score = (props) => {
             history.push(`/game/${gamePin}/round/${msg.round}/board/`);
         }
     };
+
+    // Methods
+    async function doLeave() {
+        try {
+            await RestApi.leaveGame(gamePin);
+            history.push(`/game`);
+        } catch (error) {
+            alert(`Something went wrong leaving the game: \n${handleError(error)}`);
+        }
+    }
 
     // Scoreboard
     let scoreboardContent = (
@@ -124,17 +133,10 @@ const Score = (props) => {
         );
     }
 
-    // Next Round Button
-    const nextRound = async () => {
-        await RestApi.startRound(gamePin, round + 1);
-    };
-
-    let nextRoundButton;
-    if (storageManager.getRole() === Role.HOST) {
-        nextRoundButton = <StandardButton onClick={() => nextRound()}>Next Round</StandardButton>;
-    } else {
-        nextRoundButton = "";
-    }
+    // let leaveButton = "";
+    // if (storageManager.getRound() === storageManager.getRoundAmount()) {
+    //     leaveButton = <StandardButton onClick={() => doLeave()}>Leave</StandardButton>;
+    // }
 
     return (
         <BaseContainer>
@@ -151,11 +153,17 @@ const Score = (props) => {
                 radius="md"
                 shadow="xl"
                 p="lg"
+                bg="rgba(0, 255, 0, .1)"
                 sx={{ background: "inherit", minWidth: "220px", border: "4px solid white" }}
             >
                 {scoreboardContent}
             </Paper>
-            {nextRoundButton}
+            <StandardButton
+                sx={{ marginTop: "3%" }}
+                onClick={() => doLeave()}
+            >
+                Leave
+            </StandardButton>
         </BaseContainer>
     );
 };

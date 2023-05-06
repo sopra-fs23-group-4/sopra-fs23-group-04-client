@@ -101,6 +101,7 @@ export class RestApi {
 
     static async leaveGame(pin) {
         await restApi.put(`/games/lobbies/${pin}/leave`, null);
+        storageManager.resetRound();
     }
 
     static async startGame(gamePin) {
@@ -144,6 +145,11 @@ export class RestApi {
 
     static async getScores(gamePin) {
         const response = await restApi.get(`/games/lobbies/${gamePin}/scoreboard`);
+        return response.data;
+    }
+
+    static async getWinners(gamePin) {
+        const response = await restApi.get(`/games/lobbies/${gamePin}/winner`);
         return response.data;
     }
 }

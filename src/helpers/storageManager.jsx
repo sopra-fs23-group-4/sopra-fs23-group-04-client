@@ -97,14 +97,14 @@ export class storageManager {
         sessionStorage.setItem("round", round);
     }
     static getRound() {
-        sessionStorage.getItem("round");
+        return sessionStorage.getItem("round");
     }
 
     static setGamePin(gamePin) {
         sessionStorage.setItem("gamePin", gamePin);
     }
     static getGamePin() {
-        sessionStorage.getItem("gamePin");
+        return sessionStorage.getItem("gamePin");
     }
 
     static setLetter(letter) {
