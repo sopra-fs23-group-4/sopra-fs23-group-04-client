@@ -17,41 +17,7 @@ const VotingResult = () => {
     const letter = storageManager.getLetter();
     const categories = storageManager.getCategories();
     const category = categories[categoryIndex];
-    const VotingResults = [
-        {
-            username: "wigeto",
-            answerString: "Amsterdam",
-            numberOfUnique: 0,
-            numberOfNotUnique: 1,
-            numberOfWrong: 2,
-            points: 1,
-        },
-        {
-            username: "skavnir",
-            answerString: "Amsterdam",
-            numberOfUnique: 0,
-            numberOfNotUnique: 1,
-            numberOfWrong: 2,
-            points: 99,
-        },
-        {
-            username: "a",
-            answerString: "Amsterdam",
-            numberOfUnique: 0,
-            numberOfNotUnique: 1,
-            numberOfWrong: 2,
-            points: 1,
-        },
-        {
-            username: "d",
-            answerString: "Amsterdam",
-            numberOfUnique: 0,
-            numberOfNotUnique: 1,
-            numberOfWrong: 2,
-            points: 1,
-        },
-    ];
-
+    const [votes, setVotes] = useState([]);
     const [disableButton, setDisableButton] = useState(true);
 
     useEffect(() => {
@@ -65,7 +31,8 @@ const VotingResult = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                console.log(await RestApi.getVotes(gamePin, round, category));
+                const response = await RestApi.getVotes(gamePin, round, category);
+                setVotes(response.data);
             } catch (error) {
                 console.error(`Something went wrong while fetching the votes: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -75,7 +42,7 @@ const VotingResult = () => {
         fetchData();
     }, [gamePin, round, category]);
 
-    const rows = VotingResults.map((result, index) => (
+    const rows = votes.map((result, index) => (
         <tr
             key={index}
             style={{
