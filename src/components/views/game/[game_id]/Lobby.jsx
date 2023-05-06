@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Title, Text, Flex, Stack, Paper, Container } from "@mantine/core";
+import { Title, Text, Flex, Stack, Paper, Container, Badge } from "@mantine/core";
 import StandardButton from "../../../ui/StandardButton";
 import { Role, storageManager } from "../../../../helpers/storageManager";
 import { useHistory } from "react-router-dom";
@@ -154,44 +154,55 @@ const Lobby = (props) => {
                 debug={false}
             />
             <Title color="white">PIN: {gamePin}</Title>
-            <Flex
-                justify="flex-start"
-                direction="column"
-                wrap="wrap"
+            <Stack
+                align="center"
+                sx={{ maxWidth: "65%", paddingBottom: "2%" }}
             >
-                <Text
-                    color="white"
-                    fw={500}
-                    inline="true"
+                <Flex
+                    justify="flex-start"
+                    direction="row"
+                    gap="xl"
+                    wrap="wrap"
                 >
-                    Settings:
-                </Text>
-                <Title
-                    color="white"
-                    order={3}
+                    <Text
+                        color="white"
+                        fw={500}
+                        inline="true"
+                    >
+                        Rounds: {storageManager.getRoundAmount()}
+                    </Text>
+                    <Text
+                        color="white"
+                        fw={500}
+                        inline="true"
+                    >
+                        Time/Round: {storageManager.getRoundLength()}
+                    </Text>
+                </Flex>
+                <Flex
+                    justify="flex-start"
+                    direction="row"
+                    gap="xs"
+                    wrap="wrap"
                 >
-                    {storageManager.getRoundAmount()} Rounds {storageManager.getRoundLength()} each
-                </Title>
-            </Flex>
-            <Flex
-                justify="flex-start"
-                direction="column"
-                wrap="wrap"
-            >
-                <Text
-                    color="white"
-                    fw={500}
-                    inline="true"
-                >
-                    Categories:
-                </Text>
-                <Title
-                    color="white"
-                    order={3}
-                >
-                    {storageManager.getCategories()}
-                </Title>
-            </Flex>
+                    <Text
+                        color="white"
+                        fw={500}
+                        inline="true"
+                    >
+                        Categories:
+                    </Text>
+                    {storageManager.getCategories().map((category) => (
+                        <Badge
+                            color="green"
+                            radius="md"
+                            variant="filled"
+                        >
+                            {category}
+                        </Badge>
+                    ))}
+                </Flex>
+            </Stack>
             {startGameButton}
             <Paper
                 radius="md"
