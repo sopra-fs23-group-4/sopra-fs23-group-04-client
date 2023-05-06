@@ -6,7 +6,7 @@ import SockJsClient from "react-stomp";
 import { getDomain } from "../../../../helpers/getDomain";
 import { Player } from "./Lobby";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
-import { Role, storageManager } from "../../../../helpers/storageManager";
+import { storageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
 
 export const ScoreboardEntry = (props) => {
@@ -30,7 +30,6 @@ const Score = (props) => {
     const SOCKET_URL = getDomain() + "/ws-message";
 
     const gamePin = props.match.params["gamePin"];
-    const round = props.match.params["round"];
 
     const history = useHistory();
 
@@ -91,6 +90,16 @@ const Score = (props) => {
         }
     };
 
+    // Methods
+    async function doLeave() {
+        try {
+            await RestApi.leaveGame(gamePin);
+            history.push(`/game`);
+        } catch (error) {
+            alert(`Something went wrong leaving the game: \n${handleError(error)}`);
+        }
+    }
+
     // Scoreboard
     let scoreboardContent = (
         <Container align="center">
@@ -124,22 +133,10 @@ const Score = (props) => {
         );
     }
 
-    // Next Round Button
-    const nextRound = async () => {
-        await RestApi.startRound(gamePin, round + 1);
-    };
-
-    let nextRoundButton;
-    if (storageManager.getRole() === Role.HOST) {
-        nextRoundButton = <StandardButton onClick={() => nextRound()}>Next Round</StandardButton>;
-    } else {
-        nextRoundButton = "";
-    }
-
-    let leaveButton = "";
-    if (storageManager.getRound() === storageManager.getRoundAmount()) {
-        leaveButton = <StandardButton onClick={() => nextRound()}>Leave</StandardButton>;
-    }
+    // let leaveButton = "";
+    // if (storageManager.getRound() === storageManager.getRoundAmount()) {
+    //     leaveButton = <StandardButton onClick={() => doLeave()}>Leave</StandardButton>;
+    // }
 
     return (
         <BaseContainer>
@@ -161,8 +158,12 @@ const Score = (props) => {
             >
                 {scoreboardContent}
             </Paper>
-            {nextRoundButton}
-            {leaveButton}
+            <StandardButton
+                sx={{ marginTop: "3%" }}
+                onClick={() => doLeave()}
+            >
+                Leave
+            </StandardButton>
         </BaseContainer>
     );
 };
