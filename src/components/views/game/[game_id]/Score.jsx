@@ -136,6 +136,11 @@ const Score = (props) => {
         nextRoundButton = "";
     }
 
+    let leaveButton = "";
+    if (storageManager.getRound() === storageManager.getRoundAmount()) {
+        leaveButton = <StandardButton onClick={() => nextRound()}>Leave</StandardButton>;
+    }
+
     return (
         <BaseContainer>
             <SockJsClient
@@ -157,6 +162,7 @@ const Score = (props) => {
                 {scoreboardContent}
             </Paper>
             {nextRoundButton}
+            {leaveButton}
         </BaseContainer>
     );
 };
