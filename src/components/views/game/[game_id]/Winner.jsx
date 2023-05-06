@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import { storageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
+import { Crown } from "tabler-icons-react";
 
 const Winner = (props) => {
     const gamePin = props.match.params["gamePin"];
@@ -93,10 +94,60 @@ const Winner = (props) => {
                 wrap="wrap"
                 sx={{ width: "80%" }}
             >
+                <Space h="sm" />
+                <Crown
+                    size={80}
+                    color="#ffffff"
+                />
                 <Title
                     align="center"
                     order={1}
-                    sx={{ color: "white", marginTop: "20%" }}
+                    sx={{ color: "white", marginTop: "-22px" }}
+                >
+                    {winners[0].username}
+                </Title>
+                <Text
+                    align="center"
+                    size="lg"
+                    color="white"
+                    fw={500}
+                    sx={{ width: "80%", marginBottom: "2%" }}
+                >
+                    "{winners[0].quote}"
+                </Text>
+                <StandardButton
+                    component={Link}
+                    to={`/game/${gamePin}/round/${storageManager.getRound()}/score`}
+                >
+                    Scoreboard
+                </StandardButton>
+                <StandardButton
+                    sx={{ marginTop: "4%" }}
+                    onClick={() => doLeave()}
+                >
+                    Leave
+                </StandardButton>
+            </Flex>
+        );
+    } else if (winners.length > 1) {
+        winnerPageContent = (
+            <Flex
+                gap="md"
+                justify="center"
+                align="center"
+                direction="column"
+                wrap="wrap"
+                sx={{ width: "80%" }}
+            >
+                <Space h="sm" />
+                <Crown
+                    size={80}
+                    color="#ffffff"
+                />
+                <Title
+                    align="center"
+                    order={1}
+                    sx={{ color: "white", marginTop: "-22px" }}
                 >
                     {winners[0].username}
                 </Title>
