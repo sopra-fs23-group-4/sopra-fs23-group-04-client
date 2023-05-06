@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Title, Flex, Stack, Paper, Container } from "@mantine/core";
+import { Title, Text, Flex, Stack, Paper, Container } from "@mantine/core";
 import StandardButton from "../../../ui/StandardButton";
 import { Role, storageManager } from "../../../../helpers/storageManager";
 import { useHistory } from "react-router-dom";
@@ -98,15 +98,6 @@ const Lobby = (props) => {
                         storageManager.setRole(Role.PLAYER);
                     }
                 }
-                // Categories & Game Settings
-                if (storageManager.getCategories().length === 0) {
-                    const categoriesResponse = await RestApi.getGameCategories(gamePin);
-                    storageManager.setCategories(categoriesResponse);
-
-                    const gameSettingsResponse = await RestApi.getGameSettings(gamePin);
-                    storageManager.setRoundLength(gameSettingsResponse.roundLength);
-                    storageManager.setRoundAmount(gameSettingsResponse.rounds);
-                }
             } catch (error) {
                 console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -162,15 +153,46 @@ const Lobby = (props) => {
                 onMessage={(msg) => onMessageReceived(msg)}
                 debug={false}
             />
+            <Title color="white">PIN: {gamePin}</Title>
             <Flex
-                mih={50}
-                gap="md"
-                justify="center"
+                justify="flex-start"
+                direction="column"
                 wrap="wrap"
             >
-                <Title color="white">PIN:</Title>
-                <Title color="white">{gamePin}</Title>
+                <Text
+                    color="white"
+                    fw={500}
+                    inline="true"
+                >
+                    Settings:
+                </Text>
+                <Title
+                    color="white"
+                    order={3}
+                >
+                    {storageManager.getRoundAmount()} Rounds {storageManager.getRoundLength()} each
+                </Title>
             </Flex>
+            <Flex
+                justify="flex-start"
+                direction="column"
+                wrap="wrap"
+            >
+                <Text
+                    color="white"
+                    fw={500}
+                    inline="true"
+                >
+                    Categories:
+                </Text>
+                <Title
+                    color="white"
+                    order={3}
+                >
+                    {storageManager.getCategories()}
+                </Title>
+            </Flex>
+            {startGameButton}
             <Paper
                 radius="md"
                 shadow="xl"
@@ -182,6 +204,7 @@ const Lobby = (props) => {
                     gap="md"
                     justify="center"
                     wrap="wrap"
+                    direction="row"
                 >
                     <Title
                         order={3}
@@ -196,8 +219,12 @@ const Lobby = (props) => {
                 </Flex>
                 {playerListContent}
             </Paper>
-            {startGameButton}
-            <StandardButton onClick={() => doLeave()}>Leave</StandardButton>
+            <StandardButton
+                sx={{ marginTop: "2%" }}
+                onClick={() => doLeave()}
+            >
+                Leave
+            </StandardButton>
         </BaseContainer>
     );
 };
