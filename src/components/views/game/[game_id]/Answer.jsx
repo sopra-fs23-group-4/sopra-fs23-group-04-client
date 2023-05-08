@@ -1,7 +1,7 @@
 import BaseContainer from "../../../ui/BaseContainer";
 import { useHistory, useParams } from "react-router-dom";
 import React, { useState } from "react";
-import { Group, TextInput, Title } from "@mantine/core";
+import { Text, Group, TextInput, Title } from "@mantine/core";
 import StandardButton from "../../../ui/StandardButton";
 import { storageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
@@ -20,6 +20,8 @@ const Answer = () => {
 
     const category = categories[answerIndex];
     const lastElement = categories.length - 1;
+
+    const [timer, setTimer] = useState(45);
 
     const handleAnswerChange = (event) => {
         const newAnswers = [...answers];
@@ -80,10 +82,14 @@ const Answer = () => {
     let onDisconnected = () => {
         console.log("disconnect");
     };
-
     let onMessageReceived = async (msg) => {
-        console.log(msg);
-        await doDoneWs();
+        console.log(msg.type);
+        if (msg.type === "roundEnd") {
+            setTimer(0);
+            await doDoneWs();
+        } else if (msg.type === "roundTimer") {
+            setTimer(msg.timeRemaining);
+        }
     };
 
     return (
@@ -96,6 +102,7 @@ const Answer = () => {
                 onMessage={(msg) => onMessageReceived(msg)}
                 debug={false}
             />
+            <Text color="white">Time remaining: {timer}</Text>
             <Title
                 sx={{ marginTop: "2%" }}
                 color="white"
@@ -133,7 +140,7 @@ const Answer = () => {
             </StandardButton>
             <StandardButton
                 sx={{ marginTop: "5%" }}
-                disabled={!answers.every((value) => value !== null)}
+                disabled={!answers.every((value) => value !== null && value !== "" && value !== { letter })}
                 onClick={() => doDoneButton()}
             >
                 DONE

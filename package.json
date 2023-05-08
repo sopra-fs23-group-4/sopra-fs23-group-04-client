@@ -6,6 +6,7 @@
     "@mantine/core": "^6.0.5",
     "@mantine/hooks": "^6.0.5",
     "@stomp/stompjs": "^7.0.0",
+    "@tabler/icons-react": "^2.17.0",
     "axios": "^0.24.0",
     "node-gyp": "^8.4.1",
     "node-sass": "^8.0.0",

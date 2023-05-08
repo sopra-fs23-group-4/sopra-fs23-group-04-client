@@ -1,41 +1,29 @@
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import BaseContainer from "../../../ui/BaseContainer";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Paper, Table, Text, Title } from "@mantine/core";
 import { Check, Equal, LetterX } from "tabler-icons-react";
 import { storageManager } from "../../../../helpers/storageManager";
-import StandardButton from "../../../ui/StandardButton";
 import SockJsClient from "react-stomp";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
+import { getDomain } from "../../../../helpers/getDomain";
 
 const VotingResult = () => {
-    const SOCKET_URL = "http://localhost:8080/ws-message";
+    const SOCKET_URL = getDomain() + "/ws-message";
     const { gamePin, round, categoryIndex } = useParams();
+    const history = useHistory();
 
     const letter = storageManager.getLetter();
     const categories = storageManager.getCategories();
     const category = categories[categoryIndex];
-    const VotingResults = [
-        {
-            username: "wigeto",
-            answerString: "Amsterdam",
-            numberOfUnique: 0,
-            numberOfNotUnique: 1,
-            numberOfWrong: 2,
-        },
-        {
-            username: "skavnir",
-            answerString: "Amsterdam",
-            numberOfUnique: 0,
-            numberOfNotUnique: 1,
-            numberOfWrong: 2,
-        },
-    ];
+    const [votes, setVotes] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                console.log(await RestApi.getVotes(gamePin, round, category));
+                const response = await RestApi.getVotes(gamePin, round, category);
+                console.log(response.data);
+                setVotes(response.data);
             } catch (error) {
                 console.error(`Something went wrong while fetching the votes: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -45,25 +33,25 @@ const VotingResult = () => {
         fetchData();
     }, [gamePin, round, category]);
 
-    const rows = VotingResults.map((result, index) => (
-        <tr key={index}>
+    const rows = votes.map((result, index) => (
+        <tr
+            key={index}
+            style={{
+                backgroundColor: result.username === storageManager.getUsername() ? "lightblue" : "transparent",
+            }}
+        >
             <td>
                 <strong> {result.username}</strong>
             </td>
             <td>{result.answerString}</td>
             <td>
-                <strong>{result.username}</strong>{" "}
+                <strong>{result.points}</strong>{" "}
             </td>
             <td align="center">{result.numberOfUnique}</td>
             <td align="center">{result.numberOfNotUnique}</td>
             <td align="center">{result.numberOfWrong}</td>
         </tr>
     ));
-
-    let contentRole = null;
-    if (storageManager.getRole() !== "player") {
-        contentRole = <StandardButton>DONE</StandardButton>;
-    }
 
     let onConnected = () => {
         console.log("Connected!!");
@@ -72,15 +60,22 @@ const VotingResult = () => {
         console.log("disconnect");
     };
 
-    let onMessageReceived = (msg) => {
-        console.log(msg);
+    let onMessageReceived = async (msg) => {
+        console.log(msg.type);
+        if (msg.type === "resultNextVote") {
+            const nextCategoryIndex = parseInt(categoryIndex) + 1;
+            history.push(`/game/${gamePin}/round/${round}/voting/${nextCategoryIndex}`);
+        } else if (msg.type === "resultScoreboard") {
+            history.push(`/game/${gamePin}/round/${round}/score`);
+        } else if (msg.type === "resultWinner") {
+            history.push(`/game/${gamePin}/round/${round}/winner`);
+        }
     };
 
     const stylesCenter = {
         tableHeader: {
             textAlign: "center",
             color: "black",
-            fontStyle: "italic",
         },
     };
 
@@ -88,6 +83,7 @@ const VotingResult = () => {
         tableHeader: {
             textAlign: "left",
             color: "black",
+            textDecoration: "underline",
         },
     };
 
@@ -115,7 +111,7 @@ const VotingResult = () => {
                 shadow="xl"
                 radius="md"
                 p="lg"
-                sx={{ background: "white", minWidth: "70%" }}
+                sx={{ background: "azure", minWidth: "70%", marginBottom: "1%" }}
             >
                 <Title align="center">
                     {category} ({letter})
@@ -160,7 +156,6 @@ const VotingResult = () => {
                     <tbody>{rows}</tbody>
                 </Table>
             </Paper>
-            {contentRole}
         </BaseContainer>
     );
 };

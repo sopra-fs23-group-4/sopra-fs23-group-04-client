@@ -8,6 +8,17 @@ export const restApi = axios.create({
     headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", Authorization: storageManager.getToken() },
 });
 
+// makes sure, that the header is updated for every request
+restApi.interceptors.request.use(
+    (config) => {
+        config.headers.Authorization = storageManager.getToken();
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    },
+);
+
 export const generalLoginProcedure = (user) => {
     storageManager.initializeUser(user);
 };
@@ -68,71 +79,51 @@ export class RestApi {
         return response.data.categories;
     }
 
+    static async getGameSettings(gamePin) {
+        const response = await restApi.get(`/games/${gamePin}/settings`);
+        return response.data;
+    }
+
     static async getGameUsers(gamePin) {
         const response = await restApi.get(`/games/${gamePin}/users`);
         return response.data;
     }
 
     static async createGame(rounds, roundLength, categories) {
-        const headers = {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: storageManager.getToken(),
-        };
         const requestBody = JSON.stringify({ rounds, roundLength, categories });
-        const response = await restApi.post("/games/lobbies/creation", requestBody, { headers });
+        const response = await restApi.post("/games/lobbies/creation", requestBody);
         return response.data;
     }
 
     static async joinGame(pin) {
-        const headers = {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: storageManager.getToken(),
-        };
-        await restApi.put(`/games/lobbies/${pin}/join`, null, { headers });
+        await restApi.put(`/games/lobbies/${pin}/join`, null);
     }
 
     static async leaveGame(pin) {
-        const headers = {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: storageManager.getToken(),
-        };
-        await restApi.put(`/games/lobbies/${pin}/leave`, null, { headers });
+        await restApi.put(`/games/lobbies/${pin}/leave`, null);
+        storageManager.resetRound();
     }
 
     static async startGame(gamePin) {
         await restApi.post(`/games/${gamePin}/start`);
     }
 
+    static async startRound(gamePin, round) {
+        await restApi.put(`/games/${gamePin}/${round}/start`);
+    }
+
     static async EndRound(gamePin, round) {
-        const headers = {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: storageManager.getToken(),
-        };
-        await restApi.put(`/games/${gamePin}/${round}/end`, { headers });
+        await restApi.put(`/games/${gamePin}/${round}/end`, {});
     }
 
     static async postAnswers(gamePin, round, answers) {
         const requestBody = JSON.stringify(answers);
-        const headers = {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: storageManager.getToken(),
-        };
         console.log(requestBody);
-        await restApi.post(`/games/${gamePin}/${round}`, requestBody, { headers });
+        await restApi.post(`/games/${gamePin}/${round}`, requestBody);
     }
 
     static async getAnswersForCategory(gamePin, round, category) {
-        const headers = {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: storageManager.getToken(),
-        };
-        const response = await restApi.get(`/games/${gamePin}/${round}/${category}`, { headers });
+        const response = await restApi.get(`/games/${gamePin}/${round}/${category}`);
         await new Promise((resolve) => setTimeout(resolve, 1000));
 
         return response.data;
@@ -140,21 +131,26 @@ export class RestApi {
 
     static async postVotes(gamePin, round, category, votes) {
         const requestBody = JSON.stringify(votes);
-        const headers = {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: storageManager.getToken(),
-        };
-        return await restApi.post(`/games/${gamePin}/${round}/${category}`, requestBody, { headers });
+        return await restApi.post(`/games/${gamePin}/votings/${category}`, requestBody);
     }
 
     static async getVotes(gamePin, round, category) {
-        const headers = {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            Authorization: storageManager.getToken(),
-        };
-        return await restApi.post(`/games/${gamePin}/votings/${round}/${category}`, { headers });
+        return await restApi.get(`/games/${gamePin}/votings/${round}/${category}`, {});
+    }
+
+    static async getLeaderboard() {
+        const response = await restApi.get("/games/lobbies/leaderboard");
+        return response.data;
+    }
+
+    static async getScores(gamePin) {
+        const response = await restApi.get(`/games/lobbies/${gamePin}/scoreboard`);
+        return response.data;
+    }
+
+    static async getWinners(gamePin) {
+        const response = await restApi.get(`/games/lobbies/${gamePin}/winner`);
+        return response.data;
     }
 }
 export const handleError = (error) => {

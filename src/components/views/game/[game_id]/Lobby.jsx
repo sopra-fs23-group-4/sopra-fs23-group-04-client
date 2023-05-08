@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Title, Flex, Stack, Paper, Container } from "@mantine/core";
+import { Title, Text, Flex, Stack, Paper, Container, Badge } from "@mantine/core";
 import StandardButton from "../../../ui/StandardButton";
 import { Role, storageManager } from "../../../../helpers/storageManager";
 import { useHistory } from "react-router-dom";
@@ -8,15 +8,23 @@ import { handleError, RestApi } from "../../../../helpers/RestApi";
 import SockJsClient from "react-stomp";
 import { getDomain } from "../../../../helpers/getDomain";
 
-export const Player = (props) => (
-    <Title
-        color="white"
-        order={3}
-        {...props}
-    >
-        {props.username}
-    </Title>
-);
+export const Player = (props) => {
+    let value;
+    if (props.number === undefined) {
+        value = props.username;
+    } else {
+        value = props.number + ". " + props.username;
+    }
+    return (
+        <Title
+            color="white"
+            order={3}
+            {...props}
+        >
+            {value}
+        </Title>
+    );
+};
 
 const Lobby = (props) => {
     const SOCKET_URL = getDomain() + "/ws-message";
@@ -45,7 +53,7 @@ const Lobby = (props) => {
         } else if (msg.type === "letter") {
             storageManager.setAnswers(Array(storageManager.getCategories().length).fill(null));
             storageManager.setLetter(msg.letter);
-            storageManager.setRound(1);
+            storageManager.setRound(msg.round);
             storageManager.setGamePin(gamePin);
             history.push(`/game/${gamePin}/round/${1}/board/`);
         }
@@ -54,7 +62,6 @@ const Lobby = (props) => {
     async function doLeave() {
         try {
             await RestApi.leaveGame(gamePin);
-            storageManager.resetRound();
             history.push(`/game`);
         } catch (error) {
             alert(`Something went wrong leaving the lobby: \n${handleError(error)}`);
@@ -89,11 +96,6 @@ const Lobby = (props) => {
                     } else if (storageManager.getRole() !== Role.PLAYER) {
                         storageManager.setRole(Role.PLAYER);
                     }
-                }
-                // Categories
-                if (storageManager.getCategories().length === 0) {
-                    const categoriesResponse = await RestApi.getGameCategories(gamePin);
-                    storageManager.setCategories(categoriesResponse);
                 }
             } catch (error) {
                 console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
@@ -150,26 +152,70 @@ const Lobby = (props) => {
                 onMessage={(msg) => onMessageReceived(msg)}
                 debug={false}
             />
-            <Flex
-                mih={50}
-                gap="md"
-                justify="center"
-                wrap="wrap"
+            <Title color="white">PIN: {gamePin}</Title>
+            <Stack
+                align="center"
+                sx={{ maxWidth: "65%", paddingBottom: "2%" }}
             >
-                <Title color="white">PIN:</Title>
-                <Title color="white">{gamePin}</Title>
-            </Flex>
+                <Flex
+                    justify="flex-start"
+                    direction="row"
+                    gap="xl"
+                    wrap="wrap"
+                >
+                    <Text
+                        color="white"
+                        fw={500}
+                        inline="true"
+                    >
+                        Rounds: {storageManager.getRoundAmount()}
+                    </Text>
+                    <Text
+                        color="white"
+                        fw={500}
+                        inline="true"
+                    >
+                        Time/Round: {storageManager.getRoundLength()}
+                    </Text>
+                </Flex>
+                <Flex
+                    justify="flex-start"
+                    direction="row"
+                    gap="xs"
+                    wrap="wrap"
+                >
+                    <Text
+                        color="white"
+                        fw={500}
+                        inline="true"
+                    >
+                        Categories:
+                    </Text>
+                    {storageManager.getCategories().map((category) => (
+                        <Badge
+                            color="green"
+                            radius="md"
+                            variant="filled"
+                        >
+                            {category}
+                        </Badge>
+                    ))}
+                </Flex>
+            </Stack>
+            {startGameButton}
             <Paper
-                shadow="xl"
                 radius="md"
+                shadow="xl"
                 p="lg"
-                sx={{ background: "#00acee", minWidth: "220px" }}
+                bg="rgba(0, 255, 0, .1)"
+                sx={{ background: "inherit", minWidth: "220px", border: "4px solid white" }}
             >
                 <Flex
                     mih={50}
                     gap="md"
                     justify="center"
                     wrap="wrap"
+                    direction="row"
                 >
                     <Title
                         order={3}
@@ -184,8 +230,12 @@ const Lobby = (props) => {
                 </Flex>
                 {playerListContent}
             </Paper>
-            {startGameButton}
-            <StandardButton onClick={() => doLeave()}>Leave</StandardButton>
+            <StandardButton
+                sx={{ marginTop: "2%" }}
+                onClick={() => doLeave()}
+            >
+                Leave
+            </StandardButton>
         </BaseContainer>
     );
 };

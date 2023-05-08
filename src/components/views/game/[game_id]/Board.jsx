@@ -1,9 +1,9 @@
 import { useHistory, useParams } from "react-router-dom";
 import { Checkbox as CheckIcon, Edit as EditIcon } from "tabler-icons-react";
-import React from "react";
+import React, { useState } from "react";
 import BaseContainer from "../../../ui/BaseContainer";
 import StandardButton from "../../../ui/StandardButton";
-import { Button, Stack, Title } from "@mantine/core";
+import { Button, Stack, Title, Text } from "@mantine/core";
 import { storageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import * as gameFunctions from "../../../../helpers/gameFunction";
@@ -18,6 +18,7 @@ const Board = () => {
     const letter = storageManager.getLetter();
     const categories = storageManager.getCategories();
     const answers = storageManager.getAnswers();
+    const [timer, setTimer] = useState(45);
 
     /*    useEffect(() => {
         let isMounted = true;
@@ -83,9 +84,12 @@ const Board = () => {
     };
 
     let onMessageReceived = async (msg) => {
-        console.log(msg);
-        if (msg === "end") {
+        console.log(msg.type);
+        if (msg.type === "roundEnd") {
+            setTimer(0);
             await doDoneWs();
+        } else if (msg.type === "roundTimer") {
+            setTimer(msg.timeRemaining);
         }
     };
 
@@ -131,12 +135,13 @@ const Board = () => {
         <BaseContainer>
             <SockJsClient
                 url={SOCKET_URL}
-                topics={[`/topic/games/${gamePin}/rounds`]}
+                topics={[`/topic/lobbies/${gamePin}`]}
                 onConnect={onConnected}
                 onDisconnect={onDisconnected}
                 onMessage={(msg) => onMessageReceived(msg)}
                 debug={false}
             />
+            <Text color="white">Time remaining: {timer}</Text>
             <Title
                 sx={{ marginTop: "2%" }}
                 color="white"
@@ -159,7 +164,7 @@ const Board = () => {
             <StandardButton
                 position="center"
                 sx={{ marginTop: "5%" }}
-                disabled={!answers.every((value) => value !== null)}
+                disabled={!answers.every((value) => value !== null && value !== "" && value !== { letter })}
                 onClick={() => doDoneButton()}
             >
                 DONE

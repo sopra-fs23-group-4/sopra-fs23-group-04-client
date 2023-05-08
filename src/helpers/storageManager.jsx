@@ -1,3 +1,5 @@
+import { roundLengthInSeconds } from "../components/views/game/Settings";
+
 export const Role = {
     HOST: "host",
     PLAYER: "player",
@@ -77,18 +79,32 @@ export class storageManager {
         return categories ? JSON.parse(categories) : [];
     }
 
+    static setRoundLength(roundLength) {
+        sessionStorage.setItem("roundLength", roundLengthInSeconds[roundLength]);
+    }
+    static getRoundLength() {
+        return sessionStorage.getItem("roundLength");
+    }
+
+    static setRoundAmount(roundAmount) {
+        sessionStorage.setItem("roundAmount", roundAmount);
+    }
+    static getRoundAmount() {
+        return sessionStorage.getItem("roundAmount");
+    }
+
     static setRound(round) {
         sessionStorage.setItem("round", round);
     }
     static getRound() {
-        sessionStorage.getItem("round");
+        return sessionStorage.getItem("round");
     }
 
     static setGamePin(gamePin) {
         sessionStorage.setItem("gamePin", gamePin);
     }
     static getGamePin() {
-        sessionStorage.getItem("gamePin");
+        return sessionStorage.getItem("gamePin");
     }
 
     static setLetter(letter) {
@@ -112,5 +128,7 @@ export class storageManager {
         sessionStorage.removeItem("answers");
         sessionStorage.removeItem("round");
         sessionStorage.removeItem("gamePin");
+        sessionStorage.removeItem("roundLength");
+        sessionStorage.removeItem("roundAmount");
     }
 }

@@ -11,11 +11,16 @@ export const RoundLength = {
     MEDIUM: "MEDIUM",
     LONG: "LONG",
 };
+export const roundLengthInSeconds = {
+    [RoundLength.SHORT]: "45s",
+    [RoundLength.MEDIUM]: "60s",
+    [RoundLength.LONG]: "75s",
+};
 
 const Settings = () => {
     const history = useHistory();
     const [rounds, setRounds] = useState(15);
-    const [roundLength, setRoundLength] = useState("SHORT");
+    const [roundLength, setRoundLength] = useState(RoundLength.MEDIUM);
 
     const MARKS = [
         { value: 5, label: "5" },
@@ -30,6 +35,9 @@ const Settings = () => {
             const pin = await RestApi.createGame(rounds, roundLength, categories);
             storageManager.removeCategoriesSelected();
             storageManager.setRole(Role.HOST);
+            storageManager.setRoundAmount(rounds);
+            storageManager.setRoundLength(roundLength);
+            storageManager.setCategories(categories);
             history.push(`/game/${pin}/lobby`);
         } catch (error) {
             alert(`Something went wrong whilst creating the lobby: \n${handleError(error)}`);
@@ -53,13 +61,15 @@ const Settings = () => {
                 />
             </Container>
             <Space h="xs" />
-            <Title color="white">Round Length</Title>
+            <Title color="white">
+                Round Length: <b>{roundLengthInSeconds[roundLength]}</b>
+            </Title>
             <SegmentedControl
                 color="blue"
                 data={[
                     { label: "short", value: RoundLength.SHORT },
                     { label: "normal", value: RoundLength.MEDIUM },
-                    { label: "loooong", value: RoundLength.LONG },
+                    { label: "long", value: RoundLength.LONG },
                 ]}
                 value={roundLength}
                 onChange={setRoundLength}

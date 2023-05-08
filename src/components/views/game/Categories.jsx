@@ -1,5 +1,5 @@
 import BaseContainer from "../../ui/BaseContainer";
-import { Chip, Group, Loader, Title } from "@mantine/core";
+import { Text, Chip, Group, Loader, Stack, Title, TextInput } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import StandardButton from "../../ui/StandardButton";
 import { useHistory } from "react-router-dom";
@@ -10,7 +10,9 @@ const Categories = () => {
     const history = useHistory();
 
     const [categories, setCategories] = useState([]);
-    const [categoriesSelected, setCategoriesSelected] = useState(null);
+    const [categoriesSelected, setCategoriesSelected] = useState([]);
+    const [customCategory, setCustomCategory] = useState("");
+    const [customCategories, setCustomCategories] = useState([]);
 
     useEffect(() => {
         let isMounted = true;
@@ -36,6 +38,12 @@ const Categories = () => {
         history.push("/game/settings");
         storageManager.setCategoriesSelected(categoriesSelected);
     };
+    const addCustomCategory = () => {
+        if (customCategory.trim() !== "") {
+            setCustomCategories([...customCategories, customCategory.trim()]);
+            setCustomCategory("");
+        }
+    };
 
     const Category = ({ category }) => {
         return (
@@ -54,36 +62,83 @@ const Categories = () => {
     let contentCategory = <Loader />;
     if (categories.length !== 0) {
         contentCategory = (
-            <Chip.Group
-                multiple
-                position="center"
-                mt="md"
-                defaultChecked
-                onChange={setCategoriesSelected}
+            <Stack
+                align="center"
+                sx={{ marginTop: "3%" }}
             >
-                <Group
-                    sx={{ marginTop: "5%" }}
-                    position="center"
+                <Text
+                    color="white"
+                    size="lg"
                 >
-                    {categories.map((category) => (
-                        <Category
-                            key={category}
-                            category={category}
-                        />
-                    ))}
-                </Group>
-            </Chip.Group>
+                    click on category to select:
+                </Text>
+                <Chip.Group
+                    multiple
+                    mt="md"
+                    onChange={setCategoriesSelected}
+                >
+                    <Group position="center">
+                        {categories.map((category) => (
+                            <Category
+                                key={category}
+                                category={category}
+                            />
+                        ))}
+                    </Group>
+                    <Group
+                        sx={{ marginTop: "1%" }}
+                        position="center"
+                    >
+                        {customCategories.map((category) => (
+                            <Category
+                                key={category}
+                                category={category}
+                            />
+                        ))}
+                    </Group>
+                </Chip.Group>
+            </Stack>
         );
     }
 
     return (
         <BaseContainer align="center">
-            <Title color="white">Category Selection</Title> {contentCategory}
+            <Title color="white">Category Selection</Title>
+            {contentCategory}
+            <Stack
+                align="center"
+                sx={{ marginTop: "3%" }}
+            >
+                <Text
+                    color="white"
+                    size="lg"
+                    sx={{ marginTop: "2%" }}
+                >
+                    add your own category:
+                </Text>
+                <Group>
+                    <TextInput
+                        placeholder="be creative"
+                        radius="lg"
+                        value={customCategory}
+                        size="md"
+                        sx={{ "& .mantine-TextInput-label": { color: "white" } }}
+                        onChange={(event) => setCustomCategory(event.currentTarget.value)}
+                        onKeyDown={(event) => {
+                            if (event.key === "Enter") {
+                                addCustomCategory();
+                            }
+                        }}
+                    />
+                    <StandardButton onClick={addCustomCategory}>add</StandardButton>
+                </Group>
+            </Stack>
             <StandardButton
+                disabled={categoriesSelected.length === 0}
                 onClick={() => doContinue()}
                 sx={{ marginTop: "5%" }}
             >
-                Done
+                Confirm Selection
             </StandardButton>
             <StandardButton
                 onClick={() => history.push("/game/")}
