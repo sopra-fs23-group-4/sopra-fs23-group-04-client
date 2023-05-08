@@ -60,8 +60,8 @@ const Score = (props) => {
                     ];
 
                     // real code
-                    const scoreResponse = await RestApi.getScores(gamePin);
-                    scoreResponse.concat(sampleValues);
+                    let scoreResponse = await RestApi.getScores(gamePin);
+                    scoreResponse = scoreResponse.concat(sampleValues);
                     setUserScores(scoreResponse);
                 }
             } catch (error) {
