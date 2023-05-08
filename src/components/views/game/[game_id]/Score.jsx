@@ -40,28 +40,28 @@ const Score = (props) => {
             try {
                 if (userScores.length === 0) {
                     // hardcoded sample values
-                    setUserScores([
-                        {
-                            username: "Günter",
-                            score: 1500,
-                        },
-                        {
-                            username: "Rüdiger",
-                            score: 420,
-                        },
-                        {
-                            username: "Ueli",
-                            score: 300,
-                        },
-                        {
-                            username: "Thorsten",
-                            score: 420,
-                        },
-                    ]);
+                    // setUserScores([
+                    //     {
+                    //         username: "Günter",
+                    //         score: 1500,
+                    //     },
+                    //     {
+                    //         username: "Rüdiger",
+                    //         score: 420,
+                    //     },
+                    //     {
+                    //         username: "Ueli",
+                    //         score: 300,
+                    //     },
+                    //     {
+                    //         username: "Thorsten",
+                    //         score: 420,
+                    //     },
+                    // ]);
 
                     // real code
-                    // const scoreResponse = await RestApi.getScores(gamePin);
-                    // setUserScores(scoreResponse);
+                    const scoreResponse = await RestApi.getScores(gamePin);
+                    setUserScores(scoreResponse);
                 }
             } catch (error) {
                 console.error(`Something went wrong while fetching the scores: \n${handleError(error)}`);
