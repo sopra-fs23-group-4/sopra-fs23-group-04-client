@@ -1,6 +1,6 @@
 # SoPra FS23 - Group 4 - Client Template with build pack
 
-## Getting started
+## Getting started t
 
 Read and go through these Tutorials. It will make your life easier:)
 
