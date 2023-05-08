@@ -68,7 +68,7 @@ const VotingResult = () => {
         } else if (msg.type === "resultScoreboard") {
             history.push(`/game/${gamePin}/round/${round}/score`);
         } else if (msg.type === "resultWinner") {
-            history.push(`/game/${gamePin}/round/${round}/winner`);
+            history.push(`/game/${gamePin}/winner`);
         }
     };
 
