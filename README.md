@@ -1,6 +1,6 @@
 # SoPra FS23 - Group 4 - Client 
 
-## Getting started t
+## Getting started 
 
 Read and go through these Tutorials. It will make your life easier:)
 
