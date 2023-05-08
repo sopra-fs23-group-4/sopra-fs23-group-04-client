@@ -47,11 +47,11 @@ const Score = (props) => {
                         },
                         {
                             username: "Rüdiger",
-                            score: 600,
+                            score: 420,
                         },
                         {
                             username: "Ueli",
-                            score: 2000,
+                            score: 300,
                         },
                         {
                             username: "Thorsten",
@@ -113,7 +113,21 @@ const Score = (props) => {
     );
 
     if (userScores.length !== 0) {
-        userScores.sort((a, b) => b.score - a.score);
+        const sortedUsers = userScores.sort((a, b) => b.score - a.score);
+
+        // Assign ranks to the users
+        let rank = 1;
+        let previousScore = null;
+        const usersWithRanks = sortedUsers.map((user, index) => {
+            if (user.score !== previousScore) {
+                rank = index + 1;
+                user.rank = rank;
+            } else {
+                user.rank = rank;
+            }
+            previousScore = user.score;
+            return user;
+        });
 
         scoreboardContent = (
             <Stack
@@ -121,11 +135,11 @@ const Score = (props) => {
                 align="stretch"
                 spacing="sm"
             >
-                {userScores.map((user, index) => (
+                {usersWithRanks.map((user, index) => (
                     <ScoreboardEntry
-                        key={user.username}
+                        key={index}
                         username={user.username}
-                        number={index + 1}
+                        number={user.rank}
                         score={user.score}
                     />
                 ))}
