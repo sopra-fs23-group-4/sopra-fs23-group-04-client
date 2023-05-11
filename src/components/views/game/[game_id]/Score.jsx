@@ -39,29 +39,8 @@ const Score = (props) => {
         async function fetchData() {
             try {
                 if (userScores.length === 0) {
-                    // hardcoded sample values
-                    const sampleValues = [
-                        {
-                            username: "Günter",
-                            score: 1,
-                        },
-                        {
-                            username: "Rüdiger",
-                            score: 420,
-                        },
-                        {
-                            username: "Ueli",
-                            score: 0,
-                        },
-                        {
-                            username: "Thorsten",
-                            score: 420,
-                        },
-                    ];
-
                     // real code
                     let scoreResponse = await RestApi.getScores(gamePin);
-                    scoreResponse = scoreResponse.concat(sampleValues);
                     setUserScores(scoreResponse);
                 }
             } catch (error) {
@@ -136,7 +115,7 @@ const Score = (props) => {
                 align="stretch"
                 spacing="sm"
             >
-                {usersWithRanks.map((user, index) => (
+                {usersWithRanks.map((user) => (
                     <ScoreboardEntry
                         key={user.username}
                         username={user.username}
