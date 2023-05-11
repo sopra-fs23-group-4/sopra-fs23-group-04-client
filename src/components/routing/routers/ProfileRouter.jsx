@@ -1,6 +1,7 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import Edit from "../../views/profile/Edit";
 import Quote from "../../views/profile/edit/Quote";
+import User from "../../views/users/User";
 
 const ProfileRouter = (props) => {
     return (
@@ -8,7 +9,7 @@ const ProfileRouter = (props) => {
             <Route
                 exact
                 path={`${props.base}/:username`}
-                component={Quote}
+                component={User}
             />
             {/*            <Route
                 exact
