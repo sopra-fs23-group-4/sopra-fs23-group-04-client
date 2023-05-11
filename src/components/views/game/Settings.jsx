@@ -19,7 +19,7 @@ export const roundLengthInSeconds = {
 
 const Settings = () => {
     const history = useHistory();
-    const [rounds, setRounds] = useState(15);
+    const [rounds, setRounds] = useState(5);
     const [roundLength, setRoundLength] = useState(RoundLength.MEDIUM);
 
     const MARKS = [
