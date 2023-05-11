@@ -157,7 +157,7 @@ const Winner = (props) => {
                 >
                     Congratulations to:
                 </Title>
-                {winners.map((winner, index) => (
+                {winners.map((winner) => (
                     <Title
                         align="center"
                         order={1}
