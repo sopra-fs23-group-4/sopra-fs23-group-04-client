@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Title, Stack, Paper, Container, Group } from "@mantine/core";
+import { Title, Text, Stack, Paper, Container, Group } from "@mantine/core";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import SockJsClient from "react-stomp";
@@ -34,6 +34,7 @@ const Score = (props) => {
     const history = useHistory();
 
     const [userScores, setUserScores] = useState([]);
+    const [fact, setFact] = useState("");
 
     useEffect(() => {
         async function fetchData() {
@@ -42,6 +43,11 @@ const Score = (props) => {
                     // real code
                     let scoreResponse = await RestApi.getScores(gamePin);
                     setUserScores(scoreResponse);
+                }
+                if (fact === "") {
+                    const factResponse = await RestApi.generateFact();
+                    console.log(factResponse);
+                    setFact(factResponse);
                 }
             } catch (error) {
                 console.error(`Something went wrong while fetching the scores: \n${handleError(error)}`);
@@ -152,6 +158,14 @@ const Score = (props) => {
             >
                 {scoreboardContent}
             </Paper>
+            <Text
+                color="white"
+                align="center"
+                sx={{ width: "95%" }}
+            >
+                <b>Random Fact: </b>
+                {fact}
+            </Text>
             <StandardButton
                 sx={{ marginTop: "3%" }}
                 onClick={() => doLeave()}

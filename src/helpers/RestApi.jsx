@@ -69,6 +69,11 @@ export class RestApi {
         return response.data.quote;
     }
 
+    static async generateFact() {
+        const response = await restApi.get(`/facts`);
+        return response.data.fact;
+    }
+
     static async getAllCategories() {
         const response = await restApi.get(`/games/categories`);
         return response.data.categories;
