@@ -56,7 +56,7 @@ const Score = (props) => {
             }
         }
         fetchData();
-    }, [userScores, gamePin]);
+    }, [userScores, fact, gamePin]);
 
     // Websocket
     let onConnected = () => {
