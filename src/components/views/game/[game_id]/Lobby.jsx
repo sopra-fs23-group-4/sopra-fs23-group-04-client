@@ -86,8 +86,7 @@ const Lobby = (props) => {
                     await new Promise((resolve) => setTimeout(resolve, 500));
                 }
 
-                // update sessionStorage
-                // Role
+                // update Role value in sessionStorage
                 if (hostUsername !== "loading...") {
                     if (hostUsername === StorageManager.getUsername()) {
                         if (StorageManager.getRole() !== Role.HOST) {
@@ -123,13 +122,20 @@ const Lobby = (props) => {
                 align="center"
                 spacing="sm"
             >
-                {usersInLobby.map((username) => (
-                    <Player
-                        key={username}
-                        //onClick={() => history.push(`/users/${user.id}`)}
-                        username={username}
-                    />
-                ))}
+                {usersInLobby.map((username) => {
+                    let color = "white";
+                    if (username === StorageManager.getUsername()) {
+                        color = "green";
+                    }
+                    return (
+                        <Player
+                            key={username}
+                            color={color}
+                            //onClick={() => history.push(`/users/${user.id}`)}
+                            username={username}
+                        />
+                    );
+                })}
             </Stack>
         );
     }
@@ -137,7 +143,14 @@ const Lobby = (props) => {
     let startGameButton;
 
     if (StorageManager.getRole() === Role.HOST) {
-        startGameButton = <StandardButton onClick={() => startGame()}>Start Game</StandardButton>;
+        startGameButton = (
+            <StandardButton
+                onClick={() => startGame()}
+                disabled={usersInLobby.length === 0}
+            >
+                Start Game
+            </StandardButton>
+        );
     } else {
         startGameButton = "";
     }
@@ -227,6 +240,7 @@ const Lobby = (props) => {
                     <Player
                         username={hostUsername}
                         onClick={() => console.log("click")}
+                        color={StorageManager.getRole() === Role.HOST ? "green" : "white"}
                     />
                 </Flex>
                 {playerListContent}

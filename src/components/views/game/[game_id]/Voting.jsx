@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Paper, Radio, Stack, Table, Text, Title } from "@mantine/core";
+import { Loader, Paper, Radio, Stack, Table, Text, Title } from "@mantine/core";
 import { useHistory, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { StorageManager } from "../../../../helpers/storageManager";
@@ -17,25 +17,24 @@ const Voting = () => {
     const category = categories[categoryIndex];
     const answers = StorageManager.getAnswers();
     const answer = answers[categoryIndex] ? answers[categoryIndex] : "none";
-    const [answersCategory, setAnswersCategory] = useState([{ dummy: "" }]);
-    //const [answersCategory, setAnswersCategory] = useState([{ 1: "Arbon" }, { 2: "Appenzell" }, { 4: "Neuenburg" }, { 23: "Nyon" }]);
+    const [answersToRate, setAnswersToRate] = useState([]);
     const [votes, setVotes] = useState({});
     const [timer, setTimer] = useState(45);
     const [done, setDone] = useState(false);
 
     useEffect(() => {
         const newDict = {};
-        answersCategory.forEach((obj) => {
+        answersToRate.forEach((obj) => {
             const key = Object.keys(obj)[0];
             newDict[key] = null;
         });
         setVotes(newDict);
-    }, [answersCategory]);
+    }, [answersToRate]);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                setAnswersCategory(await RestApi.getAnswersForCategory(gamePin, round, category));
+                setAnswersToRate(await RestApi.getAnswersForCategory(gamePin, round, category));
             } catch (error) {
                 console.error(`Something went wrong while fetching the answers: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -74,7 +73,7 @@ const Voting = () => {
         }
     };
 
-    const rows = answersCategory.map((answer) => (
+    const rows = answersToRate.map((answer) => (
         <tr key={Object.keys(answer)[0]}>
             <td>
                 <strong>{Object.values(answer)[0]}</strong>{" "}
@@ -84,6 +83,7 @@ const Voting = () => {
                     {" "}
                     <Radio
                         color="green"
+                        size="md"
                         name={Object.keys(answer)[0]}
                         checked={votes[Object.keys(answer)[0]] === "CORRECT_UNIQUE"}
                         onChange={() => {
@@ -99,6 +99,7 @@ const Voting = () => {
                     {" "}
                     <Radio
                         color="orange"
+                        size="md"
                         name={Object.keys(answer)[0]}
                         checked={votes[Object.keys(answer)[0]] === "CORRECT_NOT_UNIQUE"}
                         onChange={() => {
@@ -115,6 +116,7 @@ const Voting = () => {
                     {" "}
                     <Radio
                         color="red"
+                        size="md"
                         name={Object.keys(answer)[0]}
                         checked={votes[Object.keys(answer)[0]] === "WRONG"}
                         onChange={() => {
@@ -127,6 +129,7 @@ const Voting = () => {
             </td>
         </tr>
     ));
+
     const styles = {
         tableHeader: {
             textAlign: "center",
@@ -134,6 +137,35 @@ const Voting = () => {
             fontStyle: "italic",
         },
     };
+
+    let contentVotes = (
+        <Stack
+            align="center"
+            sx={{ marginTop: "5%" }}
+        >
+            {" "}
+            <Loader />{" "}
+        </Stack>
+    );
+    if (answersToRate && answersToRate.length > 0) {
+        contentVotes = (
+            <Table
+                verticalSpacing="md"
+                fontSize="md"
+            >
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th style={styles.tableHeader}>perfect</th>
+                        <th style={styles.tableHeader}>duplicate</th>
+                        <th style={styles.tableHeader}>wrong</th>
+                    </tr>
+                </thead>
+                <tbody>{rows}</tbody>
+            </Table>
+        );
+    }
+
     return (
         <BaseContainer>
             <SockJsClient
@@ -169,20 +201,7 @@ const Voting = () => {
                 >
                     your answer: <strong> {answer} </strong>
                 </Text>
-                <Table
-                    verticalSpacing="md"
-                    fontSize="md"
-                >
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th style={styles.tableHeader}>perfect</th>
-                            <th style={styles.tableHeader}>duplicate</th>
-                            <th style={styles.tableHeader}>wrong</th>
-                        </tr>
-                    </thead>
-                    <tbody>{rows}</tbody>
-                </Table>
+                {contentVotes}
                 <Text
                     size="xs"
                     sx={{ marginTop: "3%" }}
