@@ -2,27 +2,29 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import Edit from "../../views/profile/Edit";
 import Quote from "../../views/profile/edit/Quote";
 import User from "../../views/users/User";
+import { StorageManager } from "../../../helpers/storageManager";
 
 const ProfileRouter = (props) => {
+    const gamePinIfExists = StorageManager.getGamePin();
     return (
         <Switch>
+            {/*            <Route
+                exact
+                path={`${props.base}/edit`}
+                component={Edit}
+            />*/}
+            <Route
+                exact
+                path={`${props.base}/edit/quote`}
+                component={Quote}
+            />
             <Route
                 exact
                 path={`${props.base}/:username`}
                 component={User}
             />
-            {/*            <Route
-                exact
-                path={`${props.base}/:username/edit`}
-                component={Edit}
-            />*/}
-            <Route
-                exact
-                path={`${props.base}/:username/edit/quote`}
-                component={Quote}
-            />
             <Route path={`${props.base}`}>
-                <Redirect to={`${props.base}/:username`} />
+                <Redirect to={gamePinIfExists ? `/game/${gamePinIfExists}/lobby` : "/dashboard"} />
             </Route>
         </Switch>
     );
