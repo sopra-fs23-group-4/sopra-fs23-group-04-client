@@ -246,7 +246,7 @@ const Lobby = (props) => {
                 {playerListContent}
             </Paper>
             <StandardButton
-                sx={{ marginTop: "2%" }}
+                sx={{ marginTop: "10%" }}
                 onClick={() => doLeave()}
             >
                 Leave

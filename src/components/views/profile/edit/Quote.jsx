@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Textarea, Title, Text, NativeSelect } from "@mantine/core";
+import { Textarea, Title, Text, NativeSelect, Group } from "@mantine/core";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -69,34 +69,21 @@ const Quote = () => {
                 onChange={(event) => setQuote(event.currentTarget.value)}
                 autosize
                 minRows={2}
-                style={{ width: "80%" }}
+                style={{ width: "80%", marginTop: "2%" }}
             />
-            <StandardButton
-                onClick={() => doChangeQuote()}
-                sx={{ marginTop: "0px" }}
-            >
-                SAVE{" "}
-            </StandardButton>
 
             <NativeSelect
                 data={quoteCategories}
-                sx={{ "& .mantine-NativeSelect-description": { color: "white" } }}
-                description="select a category"
+                sx={{ "& .mantine-NativeSelect-description": { color: "azure" } }}
+                description="select a category to generate"
                 onChange={(event) => setCategory(event.currentTarget.value)}
             />
-            <StandardButton
-                onClick={() => doGenerateQuote()}
-                sx={{ marginTop: "0px" }}
-            >
-                GENERATE{" "}
-            </StandardButton>
+            <StandardButton onClick={() => doGenerateQuote()}>GENERATE </StandardButton>
 
-            <StandardButton
-                onClick={() => history.push("/dashboard")}
-                sx={{ marginTop: "3%" }}
-            >
-                Back{" "}
-            </StandardButton>
+            <Group sx={{ marginTop: "10%" }}>
+                <StandardButton onClick={() => history.push("/dashboard")}>Back </StandardButton>
+                <StandardButton onClick={() => doChangeQuote()}>SAVE </StandardButton>
+            </Group>
         </BaseContainer>
     );
 };

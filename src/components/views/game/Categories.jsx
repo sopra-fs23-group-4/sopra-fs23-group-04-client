@@ -70,7 +70,7 @@ const Categories = () => {
                     color="white"
                     size="lg"
                 >
-                    click on category to select:
+                    click on categories to select:
                 </Text>
                 <Chip.Group
                     multiple
@@ -104,7 +104,6 @@ const Categories = () => {
     return (
         <BaseContainer align="center">
             <Title color="white">Category Selection</Title>
-            {contentCategory}
             <Stack
                 align="center"
                 sx={{ marginTop: "3%" }}
@@ -112,7 +111,6 @@ const Categories = () => {
                 <Text
                     color="white"
                     size="lg"
-                    sx={{ marginTop: "2%" }}
                 >
                     add your own category:
                 </Text>
@@ -133,16 +131,19 @@ const Categories = () => {
                     <StandardButton onClick={addCustomCategory}>add</StandardButton>
                 </Group>
             </Stack>
+
+            {contentCategory}
+
             <StandardButton
                 disabled={categoriesSelected.length === 0}
                 onClick={() => doContinue()}
-                sx={{ marginTop: "5%" }}
+                sx={{ marginTop: "3%" }}
             >
                 Confirm Selection
             </StandardButton>
             <StandardButton
                 onClick={() => history.push("/game/")}
-                sx={{ marginTop: "5%" }}
+                sx={{ marginTop: "10%" }}
             >
                 Cancel
             </StandardButton>

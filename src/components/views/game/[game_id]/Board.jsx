@@ -143,7 +143,6 @@ const Board = () => {
             />
             <Text color="white">Time remaining: {timer}</Text>
             <Title
-                sx={{ marginTop: "2%" }}
                 color="white"
                 size="80"
             >

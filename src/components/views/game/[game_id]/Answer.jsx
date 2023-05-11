@@ -57,6 +57,11 @@ const Answer = () => {
         history.push(`/game/${gamePin}/round/${round}/board/`);
     };
 
+    const handleKeyDown = (event) => {
+        if (event.key === "Enter") {
+            handleNext();
+        }
+    };
     const postAnswers = async (answersDict) => {
         try {
             await RestApi.postAnswers(gamePin, round, answersDict);
@@ -104,7 +109,6 @@ const Answer = () => {
             />
             <Text color="white">Time remaining: {timer}</Text>
             <Title
-                sx={{ marginTop: "2%" }}
                 color="white"
                 size="80"
             >
@@ -116,6 +120,7 @@ const Answer = () => {
                 radius="xl"
                 size="lg"
                 onChange={handleAnswerChange}
+                onKeyDown={handleKeyDown}
                 sx={{ "& .mantine-TextInput-label": { color: "white" } }}
             />
             <Group sx={{ marginTop: "2%" }}>

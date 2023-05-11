@@ -167,7 +167,7 @@ const Score = (props) => {
                 {fact}
             </Text>
             <StandardButton
-                sx={{ marginTop: "3%" }}
+                sx={{ marginTop: "10%" }}
                 onClick={() => doLeave()}
             >
                 Leave

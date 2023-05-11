@@ -52,7 +52,7 @@ const Game = () => {
                 Join Game{"   "}
             </StandardButton>
             <StandardButton
-                sx={{ marginTop: "5%" }}
+                sx={{ marginTop: "10%" }}
                 onClick={() => history.push("/dashboard")}
             >
                 Back
