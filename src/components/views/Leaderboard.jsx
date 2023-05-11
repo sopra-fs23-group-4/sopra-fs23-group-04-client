@@ -84,7 +84,7 @@ const Leaderboard = () => {
             )}
             <StandardButton
                 onClick={() => history.push("/dashboard")}
-                sx={{ marginTop: "3%" }}
+                sx={{ marginTop: "10%" }}
             >
                 Back{" "}
             </StandardButton>

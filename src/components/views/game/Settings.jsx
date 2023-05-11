@@ -78,6 +78,7 @@ const Settings = () => {
             <StandardButton onClick={createLobby}>Create Lobby</StandardButton>
             <Space h="md" />
             <StandardButton
+                sx={{ marginTop: "10%" }}
                 component={Link}
                 to="/game/categories"
             >

@@ -175,7 +175,7 @@ const Winner = (props) => {
                     Scoreboard
                 </StandardButton>
                 <StandardButton
-                    sx={{ marginTop: "4%" }}
+                    sx={{ marginTop: "10%" }}
                     onClick={() => doLeave()}
                 >
                     Leave

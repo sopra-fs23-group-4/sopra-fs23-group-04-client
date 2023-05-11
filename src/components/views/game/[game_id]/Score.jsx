@@ -153,7 +153,7 @@ const Score = (props) => {
                 {scoreboardContent}
             </Paper>
             <StandardButton
-                sx={{ marginTop: "3%" }}
+                sx={{ marginTop: "10%" }}
                 onClick={() => doLeave()}
             >
                 Leave
