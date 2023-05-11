@@ -137,7 +137,14 @@ const Lobby = (props) => {
     let startGameButton;
 
     if (StorageManager.getRole() === Role.HOST) {
-        startGameButton = <StandardButton onClick={() => startGame()}>Start Game</StandardButton>;
+        startGameButton = (
+            <StandardButton
+                onClick={() => startGame()}
+                disabled={usersInLobby.length === 0}
+            >
+                Start Game
+            </StandardButton>
+        );
     } else {
         startGameButton = "";
     }
