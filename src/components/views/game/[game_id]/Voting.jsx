@@ -19,7 +19,7 @@ const Voting = () => {
     const answer = answers[categoryIndex] ? answers[categoryIndex] : "none";
     const [answersToRate, setAnswersToRate] = useState([]);
     const [votes, setVotes] = useState({});
-    const [timer, setTimer] = useState(45);
+    const [timer, setTimer] = useState(null);
     const [done, setDone] = useState(false);
 
     useEffect(() => {
