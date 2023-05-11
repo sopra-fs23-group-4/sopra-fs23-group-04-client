@@ -23,8 +23,9 @@ const Dashboard = () => {
     return (
         <BaseContainer>
             <Stack
-                sx={{ marginTop: "5%" }}
+                sx={{ background: "inherit", minWidth: "220px", border: "1px solid azure", marginTop: "5%" }}
                 style={{ width: "80%" }}
+                radius="xl"
                 align="center"
                 spacing="xs"
             >
@@ -79,7 +80,7 @@ const Dashboard = () => {
                     size="md"
                     color="white"
                     fw={500}
-                    sx={{ width: "80%", marginBottom: "2%" }}
+                    sx={{ width: "80%", marginBottom: "4%" }}
                     onClick={() => history.push("/profile/edit/quote")}
                 >
                     {quote}{" "}
@@ -93,15 +94,16 @@ const Dashboard = () => {
             <StandardButton
                 onClick={() => history.push("/game/")}
                 size="lg"
-                sx={{ width: "140px", marginBottom: "2%" }}
+                sx={{ width: "140px", marginTop: "2%", marginBottom: "2%" }}
             >
                 PLAY
             </StandardButton>
+
             <Menu
                 position="bottom"
                 shadow="md"
                 width={200}
-                sx={{ opacity: 0.9, marginBottom: "2%" }}
+                sx={{ opacity: 0.9, marginTop: "2%", marginBottom: "2%" }}
             >
                 <Menu.Target>
                     <Button
@@ -146,9 +148,10 @@ const Dashboard = () => {
                     </Menu.Item>
                 </Menu.Dropdown>
             </Menu>
+
             <StandardButton
                 onClick={() => doLogout()}
-                sx={{ marginTop: "5%" }}
+                sx={{ marginTop: "15%" }}
             >
                 Logout{" "}
             </StandardButton>
