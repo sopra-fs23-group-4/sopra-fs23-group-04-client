@@ -17,24 +17,24 @@ const Voting = () => {
     const category = categories[categoryIndex];
     const answers = StorageManager.getAnswers();
     const answer = answers[categoryIndex] ? answers[categoryIndex] : "none";
-    const [answersCategory, setAnswersCategory] = useState([]);
+    const [answersToRate, setAnswersToRate] = useState([]);
     const [votes, setVotes] = useState({});
     const [timer, setTimer] = useState(45);
     const [done, setDone] = useState(false);
 
     useEffect(() => {
         const newDict = {};
-        answersCategory.forEach((obj) => {
+        answersToRate.forEach((obj) => {
             const key = Object.keys(obj)[0];
             newDict[key] = null;
         });
         setVotes(newDict);
-    }, [answersCategory]);
+    }, [answersToRate]);
 
     useEffect(() => {
         async function fetchData() {
             try {
-                setAnswersCategory(await RestApi.getAnswersForCategory(gamePin, round, category));
+                setAnswersToRate(await RestApi.getAnswersForCategory(gamePin, round, category));
             } catch (error) {
                 console.error(`Something went wrong while fetching the answers: \n${handleError(error)}`);
                 console.error("Details:", error);
@@ -73,7 +73,7 @@ const Voting = () => {
         }
     };
 
-    const rows = answersCategory.map((answer) => (
+    const rows = answersToRate.map((answer) => (
         <tr key={Object.keys(answer)[0]}>
             <td>
                 <strong>{Object.values(answer)[0]}</strong>{" "}
@@ -147,7 +147,7 @@ const Voting = () => {
             <Loader />{" "}
         </Stack>
     );
-    if (answersCategory && answersCategory.length > 0) {
+    if (answersToRate && answersToRate.length > 0) {
         contentVotes = (
             <Table
                 verticalSpacing="md"
