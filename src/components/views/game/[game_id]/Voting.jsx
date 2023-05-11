@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Paper, Radio, Stack, Table, Text, Title } from "@mantine/core";
+import { Loader, Paper, Radio, Stack, Table, Text, Title } from "@mantine/core";
 import { useHistory, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { StorageManager } from "../../../../helpers/storageManager";
@@ -17,7 +17,7 @@ const Voting = () => {
     const category = categories[categoryIndex];
     const answers = StorageManager.getAnswers();
     const answer = answers[categoryIndex] ? answers[categoryIndex] : "none";
-    const [answersCategory, setAnswersCategory] = useState([{ dummy: "" }]);
+    const [answersCategory, setAnswersCategory] = useState([]);
     const [votes, setVotes] = useState({});
     const [timer, setTimer] = useState(45);
     const [done, setDone] = useState(false);
@@ -129,6 +129,7 @@ const Voting = () => {
             </td>
         </tr>
     ));
+
     const styles = {
         tableHeader: {
             textAlign: "center",
@@ -136,6 +137,35 @@ const Voting = () => {
             fontStyle: "italic",
         },
     };
+
+    let contentVotes = (
+        <Stack
+            align="center"
+            sx={{ marginTop: "5%" }}
+        >
+            {" "}
+            <Loader />{" "}
+        </Stack>
+    );
+    if (answersCategory && answersCategory.length > 0) {
+        contentVotes = (
+            <Table
+                verticalSpacing="md"
+                fontSize="md"
+            >
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th style={styles.tableHeader}>perfect</th>
+                        <th style={styles.tableHeader}>duplicate</th>
+                        <th style={styles.tableHeader}>wrong</th>
+                    </tr>
+                </thead>
+                <tbody>{rows}</tbody>
+            </Table>
+        );
+    }
+
     return (
         <BaseContainer>
             <SockJsClient
@@ -171,20 +201,7 @@ const Voting = () => {
                 >
                     your answer: <strong> {answer} </strong>
                 </Text>
-                <Table
-                    verticalSpacing="md"
-                    fontSize="md"
-                >
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th style={styles.tableHeader}>perfect</th>
-                            <th style={styles.tableHeader}>duplicate</th>
-                            <th style={styles.tableHeader}>wrong</th>
-                        </tr>
-                    </thead>
-                    <tbody>{rows}</tbody>
-                </Table>
+                {contentVotes}
                 <Text
                     size="xs"
                     sx={{ marginTop: "3%" }}
