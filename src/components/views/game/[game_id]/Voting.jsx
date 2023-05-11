@@ -118,7 +118,7 @@ const Voting = () => {
                         color="red"
                         size="md"
                         name={Object.keys(answer)[0]}
-                        checked={votes[Object.keys(answer)[0]] === "WRONG"}
+                        checked={votes[Object.keys(answer)[0]] === "WRONG" || Object.values(answer)[0] === "-"}
                         onChange={() => {
                             const newVotes = { ...votes };
                             newVotes[Object.keys(answer)[0]] = "WRONG";
