@@ -18,8 +18,6 @@ const Dashboard = () => {
         history.push("/login");
     };
 
-    /*    const [opened, { toggle, close }] = useDisclosure(false);*/
-
     return (
         <BaseContainer>
             <Stack
@@ -32,49 +30,11 @@ const Dashboard = () => {
                 <Title
                     align="center"
                     order={1}
-                    sx={{ color: "white" }}
-                    /*onClick={toggle}*/
+                    sx={{ color: "white", marginTop: "2%" }}
                 >
                     {username}{" "}
-                    {/*                    <EditIcon
-                        color="#f8af05"
-                        size={22}
-                    />*/}
                 </Title>
-                {/*
-                <Dialog
-                    opened={opened}
-                    withCloseButton
-                    transition="slide-up"
-                    transitionDuration={300}
-                    transitionTimingFunction="ease"
-                    onClose={close}
-                    size="lg"
-                    radius="md"
-                    sx={{ width: "260px", color: "black", marginBottom: "2%" }}
-                >
-                    <Text
-                        size="sm"
-                        mb="sm"
-                        weight={500}
-                    >
-                        Change username:
-                    </Text>
 
-                    <Group align="flex-end">
-                        <TextInput
-                            placeholder="enter new username"
-                            sx={{ flex: 1 }}
-                        />
-                        <StandardButton
-                            size="sm"
-                            onClick={close}
-                        >
-                            save
-                        </StandardButton>
-                    </Group>
-                </Dialog>
-*/}
                 <Text
                     align="center"
                     size="md"
