@@ -7,9 +7,24 @@ import Voting from "../../views/game/[game_id]/Voting";
 import VotingResult from "../../views/game/[game_id]/VotingResult";
 import Score from "../../views/game/[game_id]/Score";
 import Winner from "../../views/game/[game_id]/Winner";
+import { useEffect } from "react";
+import { RestApi } from "../../../helpers/RestApi";
 
-const InGameRouter = () => {
+const InGameRouter = (props) => {
     const base = `/game/:gamePin`;
+    const gamePin = props.match.params["gamePin"];
+
+    useEffect(() => {
+        const handleTabClose = async () => {
+            await RestApi.leaveGame(gamePin);
+        };
+
+        window.addEventListener("unload", handleTabClose);
+
+        return () => {
+            window.removeEventListener("unload", handleTabClose);
+        };
+    }, []);
 
     return (
         <Switch>
