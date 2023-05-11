@@ -18,7 +18,6 @@ const Voting = () => {
     const answers = StorageManager.getAnswers();
     const answer = answers[categoryIndex] ? answers[categoryIndex] : "none";
     const [answersCategory, setAnswersCategory] = useState([{ dummy: "" }]);
-    //const [answersCategory, setAnswersCategory] = useState([{ 1: "Arbon" }, { 2: "Appenzell" }, { 4: "Neuenburg" }, { 23: "Nyon" }]);
     const [votes, setVotes] = useState({});
     const [timer, setTimer] = useState(45);
     const [done, setDone] = useState(false);
@@ -84,6 +83,7 @@ const Voting = () => {
                     {" "}
                     <Radio
                         color="green"
+                        size="md"
                         name={Object.keys(answer)[0]}
                         checked={votes[Object.keys(answer)[0]] === "CORRECT_UNIQUE"}
                         onChange={() => {
@@ -99,6 +99,7 @@ const Voting = () => {
                     {" "}
                     <Radio
                         color="orange"
+                        size="md"
                         name={Object.keys(answer)[0]}
                         checked={votes[Object.keys(answer)[0]] === "CORRECT_NOT_UNIQUE"}
                         onChange={() => {
@@ -115,6 +116,7 @@ const Voting = () => {
                     {" "}
                     <Radio
                         color="red"
+                        size="md"
                         name={Object.keys(answer)[0]}
                         checked={votes[Object.keys(answer)[0]] === "WRONG"}
                         onChange={() => {
