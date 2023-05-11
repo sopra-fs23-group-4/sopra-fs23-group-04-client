@@ -45,13 +45,6 @@ const Edit = () => {
                 alt="it's me"
                 size="xl"
             />
-            <StandardButton
-                gradient={{ from: "teal", to: "lime", deg: 105 }}
-                component={Link}
-                to="/profile/edit/picture"
-            >
-                Edit Picture
-            </StandardButton>
             <Text
                 align="center"
                 size="md"

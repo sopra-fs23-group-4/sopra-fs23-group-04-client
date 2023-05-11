@@ -74,12 +74,6 @@ const Dashboard = () => {
                     </Group>
                 </Dialog>
 */}
-                {/*                <Avatar
-                    src={picture}
-                    alt="click to change"
-                    size="xl"
-                    // onClick={() => history.push("/profile/edit/picture")}
-                />*/}
                 <Text
                     align="center"
                     size="md"

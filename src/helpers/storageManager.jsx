@@ -15,7 +15,6 @@ export class storageManager {
         this.setUserId(user.id);
         this.setUsername(user.username);
         this.setQuote(user.quote);
-        this.setPicture(user.picture);
     }
     static setToken(token) {
         sessionStorage.setItem("token", token);
@@ -43,13 +42,6 @@ export class storageManager {
     }
     static getRole() {
         return sessionStorage.getItem("role");
-    }
-
-    static setPicture(picture) {
-        sessionStorage.setItem("picture", picture);
-    }
-    static getPicture() {
-        return sessionStorage.getItem("picture");
     }
 
     static setQuote(quote) {
