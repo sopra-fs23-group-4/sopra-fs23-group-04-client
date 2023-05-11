@@ -7,19 +7,21 @@ const ProfileRouter = (props) => {
         <Switch>
             <Route
                 exact
-                path={`${props.base}/edit`}
-                component={Edit}
-            />
-            <Route
-                exact
-                path={`${props.base}/edit/quote`}
+                path={`${props.base}/:username`}
                 component={Quote}
             />
+            {/*            <Route
+                exact
+                path={`${props.base}/:username/edit`}
+                component={Edit}
+            />*/}
             <Route
                 exact
-                path={`${props.base}`}
-            >
-                <Redirect to={`${props.base}/edit`} />
+                path={`${props.base}/:username/edit/quote`}
+                component={Quote}
+            />
+            <Route path={`${props.base}`}>
+                <Redirect to={`${props.base}/:username`} />
             </Route>
         </Switch>
     );
