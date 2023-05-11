@@ -55,7 +55,6 @@ const Winner = (props) => {
     // Methods
     async function doLeave() {
         try {
-            await RestApi.leaveGame(gamePin);
             history.push(`/game`);
         } catch (error) {
             alert(`Something went wrong leaving the game: \n${handleError(error)}`);
