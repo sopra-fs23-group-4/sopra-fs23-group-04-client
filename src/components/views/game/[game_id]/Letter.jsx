@@ -2,7 +2,7 @@ import BaseContainer from "../../../ui/BaseContainer";
 import React, { useEffect, useState } from "react";
 import { Title } from "@mantine/core";
 import { useHistory, useParams } from "react-router-dom";
-import { storageManager } from "../../../../helpers/storageManager";
+import { StorageManager } from "../../../../helpers/storageManager";
 import { handleError } from "../../../../helpers/RestApi";
 import StandardButton from "../../../ui/StandardButton";
 
@@ -38,10 +38,10 @@ const Letter = () => {
     }, [letter, categories]);
 
     const doStart = () => {
-        storageManager.resetRound();
-        storageManager.setAnswers(Array(categories.length).fill(null));
-        storageManager.setLetter(letter);
-        storageManager.setCategories(categories);
+        StorageManager.resetRound();
+        StorageManager.setAnswers(Array(categories.length).fill(null));
+        StorageManager.setLetter(letter);
+        StorageManager.setCategories(categories);
         history.push(`/game/${gamePin}/round/${round}/board/`);
     };
 

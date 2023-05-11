@@ -3,7 +3,7 @@ import { Flex, Loader, Space, Text, Title } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
-import { storageManager } from "../../../../helpers/storageManager";
+import { StorageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
 import { Crown } from "tabler-icons-react";
 
@@ -18,14 +18,13 @@ const Winner = (props) => {
         async function fetchData() {
             try {
                 if (winners.length === 0) {
-                    await new Promise((resolve) => setTimeout(resolve, 5000));
                     // hardcoded sample values
-                    setWinners([
-                        // {
-                        //     username: "Günter",
-                        //     score: 1500,
-                        //     quote: "some soooo funny quote",
-                        // },
+                    const dummyWinners = [
+                        {
+                            username: "Günter",
+                            score: 1500,
+                            quote: "some soooo funny quote",
+                        },
                         {
                             username: "Rüdiger",
                             score: 600,
@@ -33,11 +32,16 @@ const Winner = (props) => {
                                 "some even funnier quote, HAHA, this one also is very long because that might cause some issues " +
                                 "if it is supposed to be displayed, potentially simultaneously with the first one...",
                         },
-                    ]);
+                    ];
 
                     // real code
-                    // const winnerResponse = await RestApi.getWinners(gamePin);
-                    // setWinners(winnerResponse);
+                    let winnerResponse = await RestApi.getWinners(gamePin);
+
+                    if (winnerResponse.length === 0) {
+                        winnerResponse = winnerResponse.concat(dummyWinners);
+                    }
+                    await new Promise((resolve) => setTimeout(resolve, 5000));
+                    setWinners(winnerResponse);
                 }
             } catch (error) {
                 console.error(`Something went wrong while fetching the winners: \n${handleError(error)}`);
@@ -117,7 +121,7 @@ const Winner = (props) => {
                 </Text>
                 <StandardButton
                     component={Link}
-                    to={`/game/${gamePin}/round/${storageManager.getRound()}/score`}
+                    to={`/game/${gamePin}/round/${StorageManager.getRound()}/score`}
                 >
                     Scoreboard
                 </StandardButton>
@@ -137,32 +141,36 @@ const Winner = (props) => {
                 align="center"
                 direction="column"
                 wrap="wrap"
-                sx={{ width: "80%" }}
+                sx={{ width: "80%", marginTop: "3%" }}
             >
-                <Space h="sm" />
-                <Crown
-                    size={80}
-                    color="#ffffff"
-                />
                 <Title
                     align="center"
                     order={1}
-                    sx={{ color: "white", marginTop: "-22px" }}
+                    sx={{ color: "white" }}
                 >
-                    {winners[0].username}
+                    It's a draw!
                 </Title>
-                <Text
+                <Title
                     align="center"
-                    size="lg"
-                    color="white"
-                    fw={500}
-                    sx={{ width: "80%", marginBottom: "2%" }}
+                    order={2}
+                    sx={{ color: "white", marginTop: "-18px", marginBottom: "20px" }}
                 >
-                    "{winners[0].quote}"
-                </Text>
+                    Congratulations to:
+                </Title>
+                {winners.map((winner, index) => (
+                    <Title
+                        align="center"
+                        order={1}
+                        sx={{ color: "white" }}
+                        key={winner.username}
+                    >
+                        {winner.username}
+                    </Title>
+                ))}
                 <StandardButton
                     component={Link}
-                    to={`/game/${gamePin}/round/${storageManager.getRound()}/score`}
+                    to={`/game/${gamePin}/round/${StorageManager.getRound()}/score`}
+                    sx={{ marginTop: "35px" }}
                 >
                     Scoreboard
                 </StandardButton>

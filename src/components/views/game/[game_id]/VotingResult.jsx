@@ -3,7 +3,7 @@ import BaseContainer from "../../../ui/BaseContainer";
 import React, { useEffect, useState } from "react";
 import { Paper, Table, Text, Title } from "@mantine/core";
 import { Check, Equal, LetterX } from "tabler-icons-react";
-import { storageManager } from "../../../../helpers/storageManager";
+import { StorageManager } from "../../../../helpers/storageManager";
 import SockJsClient from "react-stomp";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import { getDomain } from "../../../../helpers/getDomain";
@@ -13,8 +13,8 @@ const VotingResult = () => {
     const { gamePin, round, categoryIndex } = useParams();
     const history = useHistory();
 
-    const letter = storageManager.getLetter();
-    const categories = storageManager.getCategories();
+    const letter = StorageManager.getLetter();
+    const categories = StorageManager.getCategories();
     const category = categories[categoryIndex];
     const [votes, setVotes] = useState([]);
 
@@ -37,7 +37,7 @@ const VotingResult = () => {
         <tr
             key={index}
             style={{
-                backgroundColor: result.username === storageManager.getUsername() ? "lightblue" : "transparent",
+                backgroundColor: result.username === StorageManager.getUsername() ? "lightblue" : "transparent",
             }}
         >
             <td>
@@ -68,7 +68,7 @@ const VotingResult = () => {
         } else if (msg.type === "resultScoreboard") {
             history.push(`/game/${gamePin}/round/${round}/score`);
         } else if (msg.type === "resultWinner") {
-            history.push(`/game/${gamePin}/round/${round}/winner`);
+            history.push(`/game/${gamePin}/winner`);
         }
     };
 
@@ -97,7 +97,7 @@ const VotingResult = () => {
                 onMessage={(msg) => onMessageReceived(msg)}
                 debug={false}
             />
-            <Title color="white">{storageManager.getUsername()}</Title>
+            <Title color="white">{StorageManager.getUsername()}</Title>
             <Text
                 align="center"
                 color="white"

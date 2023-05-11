@@ -1,17 +1,17 @@
 import axios from "axios";
 import { getDomain } from "helpers/getDomain";
 import User from "../models/User";
-import { storageManager } from "./storageManager";
+import { StorageManager } from "./storageManager";
 
 export const restApi = axios.create({
     baseURL: getDomain(),
-    headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", Authorization: storageManager.getToken() },
+    headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*", Authorization: StorageManager.getToken() },
 });
 
 // makes sure, that the header is updated for every request
 restApi.interceptors.request.use(
     (config) => {
-        config.headers.Authorization = storageManager.getToken();
+        config.headers.Authorization = StorageManager.getToken();
         return config;
     },
     (error) => {
@@ -20,7 +20,7 @@ restApi.interceptors.request.use(
 );
 
 export const generalLoginProcedure = (user) => {
-    storageManager.initializeUser(user);
+    StorageManager.initializeUser(user);
 };
 
 export class RestApi {
@@ -42,7 +42,7 @@ export class RestApi {
     }
 
     static async getUser() {
-        const response = await restApi.get(`/users/${storageManager.getUserId()}`);
+        const response = await restApi.get(`/users/${StorageManager.getUserId()}`);
         await new Promise((resolve) => setTimeout(resolve, 1000));
         return new User(response.data);
     }
@@ -56,7 +56,7 @@ export class RestApi {
     static async changeUser(user) {
         // how send a user as Body?
         const requestBody = JSON.stringify({ token: user.token, quote: user.quote });
-        return await restApi.put(`/users/${storageManager.getUserId()}`, requestBody);
+        return await restApi.put(`/users/${StorageManager.getUserId()}`, requestBody);
     }
 
     static async getQuoteCategories() {
@@ -101,7 +101,7 @@ export class RestApi {
 
     static async leaveGame(pin) {
         await restApi.put(`/games/lobbies/${pin}/leave`, null);
-        storageManager.resetRound();
+        StorageManager.resetRound();
     }
 
     static async startGame(gamePin) {

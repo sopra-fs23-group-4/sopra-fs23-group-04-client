@@ -9,7 +9,6 @@ class User {
         this.token = null;
         this.creationDate = null;
         this.quote = null;
-        this.picture = null;
         Object.assign(this, data);
     }
 
@@ -20,8 +19,7 @@ class User {
             this.status === user.status &&
             this.token === user.token &&
             this.creationDate === user.creationDate &&
-            this.quote === user.quote &&
-            this.picture === user.picture
+            this.quote === user.quote
         );
     }
 }

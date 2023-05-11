@@ -1,6 +1,5 @@
 import { Redirect, Route, Switch } from "react-router-dom";
 import Edit from "../../views/profile/Edit";
-import Picture from "../../views/profile/edit/Picture";
 import Quote from "../../views/profile/edit/Quote";
 
 const ProfileRouter = (props) => {
@@ -10,11 +9,6 @@ const ProfileRouter = (props) => {
                 exact
                 path={`${props.base}/edit`}
                 component={Edit}
-            />
-            <Route
-                exact
-                path={`${props.base}/edit/picture`}
-                component={Picture}
             />
             <Route
                 exact

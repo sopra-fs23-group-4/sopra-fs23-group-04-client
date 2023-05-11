@@ -6,7 +6,7 @@ import SockJsClient from "react-stomp";
 import { getDomain } from "../../../../helpers/getDomain";
 import { Player } from "./Lobby";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
-import { storageManager } from "../../../../helpers/storageManager";
+import { StorageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
 
 export const ScoreboardEntry = (props) => {
@@ -40,28 +40,29 @@ const Score = (props) => {
             try {
                 if (userScores.length === 0) {
                     // hardcoded sample values
-                    setUserScores([
+                    const sampleValues = [
                         {
                             username: "Günter",
-                            score: 1500,
+                            score: 1,
                         },
                         {
                             username: "Rüdiger",
-                            score: 600,
+                            score: 420,
                         },
                         {
                             username: "Ueli",
-                            score: 2000,
+                            score: 0,
                         },
                         {
                             username: "Thorsten",
                             score: 420,
                         },
-                    ]);
+                    ];
 
                     // real code
-                    // const scoreResponse = await RestApi.getScores(gamePin);
-                    // setUserScores(scoreResponse);
+                    let scoreResponse = await RestApi.getScores(gamePin);
+                    scoreResponse = scoreResponse.concat(sampleValues);
+                    setUserScores(scoreResponse);
                 }
             } catch (error) {
                 console.error(`Something went wrong while fetching the scores: \n${handleError(error)}`);
@@ -83,9 +84,9 @@ const Score = (props) => {
         console.log("Websocket msg:");
         console.log(msg);
         if (msg.type === "letter") {
-            storageManager.setAnswers(Array(storageManager.getCategories().length).fill(null));
-            storageManager.setLetter(msg.letter);
-            storageManager.setRound(msg.round);
+            StorageManager.setAnswers(Array(StorageManager.getCategories().length).fill(null));
+            StorageManager.setLetter(msg.letter);
+            StorageManager.setRound(msg.round);
             history.push(`/game/${gamePin}/round/${msg.round}/board/`);
         }
     };
@@ -113,7 +114,21 @@ const Score = (props) => {
     );
 
     if (userScores.length !== 0) {
-        userScores.sort((a, b) => b.score - a.score);
+        const sortedUsers = userScores.sort((a, b) => b.score - a.score);
+
+        // Assign ranks to the users
+        let rank = 1;
+        let previousScore = null;
+        const usersWithRanks = sortedUsers.map((user, index) => {
+            if (user.score !== previousScore) {
+                rank = index + 1;
+                user.rank = rank;
+            } else {
+                user.rank = rank;
+            }
+            previousScore = user.score;
+            return user;
+        });
 
         scoreboardContent = (
             <Stack
@@ -121,11 +136,11 @@ const Score = (props) => {
                 align="stretch"
                 spacing="sm"
             >
-                {userScores.map((user, index) => (
+                {usersWithRanks.map((user, index) => (
                     <ScoreboardEntry
                         key={user.username}
                         username={user.username}
-                        number={index + 1}
+                        number={user.rank}
                         score={user.score}
                     />
                 ))}

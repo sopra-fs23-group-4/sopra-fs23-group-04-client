@@ -5,16 +5,16 @@ import React from "react";
 import StandardButton from "../ui/StandardButton";
 import { Edit as EditIcon, OneTwoThree, QuestionMark } from "tabler-icons-react";
 import { IconMenu2, IconMessageCircle } from "@tabler/icons-react";
-import { storageManager } from "../../helpers/storageManager";
+import { StorageManager } from "../../helpers/storageManager";
 
 const Dashboard = () => {
     const history = useHistory();
 
-    const username = storageManager.getUsername();
-    const quote = storageManager.getQuote();
+    const username = StorageManager.getUsername();
+    const quote = StorageManager.getQuote();
 
     const doLogout = async () => {
-        storageManager.clearAll();
+        StorageManager.clearAll();
         history.push("/login");
     };
 
@@ -74,12 +74,6 @@ const Dashboard = () => {
                     </Group>
                 </Dialog>
 */}
-                {/*                <Avatar
-                    src={picture}
-                    alt="click to change"
-                    size="xl"
-                    // onClick={() => history.push("/profile/edit/picture")}
-                />*/}
                 <Text
                     align="center"
                     size="md"
