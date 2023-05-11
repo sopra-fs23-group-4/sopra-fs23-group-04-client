@@ -49,7 +49,7 @@ export class RestApi {
 
     static async getUserByUsername(username) {
         const response = await restApi.get(`/users/username/${username}`);
-        return new User(response.data);
+        return response.data;
     }
 
     static async getAdvancedStatistics(userId) {

@@ -23,11 +23,13 @@ const User = (props) => {
             }
         }
         fetchData();
-    }, [user]);
+    }, [user, username]);
 
     return (
         <BaseContainer>
-            <Title>{username}</Title>
+            <Title>{user.username}</Title>
         </BaseContainer>
     );
 };
+
+export default User;
