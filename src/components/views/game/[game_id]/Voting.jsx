@@ -2,7 +2,7 @@ import BaseContainer from "../../../ui/BaseContainer";
 import { Paper, Radio, Stack, Table, Text, Title } from "@mantine/core";
 import { useHistory, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { storageManager } from "../../../../helpers/storageManager";
+import { StorageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import SockJsClient from "react-stomp";
 import { getDomain } from "../../../../helpers/getDomain";
@@ -12,10 +12,10 @@ const Voting = () => {
     const history = useHistory();
     const { gamePin, round, categoryIndex } = useParams();
 
-    const letter = storageManager.getLetter();
-    const categories = storageManager.getCategories();
+    const letter = StorageManager.getLetter();
+    const categories = StorageManager.getCategories();
     const category = categories[categoryIndex];
-    const answers = storageManager.getAnswers();
+    const answers = StorageManager.getAnswers();
     const answer = answers[categoryIndex] ? answers[categoryIndex] : "none";
     const [answersCategory, setAnswersCategory] = useState([{ dummy: "" }]);
     //const [answersCategory, setAnswersCategory] = useState([{ 1: "Arbon" }, { 2: "Appenzell" }, { 4: "Neuenburg" }, { 23: "Nyon" }]);
@@ -145,7 +145,7 @@ const Voting = () => {
                 debug={false}
             />
             <Text color="white">Time remaining: {timer}</Text>
-            <Title color="white">{storageManager.getUsername()}</Title>
+            <Title color="white">{StorageManager.getUsername()}</Title>
             <Text
                 align="center"
                 color="white"

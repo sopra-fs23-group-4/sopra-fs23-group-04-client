@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import StandardButton from "../../../ui/StandardButton";
 import { Context } from "../../../../context";
-import { storageManager } from "../../../../helpers/storageManager";
+import { StorageManager } from "../../../../helpers/storageManager";
 
 const Quote = () => {
     const history = useHistory();
@@ -43,9 +43,9 @@ const Quote = () => {
     const doChangeQuote = async () => {
         try {
             user.quote = quote;
-            user.token = storageManager.getToken();
+            user.token = StorageManager.getToken();
             await RestApi.changeUser(user);
-            storageManager.setQuote(quote);
+            StorageManager.setQuote(quote);
             history.push(`/dashboard`);
         } catch (error) {
             alert(`Something went wrong during changing the quote: \n${handleError(error)}`);
@@ -54,14 +54,14 @@ const Quote = () => {
 
     return (
         <BaseContainer>
-            <Title color="white">{storageManager.getUsername()}</Title>
+            <Title color="white">{StorageManager.getUsername()}</Title>
 
             <Text
                 align="center"
                 color="white"
                 style={{ width: "75%" }}
             >
-                "{storageManager.getQuote()}"
+                "{StorageManager.getQuote()}"
             </Text>
 
             <Textarea

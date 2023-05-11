@@ -5,7 +5,7 @@ export const Role = {
     PLAYER: "player",
 };
 
-export class storageManager {
+export class StorageManager {
     static clearAll() {
         sessionStorage.clear();
     }

@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import BaseContainer from "../../../ui/BaseContainer";
 import StandardButton from "../../../ui/StandardButton";
 import { Button, Stack, Title, Text } from "@mantine/core";
-import { storageManager } from "../../../../helpers/storageManager";
+import { StorageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import * as gameFunctions from "../../../../helpers/gameFunction";
 import SockJsClient from "react-stomp";
@@ -15,9 +15,9 @@ const Board = () => {
     const history = useHistory();
     const { gamePin, round } = useParams();
 
-    const letter = storageManager.getLetter();
-    const categories = storageManager.getCategories();
-    const answers = storageManager.getAnswers();
+    const letter = StorageManager.getLetter();
+    const categories = StorageManager.getCategories();
+    const answers = StorageManager.getAnswers();
     const [timer, setTimer] = useState(45);
 
     /*    useEffect(() => {
@@ -70,9 +70,9 @@ const Board = () => {
     };
 
     const doAnswer = (index) => {
-        storageManager.setLetter(letter);
-        storageManager.setAnswers(answers);
-        storageManager.setCategories(categories);
+        StorageManager.setLetter(letter);
+        StorageManager.setAnswers(answers);
+        StorageManager.setCategories(categories);
         history.push(`/game/${gamePin}/round/${round}/board/${index}`);
     };
 

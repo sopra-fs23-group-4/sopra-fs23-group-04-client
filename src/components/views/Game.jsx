@@ -4,7 +4,7 @@ import { handleError, RestApi } from "../../helpers/RestApi";
 import React, { useState } from "react";
 import { PinInput, Title, Text } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
-import { Role, storageManager } from "../../helpers/storageManager";
+import { Role, StorageManager } from "../../helpers/storageManager";
 
 const Game = () => {
     const history = useHistory();
@@ -18,14 +18,14 @@ const Game = () => {
     const doJoin = async (pin) => {
         try {
             await RestApi.joinGame(pin);
-            storageManager.setRole(Role.PLAYER);
+            StorageManager.setRole(Role.PLAYER);
 
             const categoriesResponse = await RestApi.getGameCategories(pin);
-            storageManager.setCategories(categoriesResponse);
+            StorageManager.setCategories(categoriesResponse);
 
             const gameSettingsResponse = await RestApi.getGameSettings(pin);
-            storageManager.setRoundLength(gameSettingsResponse.roundLength);
-            storageManager.setRoundAmount(gameSettingsResponse.rounds);
+            StorageManager.setRoundLength(gameSettingsResponse.roundLength);
+            StorageManager.setRoundAmount(gameSettingsResponse.rounds);
 
             history.push(`/game/${pin}/lobby`);
         } catch (error) {
@@ -35,7 +35,7 @@ const Game = () => {
 
     return (
         <BaseContainer>
-            <Title color="white">{storageManager.getUsername()}</Title>
+            <Title color="white">{StorageManager.getUsername()}</Title>
             <Text color="white">create a new Game as HOST:</Text>
             <StandardButton onClick={() => history.push("/game/categories")}>Create Game</StandardButton>
             <Text

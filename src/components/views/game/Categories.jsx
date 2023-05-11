@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import StandardButton from "../../ui/StandardButton";
 import { useHistory } from "react-router-dom";
 import { handleError, RestApi } from "../../../helpers/RestApi";
-import { storageManager } from "../../../helpers/storageManager";
+import { StorageManager } from "../../../helpers/storageManager";
 
 const Categories = () => {
     const history = useHistory();
@@ -36,7 +36,7 @@ const Categories = () => {
 
     const doContinue = () => {
         history.push("/game/settings");
-        storageManager.setCategoriesSelected(categoriesSelected);
+        StorageManager.setCategoriesSelected(categoriesSelected);
     };
     const addCustomCategory = () => {
         if (customCategory.trim() !== "") {

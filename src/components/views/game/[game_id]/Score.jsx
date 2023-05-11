@@ -6,7 +6,7 @@ import SockJsClient from "react-stomp";
 import { getDomain } from "../../../../helpers/getDomain";
 import { Player } from "./Lobby";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
-import { storageManager } from "../../../../helpers/storageManager";
+import { StorageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
 
 export const ScoreboardEntry = (props) => {
@@ -84,9 +84,9 @@ const Score = (props) => {
         console.log("Websocket msg:");
         console.log(msg);
         if (msg.type === "letter") {
-            storageManager.setAnswers(Array(storageManager.getCategories().length).fill(null));
-            storageManager.setLetter(msg.letter);
-            storageManager.setRound(msg.round);
+            StorageManager.setAnswers(Array(StorageManager.getCategories().length).fill(null));
+            StorageManager.setLetter(msg.letter);
+            StorageManager.setRound(msg.round);
             history.push(`/game/${gamePin}/round/${msg.round}/board/`);
         }
     };
@@ -138,7 +138,7 @@ const Score = (props) => {
             >
                 {usersWithRanks.map((user, index) => (
                     <ScoreboardEntry
-                        key={index}
+                        key={user.username}
                         username={user.username}
                         number={user.rank}
                         score={user.score}

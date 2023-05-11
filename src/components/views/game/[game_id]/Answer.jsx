@@ -3,7 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import React, { useState } from "react";
 import { Text, Group, TextInput, Title } from "@mantine/core";
 import StandardButton from "../../../ui/StandardButton";
-import { storageManager } from "../../../../helpers/storageManager";
+import { StorageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import * as gameFunctions from "../../../../helpers/gameFunction";
 import SockJsClient from "react-stomp";
@@ -14,9 +14,9 @@ const Answer = () => {
     const history = useHistory();
     const { gamePin, round, answerIndex } = useParams();
 
-    const letter = storageManager.getLetter();
-    const categories = storageManager.getCategories();
-    const [answers, setAnswers] = useState(storageManager.getAnswers());
+    const letter = StorageManager.getLetter();
+    const categories = StorageManager.getCategories();
+    const [answers, setAnswers] = useState(StorageManager.getAnswers());
 
     const category = categories[answerIndex];
     const lastElement = categories.length - 1;
@@ -31,7 +31,7 @@ const Answer = () => {
     };
 
     const saveAnswers = () => {
-        storageManager.setAnswers(answers);
+        StorageManager.setAnswers(answers);
     };
 
     const handlePrevious = () => {

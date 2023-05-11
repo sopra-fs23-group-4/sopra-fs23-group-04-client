@@ -3,7 +3,7 @@ import { Flex, Loader, Space, Text, Title } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
-import { storageManager } from "../../../../helpers/storageManager";
+import { StorageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
 import { Crown } from "tabler-icons-react";
 
@@ -121,7 +121,7 @@ const Winner = (props) => {
                 </Text>
                 <StandardButton
                     component={Link}
-                    to={`/game/${gamePin}/round/${storageManager.getRound()}/score`}
+                    to={`/game/${gamePin}/round/${StorageManager.getRound()}/score`}
                 >
                     Scoreboard
                 </StandardButton>
@@ -162,14 +162,14 @@ const Winner = (props) => {
                         align="center"
                         order={1}
                         sx={{ color: "white" }}
-                        key={index}
+                        key={winner.username}
                     >
                         {winner.username}
                     </Title>
                 ))}
                 <StandardButton
                     component={Link}
-                    to={`/game/${gamePin}/round/${storageManager.getRound()}/score`}
+                    to={`/game/${gamePin}/round/${StorageManager.getRound()}/score`}
                     sx={{ marginTop: "35px" }}
                 >
                     Scoreboard

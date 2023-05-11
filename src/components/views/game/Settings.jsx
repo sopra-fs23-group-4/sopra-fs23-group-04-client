@@ -4,7 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { Container, SegmentedControl, Slider, Space, Title } from "@mantine/core";
 import React, { useState } from "react";
 import { handleError, RestApi } from "../../../helpers/RestApi";
-import { Role, storageManager } from "../../../helpers/storageManager";
+import { Role, StorageManager } from "../../../helpers/storageManager";
 
 export const RoundLength = {
     SHORT: "SHORT",
@@ -31,13 +31,13 @@ const Settings = () => {
 
     const createLobby = async () => {
         try {
-            let categories = storageManager.getCategoriesSelected();
+            let categories = StorageManager.getCategoriesSelected();
             const pin = await RestApi.createGame(rounds, roundLength, categories);
-            storageManager.removeCategoriesSelected();
-            storageManager.setRole(Role.HOST);
-            storageManager.setRoundAmount(rounds);
-            storageManager.setRoundLength(roundLength);
-            storageManager.setCategories(categories);
+            StorageManager.removeCategoriesSelected();
+            StorageManager.setRole(Role.HOST);
+            StorageManager.setRoundAmount(rounds);
+            StorageManager.setRoundLength(roundLength);
+            StorageManager.setCategories(categories);
             history.push(`/game/${pin}/lobby`);
         } catch (error) {
             alert(`Something went wrong whilst creating the lobby: \n${handleError(error)}`);

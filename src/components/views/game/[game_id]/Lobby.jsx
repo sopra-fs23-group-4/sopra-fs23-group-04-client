@@ -1,7 +1,7 @@
 import BaseContainer from "../../../ui/BaseContainer";
 import { Title, Text, Flex, Stack, Paper, Container, Badge } from "@mantine/core";
 import StandardButton from "../../../ui/StandardButton";
-import { Role, storageManager } from "../../../../helpers/storageManager";
+import { Role, StorageManager } from "../../../../helpers/storageManager";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
@@ -51,10 +51,10 @@ const Lobby = (props) => {
             }
             setUsersInLobby(msg.usernames);
         } else if (msg.type === "letter") {
-            storageManager.setAnswers(Array(storageManager.getCategories().length).fill(null));
-            storageManager.setLetter(msg.letter);
-            storageManager.setRound(msg.round);
-            storageManager.setGamePin(gamePin);
+            StorageManager.setAnswers(Array(StorageManager.getCategories().length).fill(null));
+            StorageManager.setLetter(msg.letter);
+            StorageManager.setRound(msg.round);
+            StorageManager.setGamePin(gamePin);
             history.push(`/game/${gamePin}/round/${1}/board/`);
         }
     };
@@ -89,12 +89,12 @@ const Lobby = (props) => {
                 // update sessionStorage
                 // Role
                 if (hostUsername !== "loading...") {
-                    if (hostUsername === storageManager.getUsername()) {
-                        if (storageManager.getRole() !== Role.HOST) {
-                            storageManager.setRole(Role.HOST);
+                    if (hostUsername === StorageManager.getUsername()) {
+                        if (StorageManager.getRole() !== Role.HOST) {
+                            StorageManager.setRole(Role.HOST);
                         }
-                    } else if (storageManager.getRole() !== Role.PLAYER) {
-                        storageManager.setRole(Role.PLAYER);
+                    } else if (StorageManager.getRole() !== Role.PLAYER) {
+                        StorageManager.setRole(Role.PLAYER);
                     }
                 }
             } catch (error) {
@@ -136,7 +136,7 @@ const Lobby = (props) => {
 
     let startGameButton;
 
-    if (storageManager.getRole() === Role.HOST) {
+    if (StorageManager.getRole() === Role.HOST) {
         startGameButton = <StandardButton onClick={() => startGame()}>Start Game</StandardButton>;
     } else {
         startGameButton = "";
@@ -168,14 +168,14 @@ const Lobby = (props) => {
                         fw={500}
                         inline="true"
                     >
-                        Rounds: {storageManager.getRoundAmount()}
+                        Rounds: {StorageManager.getRoundAmount()}
                     </Text>
                     <Text
                         color="white"
                         fw={500}
                         inline="true"
                     >
-                        Time/Round: {storageManager.getRoundLength()}
+                        Time/Round: {StorageManager.getRoundLength()}
                     </Text>
                 </Flex>
                 <Flex
@@ -191,11 +191,12 @@ const Lobby = (props) => {
                     >
                         Categories:
                     </Text>
-                    {storageManager.getCategories().map((category) => (
+                    {StorageManager.getCategories().map((category) => (
                         <Badge
                             color="green"
                             radius="md"
                             variant="filled"
+                            key={category}
                         >
                             {category}
                         </Badge>
