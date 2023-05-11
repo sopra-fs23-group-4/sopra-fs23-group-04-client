@@ -183,7 +183,7 @@ const Voting = () => {
                 color="white"
                 size="lg"
             >
-                please rate the answers:
+                please rate the other answers:
             </Text>
 
             <Paper
@@ -197,7 +197,7 @@ const Voting = () => {
                 </Title>{" "}
                 <Text
                     align="center"
-                    sx={{ marginTop: "1%" }}
+                    sx={{ marginTop: "1%", marginBottom: "2%" + "" }}
                 >
                     your answer: <strong> {answer} </strong>
                 </Text>
