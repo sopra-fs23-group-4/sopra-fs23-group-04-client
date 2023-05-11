@@ -56,7 +56,7 @@ const VotingResult = () => {
                 <LetterX
                     size={20}
                     strokeWidth={3}
-                    color={"orange"}
+                    color={"red"}
                 />
             );
         }
