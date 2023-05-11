@@ -103,6 +103,7 @@ const VotingResult = () => {
         tableHeader: {
             textAlign: "center",
             color: "black",
+            textDecoration: "underline",
         },
     };
 
@@ -156,7 +157,7 @@ const VotingResult = () => {
                         <tr>
                             <th style={stylesLeft.tableHeader}>user</th>
                             <th style={stylesLeft.tableHeader}>answer</th>
-                            <th style={stylesLeft.tableHeader}>points</th>
+                            <th style={stylesCenter.tableHeader}>points</th>
                             <th style={stylesCenter.tableHeader}></th>
                         </tr>
                     </thead>
