@@ -1,5 +1,6 @@
 import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
+import { StorageManager } from "../../../helpers/storageManager";
 
 /**
  * routeProtectors interfaces can tell the router whether or not it should allow navigation to a requested route.
@@ -11,7 +12,7 @@ import PropTypes from "prop-types";
  * @param props
  */
 export const DashboardGuard = (props) => {
-    if (sessionStorage.getItem("token")) {
+    if (StorageManager.getToken()) {
         return props.children;
     }
     return <Redirect to="/login" />;
