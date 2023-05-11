@@ -38,6 +38,7 @@ const Settings = () => {
             StorageManager.setRoundAmount(rounds);
             StorageManager.setRoundLength(roundLength);
             StorageManager.setCategories(categories);
+            StorageManager.setGamePin(pin);
             history.push(`/game/${pin}/lobby`);
         } catch (error) {
             alert(`Something went wrong whilst creating the lobby: \n${handleError(error)}`);

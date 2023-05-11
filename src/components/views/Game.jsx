@@ -19,6 +19,7 @@ const Game = () => {
         try {
             await RestApi.joinGame(pin);
             StorageManager.setRole(Role.PLAYER);
+            StorageManager.setGamePin(pin);
 
             const categoriesResponse = await RestApi.getGameCategories(pin);
             StorageManager.setCategories(categoriesResponse);
