@@ -1,4 +1,4 @@
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import Lobby from "../../views/game/[game_id]/Lobby";
 import Board from "../../views/game/[game_id]/Board";
 import Answer from "../../views/game/[game_id]/Answer";
@@ -13,6 +13,16 @@ import { RestApi } from "../../../helpers/RestApi";
 const InGameRouter = (props) => {
     const base = `/game/:gamePin`;
     const gamePin = props.match.params["gamePin"];
+
+    const history = useHistory();
+
+    history.block((location, action) => {
+        if (action === "POP") {
+            console.log("prevented backwards navigation");
+            // Prevent navigation when the user tries to navigate back
+            return false;
+        }
+    });
 
     useEffect(() => {
         const handleTabClose = async () => {
