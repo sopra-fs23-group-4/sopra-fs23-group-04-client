@@ -18,7 +18,7 @@ const Board = () => {
     const letter = StorageManager.getLetter();
     const categories = StorageManager.getCategories();
     const answers = StorageManager.getAnswers();
-    const [timer, setTimer] = useState(45);
+    const [timer, setTimer] = useState(null);
 
     /*    useEffect(() => {
         let isMounted = true;

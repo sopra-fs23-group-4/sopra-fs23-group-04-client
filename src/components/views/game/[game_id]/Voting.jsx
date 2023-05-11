@@ -19,7 +19,7 @@ const Voting = () => {
     const answer = answers[categoryIndex] ? answers[categoryIndex] : "none";
     const [answersToRate, setAnswersToRate] = useState([]);
     const [votes, setVotes] = useState({});
-    const [timer, setTimer] = useState(45);
+    const [timer, setTimer] = useState(null);
     const [done, setDone] = useState(false);
 
     useEffect(() => {
@@ -118,7 +118,7 @@ const Voting = () => {
                         color="red"
                         size="md"
                         name={Object.keys(answer)[0]}
-                        checked={votes[Object.keys(answer)[0]] === "WRONG"}
+                        checked={votes[Object.keys(answer)[0]] === "WRONG" || Object.values(answer)[0] === "-"}
                         onChange={() => {
                             const newVotes = { ...votes };
                             newVotes[Object.keys(answer)[0]] = "WRONG";
@@ -183,7 +183,7 @@ const Voting = () => {
                 color="white"
                 size="lg"
             >
-                please rate the answers:
+                please rate the other answers:
             </Text>
 
             <Paper
@@ -197,7 +197,7 @@ const Voting = () => {
                 </Title>{" "}
                 <Text
                     align="center"
-                    sx={{ marginTop: "1%" }}
+                    sx={{ marginTop: "1%", marginBottom: "2%" + "" }}
                 >
                     your answer: <strong> {answer} </strong>
                 </Text>

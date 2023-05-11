@@ -21,7 +21,7 @@ const Answer = () => {
     const category = categories[answerIndex];
     const lastElement = categories.length - 1;
 
-    const [timer, setTimer] = useState(45);
+    const [timer, setTimer] = useState(null);
 
     const handleAnswerChange = (event) => {
         const newAnswers = [...answers];
