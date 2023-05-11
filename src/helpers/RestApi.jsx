@@ -47,6 +47,16 @@ export class RestApi {
         return new User(response.data);
     }
 
+    static async getUserByUsername(username) {
+        const response = await restApi.get(`/users/username/${username}`);
+        return new User(response.data);
+    }
+
+    static async getAdvancedStatistics(userId) {
+        const response = await restApi.get(`/users/${userId}/advancedStatistics`);
+        return response.data;
+    }
+
     static async getUsers() {
         const response = await restApi.get(`/users/`);
         await new Promise((resolve) => setTimeout(resolve, 1000));
