@@ -34,7 +34,7 @@ const InGameRouter = (props) => {
         return () => {
             window.removeEventListener("unload", handleTabClose);
         };
-    }, []);
+    }, [gamePin]);
 
     return (
         <Switch>
