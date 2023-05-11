@@ -33,25 +33,52 @@ const VotingResult = () => {
         fetchData();
     }, [gamePin, round, category]);
 
-    const rows = votes.map((result, index) => (
-        <tr
-            key={index}
-            style={{
-                backgroundColor: result.username === StorageManager.getUsername() ? "lightblue" : "transparent",
-            }}
-        >
-            <td>
-                <strong> {result.username}</strong>
-            </td>
-            <td>{result.answerString}</td>
-            <td>
-                <strong>{result.points}</strong>{" "}
-            </td>
-            <td align="center">{result.numberOfUnique}</td>
-            <td align="center">{result.numberOfNotUnique}</td>
-            <td align="center">{result.numberOfWrong}</td>
-        </tr>
-    ));
+    const rows = votes.map((result, index) => {
+        let pointsComponent;
+        if (result.points === 3) {
+            pointsComponent = (
+                <Check
+                    size={20}
+                    strokeWidth={3}
+                    color={"green"}
+                />
+            );
+        } else if (result.points === 1) {
+            pointsComponent = (
+                <Equal
+                    size={20}
+                    strokeWidth={3}
+                    color={"orange"}
+                />
+            );
+        } else if (result.points === 0) {
+            pointsComponent = (
+                <LetterX
+                    size={20}
+                    strokeWidth={3}
+                    color={"orange"}
+                />
+            );
+        }
+
+        return (
+            <tr
+                key={index}
+                style={{
+                    backgroundColor: result.username === StorageManager.getUsername() ? "lightblue" : "transparent",
+                }}
+            >
+                <td>
+                    <strong>{result.username}</strong>
+                </td>
+                <td>{result.answerString}</td>
+                <td align="center">
+                    <strong>{result.points}</strong>{" "}
+                </td>
+                <td align="center">{pointsComponent}</td>
+            </tr>
+        );
+    });
 
     let onConnected = () => {
         console.log("Connected!!");
@@ -111,7 +138,7 @@ const VotingResult = () => {
                 shadow="xl"
                 radius="md"
                 p="lg"
-                sx={{ background: "azure", minWidth: "70%", marginBottom: "1%" }}
+                sx={{ overflowX: "auto", background: "azure", minWidth: "70%", maxWidth: "105%", marginBottom: "1%" }}
             >
                 <Title align="center">
                     {category} ({letter})
@@ -130,27 +157,7 @@ const VotingResult = () => {
                             <th style={stylesLeft.tableHeader}>user</th>
                             <th style={stylesLeft.tableHeader}>answer</th>
                             <th style={stylesLeft.tableHeader}>points</th>
-                            <th style={stylesCenter.tableHeader}>
-                                <Check
-                                    size={20}
-                                    strokeWidth={3}
-                                    color={"green"}
-                                />{" "}
-                            </th>
-                            <th style={stylesCenter.tableHeader}>
-                                <Equal
-                                    size={20}
-                                    strokeWidth={3}
-                                    color={"orange"}
-                                />{" "}
-                            </th>
-                            <th style={stylesCenter.tableHeader}>
-                                <LetterX
-                                    size={16}
-                                    strokeWidth={3}
-                                    color={"red"}
-                                />
-                            </th>
+                            <th style={stylesCenter.tableHeader}></th>
                         </tr>
                     </thead>
                     <tbody>{rows}</tbody>
