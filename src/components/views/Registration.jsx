@@ -40,12 +40,12 @@ const Registration = () => {
                         size="lg"
                         value={username}
                         onChange={(event) => setUsername(event.currentTarget.value)}
-                        sx={{ "& .mantine-TextInput-label": { color: "white" }, marginBottom: "-3%" }}
+                        sx={{ "& .mantine-TextInput-label": { color: "white" }, marginBottom: "-5%" }}
                     />
                     <Text
                         size="xs"
                         color="white"
-                        sx={{ "& .mantine-TextInput-label": { color: "white" }, marginTop: "-1%" }}
+                        sx={{ "& .mantine-TextInput-label": { color: "white" } }}
                     >
                         *username: max. 10 characters
                     </Text>
