@@ -98,7 +98,7 @@ const Dashboard = () => {
                         icon={<OneTwoThree size={18} />}
                         onClick={() => history.push("/leaderboard")}
                     >
-                        Scoreboard
+                        Leaderboard
                     </Menu.Item>
                     <Menu.Item
                         icon={<QuestionMark size={18} />}
