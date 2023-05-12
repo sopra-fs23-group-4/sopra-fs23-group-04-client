@@ -1,5 +1,5 @@
 import BaseContainer from "../ui/BaseContainer";
-import { Container, PasswordInput, rem, Stack, TextInput, Title } from "@mantine/core";
+import { Container, Text, PasswordInput, rem, Stack, TextInput, Title } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
 import { Link, useHistory } from "react-router-dom";
 import { useContext, useState } from "react";
@@ -40,8 +40,15 @@ const Registration = () => {
                         size="lg"
                         value={username}
                         onChange={(event) => setUsername(event.currentTarget.value)}
-                        sx={{ "& .mantine-TextInput-label": { color: "white" } }}
+                        sx={{ "& .mantine-TextInput-label": { color: "white" }, marginBottom: "-3%" }}
                     />
+                    <Text
+                        size="xs"
+                        color="white"
+                        sx={{ "& .mantine-TextInput-label": { color: "white" }, marginTop: "-1%" }}
+                    >
+                        *username: no more than 10 characters
+                    </Text>
                     <PasswordInput
                         label="password:"
                         placeholder="Password"
