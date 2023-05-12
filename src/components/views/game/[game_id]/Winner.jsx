@@ -6,6 +6,7 @@ import { handleError, RestApi } from "../../../../helpers/RestApi";
 import { StorageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
 import { Crown } from "tabler-icons-react";
+import ReactTypingEffect from 'react-typing-effect';
 
 const Winner = (props) => {
     const gamePin = props.match.params["gamePin"];
@@ -116,7 +117,12 @@ const Winner = (props) => {
                     fw={500}
                     sx={{ width: "80%", marginBottom: "2%" }}
                 >
-                    "{winners[0].quote}"
+                    <ReactTypingEffect
+                        text={[`"${winners[0].quote}"`]}
+                        speed={50}
+                        eraseDelay={999999999}
+                        typingDelay={400}
+                    />
                 </Text>
                 <StandardButton
                     component={Link}
