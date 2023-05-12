@@ -114,11 +114,12 @@ export class StorageManager {
         return answers ? JSON.parse(answers) : [];
     }
 
-    static resetRound() {
+    static resetGame() {
         sessionStorage.removeItem("categories");
         sessionStorage.removeItem("letter");
         sessionStorage.removeItem("answers");
         sessionStorage.removeItem("round");
+        sessionStorage.removeItem("role");
         sessionStorage.removeItem("gamePin");
         sessionStorage.removeItem("roundLength");
         sessionStorage.removeItem("roundAmount");

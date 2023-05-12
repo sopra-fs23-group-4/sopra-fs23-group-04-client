@@ -38,7 +38,7 @@ const Letter = () => {
     }, [letter, categories]);
 
     const doStart = () => {
-        StorageManager.resetRound();
+        StorageManager.resetGame();
         StorageManager.setAnswers(Array(categories.length).fill(null));
         StorageManager.setLetter(letter);
         StorageManager.setCategories(categories);

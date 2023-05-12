@@ -116,7 +116,7 @@ export class RestApi {
 
     static async leaveGame(pin) {
         await restApi.put(`/games/lobbies/${pin}/leave`, null);
-        StorageManager.resetRound();
+        StorageManager.resetGame();
     }
 
     static async startGame(gamePin) {

@@ -1,7 +1,7 @@
 import { Button, Menu, Stack, Text, Title } from "@mantine/core";
 import BaseContainer from "../ui/BaseContainer";
 import { useHistory } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 import StandardButton from "../ui/StandardButton";
 import { Edit as EditIcon, OneTwoThree, QuestionMark } from "tabler-icons-react";
 import { IconMenu2, IconMessageCircle } from "@tabler/icons-react";
@@ -12,6 +12,10 @@ const Dashboard = () => {
 
     const username = StorageManager.getUsername();
     const quote = StorageManager.getQuote();
+
+    useEffect(() => {
+        StorageManager.resetGame();
+    }, [quote]);
 
     const doLogout = async () => {
         StorageManager.clearAll();
