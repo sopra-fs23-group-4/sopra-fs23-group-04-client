@@ -47,7 +47,7 @@ const Registration = () => {
                         color="white"
                         sx={{ "& .mantine-TextInput-label": { color: "white" }, marginTop: "-1%" }}
                     >
-                        *username: no more than 10 characters
+                        *username: max. 10 characters
                     </Text>
                     <PasswordInput
                         label="password:"
