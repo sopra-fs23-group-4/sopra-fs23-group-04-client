@@ -197,7 +197,7 @@ const Voting = () => {
                 </Title>{" "}
                 <Text
                     align="center"
-                    sx={{ marginTop: "1%", marginBottom: "2%" + "" }}
+                    sx={{ marginTop: "1%", marginBottom: "2%" }}
                 >
                     your answer: <strong> {answer} </strong>
                 </Text>
