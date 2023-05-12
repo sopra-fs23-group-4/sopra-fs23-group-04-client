@@ -1,5 +1,4 @@
 import { Redirect, Route, Switch } from "react-router-dom";
-import Edit from "../../views/profile/Edit";
 import Quote from "../../views/profile/edit/Quote";
 import User from "../../views/users/User";
 import { StorageManager } from "../../../helpers/storageManager";
