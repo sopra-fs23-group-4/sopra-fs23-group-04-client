@@ -32,6 +32,7 @@ const Score = (props) => {
     const gamePin = props.match.params["gamePin"];
 
     const history = useHistory();
+    const [timer, setTimer] = useState(null);
 
     const [userScores, setUserScores] = useState([]);
     const [fact, setFact] = useState("");
@@ -73,6 +74,8 @@ const Score = (props) => {
             StorageManager.setLetter(msg.letter);
             StorageManager.setRound(msg.round);
             history.push(`/game/${gamePin}/round/${msg.round}/board/`);
+        } else if (msg.type === "scoreboardTimer") {
+            setTimer(msg.timeRemaining);
         }
     };
 
@@ -148,6 +151,7 @@ const Score = (props) => {
                 onMessage={(msg) => onMessageReceived(msg)}
                 debug={false}
             />
+            <Text color="white">Time remaining: {timer}</Text>
             <Title color="white">Score</Title>
             <Paper
                 radius="md"
