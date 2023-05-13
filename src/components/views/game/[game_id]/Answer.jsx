@@ -144,6 +144,7 @@ const Answer = () => {
                 overview
             </StandardButton>
             <StandardButton
+                color="green"
                 sx={{ marginTop: "5%" }}
                 disabled={!answers.every((value) => value !== null && value !== "" && value !== { letter })}
                 onClick={() => doDoneButton()}

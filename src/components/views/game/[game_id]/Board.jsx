@@ -161,6 +161,7 @@ const Board = () => {
                     ))}
             </Stack>
             <StandardButton
+                color="green"
                 position="center"
                 sx={{ marginTop: "5%" }}
                 disabled={!answers.every((value) => value !== null && value !== "" && value !== { letter })}
