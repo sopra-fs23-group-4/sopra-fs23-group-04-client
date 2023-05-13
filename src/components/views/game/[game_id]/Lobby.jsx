@@ -50,7 +50,7 @@ const Lobby = (props) => {
                 setHostUsername(msg.hostUsername);
             }
             setUsersInLobby(msg.usernames);
-        } else if (msg.type === "letter") {
+        } else if (msg.type === "roundStart") {
             StorageManager.setAnswers(Array(StorageManager.getCategories().length).fill(null));
             StorageManager.setLetter(msg.letter);
             StorageManager.setRound(msg.round);

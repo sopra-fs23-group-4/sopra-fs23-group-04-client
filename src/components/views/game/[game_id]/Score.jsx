@@ -69,7 +69,7 @@ const Score = (props) => {
     let onMessageReceived = (msg) => {
         console.log("Websocket msg:");
         console.log(msg);
-        if (msg.type === "letter") {
+        if (msg.type === "roundStart") {
             StorageManager.setAnswers(Array(StorageManager.getCategories().length).fill(null));
             StorageManager.setLetter(msg.letter);
             StorageManager.setRound(msg.round);
