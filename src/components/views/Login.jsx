@@ -19,7 +19,7 @@ const Login = () => {
             context.setUser(user);
             history.push(`/dashboard`);
         } catch (error) {
-            alert(`Something went wrong during the login: \n${handleError(error)}`);
+            console.error(`Something went wrong during the login: \n${handleError(error)}`);
         }
     };
 

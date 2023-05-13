@@ -2,6 +2,7 @@ import axios from "axios";
 import { getDomain } from "helpers/getDomain";
 import User from "../models/User";
 import { StorageManager } from "./storageManager";
+import { notifications } from "@mantine/notifications";
 
 export const restApi = axios.create({
     baseURL: getDomain(),
@@ -27,11 +28,18 @@ export class RestApi {
     static async login(username, password) {
         const requestBody = JSON.stringify({ username, password });
         const response = await restApi.post("/login", requestBody);
-        const user = new User(response.data);
-        user.token = response.headers.authorization;
-        generalLoginProcedure(user);
-        return user;
+        if (response.status >= 200 && response.status < 300) {
+            const user = new User(response.data);
+            user.token = response.headers.authorization;
+            generalLoginProcedure(user);
+            return user;
+        } else if (response.status === 400) {
+            throw new Error("This username does not exist");
+        } else {
+            throw new Error("Something went wrong during the login");
+        }
     }
+
     static async registration(username, password) {
         const requestBody = JSON.stringify({ username, password });
         const response = await restApi.post("/users", requestBody);
@@ -183,6 +191,7 @@ export const handleError = (error) => {
             info += `\nstatus code: ${response.data.status}`;
             info += `\nerror: ${response.data.error}`;
             info += `\nerror message: ${response.data.message}`;
+            notifications.show({ message: response.data.message + ".", color: "red", position: "top-center", autoClose: 4000 });
         } else {
             info += `\nstatus code: ${response.status}`;
             info += `\nerror message:\n${response.data}`;

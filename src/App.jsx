@@ -3,11 +3,13 @@ import AppRouter from "components/routing/routers/AppRouter";
 import { Background } from "./components/ui/Background";
 import { MantineProvider } from "@mantine/core";
 import { ContextProvider } from "./context";
+import { Notifications } from "@mantine/notifications";
 
 const App = () => {
     return (
         <div>
             <ContextProvider>
+                <Notifications position="top-center" />
                 <MantineProvider
                     theme={{
                         colorScheme: "light",

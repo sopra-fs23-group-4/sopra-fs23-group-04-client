@@ -19,7 +19,7 @@ const Registration = () => {
             context.setUser(user);
             history.push(`/dashboard`);
         } catch (error) {
-            alert(`Something went wrong during the Registration: \n${handleError(error)}`);
+            console.error(`Something went wrong during the Registration: \n${handleError(error)}`);
         }
     };
 
