@@ -22,11 +22,63 @@ const Dashboard = () => {
         history.push("/login");
     };
 
+    const contentMenu = (
+        <Menu
+            position="bottom"
+            shadow="md"
+            width={200}
+            sx={{ opacity: 0.9, marginTop: "2%", marginBottom: "2%" }}
+        >
+            <Menu.Target>
+                <Button
+                    variant="default"
+                    sx={{ marginBottom: "2%" }}
+                >
+                    <IconMenu2
+                        size={18}
+                        strokeWidth={2}
+                        color={"black"}
+                    />
+                    <Text
+                        size="md"
+                        sx={{ marginLeft: "5px" }}
+                    >
+                        {" "}
+                        Menu{" "}
+                    </Text>
+                </Button>
+            </Menu.Target>
+
+            <Menu.Dropdown position="bottom">
+                <Menu.Label>Personal</Menu.Label>
+                <Menu.Item
+                    icon={<IconMessageCircle size={14} />}
+                    onClick={() => history.push("/profile/edit/quote")}
+                >
+                    Change Quote
+                </Menu.Item>
+                <Menu.Label>Game</Menu.Label>
+                <Menu.Item
+                    icon={<OneTwoThree size={18} />}
+                    onClick={() => history.push("/leaderboard")}
+                >
+                    Leaderboard
+                </Menu.Item>
+                <Menu.Item
+                    icon={<QuestionMark size={18} />}
+                    onClick={() => history.push("/rules")}
+                >
+                    Rules
+                </Menu.Item>
+            </Menu.Dropdown>
+        </Menu>
+    );
+
     return (
         <BaseContainer>
             <Paper
-                sx={{ background: "inherit", minWidth: "220px", border: "3px solid azure", marginTop: "5%" }}
-                style={{ width: "80%" }}
+                sx={{ background: "inherit", minWidth: "220px", border: "3px solid azure", marginTop: "10%" }}
+                style={{ width: "90%" }}
                 radius="md"
                 align="center"
                 spacing="xs"
@@ -58,60 +110,12 @@ const Dashboard = () => {
             <StandardButton
                 onClick={() => history.push("/game/")}
                 size="lg"
-                sx={{ width: "140px", marginTop: "2%", marginBottom: "2%" }}
+                sx={{ width: "140px", marginTop: "5%", marginBottom: "2%" }}
             >
                 PLAY
             </StandardButton>
 
-            <Menu
-                position="bottom"
-                shadow="md"
-                width={200}
-                sx={{ opacity: 0.9, marginTop: "2%", marginBottom: "2%" }}
-            >
-                <Menu.Target>
-                    <Button
-                        variant="default"
-                        sx={{ marginBottom: "2%" }}
-                    >
-                        <IconMenu2
-                            size={18}
-                            strokeWidth={2}
-                            color={"black"}
-                        />
-                        <Text
-                            size="md"
-                            sx={{ marginLeft: "5px" }}
-                        >
-                            {" "}
-                            Menu{" "}
-                        </Text>
-                    </Button>
-                </Menu.Target>
-
-                <Menu.Dropdown position="bottom">
-                    <Menu.Label>Personal</Menu.Label>
-                    <Menu.Item
-                        icon={<IconMessageCircle size={14} />}
-                        onClick={() => history.push("/profile/edit/quote")}
-                    >
-                        Change Quote
-                    </Menu.Item>
-                    <Menu.Label>Game</Menu.Label>
-                    <Menu.Item
-                        icon={<OneTwoThree size={18} />}
-                        onClick={() => history.push("/leaderboard")}
-                    >
-                        Leaderboard
-                    </Menu.Item>
-                    <Menu.Item
-                        icon={<QuestionMark size={18} />}
-                        onClick={() => history.push("/rules")}
-                    >
-                        Rules
-                    </Menu.Item>
-                </Menu.Dropdown>
-            </Menu>
+            {contentMenu}
 
             <StandardButton
                 onClick={() => doLogout()}
