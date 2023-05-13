@@ -28,16 +28,10 @@ export class RestApi {
     static async login(username, password) {
         const requestBody = JSON.stringify({ username, password });
         const response = await restApi.post("/login", requestBody);
-        if (response.status >= 200 && response.status < 300) {
-            const user = new User(response.data);
-            user.token = response.headers.authorization;
-            generalLoginProcedure(user);
-            return user;
-        } else if (response.status === 400) {
-            throw new Error("This username does not exist");
-        } else {
-            throw new Error("Something went wrong during the login");
-        }
+        const user = new User(response.data);
+        user.token = response.headers.authorization;
+        generalLoginProcedure(user);
+        return user;
     }
 
     static async registration(username, password) {

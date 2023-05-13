@@ -28,8 +28,6 @@ const VotingResult = () => {
                 setVotes(response.data);
             } catch (error) {
                 console.error(`Something went wrong while fetching the votes: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the votes! See the console for details.");
             }
         }
         fetchData();

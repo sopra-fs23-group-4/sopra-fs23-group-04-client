@@ -41,7 +41,7 @@ const Settings = () => {
             StorageManager.setGamePin(pin);
             history.push(`/game/${pin}/lobby`);
         } catch (error) {
-            alert(`Something went wrong whilst creating the lobby: \n${handleError(error)}`);
+            console.error(`Something went wrong whilst creating the lobby: \n${handleError(error)}`);
         }
     };
 

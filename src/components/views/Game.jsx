@@ -30,7 +30,7 @@ const Game = () => {
 
             history.push(`/game/${pin}/lobby`);
         } catch (error) {
-            alert(`Something went wrong joining the lobby: \n${handleError(error)}`);
+            console.error(`Something went wrong joining the lobby: \n${handleError(error)}`);
         }
     };
 

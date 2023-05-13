@@ -64,7 +64,7 @@ const Lobby = (props) => {
             await RestApi.leaveGame(gamePin);
             history.push(`/game`);
         } catch (error) {
-            alert(`Something went wrong leaving the lobby: \n${handleError(error)}`);
+            console.error(`Something went wrong leaving the lobby: \n${handleError(error)}`);
         }
     }
 
@@ -72,7 +72,7 @@ const Lobby = (props) => {
         try {
             await RestApi.startGame(gamePin);
         } catch (error) {
-            alert(`Something went wrong starting the game: \n${handleError(error)}`);
+            console.error(`Something went wrong starting the game: \n${handleError(error)}`);
         }
     }
 
@@ -98,8 +98,6 @@ const Lobby = (props) => {
                 }
             } catch (error) {
                 console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the users! See the console for details.");
             }
         }
         fetchData();

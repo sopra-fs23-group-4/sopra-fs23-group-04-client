@@ -52,8 +52,6 @@ const Score = (props) => {
                 }
             } catch (error) {
                 console.error(`Something went wrong while fetching the scores: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the scores! See the console for details.");
             }
         }
         fetchData();
@@ -85,7 +83,7 @@ const Score = (props) => {
             await RestApi.leaveGame(gamePin);
             history.push(`/game`);
         } catch (error) {
-            alert(`Something went wrong leaving the game: \n${handleError(error)}`);
+            console.error(`Something went wrong leaving the game: \n${handleError(error)}`);
         }
     }
 

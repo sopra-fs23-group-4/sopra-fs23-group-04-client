@@ -27,8 +27,6 @@ const Letter = () => {
                 }
             } catch (error) {
                 console.error(`Something went wrong while fetching the categories: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the categories! See the console for details.");
             }
         }
         fetchData();

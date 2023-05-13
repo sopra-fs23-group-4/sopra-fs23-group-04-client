@@ -19,6 +19,9 @@ const Registration = () => {
             context.setUser(user);
             history.push(`/dashboard`);
         } catch (error) {
+            if (error.response.status === 409) {
+                error.response.data.message = "this username is already taken";
+            }
             console.error(`Something went wrong during the Registration: \n${handleError(error)}`);
         }
     };
@@ -47,7 +50,7 @@ const Registration = () => {
                         color="white"
                         sx={{ "& .mantine-TextInput-label": { color: "white" } }}
                     >
-                        *username: max. 10 characters
+                        *one word, max. 10 characters
                     </Text>
                     <PasswordInput
                         label="password:"

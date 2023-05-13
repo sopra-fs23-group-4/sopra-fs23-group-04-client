@@ -22,8 +22,6 @@ const Quote = () => {
                 setQuoteCategories(await RestApi.getQuoteCategories());
             } catch (error) {
                 console.error(`Something went wrong while fetching the categories: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the categories! See the console for details.");
             }
         }
         fetchData();
@@ -36,7 +34,7 @@ const Quote = () => {
             }
             setQuote(await RestApi.generateQuote(category));
         } catch (error) {
-            alert(`Something went wrong during changing the quote: \n${handleError(error)}`);
+            console.error(`Something went wrong during changing the quote: \n${handleError(error)}`);
         }
     };
 
@@ -48,7 +46,7 @@ const Quote = () => {
             StorageManager.setQuote(quote);
             history.push(`/dashboard`);
         } catch (error) {
-            alert(`Something went wrong during changing the quote: \n${handleError(error)}`);
+            console.error(`Something went wrong during changing the quote: \n${handleError(error)}`);
         }
     };
 

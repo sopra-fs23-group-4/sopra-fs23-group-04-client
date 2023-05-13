@@ -6,7 +6,7 @@ import { handleError, RestApi } from "../../../../helpers/RestApi";
 import { StorageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
 import { Crown } from "tabler-icons-react";
-import ReactTypingEffect from 'react-typing-effect';
+import ReactTypingEffect from "react-typing-effect";
 
 const Winner = (props) => {
     const gamePin = props.match.params["gamePin"];
@@ -46,8 +46,6 @@ const Winner = (props) => {
                 }
             } catch (error) {
                 console.error(`Something went wrong while fetching the winners: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the winners! See the console for details.");
             }
         }
         fetchData();
@@ -58,7 +56,7 @@ const Winner = (props) => {
         try {
             history.push(`/game`);
         } catch (error) {
-            alert(`Something went wrong leaving the game: \n${handleError(error)}`);
+            console.log(`Something went wrong leaving the game: \n${handleError(error)}`);
         }
     }
 

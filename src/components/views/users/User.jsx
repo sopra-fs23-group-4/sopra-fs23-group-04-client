@@ -18,8 +18,6 @@ const User = (props) => {
                 }
             } catch (error) {
                 console.error(`Something went wrong while fetching the user: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the user! See the console for details.");
             }
         }
         fetchData();

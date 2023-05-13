@@ -39,9 +39,7 @@ const Voting = () => {
                 await new Promise((resolve) => setTimeout(resolve, 200));
                 setAnswersToRate(await RestApi.getAnswersForCategory(gamePin, round, category));
             } catch (error) {
-                console.error(`Something went wrong while fetching the answers: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the answers! See the console for details.");
+                console.log("Something went wrong while fetching the answers! See the console for details.");
             }
         }
         fetchData();
@@ -53,8 +51,6 @@ const Voting = () => {
             history.push(`/game/${gamePin}/round/${round}/votingResults/${categoryIndex}`);
         } catch (error) {
             console.error(`Something went wrong while sending the votes: \n${handleError(error)}`);
-            console.error("Details:", error);
-            alert("Something went wrong while sending the votes! See the console for details.");
         }
     }
 
@@ -64,8 +60,6 @@ const Voting = () => {
             await RestApi.skip(gamePin);
         } catch (error) {
             console.error(`Something went wrong to skip: \n${handleError(error)}`);
-            console.error("Details:", error);
-            alert("Something went wrong to skip! See the console for details.");
         }
     }
     let onConnected = () => {
