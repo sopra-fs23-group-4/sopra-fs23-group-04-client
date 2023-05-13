@@ -20,37 +20,6 @@ const Board = () => {
     const answers = StorageManager.getAnswers();
     const [timer, setTimer] = useState(null);
 
-    /*    useEffect(() => {
-        let isMounted = true;
-        async function fetchData() {
-            try {
-                if (isMounted) {
-                    if (!letter) {
-                        sessionStorage.setItem("letter", "A");
-                        setLetter(sessionStorage.getItem("letter"));
-                        console.log(sessionStorage);
-                    }
-                    if (!categories) {
-                        storageManager.setCategories(["City", "Country", "FirstName", "Musical Instrument"]);
-                        setCategories(storageManager.getCategories());
-                    }
-
-                    if (!answers) {
-                        setAnswers(Array(4).fill(null));
-                    }
-                }
-            } catch (error) {
-                console.error(`Something went wrong while fetching the categories: \n${handleError(error)}`);
-                console.error("Details:", error);
-                alert("Something went wrong while fetching the categories! See the console for details.");
-            }
-        }
-        fetchData();
-        return () => {
-            isMounted = false;
-        };
-    }, []);*/
-
     const postAnswers = async (answersDict) => {
         try {
             await RestApi.postAnswers(gamePin, round, answersDict);
