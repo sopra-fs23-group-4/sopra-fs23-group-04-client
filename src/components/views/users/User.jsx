@@ -27,15 +27,7 @@ const User = (props) => {
     const history = useHistory();
 
     const [user, setUser] = useState({ username: "" });
-    const [stats, setStats] = useState({
-        rank: 420,
-        totalPlayedGames: 69,
-        totalWins: 420,
-        totalAnswersAnwered: 69,
-        totalCorrectAndUniqueAnswers: 420,
-        totalPointsOverall: 69,
-        mostPlayedCategory: "Cannabis Strains",
-    });
+    const [stats, setStats] = useState({ rank: "" });
 
     useEffect(() => {
         async function fetchData() {
@@ -45,12 +37,21 @@ const User = (props) => {
                     let userResponse = await RestApi.getUserByUsername(username);
                     setUser(userResponse);
 
-                    let statResponse = await RestApi.getAdvancedStatistics(userResponse.id);
-                    console.log(statResponse);
+                    //let statResponse = await RestApi.getAdvancedStatistics(userResponse.id);
+                    //console.log(statResponse);
+                    const statResponse = {
+                        rank: 420,
+                        totalPlayedGames: 69,
+                        totalWins: 420,
+                        totalAnswersAnwered: 69,
+                        totalCorrectAndUniqueAnswers: 420,
+                        totalPointsOverall: 69,
+                        mostPlayedCategory: "Cannabis Strains",
+                    };
                     setStats(statResponse);
                 }
             } catch (error) {
-                console.error(`Something went wrong while fetching the user: \n${handleError(error)}`);
+                console.error(`Something went wrong while fetching the user and its stats: \n${handleError(error)}`);
             }
         }
         fetchData();
@@ -106,6 +107,10 @@ const User = (props) => {
                             statValue={stats.rank}
                         />
                         <StatEntry
+                            statName={"Points Overall"}
+                            statValue={stats.totalPointsOverall}
+                        />
+                        <StatEntry
                             statName={"Games Played"}
                             statValue={stats.totalPlayedGames}
                         />
@@ -120,10 +125,6 @@ const User = (props) => {
                         <StatEntry
                             statName={"Unique Answers"}
                             statValue={stats.totalCorrectAndUniqueAnswers}
-                        />
-                        <StatEntry
-                            statName={"Points Overall"}
-                            statValue={stats.totalPointsOverall}
                         />
                         <StatEntry
                             statName={"Most Played Category"}
