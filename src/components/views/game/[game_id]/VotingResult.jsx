@@ -13,6 +13,8 @@ const VotingResult = () => {
     const { gamePin, round, categoryIndex } = useParams();
     const history = useHistory();
 
+    const [timer, setTimer] = useState(null);
+
     const letter = StorageManager.getLetter();
     const categories = StorageManager.getCategories();
     const category = categories[categoryIndex];
@@ -89,7 +91,9 @@ const VotingResult = () => {
 
     let onMessageReceived = async (msg) => {
         console.log(msg.type);
-        if (msg.type === "resultNextVote") {
+        if (msg.type === "resultTimer") {
+            setTimer(msg.timeRemaining);
+        } else if (msg.type === "resultNextVote") {
             const nextCategoryIndex = parseInt(categoryIndex) + 1;
             history.push(`/game/${gamePin}/round/${round}/voting/${nextCategoryIndex}`);
         } else if (msg.type === "resultScoreboard") {
@@ -125,6 +129,7 @@ const VotingResult = () => {
                 onMessage={(msg) => onMessageReceived(msg)}
                 debug={false}
             />
+            <Text color="white">Time remaining: {timer}</Text>
             <Title color="white">{StorageManager.getUsername()}</Title>
             <Text
                 align="center"
