@@ -25,7 +25,7 @@ const Dashboard = () => {
     return (
         <BaseContainer>
             <Paper
-                sx={{ background: "inherit", minWidth: "220px", border: "2px solid azure", marginTop: "5%" }}
+                sx={{ background: "inherit", minWidth: "220px", border: "3px solid azure", marginTop: "5%" }}
                 style={{ width: "80%" }}
                 radius="md"
                 align="center"
@@ -44,7 +44,7 @@ const Dashboard = () => {
                     size="md"
                     color="white"
                     fw={500}
-                    sx={{ width: "80%", marginBottom: "5%" }}
+                    sx={{ width: "80%", marginTop: "2%", marginBottom: "5%" }}
                     onClick={() => history.push("/profile/edit/quote")}
                 >
                     {quote}{" "}
