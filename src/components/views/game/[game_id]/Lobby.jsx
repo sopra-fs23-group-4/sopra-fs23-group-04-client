@@ -220,7 +220,7 @@ const Lobby = (props) => {
                 shadow="xl"
                 p="lg"
                 bg="rgba(0, 255, 0, .1)"
-                sx={{ background: "inherit", minWidth: "220px", border: "4px solid white" }}
+                sx={{ background: "inherit", minWidth: "220px", border: "3px solid azure" }}
             >
                 <Flex
                     mih={50}

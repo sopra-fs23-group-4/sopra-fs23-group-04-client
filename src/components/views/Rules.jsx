@@ -16,7 +16,7 @@ const Rules = () => {
             </Title>
             <Box
                 align="center"
-                sx={{ background: "inherit", minWidth: "220px", border: "1px solid azure", marginTop: "0%" }}
+                sx={{ background: "inherit", minWidth: "220px", border: "3px solid azure", marginTop: "0%" }}
             >
                 <Text
                     color="white"
