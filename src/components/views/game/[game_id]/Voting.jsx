@@ -23,6 +23,7 @@ const Voting = () => {
     const [timer, setTimer] = useState(null);
     const [done, setDone] = useState(false);
     const [skipped, setSkipped] = useState(false);
+    const [disableDoneButton, setDisableDoneButton] = useState(true);
 
     useEffect(() => {
         const newDict = {};
@@ -44,6 +45,16 @@ const Voting = () => {
         }
         fetchData();
     }, [gamePin, round, category]);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDisableDoneButton(false);
+        }, 2000);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, []);
 
     async function doDone() {
         try {
@@ -225,7 +236,7 @@ const Voting = () => {
             </Paper>
             <StandardButton
                 sx={{ marginTop: "5%" }}
-                disabled={skipped}
+                disabled={disableDoneButton || skipped}
                 onClick={() => doSkipButton()}
             >
                 DONE

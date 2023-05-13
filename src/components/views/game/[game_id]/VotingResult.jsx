@@ -20,7 +20,7 @@ const VotingResult = () => {
     const categories = StorageManager.getCategories();
     const category = categories[categoryIndex];
     const [votes, setVotes] = useState([]);
-
+    const [disableDoneButton, setDisableDoneButton] = useState(true);
     const [skipped, setSkipped] = useState(false);
 
     useEffect(() => {
@@ -35,6 +35,16 @@ const VotingResult = () => {
         }
         fetchData();
     }, [gamePin, round, category]);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDisableDoneButton(false);
+        }, 2000);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, []);
 
     const rows = votes.map((result, index) => {
         let pointsComponent;
@@ -181,7 +191,7 @@ const VotingResult = () => {
             </Paper>
             <StandardButton
                 sx={{ marginTop: "5%" }}
-                disabled={skipped}
+                disabled={disableDoneButton || skipped}
                 onClick={() => doSkipButton()}
             >
                 DONE
