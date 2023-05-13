@@ -25,7 +25,7 @@ const Dashboard = () => {
     return (
         <BaseContainer>
             <Stack
-                sx={{ background: "inherit", minWidth: "220px", border: "1px solid azure", marginTop: "5%" }}
+                sx={{ background: "inherit", minWidth: "220px", border: "3px solid azure", marginTop: "5%" }}
                 style={{ width: "80%" }}
                 radius="xl"
                 align="center"
