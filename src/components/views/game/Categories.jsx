@@ -1,5 +1,5 @@
 import BaseContainer from "../../ui/BaseContainer";
-import { Text, Chip, Group, Loader, Stack, Title, TextInput } from "@mantine/core";
+import { Text, Chip, Group, Loader, Stack, Title, TextInput, Paper } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import StandardButton from "../../ui/StandardButton";
 import { useHistory } from "react-router-dom";
@@ -48,7 +48,7 @@ const Categories = () => {
             <div className="player container">
                 <Chip
                     color="yellow"
-                    size="xl"
+                    size="lg"
                     value={category}
                 >
                     {category}
@@ -104,7 +104,7 @@ const Categories = () => {
             <Title color="white">Category Selection</Title>
             <Stack
                 align="center"
-                sx={{ marginTop: "3%" }}
+                sx={{ marginTop: "1%", marginBottom: "1%" }}
             >
                 <Text
                     color="white"
@@ -128,22 +128,35 @@ const Categories = () => {
                     />
                     <StandardButton onClick={addCustomCategory}>add</StandardButton>
                 </Group>
-            </Stack>
-
-            {contentCategory}
-
-            <StandardButton
-                disabled={categoriesSelected.length === 0}
-                onClick={() => doContinue()}
-                sx={{ marginTop: "3%" }}
+            </Stack>{" "}
+            <Text
+                color="white"
+                size="lg"
             >
-                Confirm Selection
-            </StandardButton>
+                add a random category:
+            </Text>
+            <StandardButton onClick={() => history.push("/game/")}>surprise me</StandardButton>
+            <Paper
+                sx={{ background: "inherit", minWidth: "220px", border: "2.5px solid azure", marginTop: "2%" }}
+                style={{ width: "100%" }}
+                radius="md"
+                align="center"
+                spacing="xs"
+            >
+                {contentCategory}
+                <StandardButton
+                    disabled={categoriesSelected.length === 0}
+                    onClick={() => doContinue()}
+                    sx={{ marginTop: "2%", marginBottom: "4%" }}
+                >
+                    confirm selection
+                </StandardButton>
+            </Paper>
             <StandardButton
                 onClick={() => history.push("/game/")}
                 sx={{ marginTop: "10%" }}
             >
-                Cancel
+                cancel
             </StandardButton>
         </BaseContainer>
     );
