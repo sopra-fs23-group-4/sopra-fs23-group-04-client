@@ -1,4 +1,4 @@
-import { Button, Menu, Stack, Text, Title } from "@mantine/core";
+import { Button, Menu, Paper, Text, Title } from "@mantine/core";
 import BaseContainer from "../ui/BaseContainer";
 import { useHistory } from "react-router-dom";
 import React, { useEffect } from "react";
@@ -24,10 +24,10 @@ const Dashboard = () => {
 
     return (
         <BaseContainer>
-            <Stack
+            <Paper
                 sx={{ background: "inherit", minWidth: "220px", border: "3px solid azure", marginTop: "5%" }}
                 style={{ width: "80%" }}
-                radius="xl"
+                radius="md"
                 align="center"
                 spacing="xs"
             >
@@ -44,7 +44,7 @@ const Dashboard = () => {
                     size="md"
                     color="white"
                     fw={500}
-                    sx={{ width: "80%", marginBottom: "4%" }}
+                    sx={{ width: "80%", marginTop: "2%", marginBottom: "5%" }}
                     onClick={() => history.push("/profile/edit/quote")}
                 >
                     {quote}{" "}
@@ -53,7 +53,7 @@ const Dashboard = () => {
                         size={18}
                     />
                 </Text>
-            </Stack>
+            </Paper>
 
             <StandardButton
                 onClick={() => history.push("/game/")}

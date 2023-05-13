@@ -7,6 +7,7 @@ import { StorageManager } from "../../../../helpers/storageManager";
 import SockJsClient from "react-stomp";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import { getDomain } from "../../../../helpers/getDomain";
+import StandardButton from "../../../ui/StandardButton";
 
 const VotingResult = () => {
     const SOCKET_URL = getDomain() + "/ws-message";
@@ -19,6 +20,8 @@ const VotingResult = () => {
     const categories = StorageManager.getCategories();
     const category = categories[categoryIndex];
     const [votes, setVotes] = useState([]);
+    const [disableDoneButton, setDisableDoneButton] = useState(true);
+    const [skipped, setSkipped] = useState(false);
 
     useEffect(() => {
         async function fetchData() {
@@ -32,6 +35,16 @@ const VotingResult = () => {
         }
         fetchData();
     }, [gamePin, round, category]);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDisableDoneButton(false);
+        }, 2000);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, []);
 
     const rows = votes.map((result, index) => {
         let pointsComponent;
@@ -79,6 +92,15 @@ const VotingResult = () => {
             </tr>
         );
     });
+
+    async function doSkipButton() {
+        try {
+            setSkipped(true);
+            await RestApi.skip(gamePin);
+        } catch (error) {
+            console.error(`Something went wrong to skip: \n${handleError(error)}`);
+        }
+    }
 
     let onConnected = () => {
         console.log("Connected!!");
@@ -167,6 +189,13 @@ const VotingResult = () => {
                     <tbody>{rows}</tbody>
                 </Table>
             </Paper>
+            <StandardButton
+                sx={{ marginTop: "5%" }}
+                disabled={disableDoneButton || skipped}
+                onClick={() => doSkipButton()}
+            >
+                DONE
+            </StandardButton>
         </BaseContainer>
     );
 };
