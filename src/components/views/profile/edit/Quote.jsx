@@ -11,6 +11,7 @@ const Quote = () => {
     const history = useHistory();
     const context = useContext(Context);
 
+    const [errorLength, setErrorLength] = useState(null);
     const user = context.user;
     const [quote, setQuote] = useState("new quote");
     const [quoteCategories, setQuoteCategories] = useState([]);
@@ -37,6 +38,19 @@ const Quote = () => {
             console.error(`Something went wrong during changing the quote: \n${handleError(error)}`);
         }
     };
+    const handleQuoteChange = (event) => {
+        const value = event.currentTarget.value;
+
+        setQuote(value);
+    };
+
+    useEffect(() => {
+        if (quote.length > 255) {
+            setErrorLength("your quote is too long, sometimes less is more...");
+        } else {
+            setErrorLength(null);
+        }
+    }, [quote]);
 
     const doChangeQuote = async () => {
         try {
@@ -63,8 +77,10 @@ const Quote = () => {
             </Text>
 
             <Textarea
+                error={errorLength}
+                styles={{ error: { color: "white" } }}
                 value={quote}
-                onChange={(event) => setQuote(event.currentTarget.value)}
+                onChange={handleQuoteChange}
                 autosize
                 minRows={2}
                 style={{ width: "80%", marginTop: "2%" }}
