@@ -6,6 +6,7 @@ import { StorageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import SockJsClient from "react-stomp";
 import { getDomain } from "../../../../helpers/getDomain";
+import StandardButton from "../../../ui/StandardButton";
 
 const Voting = () => {
     const SOCKET_URL = getDomain() + "/ws-message";
@@ -21,6 +22,7 @@ const Voting = () => {
     const [votes, setVotes] = useState({});
     const [timer, setTimer] = useState(null);
     const [done, setDone] = useState(false);
+    const [skipped, setSkipped] = useState(false);
 
     useEffect(() => {
         const newDict = {};
@@ -52,6 +54,17 @@ const Voting = () => {
             console.error(`Something went wrong while sending the votes: \n${handleError(error)}`);
             console.error("Details:", error);
             alert("Something went wrong while sending the votes! See the console for details.");
+        }
+    }
+
+    async function doSkipButton() {
+        try {
+            setSkipped(true);
+            await RestApi.skip(gamePin);
+        } catch (error) {
+            console.error(`Something went wrong to skip: \n${handleError(error)}`);
+            console.error("Details:", error);
+            alert("Something went wrong to skip! See the console for details.");
         }
     }
     let onConnected = () => {
@@ -215,6 +228,13 @@ const Voting = () => {
                     <strong> *wrong:</strong> this answer is rubbish
                 </Text>
             </Paper>
+            <StandardButton
+                sx={{ marginTop: "5%" }}
+                disabled={skipped}
+                onClick={() => doSkipButton()}
+            >
+                DONE
+            </StandardButton>
         </BaseContainer>
     );
 };

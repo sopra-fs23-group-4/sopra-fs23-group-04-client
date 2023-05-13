@@ -153,6 +153,10 @@ export class RestApi {
         return await restApi.get(`/games/${gamePin}/votings/${round}/${category}`, {});
     }
 
+    static async skip(gamePin) {
+        return await restApi.put(`/games/${gamePin}/skip`, {});
+    }
+
     static async getLeaderboard() {
         const response = await restApi.get("/games/lobbies/leaderboard");
         return response.data;
