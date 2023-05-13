@@ -84,7 +84,7 @@ const Categories = () => {
                         ))}
                     </Group>
                     <Group
-                        sx={{ marginTop: "1%" }}
+                        sx={{ marginTop: "0%" }}
                         position="center"
                     >
                         {customCategories.map((category) => (
@@ -137,7 +137,7 @@ const Categories = () => {
             </Text>
             <StandardButton onClick={() => history.push("/game/")}>surprise me</StandardButton>
             <Paper
-                sx={{ background: "inherit", minWidth: "220px", border: "2.5px solid azure", marginTop: "2%" }}
+                sx={{ background: "inherit", minWidth: "220px", border: "2.5px solid azure", marginTop: "5%" }}
                 style={{ width: "100%" }}
                 radius="md"
                 align="center"
@@ -147,14 +147,14 @@ const Categories = () => {
                 <StandardButton
                     disabled={categoriesSelected.length === 0}
                     onClick={() => doContinue()}
-                    sx={{ marginTop: "2%", marginBottom: "4%" }}
+                    sx={{ marginTop: "5%", marginBottom: "5%" }}
                 >
                     confirm selection
                 </StandardButton>
             </Paper>
             <StandardButton
                 onClick={() => history.push("/game/")}
-                sx={{ marginTop: "10%" }}
+                sx={{ marginTop: "5%" }}
             >
                 cancel
             </StandardButton>
