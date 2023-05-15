@@ -12,9 +12,9 @@ export const RoundLength = {
     LONG: "LONG",
 };
 export const roundLengthInSeconds = {
-    [RoundLength.SHORT]: "45s",
+    [RoundLength.SHORT]: "30s",
     [RoundLength.MEDIUM]: "60s",
-    [RoundLength.LONG]: "75s",
+    [RoundLength.LONG]: "90s",
 };
 
 const Settings = () => {
