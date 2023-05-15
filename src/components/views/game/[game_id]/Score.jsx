@@ -45,11 +45,6 @@ const Score = (props) => {
                     let scoreResponse = await RestApi.getScores(gamePin);
                     setUserScores(scoreResponse);
                 }
-                if (fact === "") {
-                    const factResponse = await RestApi.generateFact();
-                    console.log(factResponse);
-                    setFact(factResponse);
-                }
             } catch (error) {
                 console.error(`Something went wrong while fetching the scores: \n${handleError(error)}`);
             }
@@ -74,6 +69,9 @@ const Score = (props) => {
             history.push(`/game/${gamePin}/round/${msg.round}/board/`);
         } else if (msg.type === "scoreboardTimer") {
             setTimer(msg.timeRemaining);
+        }
+        if (msg.type === "fact") {
+            setFact(msg.fact);
         }
     };
 
