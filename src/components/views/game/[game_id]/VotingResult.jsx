@@ -26,6 +26,7 @@ const VotingResult = () => {
     useEffect(() => {
         async function fetchData() {
             try {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
                 const response = await RestApi.getVotes(gamePin, round, category);
                 console.log(response.data);
                 setVotes(response.data);
