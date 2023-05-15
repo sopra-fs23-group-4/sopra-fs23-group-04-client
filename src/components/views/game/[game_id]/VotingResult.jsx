@@ -195,7 +195,7 @@ const VotingResult = () => {
                 disabled={disableDoneButton || skipped}
                 onClick={() => doSkipButton()}
             >
-                DONE
+                CONTINUE
             </StandardButton>
         </BaseContainer>
     );
