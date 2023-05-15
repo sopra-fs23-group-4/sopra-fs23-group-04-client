@@ -17,7 +17,7 @@ const Header = () => (
                 gradient={{ from: "teal", to: "lime", deg: 105 }}
                 sx={{ padding: 5 }}
             >
-                Stadt, Land, +
+                Stadt Land <strong>+</strong>
             </Title>
         </Stack>
     </div>
