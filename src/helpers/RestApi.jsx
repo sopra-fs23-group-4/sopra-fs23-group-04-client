@@ -91,6 +91,11 @@ export class RestApi {
         return response.data.categories;
     }
 
+    static async getRandomCategory() {
+        const response = await restApi.get(`/games/randomCategories`);
+        return response.data.categories;
+    }
+
     static async getGameCategories(gamePin) {
         const response = await restApi.get(`/games/${gamePin}/categories`);
         return response.data.categories;

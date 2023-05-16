@@ -43,6 +43,16 @@ const Categories = () => {
         }
     };
 
+    const addRandomCategory = async () => {
+        console.log("hello");
+        try {
+            const randomCategory = await RestApi.getRandomCategory();
+            setCustomCategories([...customCategories, randomCategory.trim()]);
+        } catch (error) {
+            console.error(`Something went wrong while fetching the random category: \n${handleError(error)}`);
+        }
+    };
+
     const Category = ({ category }) => {
         return (
             <div className="player container">
@@ -135,7 +145,7 @@ const Categories = () => {
             >
                 add a random category:
             </Text>
-            <StandardButton onClick={() => history.push("/game/")}>surprise me</StandardButton>
+            <StandardButton onClick={addRandomCategory}>surprise me</StandardButton>
             <Paper
                 sx={{ background: "inherit", minWidth: "220px", border: "2.5px solid azure", marginTop: "5%" }}
                 style={{ width: "100%" }}
