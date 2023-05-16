@@ -5,10 +5,12 @@ import StandardButton from "../../ui/StandardButton";
 import { useHistory } from "react-router-dom";
 import { handleError, RestApi } from "../../../helpers/RestApi";
 import { StorageManager } from "../../../helpers/storageManager";
+import { notifications } from "@mantine/notifications";
 
 const Categories = () => {
     const history = useHistory();
 
+    const maxLengthCategory = 18;
     const [categories, setCategories] = useState([]);
     const [categoriesSelected, setCategoriesSelected] = useState([]);
     const [customCategory, setCustomCategory] = useState("");
@@ -38,8 +40,18 @@ const Categories = () => {
     };
     const addCustomCategory = () => {
         if (customCategory.trim() !== "") {
-            setCustomCategories([...customCategories, customCategory.trim()]);
-            setCustomCategory("");
+            if (customCategory.length > maxLengthCategory) {
+                notifications.show({
+                    message: "category may have no more than " + maxLengthCategory + " letters.",
+                    color: "red",
+                    position: "top-center",
+                    autoClose: 4000,
+                });
+                setCustomCategory("");
+            } else {
+                setCustomCategories([...customCategories, customCategory.trim()]);
+                setCustomCategory("");
+            }
         }
     };
 
