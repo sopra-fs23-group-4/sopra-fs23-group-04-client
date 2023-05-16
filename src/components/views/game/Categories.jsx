@@ -5,10 +5,12 @@ import StandardButton from "../../ui/StandardButton";
 import { useHistory } from "react-router-dom";
 import { handleError, RestApi } from "../../../helpers/RestApi";
 import { StorageManager } from "../../../helpers/storageManager";
+import { notifications } from "@mantine/notifications";
 
 const Categories = () => {
     const history = useHistory();
 
+    const maxLengthCategory = 18;
     const [categories, setCategories] = useState([]);
     const [categoriesSelected, setCategoriesSelected] = useState([]);
     const [customCategory, setCustomCategory] = useState("");
@@ -38,18 +40,43 @@ const Categories = () => {
     };
     const addCustomCategory = () => {
         if (customCategory.trim() !== "") {
-            setCustomCategories([...customCategories, customCategory.trim()]);
-            setCustomCategory("");
+            if (customCategory.length > maxLengthCategory) {
+                notifications.show({
+                    message: "category may have no more than " + maxLengthCategory + " letters.",
+                    color: "red",
+                    position: "top-center",
+                    autoClose: 4000,
+                });
+                setCustomCategory("");
+            } else {
+                if (!customCategories.includes(customCategory.trim())) {
+                    setCustomCategories([...customCategories, customCategory.trim()]);
+                    setCustomCategory("");
+                }
+                setCustomCategory("");
+            }
         }
     };
 
     const addRandomCategory = async () => {
-        console.log("hello");
-        try {
-            const randomCategory = await RestApi.getRandomCategory();
-            setCustomCategories([...customCategories, randomCategory.trim()]);
-        } catch (error) {
-            console.error(`Something went wrong while fetching the random category: \n${handleError(error)}`);
+        if (customCategories.length > 30) {
+            notifications.show({
+                message: "that should be enough.",
+                color: "red",
+                position: "top-center",
+                autoClose: 4000,
+            });
+        } else {
+            try {
+                const randomCategory = await RestApi.getRandomCategory();
+                if (!customCategories.includes(randomCategory["categoryName"])) {
+                    setCustomCategories([...customCategories, randomCategory["categoryName"]]);
+                } else {
+                    await addRandomCategory();
+                }
+            } catch (error) {
+                console.error(`Something went wrong while fetching the random category: \n${handleError(error)}`);
+            }
         }
     };
 
@@ -153,9 +180,20 @@ const Categories = () => {
                 align="center"
                 spacing="xs"
             >
+                {" "}
                 {contentCategory}
+                {categoriesSelected.length > 10 ? (
+                    <Text
+                        color="red"
+                        size="lg"
+                        highlighted="true"
+                        sx={{ marginTop: "3%" }}
+                    >
+                        <strong>max. 10 categories allowed </strong>
+                    </Text>
+                ) : null}
                 <StandardButton
-                    disabled={categoriesSelected.length === 0}
+                    disabled={categoriesSelected.length === 0 || categoriesSelected.length > 10}
                     onClick={() => doContinue()}
                     sx={{ marginTop: "5%", marginBottom: "5%" }}
                 >
