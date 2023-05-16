@@ -153,9 +153,20 @@ const Categories = () => {
                 align="center"
                 spacing="xs"
             >
+                {" "}
                 {contentCategory}
+                {categoriesSelected.length > 10 ? (
+                    <Text
+                        color="red"
+                        size="lg"
+                        highlighted="true"
+                        sx={{ marginTop: "3%" }}
+                    >
+                        <strong>max. 10 categories allowed </strong>
+                    </Text>
+                ) : null}
                 <StandardButton
-                    disabled={categoriesSelected.length === 0}
+                    disabled={categoriesSelected.length === 0 || categoriesSelected.length > 10}
                     onClick={() => doContinue()}
                     sx={{ marginTop: "5%", marginBottom: "5%" }}
                 >
