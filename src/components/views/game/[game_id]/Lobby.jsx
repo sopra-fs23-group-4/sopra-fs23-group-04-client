@@ -131,7 +131,6 @@ const Lobby = (props) => {
                         <Player
                             key={username}
                             color={color}
-                            onClick={() => history.push(`/profile/${username}`)}
                             username={username}
                         />
                     );
@@ -239,7 +238,6 @@ const Lobby = (props) => {
                     </Title>
                     <Player
                         username={hostUsername}
-                        onClick={() => history.push(`/profile/${hostUsername}`)}
                         color={StorageManager.getRole() === Role.HOST ? "green" : "white"}
                     />
                 </Flex>
