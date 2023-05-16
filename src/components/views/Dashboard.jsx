@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import React, { useEffect } from "react";
 import StandardButton from "../ui/StandardButton";
 import { Edit as EditIcon, OneTwoThree, QuestionMark } from "tabler-icons-react";
-import { IconMenu2, IconMessageCircle } from "@tabler/icons-react";
+import { IconMenu2, IconMessageCircle, IconUser } from "@tabler/icons-react";
 import { StorageManager } from "../../helpers/storageManager";
 
 const Dashboard = () => {
@@ -52,7 +52,13 @@ const Dashboard = () => {
             <Menu.Dropdown position="bottom">
                 <Menu.Label>Personal</Menu.Label>
                 <Menu.Item
-                    icon={<IconMessageCircle size={14} />}
+                    icon={<IconUser size={18} />}
+                    onClick={() => history.push(`/profile/${username}`)}
+                >
+                    Profile Page
+                </Menu.Item>
+                <Menu.Item
+                    icon={<IconMessageCircle size={16} />}
                     onClick={() => history.push("/profile/edit/quote")}
                 >
                     Change Quote
@@ -87,6 +93,7 @@ const Dashboard = () => {
                     align="center"
                     order={1}
                     sx={{ color: "white", marginTop: "2%" }}
+                    onClick={() => history.push(`/profile/${username}`)}
                 >
                     {username}{" "}
                 </Title>
