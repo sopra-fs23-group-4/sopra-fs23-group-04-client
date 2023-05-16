@@ -167,10 +167,11 @@ const Score = (props) => {
                 {fact}
             </Text>
             <StandardButton
-                sx={{ marginTop: "10%" }}
+                sx={{ marginTop: "50%" }}
+                color="pink"
                 onClick={() => doLeave()}
             >
-                Leave
+                GIVE UP
             </StandardButton>
         </BaseContainer>
     );
