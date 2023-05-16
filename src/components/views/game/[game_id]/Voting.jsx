@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Loader, Paper, Radio, Stack, Table, Text, Title } from "@mantine/core";
+import { Divider, Loader, Paper, Radio, Stack, Table, Text, Title } from "@mantine/core";
 import { useHistory, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { StorageManager } from "../../../../helpers/storageManager";
@@ -152,7 +152,7 @@ const Voting = () => {
     const styles = {
         tableHeader: {
             textAlign: "center",
-            color: "black",
+            color: "grey",
             fontStyle: "italic",
         },
     };
@@ -160,7 +160,7 @@ const Voting = () => {
     let contentVotes = (
         <Stack
             align="center"
-            sx={{ marginTop: "5%" }}
+            sx={{ marginTop: "0%" }}
         >
             {" "}
             <Loader />{" "}
@@ -197,13 +197,6 @@ const Voting = () => {
             />
             <Text color="white">Time remaining: {timer}</Text>
             <Title color="white">{StorageManager.getUsername()}</Title>
-            <Text
-                align="center"
-                color="white"
-                size="lg"
-            >
-                please rate the other answers:
-            </Text>
 
             <Paper
                 shadow="xl"
@@ -214,23 +207,58 @@ const Voting = () => {
                 <Title align="center">
                     {category} ({letter})
                 </Title>{" "}
-                <Text
-                    align="center"
-                    sx={{ marginTop: "1%", marginBottom: "2%" }}
+                <Divider
+                    size="xs"
+                    label="your answer"
+                    labelPosition="left"
+                    color="grey"
+                    labelProps={{ size: "md", color: "grey" }}
+                    sx={{ marginTop: "5%", marginBottom: "-2%" }}
+                />
+                <Table
+                    verticalSpacing="md"
+                    fontSize="md"
                 >
-                    your answer: <strong> {answer} </strong>
-                </Text>
+                    <thead>
+                        <tr></tr>
+                    </thead>
+                    <tbody>
+                        {" "}
+                        <tr>
+                            <td>
+                                <strong>{answer}</strong>{" "}
+                            </td>
+                        </tr>
+                    </tbody>
+                </Table>
+                <>
+                    <Divider
+                        size="xs"
+                        label="answers to rate"
+                        labelPosition="left"
+                        color="grey"
+                        labelProps={{ size: "md", color: "grey" }}
+                        sx={{ marginTop: "0%", marginBottom: "-2%" }}
+                    />
+                </>
                 {contentVotes}
                 <Text
                     size="xs"
+                    color="grey"
                     sx={{ marginTop: "3%" }}
                 >
                     <strong> *perfect:</strong> this answer is correct & unique
                 </Text>
-                <Text size="xs">
+                <Text
+                    size="xs"
+                    color="grey"
+                >
                     <strong> *duplicate:</strong> this answer is correct but not unique
                 </Text>
-                <Text size="xs">
+                <Text
+                    size="xs"
+                    color="grey"
+                >
                     <strong> *wrong:</strong> this answer is rubbish
                 </Text>
             </Paper>
