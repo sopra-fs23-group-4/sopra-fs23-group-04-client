@@ -46,10 +46,12 @@ const Lobby = (props) => {
         console.log("Websocket msg:");
         console.log(msg);
         if (msg.type === "gameUsers") {
-            if (hostUsername !== msg.hostUsername) {
-                setHostUsername(msg.hostUsername);
+            if (msg.hostUsername !== null) {
+                if (hostUsername !== msg.hostUsername) {
+                    setHostUsername(msg.hostUsername);
+                }
+                setUsersInLobby(msg.usernames);
             }
-            setUsersInLobby(msg.usernames);
         } else if (msg.type === "roundStart") {
             StorageManager.setAnswers(Array(StorageManager.getCategories().length).fill(null));
             StorageManager.setLetter(msg.letter);
@@ -129,7 +131,6 @@ const Lobby = (props) => {
                         <Player
                             key={username}
                             color={color}
-                            onClick={() => history.push(`/profile/${username}`)}
                             username={username}
                         />
                     );
@@ -237,7 +238,6 @@ const Lobby = (props) => {
                     </Title>
                     <Player
                         username={hostUsername}
-                        onClick={() => history.push(`/profile/${hostUsername}`)}
                         color={StorageManager.getRole() === Role.HOST ? "green" : "white"}
                     />
                 </Flex>

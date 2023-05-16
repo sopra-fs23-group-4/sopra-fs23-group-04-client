@@ -37,18 +37,21 @@ const User = (props) => {
                     let userResponse = await RestApi.getUserByUsername(username);
                     setUser(userResponse);
 
-                    //let statResponse = await RestApi.getAdvancedStatistics(userResponse.id);
-                    //console.log(statResponse);
-                    const statResponse = {
-                        rank: 420,
-                        totalPlayedGames: 69,
-                        totalWins: 420,
-                        totalAnswersAnwered: 69,
-                        totalCorrectAndUniqueAnswers: 420,
-                        totalPointsOverall: 69,
-                        mostPlayedCategory: "Cannabis Strains",
-                    };
-                    setStats(statResponse);
+                    try {
+                        let statResponse = await RestApi.getAdvancedStatistics(userResponse.id);
+                        console.log(statResponse);
+                        setStats(statResponse);
+                    } catch (e) {
+                        setStats({
+                            rank: 420,
+                            totalPlayedGames: 69,
+                            totalWins: 420,
+                            totalAnswersAnwered: 69,
+                            totalCorrectAndUniqueAnswers: 420,
+                            totalPointsOverall: 69,
+                            mostPlayedCategory: "Cannabis Strains",
+                        });
+                    }
                 }
             } catch (error) {
                 console.error(`Something went wrong while fetching the user and its stats: \n${handleError(error)}`);
