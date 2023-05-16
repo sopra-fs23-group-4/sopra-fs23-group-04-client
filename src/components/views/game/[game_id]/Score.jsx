@@ -6,7 +6,7 @@ import SockJsClient from "react-stomp";
 import { getDomain } from "../../../../helpers/getDomain";
 import { Player } from "./Lobby";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
-import { StorageManager } from "../../../../helpers/storageManager";
+import { StorageManager as storageManager, StorageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
 
 export const ScoreboardEntry = (props) => {
@@ -45,6 +45,9 @@ const Score = (props) => {
                     let scoreResponse = await RestApi.getScores(gamePin);
                     setUserScores(scoreResponse);
                 }
+                if (fact === "") {
+                    setFact(StorageManager.getFact());
+                }
             } catch (error) {
                 console.error(`Something went wrong while fetching the scores: \n${handleError(error)}`);
             }
@@ -69,8 +72,7 @@ const Score = (props) => {
             history.push(`/game/${gamePin}/round/${msg.round}/board/`);
         } else if (msg.type === "scoreboardTimer") {
             setTimer(msg.timeRemaining);
-        }
-        if (msg.type === "fact") {
+        } else if (msg.type === "fact") {
             setFact(msg.fact);
         }
     };
@@ -132,10 +134,24 @@ const Score = (props) => {
         );
     }
 
-    // let leaveButton = "";
-    // if (storageManager.getRound() === storageManager.getRoundAmount()) {
-    //     leaveButton = <StandardButton onClick={() => doLeave()}>Leave</StandardButton>;
-    // }
+    let leaveButton = (
+        <StandardButton
+            sx={{ marginTop: "20%", marginLeft: "20%" }}
+            onClick={() => doLeave()}
+        >
+            Give Up
+        </StandardButton>
+    );
+    if (storageManager.getRound() === storageManager.getRoundAmount()) {
+        leaveButton = (
+            <StandardButton
+                sx={{ marginTop: "10%" }}
+                onClick={() => doLeave()}
+            >
+                Leave
+            </StandardButton>
+        );
+    }
 
     return (
         <BaseContainer>
@@ -166,12 +182,7 @@ const Score = (props) => {
                 <b>Random Fact: </b>
                 {fact}
             </Text>
-            <StandardButton
-                sx={{ marginTop: "10%" }}
-                onClick={() => doLeave()}
-            >
-                Leave
-            </StandardButton>
+            {leaveButton}
         </BaseContainer>
     );
 };
