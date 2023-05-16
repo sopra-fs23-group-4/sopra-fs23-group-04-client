@@ -106,6 +106,13 @@ export class StorageManager {
         return sessionStorage.getItem("letter");
     }
 
+    static setFact(fact) {
+        sessionStorage.setItem("fact", fact);
+    }
+    static getFact() {
+        return sessionStorage.getItem("fact");
+    }
+
     static setAnswers(answers) {
         sessionStorage.setItem("answers", JSON.stringify(answers));
     }

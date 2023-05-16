@@ -121,6 +121,8 @@ const VotingResult = () => {
             history.push(`/game/${gamePin}/round/${round}/score`);
         } else if (msg.type === "resultWinner") {
             history.push(`/game/${gamePin}/winner`);
+        } else if (msg.type === "fact") {
+            StorageManager.setFact(msg.fact);
         }
     };
 
