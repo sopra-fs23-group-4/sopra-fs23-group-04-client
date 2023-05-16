@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, Title } from "@mantine/core";
+import { Paper, Table, Title } from "@mantine/core";
 import BaseContainer from "../ui/BaseContainer";
 import { StorageManager } from "../../helpers/storageManager";
 import { RestApi } from "../../helpers/RestApi";
@@ -38,50 +38,51 @@ const Leaderboard = () => {
             >
                 Leaderboard
             </Title>
-            {leaderboard.length > 0 ? (
-                <>
-                    {leaderboard.slice(0, 10).map((entry, index) => (
-                        <Text
-                            key={entry.username}
-                            align="center"
-                            size="md"
-                            color="white"
-                            fw={500}
-                        >
-                            {index + 1}. {entry.username} - {entry.accumulatedScore} points
-                        </Text>
-                    ))}
-                    {userPosition !== null && userPosition >= 10 && (
-                        <>
-                            <Text
-                                align="center"
-                                size="md"
-                                color="white"
-                                fw={500}
-                            >
-                                ...
-                            </Text>
-                            <Text
-                                align="center"
-                                size="md"
-                                color="white"
-                                fw={500}
-                            >
-                                {userPosition + 1}. {leaderboard[userPosition].username} - {leaderboard[userPosition].accumulatedScore} points
-                            </Text>
-                        </>
-                    )}
-                </>
-            ) : (
-                <Text
-                    align="center"
-                    size="md"
-                    color="white"
-                    fw={500}
+            <Paper
+                radius="md"
+                shadow="xl"
+                p="lg"
+                bg="rgba(0, 255, 0, .1)"
+                sx={{ background: "inherit", minWidth: "220px", border: "4px solid white" }}
+            >
+                <Table
+                    sx={{ color: "white" }}
+                    fontSize="lg"
                 >
-                    No players found.
-                </Text>
-            )}
+                    <thead>
+                        <tr>
+                            <th style={{ color: "white" }}>Rank</th>
+                            <th style={{ color: "white" }}>Name</th>
+                            <th style={{ color: "white" }}>Score</th>
+                        </tr>
+                    </thead>
+                    {leaderboard.length > 0 ? (
+                        <tbody>
+                            {leaderboard.slice(0, 10).map((entry, index) => (
+                                <tr key={entry.username}>
+                                    <td>{index + 1}.</td>
+                                    <td>{entry.username}</td>
+                                    <td>{entry.accumulatedScore}</td>
+                                </tr>
+                            ))}
+                            {userPosition !== null && userPosition >= 10 && (
+                                <>
+                                    <tr key={"..."}>...</tr>
+                                    <tr key={leaderboard[userPosition].username}>
+                                        <td>{userPosition + 1}.</td>
+                                        <td>{leaderboard[userPosition].username}</td>
+                                        <td>{leaderboard[userPosition].accumulatedScore}</td>
+                                    </tr>
+                                </>
+                            )}
+                        </tbody>
+                    ) : (
+                        <tbody>
+                            <tr>No players found.</tr>
+                        </tbody>
+                    )}
+                </Table>
+            </Paper>
             <StandardButton
                 onClick={() => history.push("/dashboard")}
                 sx={{ marginTop: "10%" }}
