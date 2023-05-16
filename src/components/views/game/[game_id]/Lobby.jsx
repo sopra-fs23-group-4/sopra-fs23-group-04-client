@@ -46,10 +46,12 @@ const Lobby = (props) => {
         console.log("Websocket msg:");
         console.log(msg);
         if (msg.type === "gameUsers") {
-            if (hostUsername !== msg.hostUsername) {
-                setHostUsername(msg.hostUsername);
+            if (msg.hostUsername !== null) {
+                if (hostUsername !== msg.hostUsername) {
+                    setHostUsername(msg.hostUsername);
+                }
+                setUsersInLobby(msg.usernames);
             }
-            setUsersInLobby(msg.usernames);
         } else if (msg.type === "roundStart") {
             StorageManager.setAnswers(Array(StorageManager.getCategories().length).fill(null));
             StorageManager.setLetter(msg.letter);
