@@ -45,9 +45,6 @@ const Score = (props) => {
                     let scoreResponse = await RestApi.getScores(gamePin);
                     setUserScores(scoreResponse);
                 }
-                if (fact === "") {
-                    setFact(StorageManager.getFact());
-                }
             } catch (error) {
                 console.error(`Something went wrong while fetching the scores: \n${handleError(error)}`);
             }
@@ -72,7 +69,8 @@ const Score = (props) => {
             history.push(`/game/${gamePin}/round/${msg.round}/board/`);
         } else if (msg.type === "scoreboardTimer") {
             setTimer(msg.timeRemaining);
-        } else if (msg.type === "fact") {
+        }
+        if (msg.type === "fact") {
             setFact(msg.fact);
         }
     };
@@ -136,7 +134,8 @@ const Score = (props) => {
 
     let leaveButton = (
         <StandardButton
-            sx={{ marginTop: "20%", marginLeft: "20%" }}
+            sx={{ marginTop: "50%" }}
+            color="pink"
             onClick={() => doLeave()}
         >
             Give Up
