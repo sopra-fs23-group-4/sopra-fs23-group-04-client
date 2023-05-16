@@ -49,19 +49,34 @@ const Categories = () => {
                 });
                 setCustomCategory("");
             } else {
-                setCustomCategories([...customCategories, customCategory.trim()]);
+                if (!customCategories.includes(customCategory.trim())) {
+                    setCustomCategories([...customCategories, customCategory.trim()]);
+                    setCustomCategory("");
+                }
                 setCustomCategory("");
             }
         }
     };
 
     const addRandomCategory = async () => {
-        console.log("hello");
-        try {
-            const randomCategory = await RestApi.getRandomCategory();
-            setCustomCategories([...customCategories, randomCategory.trim()]);
-        } catch (error) {
-            console.error(`Something went wrong while fetching the random category: \n${handleError(error)}`);
+        if (customCategories.length > 30) {
+            notifications.show({
+                message: "that should be enough.",
+                color: "red",
+                position: "top-center",
+                autoClose: 4000,
+            });
+        } else {
+            try {
+                const randomCategory = await RestApi.getRandomCategory();
+                if (!customCategories.includes(randomCategory["categoryName"])) {
+                    setCustomCategories([...customCategories, randomCategory["categoryName"]]);
+                } else {
+                    await addRandomCategory();
+                }
+            } catch (error) {
+                console.error(`Something went wrong while fetching the random category: \n${handleError(error)}`);
+            }
         }
     };
 
