@@ -16,7 +16,7 @@ const Countdown = () => {
         setCountdownDone(true);
         setTimeout(() => {
             history.push(`/game/${gamePin}/round/${StorageManager.getRound()}/board/`);
-        }, 1500);
+        }, 1200);
     };
 
     const contentCountdown = (
