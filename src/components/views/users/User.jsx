@@ -123,7 +123,7 @@ const User = (props) => {
                         />
                         <StatEntry
                             statName={"Answers Given"}
-                            statValue={stats.totalAnswersAnwered}
+                            statValue={stats.totalAnswersAnswered}
                         />
                         <StatEntry
                             statName={"Unique Answers"}
@@ -131,7 +131,7 @@ const User = (props) => {
                         />
                         <StatEntry
                             statName={"Most Played Category"}
-                            statValue={stats.mostPlayedCategory}
+                            statValue={stats.mostPlayedCategory ? stats.mostPlayedCategory : "-"}
                         />
                     </tbody>
                 </Table>
