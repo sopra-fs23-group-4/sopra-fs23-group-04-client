@@ -76,7 +76,7 @@ const Settings = () => {
                 onChange={setRoundLength}
             />
             <Space h="xs" />
-            <StandardButton onClick={createLobby}>Create Lobby</StandardButton>
+            <StandardButton onClick={createLobby}>create lobby</StandardButton>
             <Space h="md" />
             <StandardButton
                 sx={{ marginTop: "10%" }}

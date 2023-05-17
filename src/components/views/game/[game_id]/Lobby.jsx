@@ -147,7 +147,7 @@ const Lobby = (props) => {
                 onClick={() => startGame()}
                 disabled={usersInLobby.length === 0}
             >
-                Start Game
+                start game
             </StandardButton>
         );
     } else {

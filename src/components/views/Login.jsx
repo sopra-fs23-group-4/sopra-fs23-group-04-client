@@ -62,7 +62,7 @@ const Login = () => {
             <Text
                 align="center"
                 color="yellow"
-                sx={{ textDecoration: "underline", marginTop: "1%" }}
+                sx={{ textDecoration: "underline", marginTop: "2%" }}
                 w={rem(100)}
                 component={Link}
                 to="/registration"

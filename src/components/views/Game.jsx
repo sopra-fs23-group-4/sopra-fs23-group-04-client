@@ -38,7 +38,7 @@ const Game = () => {
         <BaseContainer>
             <Title color="white">{StorageManager.getUsername()}</Title>
             <Text color="white">create a new Game as HOST:</Text>
-            <StandardButton onClick={() => history.push("/game/categories")}>Create Game</StandardButton>
+            <StandardButton onClick={() => history.push("/game/categories")}>create game</StandardButton>
             <Text
                 color="white"
                 sx={{ marginTop: "2%" }}
@@ -50,7 +50,7 @@ const Game = () => {
                 disabled={pin.length !== 4}
                 onClick={() => doJoin(pin)}
             >
-                Join Game{"   "}
+                join game{"   "}
             </StandardButton>
             <StandardButton
                 sx={{ marginTop: "10%" }}
