@@ -160,7 +160,7 @@ const Voting = () => {
     let contentVotes = (
         <Stack
             align="center"
-            sx={{ marginTop: "0%" }}
+            sx={{ marginTop: "5%", margingBottom: "5%" }}
         >
             {" "}
             <Loader />{" "}
