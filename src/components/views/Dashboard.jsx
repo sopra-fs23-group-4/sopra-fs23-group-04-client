@@ -92,7 +92,7 @@ const Dashboard = () => {
                 <Title
                     align="center"
                     order={1}
-                    sx={{ color: "white", marginTop: "2%" }}
+                    sx={{ color: "white", marginTop: "2%", cursor: "pointer" }}
                     onClick={() => history.push(`/profile/${username}`)}
                 >
                     {username}{" "}
@@ -103,7 +103,7 @@ const Dashboard = () => {
                     size="md"
                     color="white"
                     fw={500}
-                    sx={{ width: "80%", marginTop: "2%", marginBottom: "5%" }}
+                    sx={{ width: "80%", marginTop: "2%", marginBottom: "5%", cursor: "pointer" }}
                     onClick={() => history.push("/profile/edit/quote")}
                 >
                     {quote}{" "}

@@ -6,7 +6,7 @@ import SockJsClient from "react-stomp";
 import { getDomain } from "../../../../helpers/getDomain";
 import { Player } from "./Lobby";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
-import { StorageManager } from "../../../../helpers/storageManager";
+import { StorageManager as storageManager, StorageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
 
 export const ScoreboardEntry = (props) => {
@@ -132,10 +132,25 @@ const Score = (props) => {
         );
     }
 
-    // let leaveButton = "";
-    // if (storageManager.getRound() === storageManager.getRoundAmount()) {
-    //     leaveButton = <StandardButton onClick={() => doLeave()}>Leave</StandardButton>;
-    // }
+    let leaveButton = (
+        <StandardButton
+            sx={{ marginTop: "50%" }}
+            color="pink"
+            onClick={() => doLeave()}
+        >
+            Give Up
+        </StandardButton>
+    );
+    if (storageManager.getRound() === storageManager.getRoundAmount()) {
+        leaveButton = (
+            <StandardButton
+                sx={{ marginTop: "10%" }}
+                onClick={() => doLeave()}
+            >
+                Leave
+            </StandardButton>
+        );
+    }
 
     return (
         <BaseContainer>
@@ -166,13 +181,7 @@ const Score = (props) => {
                 <b>Random Fact: </b>
                 {fact}
             </Text>
-            <StandardButton
-                sx={{ marginTop: "50%" }}
-                color="pink"
-                onClick={() => doLeave()}
-            >
-                GIVE UP
-            </StandardButton>
+            {leaveButton}
         </BaseContainer>
     );
 };
