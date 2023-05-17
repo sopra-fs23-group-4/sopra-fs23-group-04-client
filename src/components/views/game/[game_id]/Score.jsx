@@ -138,7 +138,7 @@ const Score = (props) => {
             color="pink"
             onClick={() => doLeave()}
         >
-            Give Up
+            give up
         </StandardButton>
     );
     if (storageManager.getRound() === storageManager.getRoundAmount()) {
@@ -147,7 +147,7 @@ const Score = (props) => {
                 sx={{ marginTop: "10%" }}
                 onClick={() => doLeave()}
             >
-                Leave
+                leave
             </StandardButton>
         );
     }

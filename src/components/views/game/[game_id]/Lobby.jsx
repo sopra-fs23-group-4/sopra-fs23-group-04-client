@@ -247,7 +247,7 @@ const Lobby = (props) => {
                 sx={{ marginTop: "10%" }}
                 onClick={() => doLeave()}
             >
-                Leave
+                leave
             </StandardButton>
         </BaseContainer>
     );

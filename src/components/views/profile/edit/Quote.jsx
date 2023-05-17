@@ -95,7 +95,7 @@ const Quote = () => {
             <StandardButton onClick={() => doGenerateQuote()}>GENERATE </StandardButton>
 
             <Group sx={{ marginTop: "10%" }}>
-                <StandardButton onClick={() => history.push("/dashboard")}>Back </StandardButton>
+                <StandardButton onClick={() => history.push("/dashboard")}>back </StandardButton>
                 <StandardButton onClick={() => doChangeQuote()}>SAVE </StandardButton>
             </Group>
         </BaseContainer>

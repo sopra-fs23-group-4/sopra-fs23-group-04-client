@@ -128,7 +128,7 @@ const Dashboard = () => {
                 onClick={() => doLogout()}
                 sx={{ marginTop: "15%" }}
             >
-                Logout{" "}
+                logout{" "}
             </StandardButton>
         </BaseContainer>
     );

@@ -56,7 +56,7 @@ const Game = () => {
                 sx={{ marginTop: "10%" }}
                 onClick={() => history.push("/dashboard")}
             >
-                Back
+                back
             </StandardButton>
         </BaseContainer>
     );

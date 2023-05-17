@@ -83,7 +83,7 @@ const Settings = () => {
                 component={Link}
                 to="/game/categories"
             >
-                Back
+                back
             </StandardButton>
         </BaseContainer>
     );

@@ -50,7 +50,7 @@ const Rules = () => {
                 onClick={() => history.push("/dashboard")}
                 sx={{ marginTop: "3%", marginBottom: "5%" }}
             >
-                Back{" "}
+                back{" "}
             </StandardButton>
         </BaseContainer>
     );
