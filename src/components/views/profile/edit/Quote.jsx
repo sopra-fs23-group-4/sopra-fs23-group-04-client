@@ -21,7 +21,6 @@ const Quote = () => {
         RestApi.getQuoteCategories()
             .then((response) => {
                 setQuoteCategories(response);
-                console.log("whatup?");
             })
             .catch((error) => {
                 console.error(`Something went wrong while fetching the categories: \n${handleError(error)}`);
