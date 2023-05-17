@@ -1,5 +1,5 @@
 import BaseContainer from "components/ui/BaseContainer";
-import { Container, Group, PasswordInput, rem, Stack, TextInput, Title } from "@mantine/core";
+import { Container, Text, PasswordInput, rem, Stack, TextInput, Title } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
 import { Link, useHistory } from "react-router-dom";
 import { useContext, useState } from "react";
@@ -51,22 +51,24 @@ const Login = () => {
                     />
                 </Stack>
             </Container>
-            <Group sx={{ paddingTop: 10 }}>
-                <StandardButton
-                    w={rem(100)}
-                    disabled={!username || !password}
-                    onClick={(e) => doLogin(e)}
-                >
-                    Login
-                </StandardButton>
-                <StandardButton
-                    w={rem(100)}
-                    component={Link}
-                    to="/registration"
-                >
-                    Sign up
-                </StandardButton>
-            </Group>
+            <StandardButton
+                sx={{ marginTop: "2%" }}
+                w={rem(100)}
+                disabled={!username || !password}
+                onClick={(e) => doLogin(e)}
+            >
+                Login
+            </StandardButton>
+            <Text
+                align="center"
+                color="yellow"
+                sx={{ textDecoration: "underline", marginTop: "1%" }}
+                w={rem(100)}
+                component={Link}
+                to="/registration"
+            >
+                <strong> Sign up </strong>
+            </Text>
         </BaseContainer>
     );
 };
