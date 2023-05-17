@@ -172,9 +172,9 @@ const Categories = () => {
             >
                 add a random category:
             </Text>
-            <StandardButton onClick={addRandomCategory}>surprise me</StandardButton>
+            <StandardButton onClick={addRandomCategory}>get random</StandardButton>
             <Paper
-                sx={{ background: "inherit", minWidth: "220px", border: "2.5px solid azure", marginTop: "5%" }}
+                sx={{ background: "inherit", minWidth: "220px", border: "2.5px solid azure", marginTop: "2%" }}
                 style={{ width: "100%" }}
                 radius="md"
                 align="center"
