@@ -18,14 +18,14 @@ const Quote = () => {
     const [category, setCategory] = useState("business");
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                setQuoteCategories(await RestApi.getQuoteCategories());
-            } catch (error) {
+        RestApi.getQuoteCategories()
+            .then((response) => {
+                setQuoteCategories(response);
+                console.log("whatup?");
+            })
+            .catch((error) => {
                 console.error(`Something went wrong while fetching the categories: \n${handleError(error)}`);
-            }
-        }
-        fetchData();
+            });
     }, []);
 
     const doGenerateQuote = async () => {
