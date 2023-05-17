@@ -46,7 +46,7 @@ const User = (props) => {
                             rank: 420,
                             totalPlayedGames: 69,
                             totalWins: 420,
-                            totalAnswersAnwered: 69,
+                            totalAnswersAnswered: 69,
                             totalCorrectAndUniqueAnswers: 420,
                             totalPointsOverall: 69,
                             mostPlayedCategory: "Cannabis Strains",
