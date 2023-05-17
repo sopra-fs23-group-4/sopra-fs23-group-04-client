@@ -1,7 +1,6 @@
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import Lobby from "../../views/game/[game_id]/Lobby";
 import Board from "../../views/game/[game_id]/Board";
-import Answer from "../../views/game/[game_id]/Answer";
 import Countdown from "../../views/game/[game_id]/Countdown";
 import Voting from "../../views/game/[game_id]/Voting";
 import VotingResult from "../../views/game/[game_id]/VotingResult";
@@ -52,11 +51,6 @@ const InGameRouter = (props) => {
                 exact
                 path={`${base}/round/:round/board`}
                 component={Board}
-            />
-            <Route
-                exact
-                path={`${base}/round/:round/board/:answerIndex`}
-                component={Answer}
             />
             <Route
                 exact
