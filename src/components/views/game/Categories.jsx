@@ -18,17 +18,17 @@ const Categories = () => {
 
     useEffect(() => {
         let isMounted = true;
-        async function fetchData() {
-            try {
-                const response = await RestApi.getAllCategories();
+
+        RestApi.getAllCategories()
+            .then((response) => {
                 if (isMounted) {
                     setCategories(response);
                 }
-            } catch (error) {
+            })
+            .catch((error) => {
                 console.error(`Something went wrong while fetching the categories: \n${handleError(error)}`);
-            }
-        }
-        fetchData();
+            });
+
         return () => {
             isMounted = false;
         };
