@@ -32,7 +32,7 @@ const Registration = () => {
                 order={1}
                 sx={{ color: "white" }}
             >
-                Registration
+                registration
             </Title>{" "}
             <Container size={250}>
                 <Stack>
@@ -54,7 +54,7 @@ const Registration = () => {
                     </Text>
                     <PasswordInput
                         label="password:"
-                        placeholder="Password"
+                        placeholder="password"
                         radius="lg"
                         size="lg"
                         value={password}
@@ -63,7 +63,7 @@ const Registration = () => {
                     />
                     <PasswordInput
                         label="repeat password:"
-                        placeholder="Password"
+                        placeholder="password"
                         radius="lg"
                         size="lg"
                         value={password2}

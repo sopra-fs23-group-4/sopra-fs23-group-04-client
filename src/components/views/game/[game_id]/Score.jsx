@@ -162,8 +162,8 @@ const Score = (props) => {
                 onMessage={(msg) => onMessageReceived(msg)}
                 debug={false}
             />
-            <Text color="white">Time remaining: {timer}</Text>
-            <Title color="white">Score</Title>
+            <Text color="white">time remaining: {timer}</Text>
+            <Title color="white">score</Title>
             <Paper
                 radius="md"
                 shadow="xl"
@@ -178,7 +178,7 @@ const Score = (props) => {
                 align="center"
                 sx={{ width: "95%" }}
             >
-                <b>Random Fact: </b>
+                <b>random fact: </b>
                 {fact}
             </Text>
             {leaveButton}

@@ -44,7 +44,7 @@ const Dashboard = () => {
                         sx={{ marginLeft: "5px" }}
                     >
                         {" "}
-                        Menu{" "}
+                        menu{" "}
                     </Text>
                 </Button>
             </Menu.Target>
@@ -55,26 +55,26 @@ const Dashboard = () => {
                     icon={<IconUser size={18} />}
                     onClick={() => history.push(`/profile/${username}`)}
                 >
-                    Profile Page
+                    profile page
                 </Menu.Item>
                 <Menu.Item
                     icon={<IconMessageCircle size={16} />}
                     onClick={() => history.push("/profile/edit/quote")}
                 >
-                    Change Quote
+                    change quote
                 </Menu.Item>
                 <Menu.Label>Game</Menu.Label>
                 <Menu.Item
                     icon={<OneTwoThree size={18} />}
                     onClick={() => history.push("/leaderboard")}
                 >
-                    Leaderboard
+                    leaderboard
                 </Menu.Item>
                 <Menu.Item
                     icon={<QuestionMark size={18} />}
                     onClick={() => history.push("/rules")}
                 >
-                    Rules
+                    rules
                 </Menu.Item>
             </Menu.Dropdown>
         </Menu>

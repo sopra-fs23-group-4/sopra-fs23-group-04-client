@@ -29,7 +29,7 @@ const Login = () => {
                 order={1}
                 sx={{ color: "white" }}
             >
-                Login
+                login
             </Title>{" "}
             <Container size={250}>
                 <Stack>
@@ -43,7 +43,7 @@ const Login = () => {
                     />
                     <PasswordInput
                         label="password:"
-                        placeholder="Password"
+                        placeholder="password"
                         radius="lg"
                         size="lg"
                         onChange={(event) => setPassword(event.currentTarget.value)}

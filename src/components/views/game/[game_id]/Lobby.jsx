@@ -111,7 +111,7 @@ const Lobby = (props) => {
                 order={3}
                 color="white"
             >
-                You are alone :(
+                you are alone :(
             </Title>
         </Container>
     );
@@ -180,14 +180,14 @@ const Lobby = (props) => {
                         fw={500}
                         inline="true"
                     >
-                        Rounds: {StorageManager.getRoundAmount()}
+                        rounds: {StorageManager.getRoundAmount()}
                     </Text>
                     <Text
                         color="white"
                         fw={500}
                         inline="true"
                     >
-                        Time/Round: {StorageManager.getRoundLength()}
+                        time/round: {StorageManager.getRoundLength()}
                     </Text>
                 </Flex>
                 <Flex
@@ -201,7 +201,7 @@ const Lobby = (props) => {
                         fw={500}
                         inline="true"
                     >
-                        Categories:
+                        categories:
                     </Text>
                     {StorageManager.getCategories().map((category) => (
                         <Badge
@@ -234,7 +234,7 @@ const Lobby = (props) => {
                         order={3}
                         color="white"
                     >
-                        Host:
+                        host:
                     </Title>
                     <Player
                         username={hostUsername}

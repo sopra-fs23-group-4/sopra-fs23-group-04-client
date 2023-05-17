@@ -48,7 +48,7 @@ const Settings = () => {
     return (
         <BaseContainer>
             <Title color="white">
-                Rounds: <b>{rounds}</b>
+                rounds: <b>{rounds}</b>
             </Title>
             <Container sx={{ minWidth: "60%" }}>
                 <Slider
@@ -63,7 +63,7 @@ const Settings = () => {
             </Container>
             <Space h="xs" />
             <Title color="white">
-                Round Length: <b>{roundLengthInSeconds[roundLength]}</b>
+                round length: <b>{roundLengthInSeconds[roundLength]}</b>
             </Title>
             <SegmentedControl
                 color="blue"

@@ -76,7 +76,7 @@ const Winner = (props) => {
                 order={1}
                 sx={{ color: "white", marginTop: "40%" }}
             >
-                And the glorious winner is{" "}
+                and the glorious winner is{" "}
                 <Loader
                     color="white"
                     size="lg"
@@ -126,13 +126,13 @@ const Winner = (props) => {
                     component={Link}
                     to={`/game/${gamePin}/round/${StorageManager.getRound()}/score`}
                 >
-                    Scoreboard
+                    scoreboard
                 </StandardButton>
                 <StandardButton
                     sx={{ marginTop: "4%" }}
                     onClick={() => doLeave()}
                 >
-                    Leave
+                    leave
                 </StandardButton>
             </Flex>
         );
@@ -151,14 +151,14 @@ const Winner = (props) => {
                     order={1}
                     sx={{ color: "white" }}
                 >
-                    It's a draw!
+                    it's a draw!
                 </Title>
                 <Title
                     align="center"
                     order={2}
                     sx={{ color: "white", marginTop: "-18px", marginBottom: "20px" }}
                 >
-                    Congratulations to:
+                    congratulations to:
                 </Title>
                 {winners.map((winner) => (
                     <Title
@@ -175,7 +175,7 @@ const Winner = (props) => {
                     to={`/game/${gamePin}/round/${StorageManager.getRound()}/score`}
                     sx={{ marginTop: "35px" }}
                 >
-                    Scoreboard
+                    scoreboard
                 </StandardButton>
                 <StandardButton
                     sx={{ marginTop: "10%" }}

@@ -107,7 +107,7 @@ const Answer = () => {
                 onMessage={(msg) => onMessageReceived(msg)}
                 debug={false}
             />
-            <Text color="white">Time remaining: {timer}</Text>
+            <Text color="white">time remaining: {timer}</Text>
             <Title
                 color="white"
                 size="80"
