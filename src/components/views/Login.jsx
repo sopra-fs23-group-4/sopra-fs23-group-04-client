@@ -57,7 +57,7 @@ const Login = () => {
                 disabled={!username || !password}
                 onClick={(e) => doLogin(e)}
             >
-                Login
+                login
             </StandardButton>
             <Text
                 align="center"
@@ -67,7 +67,7 @@ const Login = () => {
                 component={Link}
                 to="/registration"
             >
-                <strong> Sign up </strong>
+                <strong> sign up </strong>
             </Text>
         </BaseContainer>
     );

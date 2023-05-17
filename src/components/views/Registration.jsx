@@ -78,14 +78,14 @@ const Registration = () => {
                 disabled={!username || !password || !password2 || username === "" || password === "" || password2 === "" || password !== password2}
                 onClick={() => doRegistration()}
             >
-                Register
+                register
             </StandardButton>
             <StandardButton
                 sx={{ marginTop: "20%" }}
                 component={Link}
                 to="/login"
             >
-                Back
+                back
             </StandardButton>
         </BaseContainer>
     );
