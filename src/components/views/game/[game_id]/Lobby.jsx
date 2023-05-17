@@ -57,7 +57,7 @@ const Lobby = (props) => {
             StorageManager.setLetter(msg.letter);
             StorageManager.setRound(msg.round);
             StorageManager.setGamePin(gamePin);
-            history.push(`/game/${gamePin}/round/${1}/board/`);
+            history.push(`/game/${gamePin}/round/${1}/countdown/`);
         }
     };
 

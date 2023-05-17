@@ -2,7 +2,7 @@ import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import Lobby from "../../views/game/[game_id]/Lobby";
 import Board from "../../views/game/[game_id]/Board";
 import Answer from "../../views/game/[game_id]/Answer";
-import Letter from "../../views/game/[game_id]/Letter";
+import Countdown from "../../views/game/[game_id]/Countdown";
 import Voting from "../../views/game/[game_id]/Voting";
 import VotingResult from "../../views/game/[game_id]/VotingResult";
 import Score from "../../views/game/[game_id]/Score";
@@ -45,13 +45,8 @@ const InGameRouter = (props) => {
             />
             <Route
                 exact
-                path={`${base}/countdown`}
-                component={Lobby}
-            />
-            <Route
-                exact
-                path={`${base}/round/:round/letter`}
-                component={Letter}
+                path={`${base}/round/:round/countdown`}
+                component={Countdown}
             />
             <Route
                 exact
