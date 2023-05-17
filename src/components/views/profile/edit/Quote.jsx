@@ -1,18 +1,15 @@
 import BaseContainer from "../../../ui/BaseContainer";
 import { Textarea, Title, Text, NativeSelect, Group } from "@mantine/core";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import StandardButton from "../../../ui/StandardButton";
-import { Context } from "../../../../context";
 import { StorageManager } from "../../../../helpers/storageManager";
 
 const Quote = () => {
     const history = useHistory();
-    const context = useContext(Context);
 
     const [errorLength, setErrorLength] = useState(null);
-    const user = context.user;
     const [quote, setQuote] = useState("new quote");
     const [quoteCategories, setQuoteCategories] = useState([]);
     const [category, setCategory] = useState("business");
@@ -53,9 +50,7 @@ const Quote = () => {
 
     const doChangeQuote = async () => {
         try {
-            user.quote = quote;
-            user.token = StorageManager.getToken();
-            await RestApi.changeUser(user);
+            await RestApi.changeUser(quote);
             StorageManager.setQuote(quote);
             history.push(`/dashboard`);
         } catch (error) {
