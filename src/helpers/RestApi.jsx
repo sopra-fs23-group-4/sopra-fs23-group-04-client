@@ -64,7 +64,7 @@ export class RestApi {
     }
 
     static async changeQuote(quote) {
-        const requestBody = JSON.stringify({ token: StorageManager.getToken(), quote: quote });
+        const requestBody = JSON.stringify({  quote: quote });
         return await restApi.put(`/users/${StorageManager.getUserId()}`, requestBody);
     }
 
@@ -124,7 +124,7 @@ export class RestApi {
     }
 
     static async startGame(gamePin) {
-        await restApi.post(`/games/${gamePin}/start`);
+        await restApi.put(`/games/${gamePin}/start`);
     }
 
     static async startRound(gamePin, round) {
