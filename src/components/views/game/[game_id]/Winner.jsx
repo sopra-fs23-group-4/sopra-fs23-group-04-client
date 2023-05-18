@@ -56,7 +56,7 @@ const Winner = (props) => {
         try {
             history.replace(`/game`);
         } catch (error) {
-            console.log(`Something went wrong leaving the game: \n${handleError(error)}`);
+            console.error(`Something went wrong leaving the game: \n${handleError(error)}`);
         }
     }
 
