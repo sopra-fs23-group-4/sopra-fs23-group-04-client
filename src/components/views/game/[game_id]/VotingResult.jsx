@@ -24,15 +24,15 @@ const VotingResult = () => {
     const [skipped, setSkipped] = useState(false);
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                await new Promise((resolve) => setTimeout(resolve, 1500));
-                const response = await RestApi.getVotes(gamePin, round, category);
-                console.log(response.data);
-                setVotes(response.data);
-            } catch (error) {
-                console.error(`Something went wrong while fetching the votes: \n${handleError(error)}`);
-            }
+        function fetchData() {
+            new Promise((resolve) => setTimeout(resolve, 1500))
+                .then(() => RestApi.getVotes(gamePin, round, category))
+                .then((response) => {
+                    setVotes(response.data);
+                })
+                .catch((error) => {
+                    console.error(`Something went wrong while fetching the votes: \n${handleError(error)}`);
+                });
         }
         fetchData();
     }, [gamePin, round, category]);

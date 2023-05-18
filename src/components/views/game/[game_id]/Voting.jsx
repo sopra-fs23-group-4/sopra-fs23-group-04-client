@@ -35,13 +35,13 @@ const Voting = () => {
     }, [answersToRate]);
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                await new Promise((resolve) => setTimeout(resolve, 200));
-                setAnswersToRate(await RestApi.getAnswersForCategory(gamePin, round, category));
-            } catch (error) {
-                console.log("Something went wrong while fetching the answers! See the console for details.");
-            }
+        function fetchData() {
+            new Promise((resolve) => setTimeout(resolve, 200))
+                .then(() => RestApi.getAnswersForCategory(gamePin, round, category))
+                .then((answers) => setAnswersToRate(answers))
+                .catch((error) => {
+                    console.error(`Something went wrong while fetching the answers: \n${handleError(error)}`);
+                });
         }
         fetchData();
     }, [gamePin, round, category]);
