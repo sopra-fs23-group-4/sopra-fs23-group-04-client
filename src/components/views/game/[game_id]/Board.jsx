@@ -71,7 +71,11 @@ const Board = () => {
     };
 
     const handleDoneButton = async () => {
-        await RestApi.EndRound(gamePin, round);
+        try {
+            await RestApi.EndRound(gamePin, round);
+        } catch (error) {
+            console.error(`Something went wrong while ending the round: \n${handleError(error)}`);
+        }
     };
 
     const doDoneWs = async () => {
