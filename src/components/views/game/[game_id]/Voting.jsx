@@ -59,7 +59,7 @@ const Voting = () => {
     async function doDone() {
         try {
             await RestApi.postVotes(gamePin, round, category, votes);
-            history.push(`/game/${gamePin}/round/${round}/votingResults/${categoryIndex}`);
+            history.replace(`/game/${gamePin}/round/${round}/votingResults/${categoryIndex}`);
         } catch (error) {
             console.error(`Something went wrong while sending the votes: \n${handleError(error)}`);
         }

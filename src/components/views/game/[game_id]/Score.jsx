@@ -66,7 +66,7 @@ const Score = (props) => {
             StorageManager.setAnswers(Array(StorageManager.getCategories().length).fill(null));
             StorageManager.setLetter(msg.letter);
             StorageManager.setRound(msg.round);
-            history.push(`/game/${gamePin}/round/${msg.round}/countdown/`);
+            history.replace(`/game/${gamePin}/round/${msg.round}/countdown/`);
         } else if (msg.type === "scoreboardTimer") {
             setTimer(msg.timeRemaining);
         }
@@ -79,7 +79,7 @@ const Score = (props) => {
     async function doLeave() {
         try {
             await RestApi.leaveGame(gamePin);
-            history.push(`/game`);
+            history.replace(`/game`);
         } catch (error) {
             console.error(`Something went wrong leaving the game: \n${handleError(error)}`);
         }

@@ -1,7 +1,7 @@
 import BaseContainer from "../../../ui/BaseContainer";
 import { Flex, Loader, Space, Text, Title } from "@mantine/core";
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import { StorageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
@@ -54,7 +54,7 @@ const Winner = (props) => {
     // Methods
     async function doLeave() {
         try {
-            history.push(`/game`);
+            history.replace(`/game`);
         } catch (error) {
             console.log(`Something went wrong leaving the game: \n${handleError(error)}`);
         }
@@ -122,12 +122,7 @@ const Winner = (props) => {
                         typingDelay={400}
                     />
                 </Text>
-                <StandardButton
-                    component={Link}
-                    to={`/game/${gamePin}/round/${StorageManager.getRound()}/score`}
-                >
-                    scoreboard
-                </StandardButton>
+                <StandardButton onClick={() => history.replace(`/game/${gamePin}/round/${StorageManager.getRound()}/score`)}>Scoreboard</StandardButton>
                 <StandardButton
                     sx={{ marginTop: "4%" }}
                     onClick={() => doLeave()}
@@ -171,8 +166,7 @@ const Winner = (props) => {
                     </Title>
                 ))}
                 <StandardButton
-                    component={Link}
-                    to={`/game/${gamePin}/round/${StorageManager.getRound()}/score`}
+                    onClick={() => history.replace(`/game/${gamePin}/round/${StorageManager.getRound()}/score`)}
                     sx={{ marginTop: "35px" }}
                 >
                     scoreboard

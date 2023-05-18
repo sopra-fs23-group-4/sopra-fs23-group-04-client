@@ -83,7 +83,7 @@ const Board = () => {
     const postAnswers = async (answersDict) => {
         try {
             await RestApi.postAnswers(gamePin, round, answersDict);
-            history.push(`/game/${gamePin}/round/${round}/voting/0`);
+            history.replace(`/game/${gamePin}/round/${round}/voting/0`);
         } catch (error) {
             console.error(`Something went wrong while sending the answers: \n${handleError(error)}`);
         }

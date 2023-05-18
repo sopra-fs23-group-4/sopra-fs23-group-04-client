@@ -116,11 +116,11 @@ const VotingResult = () => {
             setTimer(msg.timeRemaining);
         } else if (msg.type === "resultNextVote") {
             const nextCategoryIndex = parseInt(categoryIndex) + 1;
-            history.push(`/game/${gamePin}/round/${round}/voting/${nextCategoryIndex}`);
+            history.replace(`/game/${gamePin}/round/${round}/voting/${nextCategoryIndex}`);
         } else if (msg.type === "resultScoreboard") {
-            history.push(`/game/${gamePin}/round/${round}/score`);
+            history.replace(`/game/${gamePin}/round/${round}/score`);
         } else if (msg.type === "resultWinner") {
-            history.push(`/game/${gamePin}/winner`);
+            history.replace(`/game/${gamePin}/winner`);
         } else if (msg.type === "fact") {
             StorageManager.setFact(msg.fact);
         }

@@ -39,7 +39,7 @@ const Settings = () => {
             StorageManager.setRoundLength(roundLength);
             StorageManager.setCategories(categories);
             StorageManager.setGamePin(pin);
-            history.push(`/game/${pin}/lobby`);
+            history.replace(`/game/${pin}/lobby`);
         } catch (error) {
             console.error(`Something went wrong whilst creating the lobby: \n${handleError(error)}`);
         }

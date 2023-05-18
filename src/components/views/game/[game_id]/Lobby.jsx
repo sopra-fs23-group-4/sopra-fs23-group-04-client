@@ -57,14 +57,14 @@ const Lobby = (props) => {
             StorageManager.setLetter(msg.letter);
             StorageManager.setRound(msg.round);
             StorageManager.setGamePin(gamePin);
-            history.push(`/game/${gamePin}/round/${1}/countdown/`);
+            history.replace(`/game/${gamePin}/round/${1}/countdown/`);
         }
     };
 
     async function doLeave() {
         try {
             await RestApi.leaveGame(gamePin);
-            history.push(`/game`);
+            history.replace(`/game`);
         } catch (error) {
             console.error(`Something went wrong leaving the lobby: \n${handleError(error)}`);
         }
