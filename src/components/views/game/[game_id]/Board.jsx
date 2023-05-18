@@ -153,13 +153,12 @@ const Board = () => {
             position="center"
             sx={{ marginTop: "2%" }}
         >
-            {categories &&
-                categories.map((category) => (
-                    <Category
-                        key={category}
-                        category={category}
-                    />
-                ))}
+            {categories?.map((category) => (
+                <Category
+                    key={category}
+                    category={category}
+                />
+            ))}
         </Stack>
     );
 
