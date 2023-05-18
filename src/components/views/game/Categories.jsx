@@ -35,7 +35,7 @@ const Categories = () => {
     }, []);
 
     const doContinue = () => {
-        history.push("/game/settings");
+        history.replace("/game/settings");
         StorageManager.setCategoriesSelected(categoriesSelected);
     };
     const addCustomCategory = () => {
@@ -201,7 +201,7 @@ const Categories = () => {
                 </StandardButton>
             </Paper>
             <StandardButton
-                onClick={() => history.push("/game/")}
+                onClick={() => history.replace("/game/")}
                 sx={{ marginTop: "5%" }}
             >
                 cancel
