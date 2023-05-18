@@ -50,7 +50,7 @@ const Quote = () => {
 
     const doChangeQuote = async () => {
         try {
-            await RestApi.changeUser(quote);
+            await RestApi.changeQuote(quote);
             StorageManager.setQuote(quote);
             history.push(`/dashboard`);
         } catch (error) {
