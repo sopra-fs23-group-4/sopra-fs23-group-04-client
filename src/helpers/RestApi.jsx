@@ -31,7 +31,6 @@ export class RestApi {
         const user = new User(response.data);
         user.token = response.headers.authorization;
         generalLoginProcedure(user);
-        return user;
     }
 
     static async registration(username, password) {
@@ -40,7 +39,6 @@ export class RestApi {
         const user = new User(response.data);
         user.token = response.headers.authorization;
         generalLoginProcedure(user);
-        return user;
     }
 
     static async getUser() {

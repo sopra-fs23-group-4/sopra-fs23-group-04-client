@@ -13,7 +13,7 @@ const Login = () => {
     const doLogin = async (e) => {
         try {
             e.preventDefault();
-            const user = await RestApi.login(username, password);
+            await RestApi.login(username, password);
             history.push(`/dashboard`);
         } catch (error) {
             console.error(`Something went wrong during the login: \n${handleError(error)}`);

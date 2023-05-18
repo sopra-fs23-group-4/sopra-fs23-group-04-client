@@ -13,7 +13,7 @@ const Registration = () => {
 
     const doRegistration = async () => {
         try {
-            const user = await RestApi.registration(username, password);
+            await RestApi.registration(username, password);
             history.push(`/dashboard`);
         } catch (error) {
             if (error.response.status === 409) {
