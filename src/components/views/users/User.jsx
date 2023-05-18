@@ -4,7 +4,6 @@ import { handleError, RestApi } from "../../../helpers/RestApi";
 import { Paper, Table, Text, Title } from "@mantine/core";
 import StandardButton from "../../ui/StandardButton";
 import { useHistory } from "react-router-dom";
-import { StorageManager } from "../../../helpers/storageManager";
 
 export const StatEntry = (props) => {
     return (
@@ -37,21 +36,9 @@ const User = (props) => {
                     let userResponse = await RestApi.getUserByUsername(username);
                     setUser(userResponse);
 
-                    try {
-                        let statResponse = await RestApi.getAdvancedStatistics(userResponse.id);
-                        console.log(statResponse);
-                        setStats(statResponse);
-                    } catch (e) {
-                        setStats({
-                            rank: 420,
-                            totalPlayedGames: 69,
-                            totalWins: 420,
-                            totalAnswersAnswered: 69,
-                            totalCorrectAndUniqueAnswers: 420,
-                            totalPointsOverall: 69,
-                            mostPlayedCategory: "Cannabis Strains",
-                        });
-                    }
+                    let statResponse = await RestApi.getAdvancedStatistics(userResponse.id);
+                    console.log(statResponse);
+                    setStats(statResponse);
                 }
             } catch (error) {
                 console.error(`Something went wrong while fetching the user and its stats: \n${handleError(error)}`);
@@ -137,7 +124,7 @@ const User = (props) => {
                 </Table>
             </Paper>
             <StandardButton
-                onClick={() => (StorageManager.getGamePin() ? history.push(`/game/${StorageManager.getGamePin()}/lobby`) : history.push("/dashboard"))}
+                onClick={history.goBack}
                 sx={{ marginTop: "3%", marginBottom: "5%" }}
             >
                 Back
