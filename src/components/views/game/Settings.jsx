@@ -1,6 +1,6 @@
 import BaseContainer from "../../ui/BaseContainer";
 import StandardButton from "../../ui/StandardButton";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Container, SegmentedControl, Slider, Space, Title } from "@mantine/core";
 import React, { useState } from "react";
 import { handleError, RestApi } from "../../../helpers/RestApi";
@@ -80,8 +80,7 @@ const Settings = () => {
             <Space h="md" />
             <StandardButton
                 sx={{ marginTop: "10%" }}
-                component={Link}
-                to="/game/categories"
+                onClick={() => history.replace("/game/categories")}
             >
                 back
             </StandardButton>
