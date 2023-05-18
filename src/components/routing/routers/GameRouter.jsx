@@ -2,7 +2,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import Game from "../../views/Game";
 import Categories from "../../views/game/Categories";
 import Settings from "../../views/game/Settings";
-import InGameRouter from "./InGameRouter";
+import { InGameGuard } from "../routeProtectors/InGameGuard";
 
 const GameRouter = (props) => {
     return (
@@ -24,7 +24,7 @@ const GameRouter = (props) => {
             />
             <Route
                 path={`${props.base}/:gamePin`}
-                component={InGameRouter}
+                component={InGameGuard}
             />
             <Route path={`${props.base}`}>
                 <Redirect to={`${props.base}`} />

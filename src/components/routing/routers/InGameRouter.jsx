@@ -11,7 +11,7 @@ import { RestApi } from "../../../helpers/RestApi";
 
 const InGameRouter = (props) => {
     const base = `/game/:gamePin`;
-    const gamePin = props.match.params["gamePin"];
+    const gamePin = props.urlGamePin;
 
     const history = useHistory();
 

@@ -1,10 +1,12 @@
 import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { StorageManager } from "../../../helpers/storageManager";
+import InGameRouter from "../routers/InGameRouter";
 
 export const InGameGuard = (props) => {
-    if (StorageManager.getGamePin()) {
-        return props.children;
+    const gamePin = props.match.params["gamePin"];
+    if (StorageManager.getGamePin() && StorageManager.getGamePin() === gamePin) {
+        return <InGameRouter urlGamePin={gamePin} />;
     }
     return <Redirect to="/dashboard" />;
 };
