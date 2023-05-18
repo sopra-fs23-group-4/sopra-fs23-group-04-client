@@ -2,13 +2,11 @@ import BaseContainer from "../ui/BaseContainer";
 import { Container, Text, PasswordInput, rem, Stack, TextInput, Title } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
 import { Link, useHistory } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { RestApi, handleError } from "../../helpers/RestApi";
-import { Context } from "../../context";
 
 const Registration = () => {
     const history = useHistory();
-    const context = useContext(Context);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
@@ -16,7 +14,6 @@ const Registration = () => {
     const doRegistration = async () => {
         try {
             const user = await RestApi.registration(username, password);
-            context.setUser(user);
             history.push(`/dashboard`);
         } catch (error) {
             if (error.response.status === 409) {
