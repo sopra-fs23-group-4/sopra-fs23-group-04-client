@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Title, Text, Stack, Paper, Container, Group } from "@mantine/core";
+import { Title, Text, Stack, Paper, Container, Group, Dialog } from "@mantine/core";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import SockJsClient from "react-stomp";
@@ -8,6 +8,7 @@ import { Player } from "./Lobby";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import { StorageManager as storageManager, StorageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
+import { useDisclosure } from "@mantine/hooks";
 
 export const ScoreboardEntry = (props) => {
     return (
@@ -31,6 +32,7 @@ const Score = (props) => {
 
     const gamePin = props.match.params["gamePin"];
 
+    const [opened, { toggle, close }] = useDisclosure(false);
     const history = useHistory();
     const [timer, setTimer] = useState(null);
 
@@ -132,7 +134,7 @@ const Score = (props) => {
         <StandardButton
             sx={{ marginTop: "50%" }}
             color="pink"
-            onClick={() => doLeave()}
+            onClick={toggle}
         >
             give up
         </StandardButton>
@@ -178,6 +180,46 @@ const Score = (props) => {
                 {StorageManager.getFact()}
             </Text>
             {leaveButton}
+            <Dialog
+                opened={opened}
+                onClose={close}
+                withCloseButton
+                size="lg"
+                radius="md"
+                transition="slide-up"
+                transitionDuration={300}
+                transitionTimingFunction="ease"
+                align="center"
+                shadow="xl"
+            >
+                <Text
+                    size="lg"
+                    mb="xs"
+                    weight={700}
+                >
+                    Whaaat?!?
+                    <br />
+                    Do you really want to be a looser?
+                </Text>
+
+                <Group
+                    position="apart"
+                    sx={{ width: "80%" }}
+                >
+                    <StandardButton
+                        color="green"
+                        onClick={close}
+                    >
+                        cancel
+                    </StandardButton>
+                    <StandardButton
+                        color="red"
+                        onClick={() => doLeave()}
+                    >
+                        leave :(
+                    </StandardButton>
+                </Group>
+            </Dialog>
         </BaseContainer>
     );
 };
