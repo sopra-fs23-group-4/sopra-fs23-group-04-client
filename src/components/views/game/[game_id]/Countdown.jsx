@@ -68,7 +68,7 @@ const Countdown = () => {
                 size="150"
                 sx={{ marginTop: "10%" }}
             >
-                <JackInTheBox duration={500} triggerOnce>
+                <JackInTheBox duration={1000} triggerOnce>
                     <div>{letter}</div>
                 </JackInTheBox>
 
