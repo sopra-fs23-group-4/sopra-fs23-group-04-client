@@ -8,7 +8,7 @@ export const InGameGuard = (props) => {
     if (StorageManager.getGamePin() && StorageManager.getGamePin() === gamePin) {
         return <InGameRouter urlGamePin={gamePin} />;
     }
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/game" />;
 };
 
 InGameGuard.propTypes = {
