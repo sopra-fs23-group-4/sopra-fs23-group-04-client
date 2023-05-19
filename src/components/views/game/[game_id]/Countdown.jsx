@@ -47,7 +47,7 @@ const Countdown = () => {
                 size="100"
                 sx={{ marginTop: "20%" }}
             >
-                <Zoom duration={1000} triggerOnce>
+                <Zoom key={remainingTime} duration={1000}>
                     <div>{remainingTime}</div>
                 </Zoom>
             </Title>
