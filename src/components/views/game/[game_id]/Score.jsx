@@ -132,9 +132,17 @@ const Score = (props) => {
 
     let leaveButton = (
         <StandardButton
-            sx={{ marginTop: "50%" }}
+            sx={{
+                marginTop: "50%",
+                "&:disabled": {
+                    color: "inherit",
+                    backgroundColor: "#e4487f",
+                    opacity: 0.5,
+                },
+            }}
             color="pink"
             onClick={toggle}
+            disabled={opened}
         >
             give up
         </StandardButton>
@@ -186,7 +194,7 @@ const Score = (props) => {
                 withCloseButton
                 size="lg"
                 radius="md"
-                transition="slide-up"
+                transition="scale"
                 transitionDuration={300}
                 transitionTimingFunction="ease"
                 align="center"
