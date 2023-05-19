@@ -111,7 +111,9 @@ const VotingResult = () => {
     };
 
     let onMessageReceived = async (msg) => {
+        console.log("Websocket msg VotingResult Page:");
         console.log(msg.type);
+        console.log(msg);
         if (msg.type === "resultTimer") {
             setTimer(msg.timeRemaining);
         } else if (msg.type === "resultNextVote") {

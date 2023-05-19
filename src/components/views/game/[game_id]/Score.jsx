@@ -35,7 +35,6 @@ const Score = (props) => {
     const [timer, setTimer] = useState(null);
 
     const [userScores, setUserScores] = useState([]);
-    const [fact, setFact] = useState("");
 
     useEffect(() => {
         async function fetchData() {
@@ -50,7 +49,7 @@ const Score = (props) => {
             }
         }
         fetchData();
-    }, [userScores, fact, gamePin]);
+    }, [userScores, gamePin]);
 
     // Websocket
     let onConnected = () => {
@@ -60,7 +59,7 @@ const Score = (props) => {
         console.log("disconnect");
     };
     let onMessageReceived = (msg) => {
-        console.log("Websocket msg:");
+        console.log("Websocket msg Score Page:");
         console.log(msg);
         if (msg.type === "roundStart") {
             StorageManager.setAnswers(Array(StorageManager.getCategories().length).fill(null));
@@ -69,9 +68,6 @@ const Score = (props) => {
             history.replace(`/game/${gamePin}/round/${msg.round}/countdown/`);
         } else if (msg.type === "scoreboardTimer") {
             setTimer(msg.timeRemaining);
-        }
-        if (msg.type === "fact") {
-            setFact(msg.fact);
         }
     };
 
@@ -179,7 +175,7 @@ const Score = (props) => {
                 sx={{ width: "95%" }}
             >
                 <b>random fact: </b>
-                {fact}
+                {StorageManager.getFact()}
             </Text>
             {leaveButton}
         </BaseContainer>
