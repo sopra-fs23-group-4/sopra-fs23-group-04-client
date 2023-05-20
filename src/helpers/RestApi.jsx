@@ -41,12 +41,6 @@ export class RestApi {
         generalLoginProcedure(user);
     }
 
-    static async getUser() {
-        const response = await restApi.get(`/users/${StorageManager.getUserId()}`);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        return new User(response.data);
-    }
-
     static async getUserByUsername(username) {
         const response = await restApi.get(`/users/username/${username}`);
         return response.data;
@@ -57,14 +51,8 @@ export class RestApi {
         return response.data;
     }
 
-    static async getUsers() {
-        const response = await restApi.get(`/users/`);
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        return response.data;
-    }
-
     static async changeQuote(quote) {
-        const requestBody = JSON.stringify({  quote: quote });
+        const requestBody = JSON.stringify({ quote: quote });
         return await restApi.put(`/users/${StorageManager.getUserId()}`, requestBody);
     }
 
@@ -76,11 +64,6 @@ export class RestApi {
     static async generateQuote(category) {
         const response = await restApi.get(`/quotes/${category}`);
         return response.data.quote;
-    }
-
-    static async generateFact() {
-        const response = await restApi.get(`/facts`);
-        return response.data.fact;
     }
 
     static async getAllCategories() {
@@ -125,10 +108,6 @@ export class RestApi {
 
     static async startGame(gamePin) {
         await restApi.put(`/games/${gamePin}/start`);
-    }
-
-    static async startRound(gamePin, round) {
-        await restApi.put(`/games/${gamePin}/${round}/start`);
     }
 
     static async EndRound(gamePin, round) {
