@@ -7,6 +7,7 @@ import { StorageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
 import { Crown } from "tabler-icons-react";
 import ReactTypingEffect from "react-typing-effect";
+import { JackInTheBox } from "react-awesome-reveal";
 
 const Winner = (props) => {
     const gamePin = props.match.params["gamePin"];
@@ -80,10 +81,15 @@ const Winner = (props) => {
                 sx={{ width: "80%" }}
             >
                 <Space h="sm" />
-                <Crown
-                    size={80}
-                    color="#ffffff"
-                />
+                <JackInTheBox
+                    duration={1000}
+                    triggerOnce
+                >
+                    <Crown
+                        size={80}
+                        color="#ffffff"
+                    />
+                </JackInTheBox>
                 <Title
                     align="center"
                     order={1}
