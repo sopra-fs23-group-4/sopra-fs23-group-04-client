@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Title, Text, Stack, Paper, Container, Group, Dialog } from "@mantine/core";
+import { Title, Text, Stack, Paper, Container, Group, Dialog, Progress } from "@mantine/core";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import SockJsClient from "react-stomp";
@@ -34,7 +34,7 @@ const Score = (props) => {
 
     const [opened, { toggle, close }] = useDisclosure(false);
     const history = useHistory();
-    const [timer, setTimer] = useState(null);
+    const [timer, setTimer] = useState(0);
 
     const [userScores, setUserScores] = useState([]);
 
@@ -169,7 +169,12 @@ const Score = (props) => {
                 debug={false}
             />
             <Text color="white">time remaining: {timer}</Text>
-            <Title color="white">score</Title>
+            <Title
+                color="white"
+                sx={{ marginTop: "-3%" }}
+            >
+                score
+            </Title>
             <Paper
                 radius="md"
                 shadow="xl"
@@ -179,6 +184,24 @@ const Score = (props) => {
             >
                 {scoreboardContent}
             </Paper>
+            <Stack
+                align="stretch"
+                justify="center"
+                spacing="5px"
+                sx={{ minWidth: "80%" }}
+            >
+                <Text
+                    color="white"
+                    align="center"
+                    inline
+                >{`Round: ${StorageManager.getRound()} / ${storageManager.getRoundAmount()}`}</Text>
+                <Progress
+                    color="teal"
+                    size="lg"
+                    radius="xl"
+                    value={(StorageManager.getRound() / StorageManager.getRoundAmount()) * 100}
+                />
+            </Stack>
             <Text
                 color="white"
                 align="center"
