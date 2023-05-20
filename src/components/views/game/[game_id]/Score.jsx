@@ -39,15 +39,13 @@ const Score = (props) => {
     const [userScores, setUserScores] = useState([]);
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                if (userScores.length === 0) {
-                    // real code
-                    let scoreResponse = await RestApi.getScores(gamePin);
-                    setUserScores(scoreResponse);
-                }
-            } catch (error) {
-                console.error(`Something went wrong while fetching the scores: \n${handleError(error)}`);
+        function fetchData() {
+            if (userScores.length === 0) {
+                RestApi.getScores(gamePin)
+                    .then((scoreResponse) => setUserScores(scoreResponse))
+                    .catch((error) => {
+                        console.error(`Something went wrong while fetching the scores: \n${handleError(error)}`);
+                    });
             }
         }
         fetchData();

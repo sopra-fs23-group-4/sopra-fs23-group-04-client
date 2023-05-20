@@ -12,19 +12,19 @@ const Leaderboard = () => {
     const history = useHistory();
 
     useEffect(() => {
-        const fetchLeaderboard = async () => {
-            try {
-                if (leaderboard.length === 0) {
-                    const data = await RestApi.getLeaderboard();
-                    setLeaderboard(data);
-
-                    // Find the index of the logged-in user
-                    const loggedInUser = StorageManager.getUsername();
-                    const position = data.findIndex((entry) => entry.username === loggedInUser);
-                    setUserPosition(position);
-                }
-            } catch (error) {
-                console.error("Error fetching leaderboard:", error);
+        const fetchLeaderboard = () => {
+            if (leaderboard.length === 0) {
+                RestApi.getLeaderboard()
+                    .then((data) => {
+                        setLeaderboard(data);
+                        // Find the index of the logged-in user
+                        const loggedInUser = StorageManager.getUsername();
+                        const position = data.findIndex((entry) => entry.username === loggedInUser);
+                        setUserPosition(position);
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching leaderboard:", error);
+                    });
             }
         };
 

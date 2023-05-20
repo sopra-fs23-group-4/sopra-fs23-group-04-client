@@ -7,7 +7,7 @@ import VotingResult from "../../views/game/[game_id]/VotingResult";
 import Score from "../../views/game/[game_id]/Score";
 import Winner from "../../views/game/[game_id]/Winner";
 import { useEffect } from "react";
-import { RestApi } from "../../../helpers/RestApi";
+import { handleError, RestApi } from "../../../helpers/RestApi";
 
 const InGameRouter = (props) => {
     const base = `/game/:gamePin`;
@@ -24,8 +24,14 @@ const InGameRouter = (props) => {
     });
 
     useEffect(() => {
-        const handleTabClose = async () => {
-            await RestApi.leaveGame(gamePin);
+        const handleTabClose = () => {
+            RestApi.leaveGame(gamePin)
+                .then(() => {
+                    // Handle successful API call if needed
+                })
+                .catch((error) => {
+                    console.error(`Something went wrong while leaving the game: \n${handleError(error)}`);
+                });
         };
 
         window.addEventListener("unload", handleTabClose);

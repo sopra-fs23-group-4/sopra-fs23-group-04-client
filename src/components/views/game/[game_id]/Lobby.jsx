@@ -78,29 +78,31 @@ const Lobby = (props) => {
     }
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                if (hostUsername === "loading...") {
-                    const gameUsersResponse = await RestApi.getGameUsers(gamePin);
-                    setUsersInLobby(gameUsersResponse.usernames);
-                    setHostUsername(gameUsersResponse.hostUsername);
-                    await new Promise((resolve) => setTimeout(resolve, 500));
-                }
-
-                // update Role value in sessionStorage
-                if (hostUsername !== "loading...") {
-                    if (hostUsername === StorageManager.getUsername()) {
-                        if (StorageManager.getRole() !== Role.HOST) {
-                            StorageManager.setRole(Role.HOST);
+        const fetchData = () => {
+            if (hostUsername === "loading...") {
+                RestApi.getGameUsers(gamePin)
+                    .then((gameUsersResponse) => {
+                        setUsersInLobby(gameUsersResponse.usernames);
+                        setHostUsername(gameUsersResponse.hostUsername);
+                        return new Promise((resolve) => setTimeout(resolve, 500));
+                    })
+                    .then(() => {
+                        if (hostUsername !== "loading...") {
+                            if (hostUsername === StorageManager.getUsername()) {
+                                if (StorageManager.getRole() !== Role.HOST) {
+                                    StorageManager.setRole(Role.HOST);
+                                }
+                            } else if (StorageManager.getRole() !== Role.PLAYER) {
+                                StorageManager.setRole(Role.PLAYER);
+                            }
                         }
-                    } else if (StorageManager.getRole() !== Role.PLAYER) {
-                        StorageManager.setRole(Role.PLAYER);
-                    }
-                }
-            } catch (error) {
-                console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+                    })
+                    .catch((error) => {
+                        console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+                    });
             }
-        }
+        };
+
         fetchData();
     }, [usersInLobby, hostUsername, gamePin]);
 

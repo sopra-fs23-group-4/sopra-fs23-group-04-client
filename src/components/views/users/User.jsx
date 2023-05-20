@@ -29,21 +29,23 @@ const User = (props) => {
     const [stats, setStats] = useState({ rank: "" });
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                if (user.username === "") {
-                    // real code
-                    let userResponse = await RestApi.getUserByUsername(username);
-                    setUser(userResponse);
-
-                    let statResponse = await RestApi.getAdvancedStatistics(userResponse.id);
-                    console.log(statResponse);
-                    setStats(statResponse);
-                }
-            } catch (error) {
-                console.error(`Something went wrong while fetching the user and its stats: \n${handleError(error)}`);
+        const fetchData = () => {
+            if (user.username === "") {
+                RestApi.getUserByUsername(username)
+                    .then((userResponse) => {
+                        setUser(userResponse);
+                        return RestApi.getAdvancedStatistics(userResponse.id);
+                    })
+                    .then((statResponse) => {
+                        console.log(statResponse);
+                        setStats(statResponse);
+                    })
+                    .catch((error) => {
+                        console.error(`Something went wrong while fetching the user and its stats: \n${handleError(error)}`);
+                    });
             }
-        }
+        };
+
         fetchData();
     }, [user, stats, username]);
 

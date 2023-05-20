@@ -16,38 +16,21 @@ const Winner = (props) => {
     const [winners, setWinners] = useState([]);
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                if (winners.length === 0) {
-                    // hardcoded sample values
-                    const dummyWinners = [
-                        {
-                            username: "Günter",
-                            score: 1500,
-                            quote: "some soooo funny quote",
-                        },
-                        {
-                            username: "Rüdiger",
-                            score: 600,
-                            quote:
-                                "some even funnier quote, HAHA, this one also is very long because that might cause some issues " +
-                                "if it is supposed to be displayed, potentially simultaneously with the first one...",
-                        },
-                    ];
-
-                    // real code
-                    let winnerResponse = await RestApi.getWinners(gamePin);
-
-                    if (winnerResponse.length === 0) {
-                        winnerResponse = winnerResponse.concat(dummyWinners);
-                    }
-                    await new Promise((resolve) => setTimeout(resolve, 5000));
-                    setWinners(winnerResponse);
-                }
-            } catch (error) {
-                console.error(`Something went wrong while fetching the winners: \n${handleError(error)}`);
+        const fetchData = () => {
+            if (winners.length === 0) {
+                RestApi.getWinners(gamePin)
+                    .then((winnerResponse) => {
+                        return new Promise((resolve) => setTimeout(() => resolve(winnerResponse), 5000));
+                    })
+                    .then((winnerResponse) => {
+                        setWinners(winnerResponse);
+                    })
+                    .catch((error) => {
+                        console.error(`Something went wrong while fetching the winners: \n${handleError(error)}`);
+                    });
             }
-        }
+        };
+
         fetchData();
     }, [winners, gamePin]);
 
