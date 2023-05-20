@@ -86,20 +86,18 @@ const Lobby = (props) => {
                         setHostUsername(gameUsersResponse.hostUsername);
                         return new Promise((resolve) => setTimeout(resolve, 500));
                     })
-                    .then(() => {
-                        if (hostUsername !== "loading...") {
-                            if (hostUsername === StorageManager.getUsername()) {
-                                if (StorageManager.getRole() !== Role.HOST) {
-                                    StorageManager.setRole(Role.HOST);
-                                }
-                            } else if (StorageManager.getRole() !== Role.PLAYER) {
-                                StorageManager.setRole(Role.PLAYER);
-                            }
-                        }
-                    })
                     .catch((error) => {
                         console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
                     });
+            }
+            if (hostUsername !== "loading...") {
+                if (hostUsername === StorageManager.getUsername()) {
+                    if (StorageManager.getRole() !== Role.HOST) {
+                        StorageManager.setRole(Role.HOST);
+                    }
+                } else if (StorageManager.getRole() !== Role.PLAYER) {
+                    StorageManager.setRole(Role.PLAYER);
+                }
             }
         };
 
