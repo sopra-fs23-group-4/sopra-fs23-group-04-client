@@ -212,7 +212,6 @@ const Score = (props) => {
             <Dialog
                 opened={opened}
                 onClose={close}
-                withCloseButton
                 size="lg"
                 radius="md"
                 transition="scale"
