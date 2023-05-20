@@ -159,7 +159,7 @@ export const handleError = (error) => {
     const response = error.response;
 
     // catch 4xx and 5xx status codes
-    if (response && !!`${response.status}`.match(/^[4|5]\d{2}$/)) {
+    if (response && !!`${response.status}`.exec(/^[4|5]\d{2}$/)) {
         let info = `\nrequest to: ${response.request.responseURL}`;
 
         if (response.data.status) {
