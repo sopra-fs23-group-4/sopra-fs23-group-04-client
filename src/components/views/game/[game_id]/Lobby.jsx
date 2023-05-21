@@ -25,9 +25,6 @@ export const Player = (props) => {
 };
 
 const Lobby = (props) => {
-    // console.log("Lobby Props:");
-    // console.log(props);
-
     const gamePin = props.match.params["gamePin"];
 
     const history = useHistory();
@@ -62,8 +59,6 @@ const Lobby = (props) => {
 
     useEffect(() => {
         const fetchData = () => {
-            console.log("fetch useEffect trigger");
-
             if (hostUsername === "loading...") {
                 RestApi.getGameUsers(gamePin)
                     .then((gameUsersResponse) => {
