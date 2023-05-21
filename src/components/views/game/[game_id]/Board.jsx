@@ -39,7 +39,7 @@ const Board = (props) => {
                     console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
                 });
         }
-    }, [props.websocketMsg, handleWebsocketMsg()]);
+    }, [props.websocketMsg, handleWebsocketMsg]);
 
     const saveAnswers = () => {
         StorageManager.setAnswers(answers);

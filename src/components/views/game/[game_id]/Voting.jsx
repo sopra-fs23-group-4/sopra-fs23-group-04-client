@@ -72,7 +72,7 @@ const Voting = (props) => {
                     console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
                 });
         }
-    }, [props.websocketMsg, handleWebsocketMsg()]);
+    }, [props.websocketMsg, handleWebsocketMsg]);
 
     async function doDone() {
         try {
