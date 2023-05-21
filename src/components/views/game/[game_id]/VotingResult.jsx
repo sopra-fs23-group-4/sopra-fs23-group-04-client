@@ -4,15 +4,11 @@ import React, { useEffect, useState } from "react";
 import { Paper, Table, Text, Title } from "@mantine/core";
 import { Check, Equal, LetterX } from "tabler-icons-react";
 import { StorageManager } from "../../../../helpers/storageManager";
-import SockJsClient from "react-stomp";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
-import { getDomain } from "../../../../helpers/getDomain";
 import StandardButton from "../../../ui/StandardButton";
 
-const VotingResult = () => {
-    const SOCKET_URL = getDomain() + "/ws-message";
+const VotingResult = (props) => {
     const { gamePin, round, categoryIndex } = useParams();
-    const history = useHistory();
 
     const [timer, setTimer] = useState(null);
 
@@ -103,30 +99,29 @@ const VotingResult = () => {
         }
     }
 
-    let onConnected = () => {
-        console.log("Connected!!");
-    };
-    let onDisconnected = () => {
-        console.log("disconnect");
-    };
-
-    let onMessageReceived = async (msg) => {
-        console.log("Websocket msg VotingResult Page:");
-        console.log(msg.type);
-        console.log(msg);
+    let onWebsocketMessageReceived = async (msg) => {
         if (msg.type === "resultTimer") {
             setTimer(msg.timeRemaining);
-        } else if (msg.type === "resultNextVote") {
-            const nextCategoryIndex = parseInt(categoryIndex) + 1;
-            history.replace(`/game/${gamePin}/round/${round}/voting/${nextCategoryIndex}`);
-        } else if (msg.type === "resultScoreboard") {
-            history.replace(`/game/${gamePin}/round/${round}/score`);
-        } else if (msg.type === "resultWinner") {
-            history.replace(`/game/${gamePin}/winner`);
-        } else if (msg.type === "fact") {
-            StorageManager.setFact(msg.fact);
         }
+        // else if (msg.type === "resultNextVote") {
+        //     const nextCategoryIndex = parseInt(categoryIndex) + 1;
+        //     history.replace(`/game/${gamePin}/round/${round}/voting/${nextCategoryIndex}`);
+        // } else if (msg.type === "resultScoreboard") {
+        //     history.replace(`/game/${gamePin}/round/${round}/score`);
+        // } else if (msg.type === "resultWinner") {
+        //     history.replace(`/game/${gamePin}/winner`);
+        // } else if (msg.type === "fact") {
+        //     StorageManager.setFact(msg.fact);
+        // }
     };
+
+    useEffect(() => {
+        if (props.websocketMsg.type !== "null") {
+            onWebsocketMessageReceived(props.websocketMsg).catch((error) => {
+                console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
+            });
+        }
+    }, [props.websocketMsg]);
 
     const stylesCenter = {
         tableHeader: {
@@ -146,14 +141,6 @@ const VotingResult = () => {
 
     return (
         <BaseContainer>
-            <SockJsClient
-                url={SOCKET_URL}
-                topics={[`/topic/lobbies/${gamePin}`]}
-                onConnect={onConnected}
-                onDisconnect={onDisconnected}
-                onMessage={(msg) => onMessageReceived(msg)}
-                debug={false}
-            />
             <Text color="white">Time remaining: {timer}</Text>
             <Title color="white">{StorageManager.getUsername()}</Title>
             <Text

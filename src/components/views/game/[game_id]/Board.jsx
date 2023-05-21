@@ -1,17 +1,14 @@
 import { useHistory, useParams } from "react-router-dom";
 import { Checkbox as CheckIcon, Edit as EditIcon } from "tabler-icons-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BaseContainer from "../../../ui/BaseContainer";
 import StandardButton from "../../../ui/StandardButton";
 import { Button, Stack, Title, Text, TextInput, Group } from "@mantine/core";
 import { StorageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import * as gameFunctions from "../../../../helpers/gameFunction";
-import SockJsClient from "react-stomp";
-import { getDomain } from "../../../../helpers/getDomain";
 
-const Board = () => {
-    const SOCKET_URL = getDomain() + "/ws-message";
+const Board = (props) => {
     const history = useHistory();
     const { gamePin, round } = useParams();
     const [timer, setTimer] = useState(null);
@@ -93,15 +90,7 @@ const Board = () => {
         }
     };
 
-    let onConnected = () => {
-        console.log("Connected!!");
-    };
-    let onDisconnected = () => {
-        console.log("disconnect");
-    };
-
-    let onMessageReceived = async (msg) => {
-        console.log(msg.type);
+    let onWebsocketMessageReceived = async (msg) => {
         if (msg.type === "roundEnd") {
             setTimer(0);
             await doDoneWs();
@@ -109,6 +98,16 @@ const Board = () => {
             setTimer(msg.timeRemaining);
         }
     };
+
+    useEffect(() => {
+        if (props.websocketMsg.type !== "null") {
+            onWebsocketMessageReceived(props.websocketMsg)
+                .then(() => {})
+                .catch((error) => {
+                    console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
+                });
+        }
+    }, [props.websocketMsg]);
 
     const Category = ({ category }) => {
         let index = categories.indexOf(category);
@@ -209,14 +208,6 @@ const Board = () => {
 
     return (
         <BaseContainer>
-            <SockJsClient
-                url={SOCKET_URL}
-                topics={[`/topic/lobbies/${gamePin}`]}
-                onConnect={onConnected}
-                onDisconnect={onDisconnected}
-                onMessage={(msg) => onMessageReceived(msg)}
-                debug={false}
-            />
             <Text color="white">time remaining: {timer}</Text>
             <Title
                 color="white"

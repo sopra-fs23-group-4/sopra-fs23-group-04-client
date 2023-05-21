@@ -22,11 +22,12 @@ const InGameRouter = (props) => {
     console.log("categoryIndex" + categoryIndex);
     const history = useHistory();
 
-    const [timer, setTimer] = useState(null);
+    const [msg, setMsg] = useState({ type: "null" });
+    //const [timer, setTimer] = useState(null);
+
     // Lobby State
     const [hostUsername, setHostUsername] = useState("loading...");
     const [usersInLobby, setUsersInLobby] = useState([]);
-    const [done, setDone] = useState(false);
 
     // Prevent Backward Navigation
     history.block((location, action) => {
@@ -75,18 +76,20 @@ const InGameRouter = (props) => {
         console.log("InGameRouter Websocket:");
         console.log(msg.type);
         console.log(msg);
+
         // timers
-        if (msg.type === "resultTimer") {
-            setTimer(msg.timeRemaining);
-        } else if (msg.type === "scoreboardTimer") {
-            setTimer(msg.timeRemaining);
-        } else if (msg.type === "roundTimer") {
-            setTimer(msg.timeRemaining);
-        } else if (msg.type === "votingTimer") {
-            setTimer(msg.timeRemaining);
-        }
+        // if (msg.type === "resultTimer") {
+        //     setTimer(msg.timeRemaining);
+        // } else if (msg.type === "scoreboardTimer") {
+        //     setTimer(msg.timeRemaining);
+        // } else if (msg.type === "roundTimer") {
+        //     setTimer(msg.timeRemaining);
+        // } else if (msg.type === "votingTimer") {
+        //     setTimer(msg.timeRemaining);
+        // }
+
         // users
-        else if (msg.type === "gameUsers") {
+        if (msg.type === "gameUsers") {
             if (msg.hostUsername !== null) {
                 if (hostUsername !== msg.hostUsername) {
                     setHostUsername(msg.hostUsername);
@@ -104,17 +107,13 @@ const InGameRouter = (props) => {
             StorageManager.setLetter(msg.letter);
             StorageManager.setRound(msg.round);
             history.replace(`/game/${gamePin}/round/${msg.round}/countdown/`);
-        } else if (msg.type === "roundEnd") {
-            // Board
-            setTimer(0);
-            //await doDoneWs();
-        } else if (msg.type === "votingEnd") {
-            // voting
-            if (done === false) {
-                setDone(true);
-                //await doDone();
-            }
         }
+        // else if (msg.type === "roundEnd") {
+        //     setMsg(msg);
+        // } else if (msg.type === "votingEnd") {
+        //     setMsg(msg);
+        // }
+
         // results
         else if (msg.type === "resultNextVote") {
             const nextCategoryIndex = parseInt(categoryIndex) + 1;
@@ -123,6 +122,8 @@ const InGameRouter = (props) => {
             history.replace(`/game/${gamePin}/round/${round}/score`);
         } else if (msg.type === "resultWinner") {
             history.replace(`/game/${gamePin}/winner`);
+        } else {
+            setMsg(msg);
         }
     };
 
@@ -156,23 +157,43 @@ const InGameRouter = (props) => {
                 <Route
                     exact
                     path={`${base}/round/:round/board`}
-                    component={Board}
+                    render={(props) => (
+                        <Board
+                            {...props}
+                            websocketMsg={msg}
+                        />
+                    )}
                 />
                 <Route
                     exact
                     path={`${base}/round/:round/voting/:categoryIndex`}
-                    component={Voting}
+                    render={(props) => (
+                        <Voting
+                            {...props}
+                            websocketMsg={msg}
+                        />
+                    )}
                 />
 
                 <Route
                     exact
                     path={`${base}/round/:round/votingResults/:categoryIndex`}
-                    component={VotingResult}
+                    render={(props) => (
+                        <VotingResult
+                            {...props}
+                            websocketMsg={msg}
+                        />
+                    )}
                 />
                 <Route
                     exact
                     path={`${base}/round/:round/score`}
-                    component={Score}
+                    render={(props) => (
+                        <Score
+                            {...props}
+                            websocketMsg={msg}
+                        />
+                    )}
                 />
                 <Route
                     exact
