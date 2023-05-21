@@ -1,17 +1,14 @@
 import { useHistory, useParams } from "react-router-dom";
 import { Checkbox as CheckIcon, Edit as EditIcon } from "tabler-icons-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BaseContainer from "../../../ui/BaseContainer";
 import StandardButton from "../../../ui/StandardButton";
 import { Button, Stack, Title, Text, TextInput, Group } from "@mantine/core";
 import { StorageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import * as gameFunctions from "../../../../helpers/gameFunction";
-import SockJsClient from "react-stomp";
-import { getDomain } from "../../../../helpers/getDomain";
 
-const Board = () => {
-    const SOCKET_URL = getDomain() + "/ws-message";
+const Board = (props) => {
     const history = useHistory();
     const { gamePin, round } = useParams();
     const [timer, setTimer] = useState(null);
@@ -24,6 +21,26 @@ const Board = () => {
     const [answerIndex, setAnswerIndex] = useState(0);
 
     const [statusView, setStatusView] = useState(false);
+
+    // Websocket updates
+    useEffect(() => {
+        const handleWebsocketMsg = async (msg) => {
+            if (msg.type === "roundEnd") {
+                setTimer(0);
+                await doDoneWs();
+            } else if (msg.type === "roundTimer") {
+                setTimer(msg.timeRemaining);
+            }
+        };
+
+        if (props.websocketMsg.type !== "null") {
+            handleWebsocketMsg(props.websocketMsg)
+                .then(() => {})
+                .catch((error) => {
+                    console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
+                });
+        }
+    }, [props.websocketMsg]);
 
     const saveAnswers = () => {
         StorageManager.setAnswers(answers);
@@ -90,23 +107,6 @@ const Board = () => {
             history.replace(`/game/${gamePin}/round/${round}/voting/0`);
         } catch (error) {
             console.error(`Something went wrong while sending the answers: \n${handleError(error)}`);
-        }
-    };
-
-    let onConnected = () => {
-        console.log("Connected!!");
-    };
-    let onDisconnected = () => {
-        console.log("disconnect");
-    };
-
-    let onMessageReceived = async (msg) => {
-        console.log(msg.type);
-        if (msg.type === "roundEnd") {
-            setTimer(0);
-            await doDoneWs();
-        } else if (msg.type === "roundTimer") {
-            setTimer(msg.timeRemaining);
         }
     };
 
@@ -209,14 +209,6 @@ const Board = () => {
 
     return (
         <BaseContainer>
-            <SockJsClient
-                url={SOCKET_URL}
-                topics={[`/topic/lobbies/${gamePin}`]}
-                onConnect={onConnected}
-                onDisconnect={onDisconnected}
-                onMessage={(msg) => onMessageReceived(msg)}
-                debug={false}
-            />
             <Text color="white">time remaining: {timer}</Text>
             <Title
                 color="white"

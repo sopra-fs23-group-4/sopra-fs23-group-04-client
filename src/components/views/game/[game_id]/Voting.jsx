@@ -4,12 +4,9 @@ import { useHistory, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { StorageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
-import SockJsClient from "react-stomp";
-import { getDomain } from "../../../../helpers/getDomain";
 import StandardButton from "../../../ui/StandardButton";
 
-const Voting = () => {
-    const SOCKET_URL = getDomain() + "/ws-message";
+const Voting = (props) => {
     const history = useHistory();
     const { gamePin, round, categoryIndex } = useParams();
 
@@ -56,6 +53,28 @@ const Voting = () => {
         };
     }, []);
 
+    // Websocket updates
+    useEffect(() => {
+        const handleWebsocketMsg = async (msg) => {
+            if (msg.type === "votingEnd") {
+                if (done === false) {
+                    setDone(true);
+                    await doDone();
+                }
+            } else if (msg.type === "votingTimer") {
+                setTimer(msg.timeRemaining);
+            }
+        };
+
+        if (props.websocketMsg.type !== "null") {
+            handleWebsocketMsg(props.websocketMsg)
+                .then(() => {})
+                .catch((error) => {
+                    console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
+                });
+        }
+    }, [props.websocketMsg]);
+
     async function doDone() {
         try {
             await RestApi.postVotes(gamePin, round, category, votes);
@@ -73,24 +92,6 @@ const Voting = () => {
             console.error(`Something went wrong to skip: \n${handleError(error)}`);
         }
     }
-    let onConnected = () => {
-        console.log("Connected!!");
-    };
-    let onDisconnected = () => {
-        console.log("disconnect");
-    };
-
-    let onMessageReceived = async (msg) => {
-        console.log(msg.type);
-        if (msg.type === "votingEnd") {
-            if (done === false) {
-                setDone(true);
-                await doDone();
-            }
-        } else if (msg.type === "votingTimer") {
-            setTimer(msg.timeRemaining);
-        }
-    };
 
     const rows = answersToRate.map((answer) => (
         <tr key={Object.keys(answer)[0]}>
@@ -187,14 +188,6 @@ const Voting = () => {
 
     return (
         <BaseContainer>
-            <SockJsClient
-                url={SOCKET_URL}
-                topics={[`/topic/lobbies/${gamePin}`]}
-                onConnect={onConnected}
-                onDisconnect={onDisconnected}
-                onMessage={(msg) => onMessageReceived(msg)}
-                debug={false}
-            />
             <Text color="white">Time remaining: {timer}</Text>
             <Title color="white">{StorageManager.getUsername()}</Title>
 

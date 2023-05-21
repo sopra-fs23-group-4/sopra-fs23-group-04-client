@@ -2,8 +2,6 @@ import BaseContainer from "../../../ui/BaseContainer";
 import { Title, Text, Stack, Paper, Container, Group, Dialog, Progress } from "@mantine/core";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import SockJsClient from "react-stomp";
-import { getDomain } from "../../../../helpers/getDomain";
 import { Player } from "./Lobby";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import { StorageManager as storageManager, StorageManager } from "../../../../helpers/storageManager";
@@ -28,8 +26,6 @@ export const ScoreboardEntry = (props) => {
 };
 
 const Score = (props) => {
-    const SOCKET_URL = getDomain() + "/ws-message";
-
     const gamePin = props.match.params["gamePin"];
 
     const [opened, { toggle, close }] = useDisclosure(false);
@@ -51,25 +47,12 @@ const Score = (props) => {
         fetchData();
     }, [userScores, gamePin]);
 
-    // Websocket
-    let onConnected = () => {
-        console.log("Connected!!");
-    };
-    let onDisconnected = () => {
-        console.log("disconnect");
-    };
-    let onMessageReceived = (msg) => {
-        console.log("Websocket msg Score Page:");
-        console.log(msg);
-        if (msg.type === "roundStart") {
-            StorageManager.setAnswers(Array(StorageManager.getCategories().length).fill(null));
-            StorageManager.setLetter(msg.letter);
-            StorageManager.setRound(msg.round);
-            history.replace(`/game/${gamePin}/round/${msg.round}/countdown/`);
-        } else if (msg.type === "scoreboardTimer") {
-            setTimer(msg.timeRemaining);
+    // Websocket updates
+    useEffect(() => {
+        if (props.websocketMsg.type === "scoreboardTimer") {
+            setTimer(props.websocketMsg.timeRemaining);
         }
-    };
+    }, [props.websocketMsg]);
 
     // Methods
     async function doLeave() {
@@ -158,14 +141,6 @@ const Score = (props) => {
 
     return (
         <BaseContainer>
-            <SockJsClient
-                url={SOCKET_URL}
-                topics={[`/topic/lobbies/${gamePin}`]}
-                onConnect={onConnected}
-                onDisconnect={onDisconnected}
-                onMessage={(msg) => onMessageReceived(msg)}
-                debug={false}
-            />
             <Text color="white">time remaining: {timer}</Text>
             <Title
                 color="white"
