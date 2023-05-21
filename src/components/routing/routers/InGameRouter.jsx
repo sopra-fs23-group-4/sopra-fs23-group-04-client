@@ -62,6 +62,13 @@ const InGameRouter = (props) => {
     };
     const onDisconnected = () => {
         console.log("disconnect");
+        // RestApi.leaveGame(gamePin)
+        //     .then(() => {
+        //         // Handle successful API call if needed
+        //     })
+        //     .catch((error) => {
+        //         console.error(`Something went wrong while leaving the game: \n${handleError(error)}`);
+        //     });
     };
 
     let onMessageReceived = async (msg) => {
