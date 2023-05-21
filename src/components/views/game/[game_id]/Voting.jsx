@@ -80,7 +80,7 @@ const Voting = (props) => {
                     console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
                 });
         }
-    }, [props.websocketMsg, doDone, done]);
+    }, [props.websocketMsg, done]);
 
     async function doSkipButton() {
         try {
