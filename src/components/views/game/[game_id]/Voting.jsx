@@ -54,17 +54,17 @@ const Voting = (props) => {
     }, []);
 
     // Websocket updates
-    const handleWebsocketMsg = async (msg) => {
-        if (msg.type === "votingEnd") {
-            if (done === false) {
-                setDone(true);
-                await doDone();
-            }
-        } else if (msg.type === "votingTimer") {
-            setTimer(msg.timeRemaining);
-        }
-    };
     useEffect(() => {
+        const handleWebsocketMsg = async (msg) => {
+            if (msg.type === "votingEnd") {
+                if (done === false) {
+                    setDone(true);
+                    await doDone();
+                }
+            } else if (msg.type === "votingTimer") {
+                setTimer(msg.timeRemaining);
+            }
+        };
         if (props.websocketMsg.type !== "null") {
             handleWebsocketMsg(props.websocketMsg)
                 .then(() => {})
@@ -72,7 +72,7 @@ const Voting = (props) => {
                     console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
                 });
         }
-    }, [props.websocketMsg, handleWebsocketMsg]);
+    }, [props.websocketMsg, doDone, done]);
 
     async function doDone() {
         try {
