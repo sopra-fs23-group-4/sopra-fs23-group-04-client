@@ -23,15 +23,15 @@ const Board = (props) => {
     const [statusView, setStatusView] = useState(false);
 
     // Websocket updates
+    const handleWebsocketMsg = async (msg) => {
+        if (msg.type === "roundEnd") {
+            setTimer(0);
+            await doDoneWs();
+        } else if (msg.type === "roundTimer") {
+            setTimer(msg.timeRemaining);
+        }
+    };
     useEffect(() => {
-        const handleWebsocketMsg = async (msg) => {
-            if (msg.type === "roundEnd") {
-                setTimer(0);
-                await doDoneWs();
-            } else if (msg.type === "roundTimer") {
-                setTimer(msg.timeRemaining);
-            }
-        };
         if (props.websocketMsg.type !== "null") {
             handleWebsocketMsg(props.websocketMsg)
                 .then(() => {})
@@ -39,7 +39,7 @@ const Board = (props) => {
                     console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
                 });
         }
-    }, [props.websocketMsg, doDoneWs]);
+    }, [props.websocketMsg, handleWebsocketMsg]);
 
     const saveAnswers = () => {
         StorageManager.setAnswers(answers);
