@@ -51,7 +51,6 @@ const Lobby = (props) => {
 
     useEffect(() => {
         if (props.hostUsername !== "loading...") {
-            console.log("prop useEffect trigger");
             setHostUsername(props.hostUsername);
             setUsersInLobby(props.usersInLobby);
         }
