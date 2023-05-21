@@ -80,7 +80,7 @@ const Voting = (props) => {
                     console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
                 });
         }
-    }, [props.websocketMsg, done]);
+    }, [props.websocketMsg, done, gamePin, round, category, categoryIndex, votes, history]);
 
     async function doSkipButton() {
         try {
@@ -159,7 +159,7 @@ const Voting = (props) => {
     let contentVotes = (
         <Stack
             align="center"
-            sx={{ marginTop: "5%", margingBottom: "5%" }}
+            sx={{ marginTop: "5%", marginBottom: "5%" }}
         >
             {" "}
             <Loader />{" "}

@@ -56,7 +56,7 @@ const Board = (props) => {
                     console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
                 });
         }
-    }, [props.websocketMsg, saveAnswers]);
+    }, [props.websocketMsg, saveAnswers, answers, categories, gamePin, round, history]);
 
     const handleGoToAnswer = (index) => {
         setAnswerIndex(index);
