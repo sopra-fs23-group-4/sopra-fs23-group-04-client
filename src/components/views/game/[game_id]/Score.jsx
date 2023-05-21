@@ -47,21 +47,10 @@ const Score = (props) => {
         fetchData();
     }, [userScores, gamePin]);
 
-    let onWebsocketMessageReceived = (msg) => {
-        // if (msg.type === "roundStart") {
-        //     StorageManager.setAnswers(Array(StorageManager.getCategories().length).fill(null));
-        //     StorageManager.setLetter(msg.letter);
-        //     StorageManager.setRound(msg.round);
-        //     history.replace(`/game/${gamePin}/round/${msg.round}/countdown/`);
-        // } else
-        if (msg.type === "scoreboardTimer") {
-            setTimer(msg.timeRemaining);
-        }
-    };
-
+    // Websocket updates
     useEffect(() => {
-        if (props.websocketMsg.type !== "null") {
-            onWebsocketMessageReceived(props.websocketMsg);
+        if (props.websocketMsg.type === "scoreboardTimer") {
+            setTimer(props.websocketMsg.timeRemaining);
         }
     }, [props.websocketMsg]);
 

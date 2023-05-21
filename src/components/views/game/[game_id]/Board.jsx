@@ -22,6 +22,26 @@ const Board = (props) => {
 
     const [statusView, setStatusView] = useState(false);
 
+    // Websocket updates
+    useEffect(() => {
+        const handleWebsocketMsg = async (msg) => {
+            if (msg.type === "roundEnd") {
+                setTimer(0);
+                await doDoneWs();
+            } else if (msg.type === "roundTimer") {
+                setTimer(msg.timeRemaining);
+            }
+        };
+
+        if (props.websocketMsg.type !== "null") {
+            handleWebsocketMsg(props.websocketMsg)
+                .then(() => {})
+                .catch((error) => {
+                    console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
+                });
+        }
+    }, [props.websocketMsg]);
+
     const saveAnswers = () => {
         StorageManager.setAnswers(answers);
     };
@@ -89,25 +109,6 @@ const Board = (props) => {
             console.error(`Something went wrong while sending the answers: \n${handleError(error)}`);
         }
     };
-
-    let onWebsocketMessageReceived = async (msg) => {
-        if (msg.type === "roundEnd") {
-            setTimer(0);
-            await doDoneWs();
-        } else if (msg.type === "roundTimer") {
-            setTimer(msg.timeRemaining);
-        }
-    };
-
-    useEffect(() => {
-        if (props.websocketMsg.type !== "null") {
-            onWebsocketMessageReceived(props.websocketMsg)
-                .then(() => {})
-                .catch((error) => {
-                    console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
-                });
-        }
-    }, [props.websocketMsg]);
 
     const Category = ({ category }) => {
         let index = categories.indexOf(category);

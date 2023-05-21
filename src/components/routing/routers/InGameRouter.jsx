@@ -12,19 +12,14 @@ import SockJsClient from "react-stomp";
 import { StorageManager } from "../../../helpers/storageManager";
 import { getDomain } from "../../../helpers/getDomain";
 
-const InGameRouter = (props) => {
+const InGameRouter = () => {
     const base = `/game/:gamePin`;
     const SOCKET_URL = getDomain() + "/ws-message";
 
     const { gamePin, round, categoryIndex } = useParams();
-    console.log("gamePin: " + gamePin);
-    console.log("Round: " + round);
-    console.log("categoryIndex" + categoryIndex);
     const history = useHistory();
 
     const [msg, setMsg] = useState({ type: "null" });
-    //const [timer, setTimer] = useState(null);
-
     // Lobby State
     const [hostUsername, setHostUsername] = useState("loading...");
     const [usersInLobby, setUsersInLobby] = useState([]);
@@ -33,7 +28,6 @@ const InGameRouter = (props) => {
     history.block((location, action) => {
         if (action === "POP") {
             console.log("prevented backwards navigation");
-            // Prevent navigation when the user tries to navigate back
             return false;
         }
     });
@@ -74,19 +68,8 @@ const InGameRouter = (props) => {
 
     let onMessageReceived = async (msg) => {
         console.log("InGameRouter Websocket:");
-        console.log(msg.type);
+        console.log("Message Type:" + msg.type);
         console.log(msg);
-
-        // timers
-        // if (msg.type === "resultTimer") {
-        //     setTimer(msg.timeRemaining);
-        // } else if (msg.type === "scoreboardTimer") {
-        //     setTimer(msg.timeRemaining);
-        // } else if (msg.type === "roundTimer") {
-        //     setTimer(msg.timeRemaining);
-        // } else if (msg.type === "votingTimer") {
-        //     setTimer(msg.timeRemaining);
-        // }
 
         // users
         if (msg.type === "gameUsers") {
@@ -101,20 +84,14 @@ const InGameRouter = (props) => {
         else if (msg.type === "fact") {
             StorageManager.setFact(msg.fact);
         }
-        // round control
+        // round start
         else if (msg.type === "roundStart") {
             StorageManager.setAnswers(Array(StorageManager.getCategories().length).fill(null));
             StorageManager.setLetter(msg.letter);
             StorageManager.setRound(msg.round);
             history.replace(`/game/${gamePin}/round/${msg.round}/countdown/`);
         }
-        // else if (msg.type === "roundEnd") {
-        //     setMsg(msg);
-        // } else if (msg.type === "votingEnd") {
-        //     setMsg(msg);
-        // }
-
-        // results
+        // re-routs
         else if (msg.type === "resultNextVote") {
             const nextCategoryIndex = parseInt(categoryIndex) + 1;
             history.replace(`/game/${gamePin}/round/${round}/voting/${nextCategoryIndex}`);
@@ -122,7 +99,9 @@ const InGameRouter = (props) => {
             history.replace(`/game/${gamePin}/round/${round}/score`);
         } else if (msg.type === "resultWinner") {
             history.replace(`/game/${gamePin}/winner`);
-        } else {
+        }
+        // page specific handling
+        else {
             setMsg(msg);
         }
     };

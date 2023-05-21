@@ -49,6 +49,7 @@ const Lobby = (props) => {
         }
     }
 
+    // Websocket updates
     useEffect(() => {
         if (props.hostUsername !== "loading...") {
             setHostUsername(props.hostUsername);

@@ -53,6 +53,28 @@ const Voting = (props) => {
         };
     }, []);
 
+    // Websocket updates
+    useEffect(() => {
+        const handleWebsocketMsg = async (msg) => {
+            if (msg.type === "votingEnd") {
+                if (done === false) {
+                    setDone(true);
+                    await doDone();
+                }
+            } else if (msg.type === "votingTimer") {
+                setTimer(msg.timeRemaining);
+            }
+        };
+
+        if (props.websocketMsg.type !== "null") {
+            handleWebsocketMsg(props.websocketMsg)
+                .then(() => {})
+                .catch((error) => {
+                    console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
+                });
+        }
+    }, [props.websocketMsg]);
+
     async function doDone() {
         try {
             await RestApi.postVotes(gamePin, round, category, votes);
@@ -70,27 +92,6 @@ const Voting = (props) => {
             console.error(`Something went wrong to skip: \n${handleError(error)}`);
         }
     }
-
-    let onWebsocketMessageReceived = async (msg) => {
-        if (msg.type === "votingEnd") {
-            if (done === false) {
-                setDone(true);
-                await doDone();
-            }
-        } else if (msg.type === "votingTimer") {
-            setTimer(msg.timeRemaining);
-        }
-    };
-
-    useEffect(() => {
-        if (props.websocketMsg.type !== "null") {
-            onWebsocketMessageReceived(props.websocketMsg)
-                .then(() => {})
-                .catch((error) => {
-                    console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
-                });
-        }
-    }, [props.websocketMsg]);
 
     const rows = answersToRate.map((answer) => (
         <tr key={Object.keys(answer)[0]}>

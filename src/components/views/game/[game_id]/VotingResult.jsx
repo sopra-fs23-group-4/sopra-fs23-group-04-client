@@ -1,4 +1,4 @@
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import BaseContainer from "../../../ui/BaseContainer";
 import React, { useEffect, useState } from "react";
 import { Paper, Table, Text, Title } from "@mantine/core";
@@ -42,6 +42,13 @@ const VotingResult = (props) => {
             clearTimeout(timer);
         };
     }, []);
+
+    // Websocket updates
+    useEffect(() => {
+        if (props.websocketMsg.type === "resultTimer") {
+            setTimer(props.websocketMsg.timeRemaining);
+        }
+    }, [props.websocketMsg]);
 
     const rows = votes.map((result, index) => {
         let pointsComponent;
@@ -98,30 +105,6 @@ const VotingResult = (props) => {
             console.error(`Something went wrong to skip: \n${handleError(error)}`);
         }
     }
-
-    let onWebsocketMessageReceived = async (msg) => {
-        if (msg.type === "resultTimer") {
-            setTimer(msg.timeRemaining);
-        }
-        // else if (msg.type === "resultNextVote") {
-        //     const nextCategoryIndex = parseInt(categoryIndex) + 1;
-        //     history.replace(`/game/${gamePin}/round/${round}/voting/${nextCategoryIndex}`);
-        // } else if (msg.type === "resultScoreboard") {
-        //     history.replace(`/game/${gamePin}/round/${round}/score`);
-        // } else if (msg.type === "resultWinner") {
-        //     history.replace(`/game/${gamePin}/winner`);
-        // } else if (msg.type === "fact") {
-        //     StorageManager.setFact(msg.fact);
-        // }
-    };
-
-    useEffect(() => {
-        if (props.websocketMsg.type !== "null") {
-            onWebsocketMessageReceived(props.websocketMsg).catch((error) => {
-                console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
-            });
-        }
-    }, [props.websocketMsg]);
 
     const stylesCenter = {
         tableHeader: {
