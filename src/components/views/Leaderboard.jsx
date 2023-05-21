@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Paper, Table, Title, Text, Center } from "@mantine/core";
 import BaseContainer from "../ui/BaseContainer";
 import { StorageManager } from "../../helpers/storageManager";
-import { RestApi } from "../../helpers/RestApi";
+import { handleError, RestApi } from "../../helpers/RestApi";
 import StandardButton from "../ui/StandardButton";
 import { useHistory } from "react-router-dom";
 
@@ -23,7 +23,7 @@ const Leaderboard = () => {
                         setUserPosition(position);
                     })
                     .catch((error) => {
-                        console.error("Error fetching leaderboard:", error);
+                        console.error(`Something went wrong fetching the leaderboard: \n${handleError(error)}`);
                     });
             }
         };
