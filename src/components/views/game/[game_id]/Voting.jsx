@@ -55,14 +55,6 @@ const Voting = (props) => {
 
     // Websocket updates
     useEffect(() => {
-        async function doDone() {
-            try {
-                await RestApi.postVotes(gamePin, round, category, votes);
-                history.replace(`/game/${gamePin}/round/${round}/votingResults/${categoryIndex}`);
-            } catch (error) {
-                console.error(`Something went wrong while sending the votes: \n${handleError(error)}`);
-            }
-        }
         const handleWebsocketMsg = async (msg) => {
             if (msg.type === "votingEnd") {
                 if (done === false) {
@@ -81,6 +73,15 @@ const Voting = (props) => {
                 });
         }
     }, [props.websocketMsg, doDone, done]);
+
+    async function doDone() {
+        try {
+            await RestApi.postVotes(gamePin, round, category, votes);
+            history.replace(`/game/${gamePin}/round/${round}/votingResults/${categoryIndex}`);
+        } catch (error) {
+            console.error(`Something went wrong while sending the votes: \n${handleError(error)}`);
+        }
+    }
 
     async function doSkipButton() {
         try {

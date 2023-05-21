@@ -22,25 +22,8 @@ const Board = (props) => {
 
     const [statusView, setStatusView] = useState(false);
 
-    const saveAnswers = () => {
-        StorageManager.setAnswers(answers);
-    };
-
     // Websocket updates
     useEffect(() => {
-        const postAnswers = async (answersDict) => {
-            try {
-                await RestApi.postAnswers(gamePin, round, answersDict);
-                history.replace(`/game/${gamePin}/round/${round}/voting/0`);
-            } catch (error) {
-                console.error(`Something went wrong while sending the answers: \n${handleError(error)}`);
-            }
-        };
-        const doDoneWs = async () => {
-            saveAnswers();
-            const answersDict = gameFunctions.createAnswerDictionary(categories, answers);
-            await postAnswers(answersDict);
-        };
         const handleWebsocketMsg = async (msg) => {
             if (msg.type === "roundEnd") {
                 setTimer(0);
@@ -56,7 +39,11 @@ const Board = (props) => {
                     console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
                 });
         }
-    }, [props.websocketMsg, saveAnswers]);
+    }, [props.websocketMsg, doDoneWs]);
+
+    const saveAnswers = () => {
+        StorageManager.setAnswers(answers);
+    };
 
     const handleGoToAnswer = (index) => {
         setAnswerIndex(index);
@@ -104,6 +91,21 @@ const Board = (props) => {
             await RestApi.EndRound(gamePin, round);
         } catch (error) {
             console.error(`Something went wrong while ending the round: \n${handleError(error)}`);
+        }
+    };
+
+    const doDoneWs = async () => {
+        saveAnswers();
+        const answersDict = gameFunctions.createAnswerDictionary(categories, answers);
+        await postAnswers(answersDict);
+    };
+
+    const postAnswers = async (answersDict) => {
+        try {
+            await RestApi.postAnswers(gamePin, round, answersDict);
+            history.replace(`/game/${gamePin}/round/${round}/voting/0`);
+        } catch (error) {
+            console.error(`Something went wrong while sending the answers: \n${handleError(error)}`);
         }
     };
 
