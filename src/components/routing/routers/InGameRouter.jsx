@@ -37,7 +37,7 @@ const InGameRouter = () => {
         return () => {
             unblock(); // Unblocks the history when the component unmounts
         };
-    }, []);
+    }, [history]);
 
     // Leave on Tab Close
     useEffect(() => {
