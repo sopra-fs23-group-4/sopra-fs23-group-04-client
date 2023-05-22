@@ -26,12 +26,18 @@ const InGameRouter = () => {
     const [usersInLobby, setUsersInLobby] = useState([]);
 
     // Prevent Backward Navigation
-    history.block((location, action) => {
-        if (action === "POP") {
-            console.log("prevented backwards navigation");
-            return false;
-        }
-    });
+    useEffect(() => {
+        const unblock = history.block((location, action) => {
+            if (StorageManager.getGamePin() && action === "POP") {
+                console.log("prevented backwards navigation");
+                return false;
+            }
+        });
+
+        return () => {
+            unblock(); // Unblocks the history when the component unmounts
+        };
+    }, []);
 
     // Leave on Tab Close
     useEffect(() => {
