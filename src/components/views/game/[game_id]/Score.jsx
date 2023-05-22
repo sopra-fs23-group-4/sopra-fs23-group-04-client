@@ -132,7 +132,7 @@ const Score = (props) => {
         leaveButton = (
             <StandardButton
                 sx={{ marginTop: "10%" }}
-                onClick={() => doLeave()}
+                onClick={() => history.replace(`/game`)}
             >
                 leave
             </StandardButton>

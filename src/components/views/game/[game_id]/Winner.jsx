@@ -114,7 +114,7 @@ const Winner = (props) => {
                 <StandardButton onClick={() => history.replace(`/game/${gamePin}/round/${StorageManager.getRound()}/score`)}>Scoreboard</StandardButton>
                 <StandardButton
                     sx={{ marginTop: "4%" }}
-                    onClick={() => doLeave()}
+                    onClick={() => history.replace(`/game`)}
                 >
                     leave
                 </StandardButton>
