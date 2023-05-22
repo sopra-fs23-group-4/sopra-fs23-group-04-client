@@ -111,7 +111,7 @@ const Winner = (props) => {
                         typingDelay={400}
                     />
                 </Text>
-                <StandardButton onClick={() => history.replace(`/game/${gamePin}/round/${StorageManager.getRound()}/score`)}>Scoreboard</StandardButton>
+                <StandardButton onClick={() => history.replace(`/game/${gamePin}/round/${StorageManager.getRound()}/score`)}>scoreboard</StandardButton>
                 <StandardButton
                     sx={{ marginTop: "4%" }}
                     onClick={() => {
