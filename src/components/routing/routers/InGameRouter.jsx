@@ -11,6 +11,7 @@ import { handleError, RestApi } from "../../../helpers/RestApi";
 import SockJsClient from "react-stomp";
 import { StorageManager } from "../../../helpers/storageManager";
 import { getDomain } from "../../../helpers/getDomain";
+import { notifications } from "@mantine/notifications";
 
 const InGameRouter = () => {
     const base = `/game/:gamePin`;
@@ -58,7 +59,6 @@ const InGameRouter = () => {
         };
     }, [gamePin]);
 
-    // Websocket
     const onConnected = () => {
         console.log("Connected!!");
     };
@@ -96,6 +96,24 @@ const InGameRouter = () => {
             StorageManager.setLetter(msg.letter);
             StorageManager.setRound(msg.round);
             history.replace(`/game/${gamePin}/round/${msg.round}/countdown/`);
+        } else if (msg.type === "playerLeft") {
+            console.log(msg);
+            notifications.show({
+                message: msg.username + " left the game.",
+                color: "green",
+                position: "top-center",
+                autoClose: 5000,
+            });
+        } else if (msg.type === "tooFewPlayers") {
+            console.log(msg);
+            notifications.show({
+                message: "There are not enough players in the game, game is terminated.",
+                color: "red",
+                position: "top-center",
+                autoClose: 10000,
+            });
+
+            history.replace(`/dashboard`);
         }
         // re-routs
         else if (msg.type === "resultNextVote") {
