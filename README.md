@@ -1,7 +1,7 @@
 # SoPra Group 04 FS23 - STADT LAND **+**
 
 Welcome to Stadt Land Plus! This project is the result of our Software Lab class at the University of Zurich, where we were tasked with the challenge of developing a software application. We decided to create a game, taking inspiration from the classic Swiss game, 'Stadt Land Fluss', also known as 'Categories' in English.
-This is the repository of the front-end part of our implementation, you will find the back-end part 
+This is the repository of the front-end part of our implementation, you will find the back-end part [here](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-server). 
 
 ## Introduction
 Embark on a thrilling journey with Stadt Land Plus, a captivating multiplayer word game! By brainstorming words within chosen categories and a surprise random letter, players are immersed in a realm of fast-paced learning and fun. The unique twist? A democratic voting system that brings a dash of unpredictability while guaranteeing fairness in validating answers. Get ready to ignite your mind!
@@ -10,8 +10,7 @@ Embark on a thrilling journey with Stadt Land Plus, a captivating multiplayer wo
 Our motivation behind this game was to design a multiplayer experience that not only provides entertainment but also educational value. By choosing categories and brainstorming words, players can broaden their general knowledge and improve quick thinking skills.
 
 ## Technologies
-The client is written in JSX using React. To ensure a consistent and apealing UI, [Mantine](https://mantine.dev) components are used for styling. 
-
+The client is written in JSX using React. To ensure a consistent and appealing UI, [Mantine](https://mantine.dev) components are used for styling. 
 Connection between the front-end and back-end: REST is used to fetch and send information with requests from the front-end. When starting a new game, a stomp webstocket connection is established to ensure a synchronized gameplay for all players.
 
 ## High-level components
@@ -144,16 +143,10 @@ When the first player is finished or the clock has run down, the [Voting](https:
 
 <h3 align="center">
   <br>
-  Leaderboard - see the hall of fame.
+  ProfilePage - your stats.
   <br>
 </h3>
 
-
-<h3 align="center">
-  <br>
-  Leaderboard - see the hall of fame.
-  <br>
-</h3>
 
 ## Roadmap
 
