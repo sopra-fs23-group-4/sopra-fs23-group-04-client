@@ -119,7 +119,7 @@ const Dashboard = () => {
                 size="lg"
                 sx={{ width: "140px", marginTop: "5%", marginBottom: "2%" }}
             >
-                PLAY
+                play
             </StandardButton>
 
             {contentMenu}
