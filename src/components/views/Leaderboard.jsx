@@ -129,7 +129,7 @@ const Leaderboard = () => {
                 onClick={() => history.push("/dashboard")}
                 sx={{ marginTop: "10%" }}
             >
-                back{" "}
+                home{" "}
             </StandardButton>
         </BaseContainer>
     );

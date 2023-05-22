@@ -1,7 +1,7 @@
 import BaseContainer from "../../ui/BaseContainer";
 import React, { useEffect, useState } from "react";
 import { handleError, RestApi } from "../../../helpers/RestApi";
-import { Paper, Table, Text, Title } from "@mantine/core";
+import { Flex, Paper, Table, Text, Title } from "@mantine/core";
 import StandardButton from "../../ui/StandardButton";
 import { useHistory } from "react-router-dom";
 
@@ -125,12 +125,16 @@ const User = (props) => {
                     </tbody>
                 </Table>
             </Paper>
-            <StandardButton
-                onClick={history.goBack}
+            <Flex
+                gap="md"
+                justify="center"
+                align="center"
+                direction="row"
                 sx={{ marginTop: "3%", marginBottom: "5%" }}
             >
-                Back
-            </StandardButton>
+                <StandardButton onClick={() => history.replace(`/dashboard`)}>home</StandardButton>
+                <StandardButton onClick={() => history.replace("/leaderboard")}>leaderboard</StandardButton>
+            </Flex>
         </BaseContainer>
     );
 };
