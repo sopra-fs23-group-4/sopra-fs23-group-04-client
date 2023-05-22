@@ -73,7 +73,7 @@ When the first player is finished or the clock has run down, the [Voting](https:
   <br>
   game center - start by creating a new game as a host or join an existing lobby by PIN.
   <br>
-<a href="https://github.com/sopra-fs23-group-4"><img src="/ReadMePictures/gameCenter.png" alt="gameCenter" width="200"></a>
+<a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/GameCenter.png" alt="gameCenter" width="200"></a>
 </h3>
 
 <h3 align="center">
