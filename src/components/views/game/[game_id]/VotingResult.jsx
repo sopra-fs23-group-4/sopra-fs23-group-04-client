@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import BaseContainer from "../../../ui/BaseContainer";
 import React, { useEffect, useState } from "react";
 import { Paper, Table, Text, Title } from "@mantine/core";
@@ -11,6 +11,7 @@ const VotingResult = (props) => {
     const { gamePin, round, categoryIndex } = useParams();
 
     const [timer, setTimer] = useState(null);
+    const history = useHistory();
 
     const letter = StorageManager.getLetter();
     const categories = StorageManager.getCategories();
@@ -47,6 +48,9 @@ const VotingResult = (props) => {
     useEffect(() => {
         if (props.websocketMsg.type === "resultTimer") {
             setTimer(props.websocketMsg.timeRemaining);
+        } else if (props.websocketMsg.type === "resultNextVote") {
+            const nextCategoryIndex = parseInt(categoryIndex) + 1;
+            history.replace(`/game/${gamePin}/round/${round}/voting/${nextCategoryIndex}`);
         }
     }, [props.websocketMsg]);
 

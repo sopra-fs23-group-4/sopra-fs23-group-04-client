@@ -16,7 +16,8 @@ const InGameRouter = () => {
     const base = `/game/:gamePin`;
     const SOCKET_URL = getDomain() + "/ws-message";
 
-    const { gamePin, round, categoryIndex } = useParams();
+    const { gamePin } = useParams();
+
     const history = useHistory();
 
     const [msg, setMsg] = useState({ type: "null" });
@@ -93,11 +94,8 @@ const InGameRouter = () => {
             history.replace(`/game/${gamePin}/round/${msg.round}/countdown/`);
         }
         // re-routs
-        else if (msg.type === "resultNextVote") {
-            const nextCategoryIndex = parseInt(categoryIndex) + 1;
-            history.replace(`/game/${gamePin}/round/${round}/voting/${nextCategoryIndex}`);
-        } else if (msg.type === "resultScoreboard") {
-            history.replace(`/game/${gamePin}/round/${round}/score`);
+        else if (msg.type === "resultScoreboard") {
+            history.replace(`/game/${gamePin}/round/${StorageManager.getRound()}/score`);
         } else if (msg.type === "resultWinner") {
             history.replace(`/game/${gamePin}/winner`);
         }
