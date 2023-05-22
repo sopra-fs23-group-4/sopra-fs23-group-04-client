@@ -53,7 +53,7 @@ const VotingResult = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.websocketMsg]);
 
-    const rows = votes.map((result, index) => {
+    const rows = votes.map((result) => {
         let pointsComponent;
         if (result.points === 3) {
             pointsComponent = (
@@ -83,7 +83,7 @@ const VotingResult = (props) => {
 
         return (
             <tr
-                key={index}
+                key={result.username}
                 style={{
                     backgroundColor: result.username === StorageManager.getUsername() ? "lightblue" : "transparent",
                 }}
