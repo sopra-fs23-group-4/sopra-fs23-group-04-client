@@ -11,6 +11,7 @@ Our motivation behind this game was to design a multiplayer experience that not 
 
 ## Technologies
 The client is written in JSX using React. To ensure a consistent and appealing UI, [Mantine](https://mantine.dev) components are used for styling. 
+
 Connection between the front-end and back-end: REST is used to fetch and send information with requests from the front-end. When starting a new game, a stomp webstocket connection is established to ensure a synchronized gameplay for all players.
 
 ## High-level components
@@ -18,8 +19,10 @@ To individualize the user profile (and adequately gloat in case of a win), each 
 
 A user can either create a new game lobby as a host or join an existing lobby. To create a new game, it is crucial to choose fitting categories. This is why several options are provided in [Categories](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/views/game/Categories.jsx): next to city and country the host can add custom categories or get random categories from the server to choose from. Once the categories are selected and settings chosen, the game lobby is created.
 
-Once all players have joined the lobby with the PIN, the host can start the game and after a short countdown the first round begins. All players are sent to the [Board] where they have to find a word for every category as fast as possible.
+Once all players have joined the lobby with the PIN, the host can start the game and after a short countdown the first round begins. All players are sent to the [Board](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/views/game/%5Bgame_id%5D/Board.jsx) where they have to find a word for every category as fast as possible.
 When the first player is finished or the clock has run down, the [Voting](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/views/game/%5Bgame_id%5D/Voting.jsx) begins and a majority vote decides on how many points each answer gets.
+
+All in-game pages are children of the [InGameRouter](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/routing/routers/InGameRouter.jsx) which establishes a websocket connection with the back-end and passes the websocket messages as props. It also provides futher common functionalities like the blocking of backwards navigation and handling of tabcloses.  
 
 ## Launch & Deployment
 
@@ -45,11 +48,8 @@ When the first player is finished or the clock has run down, the [Voting](https:
   Your app is ready to be deployed!
   
 ## Illustrations
-<h3 align="center">
-  <br>
-  game rules - how do I play this game?
-  <br>
-</h3>
+
+Stand Land PLUS is optimized for mobile phones. For the perfect playing experience, a screen size of at least 5.4in (e.g. iPhone 13 mini) is recommended.
 
 <h3 align="center">
   <br>
@@ -65,16 +65,26 @@ When the first player is finished or the clock has run down, the [Voting](https:
 
 <h3 align="center">
   <br>
-  change quote - write or generate a winning quote.
+  game rules - how do I play this game?
   <br>
 </h3>
 
 <h3 align="center">
   <br>
-  game center - start by creating a new game as a host or join an existing lobby by PIN.
+  change quote - write or generate a winning quote.
   <br>
-<a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/GameCenter.png" alt="gameCenter" width="200"></a>
 </h3>
+
+<div align="center">
+  <h3>
+    <br>
+    game center:
+  <br>
+  </h3>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/GameCenter.png" alt="gameCenter" width="240"></a>
+  <p> create a new game as a host or join an existing lobby by PIN<p>
+</div>
+
 
 <h3 align="center">
   <br>
