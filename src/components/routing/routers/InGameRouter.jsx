@@ -107,10 +107,10 @@ const InGameRouter = () => {
         } else if (msg.type === "tooFewPlayers") {
             console.log(msg);
             notifications.show({
-                message: "There are not enough players in the game, game is terminated.",
+                message: "There are not enough players in the game. Game is terminated.",
                 color: "red",
                 position: "top-center",
-                autoClose: 10000,
+                autoClose: 6000,
             });
 
             history.replace(`/dashboard`);
