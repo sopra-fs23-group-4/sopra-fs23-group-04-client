@@ -40,7 +40,25 @@ const Board = (props) => {
                     console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
                 });
         }
+        // because this hook is only supposed to execute/rerender on a new Websocket call and use exclusively the state of the other variables at the given time,
+        // it makes sense to disable the exhaustive dependency requirements:
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.websocketMsg]);
+
+    const doDoneWs = async () => {
+        saveAnswers();
+        const answersDict = gameFunctions.createAnswerDictionary(categories, answers);
+        await postAnswers(answersDict);
+    };
+
+    const postAnswers = async (answersDict) => {
+        try {
+            await RestApi.postAnswers(gamePin, round, answersDict);
+            history.replace(`/game/${gamePin}/round/${round}/voting/0`);
+        } catch (error) {
+            console.error(`Something went wrong while sending the answers: \n${handleError(error)}`);
+        }
+    };
 
     const saveAnswers = () => {
         StorageManager.setAnswers(answers);
@@ -92,21 +110,6 @@ const Board = (props) => {
             await RestApi.EndRound(gamePin, round);
         } catch (error) {
             console.error(`Something went wrong while ending the round: \n${handleError(error)}`);
-        }
-    };
-
-    const doDoneWs = async () => {
-        saveAnswers();
-        const answersDict = gameFunctions.createAnswerDictionary(categories, answers);
-        await postAnswers(answersDict);
-    };
-
-    const postAnswers = async (answersDict) => {
-        try {
-            await RestApi.postAnswers(gamePin, round, answersDict);
-            history.replace(`/game/${gamePin}/round/${round}/voting/0`);
-        } catch (error) {
-            console.error(`Something went wrong while sending the answers: \n${handleError(error)}`);
         }
     };
 

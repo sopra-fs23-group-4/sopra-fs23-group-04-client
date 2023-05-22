@@ -73,6 +73,9 @@ const Voting = (props) => {
                     console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
                 });
         }
+        // because this hook is only supposed to execute/rerender on a new Websocket call and use exclusively the state of the other variables at the given time,
+        // it makes sense to disable the exhaustive dependency requirements:
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.websocketMsg]);
 
     async function doDone() {
