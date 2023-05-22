@@ -1,13 +1,12 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Title, Text, Stack, Paper, Container, Group } from "@mantine/core";
+import { Title, Text, Stack, Paper, Container, Group, Dialog, Progress } from "@mantine/core";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import SockJsClient from "react-stomp";
-import { getDomain } from "../../../../helpers/getDomain";
 import { Player } from "./Lobby";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import { StorageManager as storageManager, StorageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
+import { useDisclosure } from "@mantine/hooks";
 
 export const ScoreboardEntry = (props) => {
     return (
@@ -27,53 +26,33 @@ export const ScoreboardEntry = (props) => {
 };
 
 const Score = (props) => {
-    const SOCKET_URL = getDomain() + "/ws-message";
-
     const gamePin = props.match.params["gamePin"];
 
+    const [opened, { toggle, close }] = useDisclosure(false);
     const history = useHistory();
-    const [timer, setTimer] = useState(null);
+    const [timer, setTimer] = useState(0);
 
     const [userScores, setUserScores] = useState([]);
-    const [fact, setFact] = useState("");
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                if (userScores.length === 0) {
-                    // real code
-                    let scoreResponse = await RestApi.getScores(gamePin);
-                    setUserScores(scoreResponse);
-                }
-            } catch (error) {
-                console.error(`Something went wrong while fetching the scores: \n${handleError(error)}`);
+        function fetchData() {
+            if (userScores.length === 0) {
+                RestApi.getScores(gamePin)
+                    .then((scoreResponse) => setUserScores(scoreResponse))
+                    .catch((error) => {
+                        console.error(`Something went wrong while fetching the scores: \n${handleError(error)}`);
+                    });
             }
         }
         fetchData();
-    }, [userScores, fact, gamePin]);
+    }, [userScores, gamePin]);
 
-    // Websocket
-    let onConnected = () => {
-        console.log("Connected!!");
-    };
-    let onDisconnected = () => {
-        console.log("disconnect");
-    };
-    let onMessageReceived = (msg) => {
-        console.log("Websocket msg:");
-        console.log(msg);
-        if (msg.type === "roundStart") {
-            StorageManager.setAnswers(Array(StorageManager.getCategories().length).fill(null));
-            StorageManager.setLetter(msg.letter);
-            StorageManager.setRound(msg.round);
-            history.replace(`/game/${gamePin}/round/${msg.round}/countdown/`);
-        } else if (msg.type === "scoreboardTimer") {
-            setTimer(msg.timeRemaining);
+    // Websocket updates
+    useEffect(() => {
+        if (props.websocketMsg.type === "scoreboardTimer") {
+            setTimer(props.websocketMsg.timeRemaining);
         }
-        if (msg.type === "fact") {
-            setFact(msg.fact);
-        }
-    };
+    }, [props.websocketMsg]);
 
     // Methods
     async function doLeave() {
@@ -134,9 +113,17 @@ const Score = (props) => {
 
     let leaveButton = (
         <StandardButton
-            sx={{ marginTop: "50%" }}
+            sx={{
+                marginTop: "50%",
+                "&:disabled": {
+                    color: "inherit",
+                    backgroundColor: "#e4487f",
+                    opacity: 0.5,
+                },
+            }}
             color="pink"
-            onClick={() => doLeave()}
+            onClick={toggle}
+            disabled={opened}
         >
             give up
         </StandardButton>
@@ -145,7 +132,7 @@ const Score = (props) => {
         leaveButton = (
             <StandardButton
                 sx={{ marginTop: "10%" }}
-                onClick={() => doLeave()}
+                onClick={() => history.replace(`/game`)}
             >
                 leave
             </StandardButton>
@@ -154,16 +141,13 @@ const Score = (props) => {
 
     return (
         <BaseContainer>
-            <SockJsClient
-                url={SOCKET_URL}
-                topics={[`/topic/lobbies/${gamePin}`]}
-                onConnect={onConnected}
-                onDisconnect={onDisconnected}
-                onMessage={(msg) => onMessageReceived(msg)}
-                debug={false}
-            />
             <Text color="white">time remaining: {timer}</Text>
-            <Title color="white">score</Title>
+            <Title
+                color="white"
+                sx={{ marginTop: "-3%" }}
+            >
+                score
+            </Title>
             <Paper
                 radius="md"
                 shadow="xl"
@@ -173,15 +157,72 @@ const Score = (props) => {
             >
                 {scoreboardContent}
             </Paper>
+            <Stack
+                align="stretch"
+                justify="center"
+                spacing="5px"
+                sx={{ minWidth: "80%" }}
+            >
+                <Text
+                    color="white"
+                    align="center"
+                    inline
+                >{`Round: ${StorageManager.getRound()} / ${storageManager.getRoundAmount()}`}</Text>
+                <Progress
+                    color="teal"
+                    size="lg"
+                    radius="xl"
+                    value={(StorageManager.getRound() / StorageManager.getRoundAmount()) * 100}
+                />
+            </Stack>
             <Text
                 color="white"
                 align="center"
                 sx={{ width: "95%" }}
             >
                 <b>random fact: </b>
-                {fact}
+                {StorageManager.getFact()}
             </Text>
             {leaveButton}
+            <Dialog
+                opened={opened}
+                onClose={close}
+                size="lg"
+                radius="md"
+                transition="scale"
+                transitionDuration={300}
+                transitionTimingFunction="ease"
+                align="center"
+                shadow="xl"
+            >
+                <Text
+                    size="lg"
+                    mb="xs"
+                    weight={700}
+                >
+                    Whaaat?!?
+                    <br />
+                    Do you really want to be a looser?
+                </Text>
+
+                <Group
+                    position="apart"
+                    sx={{ width: "80%" }}
+                >
+                    <StandardButton
+                        color="green"
+                        onClick={close}
+                    >
+                        cancel
+                    </StandardButton>
+                    <StandardButton
+                        color="red"
+                        onClick={() => doLeave()}
+                    >
+                        leave :(
+                    </StandardButton>
+                </Group>
+            </Dialog>
         </BaseContainer>
     );
 };

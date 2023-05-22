@@ -1,7 +1,7 @@
 import BaseContainer from "../../ui/BaseContainer";
 import React, { useEffect, useState } from "react";
 import { handleError, RestApi } from "../../../helpers/RestApi";
-import { Paper, Table, Text, Title } from "@mantine/core";
+import { Flex, Paper, Table, Text, Title } from "@mantine/core";
 import StandardButton from "../../ui/StandardButton";
 import { useHistory } from "react-router-dom";
 
@@ -29,21 +29,23 @@ const User = (props) => {
     const [stats, setStats] = useState({ rank: "" });
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                if (user.username === "") {
-                    // real code
-                    let userResponse = await RestApi.getUserByUsername(username);
-                    setUser(userResponse);
-
-                    let statResponse = await RestApi.getAdvancedStatistics(userResponse.id);
-                    console.log(statResponse);
-                    setStats(statResponse);
-                }
-            } catch (error) {
-                console.error(`Something went wrong while fetching the user and its stats: \n${handleError(error)}`);
+        const fetchData = () => {
+            if (user.username === "") {
+                RestApi.getUserByUsername(username)
+                    .then((userResponse) => {
+                        setUser(userResponse);
+                        return RestApi.getAdvancedStatistics(userResponse.id);
+                    })
+                    .then((statResponse) => {
+                        console.log(statResponse);
+                        setStats(statResponse);
+                    })
+                    .catch((error) => {
+                        console.error(`Something went wrong while fetching the user and its stats: \n${handleError(error)}`);
+                    });
             }
-        }
+        };
+
         fetchData();
     }, [user, stats, username]);
 
@@ -123,12 +125,16 @@ const User = (props) => {
                     </tbody>
                 </Table>
             </Paper>
-            <StandardButton
-                onClick={history.goBack}
+            <Flex
+                gap="md"
+                justify="center"
+                align="center"
+                direction="row"
                 sx={{ marginTop: "3%", marginBottom: "5%" }}
             >
-                Back
-            </StandardButton>
+                <StandardButton onClick={() => history.replace(`/dashboard`)}>home</StandardButton>
+                <StandardButton onClick={() => history.replace("/leaderboard")}>leaderboard</StandardButton>
+            </Flex>
         </BaseContainer>
     );
 };

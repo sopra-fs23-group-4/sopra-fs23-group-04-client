@@ -6,9 +6,9 @@ import InGameRouter from "../routers/InGameRouter";
 export const InGameGuard = (props) => {
     const gamePin = props.match.params["gamePin"];
     if (StorageManager.getGamePin() && StorageManager.getGamePin() === gamePin) {
-        return <InGameRouter urlGamePin={gamePin} />;
+        return <InGameRouter />;
     }
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/game" />;
 };
 
 InGameGuard.propTypes = {

@@ -5,8 +5,6 @@ import { Role, StorageManager } from "../../../../helpers/storageManager";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
-import SockJsClient from "react-stomp";
-import { getDomain } from "../../../../helpers/getDomain";
 
 export const Player = (props) => {
     let value;
@@ -27,38 +25,12 @@ export const Player = (props) => {
 };
 
 const Lobby = (props) => {
-    const SOCKET_URL = getDomain() + "/ws-message";
     const gamePin = props.match.params["gamePin"];
 
     const history = useHistory();
 
-    const [hostUsername, setHostUsername] = useState("loading...");
-    const [usersInLobby, setUsersInLobby] = useState([]);
-
-    let onConnected = () => {
-        console.log("Connected!!");
-    };
-    let onDisconnected = () => {
-        console.log("disconnect");
-    };
-
-    let onMessageReceived = (msg) => {
-        console.log("Websocket msg:");
-        console.log(msg);
-        if (msg.type === "gameUsers") {
-            if (msg.hostUsername !== null) {
-                if (hostUsername !== msg.hostUsername) {
-                    setHostUsername(msg.hostUsername);
-                }
-                setUsersInLobby(msg.usernames);
-            }
-        } else if (msg.type === "roundStart") {
-            StorageManager.setAnswers(Array(StorageManager.getCategories().length).fill(null));
-            StorageManager.setLetter(msg.letter);
-            StorageManager.setRound(msg.round);
-            history.replace(`/game/${gamePin}/round/${1}/countdown/`);
-        }
-    };
+    const [hostUsername, setHostUsername] = useState(props.hostUsername);
+    const [usersInLobby, setUsersInLobby] = useState(props.usersInLobby);
 
     async function doLeave() {
         try {
@@ -77,30 +49,37 @@ const Lobby = (props) => {
         }
     }
 
+    // Websocket updates
     useEffect(() => {
-        async function fetchData() {
-            try {
-                if (hostUsername === "loading...") {
-                    const gameUsersResponse = await RestApi.getGameUsers(gamePin);
-                    setUsersInLobby(gameUsersResponse.usernames);
-                    setHostUsername(gameUsersResponse.hostUsername);
-                    await new Promise((resolve) => setTimeout(resolve, 500));
-                }
-
-                // update Role value in sessionStorage
-                if (hostUsername !== "loading...") {
-                    if (hostUsername === StorageManager.getUsername()) {
-                        if (StorageManager.getRole() !== Role.HOST) {
-                            StorageManager.setRole(Role.HOST);
-                        }
-                    } else if (StorageManager.getRole() !== Role.PLAYER) {
-                        StorageManager.setRole(Role.PLAYER);
-                    }
-                }
-            } catch (error) {
-                console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
-            }
+        if (props.hostUsername !== "loading...") {
+            setHostUsername(props.hostUsername);
+            setUsersInLobby(props.usersInLobby);
         }
+    }, [props.hostUsername, props.usersInLobby]);
+
+    useEffect(() => {
+        const fetchData = () => {
+            if (hostUsername === "loading...") {
+                RestApi.getGameUsers(gamePin)
+                    .then((gameUsersResponse) => {
+                        setUsersInLobby(gameUsersResponse.usernames);
+                        setHostUsername(gameUsersResponse.hostUsername);
+                    })
+                    .catch((error) => {
+                        console.error(`Something went wrong while fetching the users: \n${handleError(error)}`);
+                    });
+            }
+            if (hostUsername !== "loading...") {
+                if (hostUsername === StorageManager.getUsername()) {
+                    if (StorageManager.getRole() !== Role.HOST) {
+                        StorageManager.setRole(Role.HOST);
+                    }
+                } else if (StorageManager.getRole() !== Role.PLAYER) {
+                    StorageManager.setRole(Role.PLAYER);
+                }
+            }
+        };
+
         fetchData();
     }, [usersInLobby, hostUsername, gamePin]);
 
@@ -155,14 +134,6 @@ const Lobby = (props) => {
 
     return (
         <BaseContainer>
-            <SockJsClient
-                url={SOCKET_URL}
-                topics={[`/topic/lobbies/${gamePin}`]}
-                onConnect={onConnected}
-                onDisconnect={onDisconnected}
-                onMessage={(msg) => onMessageReceived(msg)}
-                debug={false}
-            />
             <Title color="white">PIN: {gamePin}</Title>
             <Stack
                 align="center"

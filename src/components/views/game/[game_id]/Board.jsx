@@ -1,17 +1,14 @@
 import { useHistory, useParams } from "react-router-dom";
 import { Checkbox as CheckIcon, Edit as EditIcon } from "tabler-icons-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import BaseContainer from "../../../ui/BaseContainer";
 import StandardButton from "../../../ui/StandardButton";
 import { Button, Stack, Title, Text, TextInput, Group } from "@mantine/core";
 import { StorageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import * as gameFunctions from "../../../../helpers/gameFunction";
-import SockJsClient from "react-stomp";
-import { getDomain } from "../../../../helpers/getDomain";
 
-const Board = () => {
-    const SOCKET_URL = getDomain() + "/ws-message";
+const Board = (props) => {
     const history = useHistory();
     const { gamePin, round } = useParams();
     const [timer, setTimer] = useState(null);
@@ -24,6 +21,44 @@ const Board = () => {
     const [answerIndex, setAnswerIndex] = useState(0);
 
     const [statusView, setStatusView] = useState(false);
+
+    // Websocket updates
+    useEffect(() => {
+        const handleWebsocketMsg = async (msg) => {
+            if (msg.type === "roundEnd") {
+                setTimer(0);
+                await doDoneWs();
+            } else if (msg.type === "roundTimer") {
+                setTimer(msg.timeRemaining);
+            }
+        };
+
+        if (props.websocketMsg.type !== "null") {
+            handleWebsocketMsg(props.websocketMsg)
+                .then(() => {})
+                .catch((error) => {
+                    console.error(`Something went wrong processing the WebsocketMsg: \n${handleError(error)}`);
+                });
+        }
+        // because this hook is only supposed to execute/rerender on a new Websocket call and use exclusively the state of the other variables at the given time,
+        // it makes sense to disable the exhaustive dependency requirements:
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.websocketMsg]);
+
+    const doDoneWs = async () => {
+        saveAnswers();
+        const answersDict = gameFunctions.createAnswerDictionary(categories, answers);
+        await postAnswers(answersDict);
+    };
+
+    const postAnswers = async (answersDict) => {
+        try {
+            await RestApi.postAnswers(gamePin, round, answersDict);
+            history.replace(`/game/${gamePin}/round/${round}/voting/0`);
+        } catch (error) {
+            console.error(`Something went wrong while sending the answers: \n${handleError(error)}`);
+        }
+    };
 
     const saveAnswers = () => {
         StorageManager.setAnswers(answers);
@@ -75,38 +110,6 @@ const Board = () => {
             await RestApi.EndRound(gamePin, round);
         } catch (error) {
             console.error(`Something went wrong while ending the round: \n${handleError(error)}`);
-        }
-    };
-
-    const doDoneWs = async () => {
-        saveAnswers();
-        const answersDict = gameFunctions.createAnswerDictionary(categories, answers);
-        await postAnswers(answersDict);
-    };
-
-    const postAnswers = async (answersDict) => {
-        try {
-            await RestApi.postAnswers(gamePin, round, answersDict);
-            history.replace(`/game/${gamePin}/round/${round}/voting/0`);
-        } catch (error) {
-            console.error(`Something went wrong while sending the answers: \n${handleError(error)}`);
-        }
-    };
-
-    let onConnected = () => {
-        console.log("Connected!!");
-    };
-    let onDisconnected = () => {
-        console.log("disconnect");
-    };
-
-    let onMessageReceived = async (msg) => {
-        console.log(msg.type);
-        if (msg.type === "roundEnd") {
-            setTimer(0);
-            await doDoneWs();
-        } else if (msg.type === "roundTimer") {
-            setTimer(msg.timeRemaining);
         }
     };
 
@@ -208,14 +211,6 @@ const Board = () => {
 
     return (
         <BaseContainer>
-            <SockJsClient
-                url={SOCKET_URL}
-                topics={[`/topic/lobbies/${gamePin}`]}
-                onConnect={onConnected}
-                onDisconnect={onDisconnected}
-                onMessage={(msg) => onMessageReceived(msg)}
-                debug={false}
-            />
             <Text color="white">time remaining: {timer}</Text>
             <Title
                 color="white"

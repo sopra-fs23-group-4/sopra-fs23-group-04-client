@@ -7,6 +7,7 @@ import { StorageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
 import { Crown } from "tabler-icons-react";
 import ReactTypingEffect from "react-typing-effect";
+import { JackInTheBox } from "react-awesome-reveal";
 
 const Winner = (props) => {
     const gamePin = props.match.params["gamePin"];
@@ -16,38 +17,21 @@ const Winner = (props) => {
     const [winners, setWinners] = useState([]);
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                if (winners.length === 0) {
-                    // hardcoded sample values
-                    const dummyWinners = [
-                        {
-                            username: "Günter",
-                            score: 1500,
-                            quote: "some soooo funny quote",
-                        },
-                        {
-                            username: "Rüdiger",
-                            score: 600,
-                            quote:
-                                "some even funnier quote, HAHA, this one also is very long because that might cause some issues " +
-                                "if it is supposed to be displayed, potentially simultaneously with the first one...",
-                        },
-                    ];
-
-                    // real code
-                    let winnerResponse = await RestApi.getWinners(gamePin);
-
-                    if (winnerResponse.length === 0) {
-                        winnerResponse = winnerResponse.concat(dummyWinners);
-                    }
-                    await new Promise((resolve) => setTimeout(resolve, 5000));
-                    setWinners(winnerResponse);
-                }
-            } catch (error) {
-                console.error(`Something went wrong while fetching the winners: \n${handleError(error)}`);
+        const fetchData = () => {
+            if (winners.length === 0) {
+                RestApi.getWinners(gamePin)
+                    .then((winnerResponse) => {
+                        return new Promise((resolve) => setTimeout(() => resolve(winnerResponse), 5000));
+                    })
+                    .then((winnerResponse) => {
+                        setWinners(winnerResponse);
+                    })
+                    .catch((error) => {
+                        console.error(`Something went wrong while fetching the winners: \n${handleError(error)}`);
+                    });
             }
-        }
+        };
+
         fetchData();
     }, [winners, gamePin]);
 
@@ -97,10 +81,15 @@ const Winner = (props) => {
                 sx={{ width: "80%" }}
             >
                 <Space h="sm" />
-                <Crown
-                    size={80}
-                    color="#ffffff"
-                />
+                <JackInTheBox
+                    duration={1000}
+                    triggerOnce
+                >
+                    <Crown
+                        size={80}
+                        color="#ffffff"
+                    />
+                </JackInTheBox>
                 <Title
                     align="center"
                     order={1}
@@ -125,7 +114,7 @@ const Winner = (props) => {
                 <StandardButton onClick={() => history.replace(`/game/${gamePin}/round/${StorageManager.getRound()}/score`)}>Scoreboard</StandardButton>
                 <StandardButton
                     sx={{ marginTop: "4%" }}
-                    onClick={() => doLeave()}
+                    onClick={() => history.replace(`/game`)}
                 >
                     leave
                 </StandardButton>
