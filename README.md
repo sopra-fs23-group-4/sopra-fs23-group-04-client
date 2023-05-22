@@ -47,103 +47,98 @@ When the first player is finished or the clock has run down, the [Voting](https:
 ## Illustrations
 <h3 align="center">
   <br>
-  GameRules - how do I play this game?
+  game rules - how do I play this game?
   <br>
 </h3>
 
 <h3 align="center">
   <br>
-  Registration - new users can sign up.
+  registration - new users can sign up.
   <br>
 </h3>
 
 <h3 align="center">
   <br>
-  Landing Page - start a game or choose an option from the menu.
+  landing page - start a game or choose an option from the menu.
   <br>
 </h3>
 
 <h3 align="center">
   <br>
-  Change Quote - write or generate a winning quote.
+  change quote - write or generate a winning quote.
   <br>
 </h3>
 
 <h3 align="center">
   <br>
-  GameCenter - start by creating a new game as a host or join an existing lobby by PIN.
+  game center - start by creating a new game as a host or join an existing lobby by PIN.
+  <br>
+<a href="https://github.com/sopra-fs23-group-4"><img src="/ReadMePictures/gameCenter.png" alt="gameCenter" width="200"></a>
+</h3>
+
+<h3 align="center">
+  <br>
+  category selection - choose the categories for your game.
   <br>
 </h3>
 
 <h3 align="center">
   <br>
-  Category Selection - choose the categories for your game.
+  game settings - choose the settings for your game.
   <br>
 </h3>
 
 <h3 align="center">
   <br>
-  Game Settings - choose the settings for your game.
+  lobby - wait for other players and start the game.
   <br>
 </h3>
 
 <h3 align="center">
   <br>
-  Lobby - wait for other players and start the game.
+  board - choose a category to answer.
   <br>
 </h3>
 
 <h3 align="center">
   <br>
-  Board - choose a category to answer.
+  answer - type in your answer.
   <br>
 </h3>
 
 <h3 align="center">
   <br>
-  Answer - type in your answer.
+  voting - rate the other players' answers.
   <br>
 </h3>
 
 <h3 align="center">
   <br>
-  Voting - rate the other players' answers.
+  voting result - see the voting results (majority vote).
   <br>
 </h3>
 
 <h3 align="center">
   <br>
-  VotingResult - rate the other players' answers.
+  scoreboard - see the total score and a random fact.
   <br>
 </h3>
 
 <h3 align="center">
   <br>
-  VotingResult - see the voting results (majority vote).
+  winner - the winner is announced.
   <br>
 </h3>
 
 <h3 align="center">
   <br>
-  Scoreboard - see the total score and a random fact.
+  leaderboard - see the hall of fame.
   <br>
 </h3>
 
 <h3 align="center">
   <br>
-  Winner - the winner is announced.
-  <br>
-</h3>
-
-<h3 align="center">
-  <br>
-  Leaderboard - see the hall of fame.
-  <br>
-</h3>
-
-<h3 align="center">
-  <br>
-  ProfilePage - your stats.
+  profile page - see your stats.
   <br>
 </h3>
 
