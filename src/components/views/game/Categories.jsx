@@ -138,7 +138,7 @@ const Categories = () => {
 
     return (
         <BaseContainer align="center">
-            <Title color="white">Category Selection</Title>
+            <Title color="white">category selection</Title>
             <Stack
                 align="center"
                 sx={{ marginTop: "1%", marginBottom: "1%" }}

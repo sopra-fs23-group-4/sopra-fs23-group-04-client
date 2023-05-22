@@ -12,7 +12,7 @@ const Rules = () => {
                 color="white"
                 style={{ marginBottom: "2%" }}
             >
-                Game Rules
+                game rules
             </Title>
             <Paper
                 align="center"

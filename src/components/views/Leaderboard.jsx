@@ -102,7 +102,7 @@ const Leaderboard = () => {
                 order={1}
                 sx={{ color: "white" }}
             >
-                Leaderboard
+                leaderboard
             </Title>
             <Paper
                 radius="md"
@@ -117,9 +117,9 @@ const Leaderboard = () => {
                 >
                     <thead>
                         <tr>
-                            <th style={{ color: "white" }}>Rank</th>
-                            <th style={{ color: "white" }}>Name</th>
-                            <th style={{ color: "white" }}>Score</th>
+                            <th style={{ color: "white" }}>rank</th>
+                            <th style={{ color: "white" }}>name</th>
+                            <th style={{ color: "white" }}>score</th>
                         </tr>
                     </thead>
                     {tableBodyContent}

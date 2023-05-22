@@ -86,11 +86,11 @@ const Quote = () => {
                 description="select a category to generate"
                 onChange={(event) => setCategory(event.currentTarget.value)}
             />
-            <StandardButton onClick={() => doGenerateQuote()}>GENERATE </StandardButton>
+            <StandardButton onClick={() => doGenerateQuote()}>generate </StandardButton>
 
             <Group sx={{ marginTop: "10%" }}>
                 <StandardButton onClick={() => history.push("/dashboard")}>back </StandardButton>
-                <StandardButton onClick={() => doChangeQuote()}>SAVE </StandardButton>
+                <StandardButton onClick={() => doChangeQuote()}>save </StandardButton>
             </Group>
         </BaseContainer>
     );

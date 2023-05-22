@@ -87,7 +87,7 @@ const User = (props) => {
                                     inline
                                     sx={{ color: "white" }}
                                 >
-                                    Stats:
+                                    stats:
                                 </Title>
                             </th>
                             <th></th>
@@ -95,31 +95,31 @@ const User = (props) => {
                     </thead>
                     <tbody>
                         <StatEntry
-                            statName={"Rank"}
+                            statName={"rank"}
                             statValue={stats.rank}
                         />
                         <StatEntry
-                            statName={"Points Overall"}
+                            statName={"points overall"}
                             statValue={stats.totalPointsOverall}
                         />
                         <StatEntry
-                            statName={"Games Played"}
+                            statName={"games played"}
                             statValue={stats.totalPlayedGames}
                         />
                         <StatEntry
-                            statName={"Games Won"}
+                            statName={"games won"}
                             statValue={stats.totalWins}
                         />
                         <StatEntry
-                            statName={"Answers Given"}
+                            statName={"answers given"}
                             statValue={stats.totalAnswersAnswered}
                         />
                         <StatEntry
-                            statName={"Unique Answers"}
+                            statName={"unique answers"}
                             statValue={stats.totalCorrectAndUniqueAnswers}
                         />
                         <StatEntry
-                            statName={"Most Played Category"}
+                            statName={"most played category"}
                             statValue={stats.mostPlayedCategory ? stats.mostPlayedCategory : "-"}
                         />
                     </tbody>
