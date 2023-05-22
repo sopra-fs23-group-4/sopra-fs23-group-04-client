@@ -69,12 +69,9 @@ const InGameRouter = () => {
     };
 
     let onMessageReceived = async (msg) => {
-        console.log("InGameRouter Websocket:");
-        console.log("Message Type:" + msg.type);
-        console.log(msg);
-
         // users
         if (msg.type === "gameUsers") {
+            console.log(msg);
             if (msg.hostUsername !== null) {
                 if (hostUsername !== msg.hostUsername) {
                     setHostUsername(msg.hostUsername);
@@ -88,14 +85,21 @@ const InGameRouter = () => {
         }
         // round start
         else if (msg.type === "roundStart") {
+            console.log(msg);
             StorageManager.setAnswers(Array(StorageManager.getCategories().length).fill(null));
             StorageManager.setLetter(msg.letter);
             StorageManager.setRound(msg.round);
             history.replace(`/game/${gamePin}/round/${msg.round}/countdown/`);
         }
         // re-routs
-        else if (msg.type === "resultScoreboard") {
-            history.replace(`/game/${gamePin}/round/${StorageManager.getRound()}/score`);
+        else if (msg.type === "resultNextVote") {
+            console.log(msg);
+            StorageManager.setRound(msg.round);
+            history.replace(`/game/${gamePin}/round/${msg.round}/voting/${msg.categoryIndex}`);
+        } else if (msg.type === "resultScoreboard") {
+            console.log(msg);
+            StorageManager.setRound(msg.round);
+            history.replace(`/game/${gamePin}/round/${msg.round}/score`);
         } else if (msg.type === "resultWinner") {
             history.replace(`/game/${gamePin}/winner`);
         }

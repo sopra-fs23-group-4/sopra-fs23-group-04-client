@@ -26,6 +26,7 @@ const Board = (props) => {
     useEffect(() => {
         const handleWebsocketMsg = async (msg) => {
             if (msg.type === "roundEnd") {
+                console.log(msg);
                 setTimer(0);
                 await doDoneWs();
             } else if (msg.type === "roundTimer") {

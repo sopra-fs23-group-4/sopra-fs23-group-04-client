@@ -57,6 +57,7 @@ const Voting = (props) => {
     useEffect(() => {
         const handleWebsocketMsg = async (msg) => {
             if (msg.type === "votingEnd") {
+                console.log(msg);
                 if (done === false) {
                     setDone(true);
                     await doDone();
