@@ -192,8 +192,6 @@ const Voting = (props) => {
     return (
         <BaseContainer>
             <Text color="white">Time remaining: {timer}</Text>
-            <Title color="white">{StorageManager.getUsername()}</Title>
-
             <Paper
                 shadow="xl"
                 radius="md"
