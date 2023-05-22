@@ -7,6 +7,20 @@ import { handleError, RestApi } from "../../../helpers/RestApi";
 import { StorageManager } from "../../../helpers/storageManager";
 import { notifications } from "@mantine/notifications";
 
+const CategoryComponent = ({ category }) => {
+    return (
+        <div className="player container">
+            <Chip
+                color="yellow"
+                size="lg"
+                value={category}
+            >
+                {category}
+            </Chip>
+        </div>
+    );
+};
+
 const Categories = () => {
     const history = useHistory();
 
@@ -80,20 +94,6 @@ const Categories = () => {
         }
     };
 
-    const Category = ({ category }) => {
-        return (
-            <div className="player container">
-                <Chip
-                    color="yellow"
-                    size="lg"
-                    value={category}
-                >
-                    {category}
-                </Chip>
-            </div>
-        );
-    };
-
     let contentCategory = <Loader />;
     if (categories.length !== 0) {
         contentCategory = (
@@ -114,7 +114,7 @@ const Categories = () => {
                 >
                     <Group position="center">
                         {categories.map((category) => (
-                            <Category
+                            <CategoryComponent
                                 key={category}
                                 category={category}
                             />
@@ -125,7 +125,7 @@ const Categories = () => {
                         position="center"
                     >
                         {customCategories.map((category) => (
-                            <Category
+                            <CategoryComponent
                                 key={category}
                                 category={category}
                             />
