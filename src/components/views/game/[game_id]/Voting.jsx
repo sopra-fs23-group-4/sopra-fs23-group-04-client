@@ -262,7 +262,7 @@ const Voting = (props) => {
                 disabled={disableDoneButton || skipped}
                 onClick={() => doSkipButton()}
             >
-                DONE
+                done
             </StandardButton>
         </BaseContainer>
     );

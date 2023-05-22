@@ -227,7 +227,7 @@ const Board = (props) => {
                 disabled={!answers.every((value) => value !== null && value !== "" && value !== { letter })}
                 onClick={() => handleDoneButton()}
             >
-                DONE
+                done
             </StandardButton>
         </BaseContainer>
     );
