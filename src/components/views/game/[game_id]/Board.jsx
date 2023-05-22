@@ -8,6 +8,45 @@ import { StorageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import * as gameFunctions from "../../../../helpers/gameFunction";
 
+const Category = ({ category, answers, handleGoToAnswer }) => {
+    const categories = StorageManager.getCategories();
+    let index = categories.indexOf(category);
+    let iconContent = (
+        <EditIcon
+            strokeWidth={1.8}
+            color="red"
+            size={21}
+        />
+    );
+    if (answers[index]) {
+        iconContent = (
+            <CheckIcon
+                color="green"
+                size={20}
+            />
+        );
+    }
+
+    return (
+        <div
+            className="player container"
+            align="center"
+        >
+            <Button
+                variant="gradient"
+                gradient={{ from: "white", to: "white", deg: 105 }}
+                radius="xl"
+                size="lg"
+                sx={{ minWidth: "200px", color: "Black", marginBottom: "2%" }}
+                value={category}
+                onClick={() => handleGoToAnswer(index)}
+            >
+                {category}&nbsp; {iconContent}
+            </Button>
+        </div>
+    );
+};
+
 const Board = (props) => {
     const history = useHistory();
     const { gamePin, round } = useParams();
@@ -114,44 +153,6 @@ const Board = (props) => {
         }
     };
 
-    const Category = ({ category }) => {
-        let index = categories.indexOf(category);
-        let iconContent = (
-            <EditIcon
-                strokeWidth={1.8}
-                color="red"
-                size={21}
-            />
-        );
-        if (answers[index]) {
-            iconContent = (
-                <CheckIcon
-                    color="green"
-                    size={20}
-                />
-            );
-        }
-
-        return (
-            <div
-                className="player container"
-                align="center"
-            >
-                <Button
-                    variant="gradient"
-                    gradient={{ from: "white", to: "white", deg: 105 }}
-                    radius="xl"
-                    size="lg"
-                    sx={{ minWidth: "200px", color: "Black", marginBottom: "2%" }}
-                    value={category}
-                    onClick={() => handleGoToAnswer(index)}
-                >
-                    {category}&nbsp; {iconContent}
-                </Button>
-            </div>
-        );
-    };
-
     let contentOverview = (
         <Stack
             position="center"
@@ -161,6 +162,8 @@ const Board = (props) => {
                 <Category
                     key={category}
                     category={category}
+                    answers={answers}
+                    handleGoToAnswer={handleGoToAnswer}
                 />
             ))}
         </Stack>
