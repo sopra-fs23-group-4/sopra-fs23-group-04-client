@@ -1,6 +1,6 @@
 import BaseContainer from "../ui/BaseContainer";
 import { useHistory } from "react-router-dom";
-import { handleError, RestApi } from "../../helpers/RestApi";
+import { handleError, RestApi } from "../../api/RestApi";
 import React, { useEffect, useState } from "react";
 import { PinInput, Text } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";

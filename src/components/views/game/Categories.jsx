@@ -3,7 +3,7 @@ import { Text, Chip, Group, Loader, Stack, TextInput, Paper } from "@mantine/cor
 import React, { useEffect, useState } from "react";
 import StandardButton from "../../ui/StandardButton";
 import { useHistory } from "react-router-dom";
-import { handleError, RestApi } from "../../../helpers/RestApi";
+import { handleError, RestApi } from "../../../api/RestApi";
 import { StorageManager } from "../../../helpers/storageManager";
 import { notifications } from "@mantine/notifications";
 import TopTitle from "../../ui/TopTitle";

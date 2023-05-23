@@ -1,6 +1,6 @@
 import BaseContainer from "../../../ui/BaseContainer";
 import { Textarea, Title, Text, NativeSelect, Group } from "@mantine/core";
-import { handleError, RestApi } from "../../../../helpers/RestApi";
+import { handleError, RestApi } from "../../../../api/RestApi";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import StandardButton from "../../../ui/StandardButton";

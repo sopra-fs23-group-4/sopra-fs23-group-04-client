@@ -3,7 +3,7 @@ import { Title, Text, Stack, Paper, Container, Group, Dialog, Progress, Space } 
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Player } from "./Lobby";
-import { handleError, RestApi } from "../../../../helpers/RestApi";
+import { handleError, RestApi } from "../../../../api/RestApi";
 import { StorageManager as storageManager, StorageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
 import { useDisclosure } from "@mantine/hooks";

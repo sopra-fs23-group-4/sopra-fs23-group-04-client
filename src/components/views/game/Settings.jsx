@@ -3,7 +3,7 @@ import StandardButton from "../../ui/StandardButton";
 import { useHistory } from "react-router-dom";
 import { Container, SegmentedControl, Slider, Space, Title } from "@mantine/core";
 import React, { useState } from "react";
-import { handleError, RestApi } from "../../../helpers/RestApi";
+import { handleError, RestApi } from "../../../api/RestApi";
 import { Role, StorageManager } from "../../../helpers/storageManager";
 import TopTitle from "../../ui/TopTitle";
 

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Paper, Table, Text, Title } from "@mantine/core";
 import { Check, Equal, LetterX } from "tabler-icons-react";
 import { StorageManager } from "../../../../helpers/storageManager";
-import { handleError, RestApi } from "../../../../helpers/RestApi";
+import { handleError, RestApi } from "../../../../api/RestApi";
 import StandardButton from "../../../ui/StandardButton";
 
 const VotingResult = (props) => {

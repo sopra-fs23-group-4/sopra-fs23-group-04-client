@@ -5,7 +5,7 @@ import BaseContainer from "../../../ui/BaseContainer";
 import StandardButton from "../../../ui/StandardButton";
 import { Button, Stack, Title, Text, TextInput, Group } from "@mantine/core";
 import { StorageManager } from "../../../../helpers/storageManager";
-import { handleError, RestApi } from "../../../../helpers/RestApi";
+import { handleError, RestApi } from "../../../../api/RestApi";
 import * as gameFunctions from "../../../../helpers/gameFunction";
 
 const Category = ({ category, answers, handleGoToAnswer }) => {

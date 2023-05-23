@@ -7,7 +7,7 @@ import VotingResult from "../../views/game/[game_id]/VotingResult";
 import Score from "../../views/game/[game_id]/Score";
 import Winner from "../../views/game/[game_id]/Winner";
 import { useEffect, useState } from "react";
-import { handleError, RestApi } from "../../../helpers/RestApi";
+import { handleError, RestApi } from "../../../api/RestApi";
 import SockJsClient from "react-stomp";
 import { StorageManager } from "../../../helpers/storageManager";
 import { getDomain } from "../../../helpers/getDomain";

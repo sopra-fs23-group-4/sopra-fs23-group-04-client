@@ -3,7 +3,7 @@ import { Divider, Loader, Paper, Radio, Stack, Table, Text, Title } from "@manti
 import { useHistory, useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { StorageManager } from "../../../../helpers/storageManager";
-import { handleError, RestApi } from "../../../../helpers/RestApi";
+import { handleError, RestApi } from "../../../../api/RestApi";
 import StandardButton from "../../../ui/StandardButton";
 
 const Voting = (props) => {

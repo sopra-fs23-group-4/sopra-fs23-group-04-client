@@ -4,7 +4,7 @@ import StandardButton from "../../../ui/StandardButton";
 import { Role, StorageManager } from "../../../../helpers/storageManager";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { handleError, RestApi } from "../../../../helpers/RestApi";
+import { handleError, RestApi } from "../../../../api/RestApi";
 import TopTitle from "../../../ui/TopTitle";
 
 export const Player = (props) => {

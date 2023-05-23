@@ -2,7 +2,7 @@ import BaseContainer from "../../../ui/BaseContainer";
 import { Flex, Loader, Space, Text, Title } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { handleError, RestApi } from "../../../../helpers/RestApi";
+import { handleError, RestApi } from "../../../../api/RestApi";
 import { StorageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
 import { Crown } from "tabler-icons-react";

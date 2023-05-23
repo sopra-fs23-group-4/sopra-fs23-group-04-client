@@ -3,7 +3,7 @@ import { Container, Text, PasswordInput, rem, Stack, TextInput } from "@mantine/
 import StandardButton from "../ui/StandardButton";
 import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
-import { handleError, RestApi } from "../../helpers/RestApi";
+import { handleError, RestApi } from "../../api/RestApi";
 import TopTitle from "../ui/TopTitle";
 
 const Login = () => {

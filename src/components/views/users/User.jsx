@@ -1,6 +1,6 @@
 import BaseContainer from "../../ui/BaseContainer";
 import React, { useEffect, useState } from "react";
-import { handleError, RestApi } from "../../../helpers/RestApi";
+import { handleError, RestApi } from "../../../api/RestApi";
 import { Flex, Paper, Table, Text, Title } from "@mantine/core";
 import StandardButton from "../../ui/StandardButton";
 import { useHistory } from "react-router-dom";

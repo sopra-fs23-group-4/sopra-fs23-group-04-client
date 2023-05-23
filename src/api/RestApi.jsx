@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getDomain } from "helpers/getDomain";
 import User from "../models/User";
-import { Role, StorageManager } from "./storageManager";
+import { Role, StorageManager } from "../helpers/storageManager";
 import { notifications } from "@mantine/notifications";
 
 export const restApi = axios.create({

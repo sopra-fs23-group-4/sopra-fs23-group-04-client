@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Paper, Table, Text, Center } from "@mantine/core";
 import BaseContainer from "../ui/BaseContainer";
 import { StorageManager } from "../../helpers/storageManager";
-import { handleError, RestApi } from "../../helpers/RestApi";
+import { handleError, RestApi } from "../../api/RestApi";
 import StandardButton from "../ui/StandardButton";
 import { useHistory } from "react-router-dom";
 import TopTitle from "../ui/TopTitle";
