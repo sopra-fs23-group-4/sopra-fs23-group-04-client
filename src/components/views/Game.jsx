@@ -1,38 +1,84 @@
 import BaseContainer from "../ui/BaseContainer";
 import { useHistory } from "react-router-dom";
 import { handleError, RestApi } from "../../helpers/RestApi";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PinInput, Title, Text } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
-import { Role, StorageManager } from "../../helpers/storageManager";
+import { StorageManager } from "../../helpers/storageManager";
 
 const Game = () => {
     const history = useHistory();
 
     const [pin, setPin] = useState("");
+    const [rejoinGamePin, setRejoinGamePin] = useState(0);
+    const [rejoinPossible, setRejoinPossible] = useState(false);
+
+    useEffect(() => {
+        const fetchData = () => {
+            if (!rejoinPossible && rejoinGamePin === 0) {
+                RestApi.rejoinPossible()
+                    .then((response) => {
+                        setRejoinPossible(response.rejoinPossible);
+                        setRejoinGamePin(response.gamePin);
+                    })
+                    .catch((error) => {
+                        console.error(`Something went wrong while fetching the active game data: \n${handleError(error)}`);
+                    });
+            }
+        };
+        fetchData();
+    }, [rejoinPossible, rejoinGamePin]);
 
     const handlePinChange = (newValue) => {
         setPin(newValue);
     };
 
-    const doJoin = async (pin) => {
+    const fetchGameData = async (pin) => {
         try {
-            await RestApi.joinGame(pin);
-            StorageManager.setRole(Role.PLAYER);
-            StorageManager.setGamePin(pin);
-
             const categoriesResponse = await RestApi.getGameCategories(pin);
             StorageManager.setCategories(categoriesResponse);
 
             const gameSettingsResponse = await RestApi.getGameSettings(pin);
             StorageManager.setRoundLength(gameSettingsResponse.roundLength);
             StorageManager.setRoundAmount(gameSettingsResponse.rounds);
+        } catch (error) {
+            console.error(`Something went wrong fetching the game settings: \n${handleError(error)}`);
+        }
+    };
+
+    const doJoin = async (pin) => {
+        try {
+            await RestApi.joinGame(pin);
+            await fetchGameData(pin);
 
             history.push(`/game/${pin}/lobby`);
         } catch (error) {
             console.error(`Something went wrong joining the lobby: \n${handleError(error)}`);
         }
     };
+
+    const doRejoin = async (pin) => {
+        try {
+            await RestApi.rejoinGame(pin);
+            await fetchGameData(pin);
+
+            history.push(`/game/${pin}/round/${StorageManager.getRound()}/score`);
+        } catch (error) {
+            console.error(`Something went wrong rejoining the game: \n${handleError(error)}`);
+        }
+    };
+
+    let rejoinButton = "";
+    if (rejoinPossible) {
+        rejoinButton = (
+            <StandardButton
+                sx={{ marginTop: "2%" }}
+                onClick={() => doRejoin(rejoinGamePin)}
+            >
+                rejoin running game
+            </StandardButton>
+        );
+    }
 
     return (
         <BaseContainer>
@@ -50,8 +96,9 @@ const Game = () => {
                 disabled={pin.length !== 4}
                 onClick={() => doJoin(pin)}
             >
-                join game{"   "}
+                join game
             </StandardButton>
+            {rejoinButton}
             <StandardButton
                 sx={{ marginTop: "10%" }}
                 onClick={() => history.push("/dashboard")}

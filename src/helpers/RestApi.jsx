@@ -1,7 +1,7 @@
 import axios from "axios";
 import { getDomain } from "helpers/getDomain";
 import User from "../models/User";
-import { StorageManager } from "./storageManager";
+import { Role, StorageManager } from "./storageManager";
 import { notifications } from "@mantine/notifications";
 
 export const restApi = axios.create({
@@ -99,6 +99,19 @@ export class RestApi {
 
     static async joinGame(pin) {
         await restApi.put(`/games/lobbies/${pin}/join`, null);
+        StorageManager.setRole(Role.PLAYER);
+        StorageManager.setGamePin(pin);
+    }
+
+    static async rejoinPossible() {
+        const response = await restApi.get(`/games/lobbies/rejoinPossible`);
+        return response.data;
+    }
+    static async rejoinGame(pin) {
+        const response = await restApi.get(`/games/lobbies/${pin}/rejoin`);
+        StorageManager.setRound(response.data.round);
+        StorageManager.setRole(Role.PLAYER);
+        StorageManager.setGamePin(pin);
     }
 
     static async leaveGame(pin) {
