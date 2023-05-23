@@ -112,6 +112,7 @@ export class RestApi {
         StorageManager.setRound(response.data.round);
         StorageManager.setRole(Role.PLAYER);
         StorageManager.setGamePin(pin);
+        return response.data.round;
     }
 
     static async leaveGame(pin) {

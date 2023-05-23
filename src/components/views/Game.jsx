@@ -59,10 +59,14 @@ const Game = () => {
 
     const doRejoin = async (pin) => {
         try {
-            await RestApi.rejoinGame(pin);
+            const currentGameRound = await RestApi.rejoinGame(pin);
             await fetchGameData(pin);
 
-            history.push(`/game/${pin}/round/${StorageManager.getRound()}/score`);
+            if (currentGameRound === 0) {
+                history.push(`/game/${pin}/lobby`);
+            } else {
+                history.push(`/game/${pin}/round/${currentGameRound}/score`);
+            }
         } catch (error) {
             console.error(`Something went wrong rejoining the game: \n${handleError(error)}`);
         }
