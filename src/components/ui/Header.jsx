@@ -15,7 +15,7 @@ const Header = () => (
         <Stack
             align="center"
             color="grey"
-            sx={{ marginTop: "25px", marginBottom: "3%" }}
+            sx={{ marginTop: "25px" }}
         >
             <img
                 src={Logo}

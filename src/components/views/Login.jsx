@@ -1,9 +1,10 @@
 import BaseContainer from "components/ui/BaseContainer";
-import { Container, Text, PasswordInput, rem, Stack, TextInput, Title } from "@mantine/core";
+import { Container, Text, PasswordInput, rem, Stack, TextInput } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
 import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 import { handleError, RestApi } from "../../helpers/RestApi";
+import TopTitle from "../ui/TopTitle";
 
 const Login = () => {
     const history = useHistory();
@@ -22,12 +23,7 @@ const Login = () => {
 
     return (
         <BaseContainer>
-            <Title
-                order={1}
-                sx={{ color: "white" }}
-            >
-                login
-            </Title>{" "}
+            <TopTitle>login</TopTitle>{" "}
             <Container size={250}>
                 <Stack>
                     <TextInput

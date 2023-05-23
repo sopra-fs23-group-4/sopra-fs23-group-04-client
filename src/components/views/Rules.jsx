@@ -1,19 +1,15 @@
-import { Title, Text, Box, Paper } from "@mantine/core";
+import { Text, Box, Paper } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
 import BaseContainer from "../ui/BaseContainer";
 import { useHistory } from "react-router-dom";
+import TopTitle from "../ui/TopTitle";
 
 const Rules = () => {
     const history = useHistory();
 
     return (
         <BaseContainer>
-            <Title
-                color="white"
-                style={{ marginBottom: "2%" }}
-            >
-                game rules
-            </Title>
+            <TopTitle style={{ marginBottom: "2%" }}>game rules</TopTitle>
             <Paper
                 align="center"
                 radius="md"

@@ -54,7 +54,7 @@ const User = (props) => {
             <Title
                 align="center"
                 order={1}
-                sx={{ color: "white", marginTop: "2%" }}
+                sx={{ color: "white" }}
             >
                 {user.username}
             </Title>
@@ -64,7 +64,7 @@ const User = (props) => {
                 size="md"
                 color="white"
                 fw={500}
-                sx={{ width: "80%", marginBottom: "4%" }}
+                sx={{ width: "80%", marginTop: "-1%" }}
             >
                 "{user.quote}"
             </Text>

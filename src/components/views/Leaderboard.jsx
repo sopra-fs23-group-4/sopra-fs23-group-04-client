@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Paper, Table, Title, Text, Center } from "@mantine/core";
+import { Paper, Table, Text, Center } from "@mantine/core";
 import BaseContainer from "../ui/BaseContainer";
 import { StorageManager } from "../../helpers/storageManager";
 import { handleError, RestApi } from "../../helpers/RestApi";
 import StandardButton from "../ui/StandardButton";
 import { useHistory } from "react-router-dom";
+import TopTitle from "../ui/TopTitle";
 
 const Leaderboard = () => {
     const [leaderboard, setLeaderboard] = useState([]);
@@ -97,13 +98,7 @@ const Leaderboard = () => {
 
     return (
         <BaseContainer>
-            <Title
-                align="center"
-                order={1}
-                sx={{ color: "white" }}
-            >
-                leaderboard
-            </Title>
+            <TopTitle>leaderboard</TopTitle>
             <Paper
                 radius="md"
                 shadow="xl"

@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Title, Text, Stack, Paper, Container, Group, Dialog, Progress } from "@mantine/core";
+import { Title, Text, Stack, Paper, Container, Group, Dialog, Progress, Space } from "@mantine/core";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Player } from "./Lobby";
@@ -7,6 +7,7 @@ import { handleError, RestApi } from "../../../../helpers/RestApi";
 import { StorageManager as storageManager, StorageManager } from "../../../../helpers/storageManager";
 import StandardButton from "../../../ui/StandardButton";
 import { useDisclosure } from "@mantine/hooks";
+import TopTitle from "../../../ui/TopTitle";
 
 export const ScoreboardEntry = (props) => {
     return (
@@ -114,7 +115,7 @@ const Score = (props) => {
     let leaveButton = (
         <StandardButton
             sx={{
-                marginTop: "50%",
+                marginTop: "20%",
                 "&:disabled": {
                     color: "inherit",
                     backgroundColor: "#e4487f",
@@ -131,7 +132,7 @@ const Score = (props) => {
     if (storageManager.getRound() === storageManager.getRoundAmount()) {
         leaveButton = (
             <StandardButton
-                sx={{ marginTop: "10%" }}
+                sx={{ marginTop: "5%" }}
                 onClick={() => {
                     StorageManager.resetGame();
                     history.replace(`/game`);
@@ -145,12 +146,7 @@ const Score = (props) => {
     return (
         <BaseContainer>
             <Text color="white">time remaining: {timer}</Text>
-            <Title
-                color="white"
-                sx={{ marginTop: "-3%" }}
-            >
-                score
-            </Title>
+            <TopTitle sx={{ marginTop: "-3%" }}>score</TopTitle>
             <Paper
                 radius="md"
                 shadow="xl"
@@ -160,6 +156,7 @@ const Score = (props) => {
             >
                 {scoreboardContent}
             </Paper>
+            <Space />
             <Stack
                 align="stretch"
                 justify="center"
@@ -178,6 +175,7 @@ const Score = (props) => {
                     value={(StorageManager.getRound() / StorageManager.getRoundAmount()) * 100}
                 />
             </Stack>
+            <Space />
             <Text
                 color="white"
                 align="center"
@@ -203,9 +201,9 @@ const Score = (props) => {
                     mb="xs"
                     weight={700}
                 >
-                    Whaaat?!?
+                    Whaaat?!
                     <br />
-                    Do you really want to be a looser?
+                    Do you really want to be a loser?
                 </Text>
 
                 <Group
@@ -216,7 +214,7 @@ const Score = (props) => {
                         color="green"
                         onClick={close}
                     >
-                        cancel
+                        stay
                     </StandardButton>
                     <StandardButton
                         color="red"

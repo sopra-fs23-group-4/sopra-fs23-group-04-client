@@ -1,9 +1,9 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import React, {useCallback, useEffect, useState} from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Title, Box } from "@mantine/core";
 import { useHistory, useParams } from "react-router-dom";
 import { StorageManager } from "../../../../helpers/storageManager";
-import { Zoom} from 'react-awesome-reveal';
+import { JackInTheBox, Zoom } from "react-awesome-reveal";
 
 const Countdown = () => {
     const history = useHistory();
@@ -11,7 +11,7 @@ const Countdown = () => {
 
     const letter = StorageManager.getLetter();
     const [countdownDone, setCountdownDone] = useState(false);
-    const [remainingTime, setRemainingTime] = useState(3);  // Duration of the countdown
+    const [remainingTime, setRemainingTime] = useState(3);
 
     const countdownComplete = useCallback(() => {
         setCountdownDone(true);
@@ -27,17 +27,17 @@ const Countdown = () => {
         }
 
         const intervalId = setInterval(() => {
-            setRemainingTime(time => time - 1);
+            setRemainingTime((time) => time - 1);
         }, 1000);
 
-        return () => clearInterval(intervalId); // Clean up interval on component unmount
+        return () => clearInterval(intervalId);
     }, [remainingTime, countdownComplete]);
 
     const contentCountdown = (
         <Box align="center">
             <Title
                 color="white"
-                sx={{ marginTop: "25%" }}
+                sx={{ marginTop: "50px" }}
             >
                 {" "}
                 round {round}
@@ -47,7 +47,10 @@ const Countdown = () => {
                 size="100"
                 sx={{ marginTop: "20%" }}
             >
-                <Zoom key={remainingTime} duration={1000}>
+                <Zoom
+                    key={remainingTime}
+                    duration={1000}
+                >
                     <div>{remainingTime}</div>
                 </Zoom>
             </Title>
@@ -58,7 +61,7 @@ const Countdown = () => {
         <Box align="center">
             <Title
                 color="white"
-                sx={{ marginTop: "25%" }}
+                sx={{ marginTop: "50px" }}
             >
                 {" "}
                 next letter:
@@ -68,10 +71,12 @@ const Countdown = () => {
                 size="150"
                 sx={{ marginTop: "10%" }}
             >
-                <Zoom duration={1000} triggerOnce>
+                <JackInTheBox
+                    duration={1000}
+                    triggerOnce
+                >
                     <div>{letter}</div>
-                </Zoom>
-
+                </JackInTheBox>
             </Title>
         </Box>
     );

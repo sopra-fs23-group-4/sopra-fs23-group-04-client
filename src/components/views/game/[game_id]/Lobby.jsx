@@ -5,6 +5,7 @@ import { Role, StorageManager } from "../../../../helpers/storageManager";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
+import TopTitle from "../../../ui/TopTitle";
 
 export const Player = (props) => {
     let value;
@@ -134,7 +135,7 @@ const Lobby = (props) => {
 
     return (
         <BaseContainer>
-            <Title color="white">PIN: {gamePin}</Title>
+            <TopTitle>pin: {gamePin}</TopTitle>
             <Stack
                 align="center"
                 sx={{ maxWidth: "65%", paddingBottom: "2%" }}

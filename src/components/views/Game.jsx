@@ -2,9 +2,10 @@ import BaseContainer from "../ui/BaseContainer";
 import { useHistory } from "react-router-dom";
 import { handleError, RestApi } from "../../helpers/RestApi";
 import React, { useEffect, useState } from "react";
-import { PinInput, Title, Text } from "@mantine/core";
+import { PinInput, Text } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
 import { StorageManager } from "../../helpers/storageManager";
+import TopTitle from "../ui/TopTitle";
 
 const Game = () => {
     const history = useHistory();
@@ -86,7 +87,7 @@ const Game = () => {
 
     return (
         <BaseContainer>
-            <Title color="white">{StorageManager.getUsername()}</Title>
+            <TopTitle>game center</TopTitle>
             <Text color="white">create a new Game as HOST:</Text>
             <StandardButton onClick={() => history.push("/game/categories")}>create game</StandardButton>
             <Text

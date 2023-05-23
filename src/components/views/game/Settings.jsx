@@ -5,6 +5,7 @@ import { Container, SegmentedControl, Slider, Space, Title } from "@mantine/core
 import React, { useState } from "react";
 import { handleError, RestApi } from "../../../helpers/RestApi";
 import { Role, StorageManager } from "../../../helpers/storageManager";
+import TopTitle from "../../ui/TopTitle";
 
 export const RoundLength = {
     SHORT: "SHORT",
@@ -47,12 +48,17 @@ const Settings = () => {
 
     return (
         <BaseContainer>
-            <Title color="white">
+            <TopTitle>settings</TopTitle>
+            <Title
+                color="white"
+                order={3}
+                sx={{ marginTop: "3%", marginBottom: "-1%" }}
+            >
                 rounds: <b>{rounds}</b>
             </Title>
             <Container sx={{ minWidth: "60%" }}>
                 <Slider
-                    sx={{ marginTop: "5%", "& .mantine-Slider-markLabel": { color: "white" } }}
+                    sx={{ marginTop: "0%", "& .mantine-Slider-markLabel": { color: "white" } }}
                     defaultValue={15}
                     min={1}
                     max={26}
@@ -62,7 +68,11 @@ const Settings = () => {
                 />
             </Container>
             <Space h="xs" />
-            <Title color="white">
+            <Title
+                color="white"
+                order={3}
+                sx={{ marginTop: "3%" }}
+            >
                 round length: <b>{roundLengthInSeconds[roundLength]}</b>
             </Title>
             <SegmentedControl

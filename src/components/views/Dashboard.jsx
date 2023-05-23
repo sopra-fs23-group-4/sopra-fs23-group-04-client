@@ -6,6 +6,7 @@ import StandardButton from "../ui/StandardButton";
 import { Edit as EditIcon, OneTwoThree, QuestionMark } from "tabler-icons-react";
 import { IconMenu2, IconMessageCircle, IconUser } from "@tabler/icons-react";
 import { StorageManager } from "../../helpers/storageManager";
+import TopTitle from "../ui/TopTitle";
 
 const Dashboard = () => {
     const history = useHistory();
@@ -82,8 +83,9 @@ const Dashboard = () => {
 
     return (
         <BaseContainer>
+            <TopTitle>welcome</TopTitle>
             <Paper
-                sx={{ background: "inherit", minWidth: "220px", border: "3px solid azure", marginTop: "10%" }}
+                sx={{ background: "inherit", minWidth: "220px", border: "3px solid azure", marginTop: "2%" }}
                 style={{ width: "90%" }}
                 radius="md"
                 align="center"

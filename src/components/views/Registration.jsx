@@ -1,9 +1,10 @@
 import BaseContainer from "../ui/BaseContainer";
-import { Container, Text, PasswordInput, rem, Stack, TextInput, Title } from "@mantine/core";
+import { Container, Text, PasswordInput, rem, Stack, TextInput } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
 import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 import { RestApi, handleError } from "../../helpers/RestApi";
+import TopTitle from "../ui/TopTitle";
 
 const Registration = () => {
     const history = useHistory();
@@ -25,12 +26,7 @@ const Registration = () => {
 
     return (
         <BaseContainer>
-            <Title
-                order={1}
-                sx={{ color: "white" }}
-            >
-                registration
-            </Title>{" "}
+            <TopTitle>registration</TopTitle>{" "}
             <Container size={250}>
                 <Stack>
                     <TextInput

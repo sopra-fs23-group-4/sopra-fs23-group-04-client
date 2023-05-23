@@ -1,11 +1,12 @@
 import BaseContainer from "../../ui/BaseContainer";
-import { Text, Chip, Group, Loader, Stack, Title, TextInput, Paper } from "@mantine/core";
+import { Text, Chip, Group, Loader, Stack, TextInput, Paper } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import StandardButton from "../../ui/StandardButton";
 import { useHistory } from "react-router-dom";
 import { handleError, RestApi } from "../../../helpers/RestApi";
 import { StorageManager } from "../../../helpers/storageManager";
 import { notifications } from "@mantine/notifications";
+import TopTitle from "../../ui/TopTitle";
 
 const CategoryComponent = ({ category }) => {
     return (
@@ -138,7 +139,7 @@ const Categories = () => {
 
     return (
         <BaseContainer align="center">
-            <Title color="white">category selection</Title>
+            <TopTitle>category selection</TopTitle>
             <Stack
                 align="center"
                 sx={{ marginTop: "1%", marginBottom: "1%" }}
@@ -174,7 +175,7 @@ const Categories = () => {
             </Text>
             <StandardButton onClick={addRandomCategory}>get random</StandardButton>
             <Paper
-                sx={{ background: "inherit", minWidth: "220px", border: "2.5px solid azure", marginTop: "2%" }}
+                sx={{ background: "inherit", minWidth: "220px", maxWidth: "500px", border: "2.5px solid azure", marginTop: "2%" }}
                 style={{ width: "100%" }}
                 radius="md"
                 align="center"
@@ -202,7 +203,7 @@ const Categories = () => {
             </Paper>
             <StandardButton
                 onClick={() => history.replace("/game/")}
-                sx={{ marginTop: "5%" }}
+                sx={{ marginTop: "5%", marginBottom: "5%" }}
             >
                 cancel
             </StandardButton>

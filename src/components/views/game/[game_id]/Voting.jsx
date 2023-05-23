@@ -1,7 +1,7 @@
 import BaseContainer from "../../../ui/BaseContainer";
 import { Divider, Loader, Paper, Radio, Stack, Table, Text, Title } from "@mantine/core";
 import { useHistory, useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StorageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../helpers/RestApi";
 import StandardButton from "../../../ui/StandardButton";
@@ -193,6 +193,14 @@ const Voting = (props) => {
     return (
         <BaseContainer>
             <Text color="white">Time remaining: {timer}</Text>
+            <Text
+                align="center"
+                color="white"
+                size="lg"
+                fw={700}
+            >
+                voting
+            </Text>
             <Paper
                 shadow="xl"
                 radius="md"
