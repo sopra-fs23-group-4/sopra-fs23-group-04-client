@@ -58,7 +58,7 @@ const Winner = (props) => {
             <Title
                 align="center"
                 order={1}
-                sx={{ color: "white", marginTop: "40%" }}
+                sx={{ color: "white", marginTop: "30%" }}
             >
                 and the glorious winner is{" "}
                 <Loader
@@ -105,7 +105,7 @@ const Winner = (props) => {
                     sx={{ width: "80%", marginBottom: "2%" }}
                 >
                     <ReactTypingEffect
-                        text={[`"${winners[0].quote}"`]}
+                        text={winners[0].quote}
                         speed={50}
                         eraseDelay={999999999}
                         typingDelay={400}
