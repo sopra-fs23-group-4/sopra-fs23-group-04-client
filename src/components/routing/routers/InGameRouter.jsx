@@ -7,7 +7,6 @@ import VotingResult from "../../views/game/[game_id]/VotingResult";
 import Score from "../../views/game/[game_id]/Score";
 import Winner from "../../views/game/[game_id]/Winner";
 import { useEffect, useState } from "react";
-import { handleError, RestApi } from "../../../api/RestApi";
 import SockJsClient from "react-stomp";
 import { StorageManager } from "../../../helpers/storageManager";
 import { getDomain } from "../../../helpers/getDomain";
@@ -40,38 +39,11 @@ const InGameRouter = () => {
         };
     }, [history]);
 
-    // Leave on Tab Close
-    useEffect(() => {
-        const handleTabClose = () => {
-            RestApi.leaveGame(gamePin)
-                .then(() => {
-                    // Handle successful API call if needed
-                })
-                .catch((error) => {
-                    console.error(`Something went wrong while leaving the game: \n${handleError(error)}`);
-                });
-        };
-
-        window.addEventListener("unload", handleTabClose);
-
-        return () => {
-            window.removeEventListener("unload", handleTabClose);
-        };
-    }, [gamePin]);
-
     const onConnected = () => {
         console.log("Connected!!");
     };
     const onDisconnected = () => {
         console.log("disconnect");
-        // if somehow still in Game, user leaves game
-        if (StorageManager.getGamePin()) {
-            RestApi.leaveGame(gamePin)
-                .then(() => {})
-                .catch((error) => {
-                    console.error(`Something went wrong while leaving the game: \n${handleError(error)}`);
-                });
-        }
     };
 
     let onMessageReceived = async (msg) => {

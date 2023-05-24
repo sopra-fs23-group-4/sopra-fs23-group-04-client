@@ -15,7 +15,7 @@ const Game = () => {
     const [rejoinPossible, setRejoinPossible] = useState(false);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = () => {
             if (!rejoinPossible && rejoinGamePin === 0) {
                 RestApi.rejoinPossible()
                     .then((response) => {
