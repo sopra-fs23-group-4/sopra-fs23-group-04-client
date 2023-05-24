@@ -167,7 +167,7 @@ const Board = (props) => {
         );
 
     let contentOverview = (
-        <Box
+        <Stack
             position="center"
             sx={{ marginTop: "2%" }}
         >
@@ -186,7 +186,7 @@ const Board = (props) => {
             >
                 {contentDone}
             </Box>
-        </Box>
+        </Stack>
     );
 
     let contentAnswer = (
