@@ -69,7 +69,7 @@ const Quote = () => {
                 color="white"
                 style={{ width: "75%" }}
             >
-                "{StorageManager.getQuote()}"
+                {StorageManager.getQuote()}
             </Text>
 
             <Textarea
