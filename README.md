@@ -51,29 +51,45 @@ All in-game pages are children of the [InGameRouter](https://github.com/sopra-fs
 
 Stand Land PLUS is optimized for mobile phones. For the perfect playing experience, a screen size of at least 5.4in (e.g. iPhone 13 mini) is recommended.
 
-<h3 align="center">
+<div align="center">
+  <h3>
+    <br>
+    registration:
   <br>
-  registration - new users can sign up.
-  <br>
-</h3>
+  </h3>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/registration.png" alt="registration" width="240"></a>
+  <p> new users can sign up<p>
+</div>
 
-<h3 align="center">
+<div align="center">
+  <h3>
+    <br>
+    landing page:
   <br>
-  landing page - start a game or choose an option from the menu.
-  <br>
-</h3>
+  </h3>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/dashboard.png" alt="dashboard" width="240"></a>
+  <p> start a game or choose an option from the menu<p>
+</div>
 
-<h3 align="center">
+<div align="center">
+  <h3>
+    <br>
+    game rules:
   <br>
-  game rules - how do I play this game?
-  <br>
-</h3>
+  </h3>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/rules.png" alt="rules" width="240"></a>
+  <p> how do I play this game?<p>
+</div>
 
-<h3 align="center">
+<div align="center">
+  <h3>
+    <br>
+    change quote:
   <br>
-  change quote - write or generate a winning quote.
-  <br>
-</h3>
+  </h3>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/quote.png" alt="quote" width="240"></a>
+  <p> write or generate a winning quote<p>
+</div>
 
 <div align="center">
   <h3>
@@ -85,72 +101,117 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
   <p> create a new game as a host or join an existing lobby by PIN<p>
 </div>
 
+<div align="center">
+  <h3>
+    <br>
+    category selection:
+  <br>
+  </h3>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/category.png" alt="category" width="240"></a>
+  <p> choose the categories for your game<p>
+</div>
 
-<h3 align="center">
+<div align="center">
+  <h3>
+    <br>
+    game settings:
   <br>
-  category selection - choose the categories for your game.
-  <br>
-</h3>
+  </h3>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/settings.png" alt="settings" width="240"></a>
+  <p> choose the settings for your game<p>
+</div>
 
-<h3 align="center">
+<div align="center">
+  <h3>
+    <br>
+    lobby:
   <br>
-  game settings - choose the settings for your game.
-  <br>
-</h3>
+  </h3>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/lobby.png" alt="lobby" width="240"></a>
+  <p> wait for other players and start the game<p>
+</div>
 
-<h3 align="center">
+<div align="center">
+  <h3>
+    <br>
+    board:
   <br>
-  lobby - wait for other players and start the game.
-  <br>
-</h3>
+  </h3>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/board.png" alt="board" width="240"></a>
+  <p> choose a category to answer<p>
+</div>
 
-<h3 align="center">
+<div align="center">
+  <h3>
+    <br>
+    answer:
   <br>
-  board - choose a category to answer.
-  <br>
-</h3>
+  </h3>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/answer.png" alt="answer" width="240"></a>
+  <p> type in your answer<p>
+</div>
 
-<h3 align="center">
+<div align="center">
+  <h3>
+    <br>
+    voting:
   <br>
-  answer - type in your answer.
-  <br>
-</h3>
+  </h3>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/voting.png" alt="voting" width="240"></a>
+  <p> rate the other players' answers<p>
+</div>
 
-<h3 align="center">
+<div align="center">
+  <h3>
+    <br>
+    voting results:
   <br>
-  voting - rate the other players' answers.
-  <br>
-</h3>
+  </h3>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/votingResult.png" alt="votingResults" width="240"></a>
+  <p> see the voting results (majority vote)<p>
+</div>
 
-<h3 align="center">
-  <br>
-  voting result - see the voting results (majority vote).
-  <br>
-</h3>
 
-<h3 align="center">
+<div align="center">
+  <h3>
+    <br>
+    scoreboard:
   <br>
-  scoreboard - see the total score and a random fact.
-  <br>
-</h3>
+  </h3>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/score.png" alt="score" width="240"></a>
+  <p> see the total score and a random fact<p>
+</div>
 
-<h3 align="center">
+<div align="center">
+  <h3>
+    <br>
+    winner:
   <br>
-  winner - the winner is announced.
-  <br>
-</h3>
+  </h3>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/winner.png" alt="winner" width="240"></a>
+  <p> the winner is announced<p>
+</div>
 
-<h3 align="center">
+<div align="center">
+  <h3>
+    <br>
+    profile page:
   <br>
-  leaderboard - see the hall of fame.
-  <br>
-</h3>
+  </h3>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/userPage.png" alt="userPage" width="240"></a>
+  <p> see the user's stats<p>
+</div>
 
-<h3 align="center">
+<div align="center">
+  <h3>
+    <br>
+    leaderboard:
   <br>
-  profile page - see your stats.
-  <br>
-</h3>
+  </h3>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/leaderboard.png" alt="leaderboard" width="240"></a>
+  <p> the hall of fame<p>
+</div>
+
 
 
 ## Roadmap
