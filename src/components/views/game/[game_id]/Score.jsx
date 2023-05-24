@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Title, Text, Stack, Paper, Container, Group, Dialog, Progress, Space } from "@mantine/core";
+import { Title, Text, Stack, Container, Group, Dialog, Progress, Space } from "@mantine/core";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Player } from "./Lobby";
@@ -8,6 +8,7 @@ import { StorageManager as storageManager, StorageManager } from "../../../../he
 import StandardButton from "../../../ui/StandardButton";
 import { useDisclosure } from "@mantine/hooks";
 import TopTitle from "../../../ui/TopTitle";
+import PaperBox from "../../../ui/PaperBox";
 
 export const ScoreboardEntry = (props) => {
     return (
@@ -146,21 +147,8 @@ const Score = (props) => {
     return (
         <BaseContainer>
             <Text color="white">time remaining: {timer}</Text>
-            <TopTitle
-                color="white"
-                sx={{ marginTop: "-3%" }}
-            >
-                score
-            </TopTitle>
-            <Paper
-                radius="md"
-                shadow="xl"
-                p="lg"
-                bg="rgba(0, 255, 0, .1)"
-                sx={{ background: "inherit", minWidth: "220px", border: "3px solid azure" }}
-            >
-                {scoreboardContent}
-            </Paper>
+            <TopTitle style={{ color: "white", marginTop: "-3%" }}>score</TopTitle>
+            <PaperBox p="lg">{scoreboardContent}</PaperBox>
             <Space />
             <Stack
                 align="stretch"

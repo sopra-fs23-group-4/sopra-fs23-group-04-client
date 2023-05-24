@@ -1,8 +1,9 @@
-import { Text, Box, Paper } from "@mantine/core";
+import { Text, Box } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
 import BaseContainer from "../ui/BaseContainer";
 import { useHistory } from "react-router-dom";
 import TopTitle from "../ui/TopTitle";
+import PaperBox from "../ui/PaperBox";
 
 const Rules = () => {
     const history = useHistory();
@@ -10,11 +11,7 @@ const Rules = () => {
     return (
         <BaseContainer>
             <TopTitle style={{ marginBottom: "2%" }}>game rules</TopTitle>
-            <Paper
-                align="center"
-                radius="md"
-                sx={{ background: "inherit", minWidth: "220px", border: "3px solid azure", marginTop: "0%" }}
-            >
+            <PaperBox py="xs">
                 <Text
                     color="white"
                     size="md"
@@ -42,7 +39,7 @@ const Rules = () => {
                 >
                     Enjoy the thrill of <strong>Stadt Land PLUS</strong>!
                 </Text>
-            </Paper>
+            </PaperBox>
             <StandardButton
                 onClick={() => history.push("/dashboard")}
                 sx={{ marginTop: "3%", marginBottom: "5%" }}

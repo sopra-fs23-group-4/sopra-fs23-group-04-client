@@ -1,11 +1,12 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Title, Text, Flex, Stack, Paper, Container, Badge } from "@mantine/core";
+import { Title, Text, Flex, Stack, Container, Badge } from "@mantine/core";
 import StandardButton from "../../../ui/StandardButton";
 import { Role, StorageManager } from "../../../../helpers/storageManager";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { handleError, RestApi } from "../../../../api/RestApi";
 import TopTitle from "../../../ui/TopTitle";
+import PaperBox from "../../../ui/PaperBox";
 
 export const Player = (props) => {
     let value;
@@ -187,13 +188,7 @@ const Lobby = (props) => {
                 </Flex>
             </Stack>
             {startGameButton}
-            <Paper
-                radius="md"
-                shadow="xl"
-                p="lg"
-                bg="rgba(0, 255, 0, .1)"
-                sx={{ background: "inherit", minWidth: "220px", border: "3px solid azure" }}
-            >
+            <PaperBox p="lg">
                 <Flex
                     mih={50}
                     gap="md"
@@ -213,7 +208,7 @@ const Lobby = (props) => {
                     />
                 </Flex>
                 {playerListContent}
-            </Paper>
+            </PaperBox>
             <StandardButton
                 sx={{ marginTop: "10%" }}
                 onClick={() => doLeave()}

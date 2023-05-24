@@ -1,12 +1,13 @@
-import { Button, Menu, Paper, Text, Title } from "@mantine/core";
+import { Button, Menu, Text, Title } from "@mantine/core";
 import BaseContainer from "../ui/BaseContainer";
 import { useHistory } from "react-router-dom";
 import React, { useEffect } from "react";
 import StandardButton from "../ui/StandardButton";
-import { Edit as EditIcon, OneTwoThree, QuestionMark } from "tabler-icons-react";
+import { OneTwoThree, QuestionMark } from "tabler-icons-react";
 import { IconMenu2, IconMessageCircle, IconUser } from "@tabler/icons-react";
 import { StorageManager } from "../../helpers/storageManager";
 import TopTitle from "../ui/TopTitle";
+import PaperBox from "../ui/PaperBox";
 
 const Dashboard = () => {
     const history = useHistory();
@@ -84,12 +85,9 @@ const Dashboard = () => {
     return (
         <BaseContainer>
             <TopTitle>welcome</TopTitle>
-            <Paper
-                sx={{ background: "inherit", minWidth: "220px", border: "3px solid azure", marginTop: "2%" }}
-                style={{ width: "90%" }}
-                radius="md"
-                align="center"
-                spacing="xs"
+            <PaperBox
+                px="xl"
+                style={{ marginTop: "2%" }}
             >
                 <Title
                     align="center"
@@ -105,16 +103,12 @@ const Dashboard = () => {
                     size="md"
                     color="white"
                     fw={500}
-                    sx={{ width: "80%", marginTop: "2%", marginBottom: "5%", cursor: "pointer" }}
+                    sx={{ marginTop: "2%", marginBottom: "5%", cursor: "pointer" }}
                     onClick={() => history.push("/profile/edit/quote")}
                 >
                     {quote}{" "}
-                    <EditIcon
-                        color="#f8af05"
-                        size={18}
-                    />
                 </Text>
-            </Paper>
+            </PaperBox>
 
             <StandardButton
                 onClick={() => history.push("/game/")}
@@ -128,7 +122,7 @@ const Dashboard = () => {
 
             <StandardButton
                 onClick={() => doLogout()}
-                sx={{ marginTop: "15%" }}
+                sx={{ marginTop: "10%" }}
             >
                 logout{" "}
             </StandardButton>

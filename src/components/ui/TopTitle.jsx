@@ -3,7 +3,7 @@ import { Title } from "@mantine/core";
 const TopTitle = (props) => (
     <Title
         order={2}
-        sx={{ color: "white" }}
+        sx={{ color: "lightblue" }}
         {...props}
     >
         {props.children}

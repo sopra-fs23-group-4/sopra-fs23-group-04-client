@@ -1,10 +1,11 @@
 import BaseContainer from "../../../ui/BaseContainer";
 import { Textarea, Title, Text, NativeSelect, Group } from "@mantine/core";
 import { handleError, RestApi } from "../../../../api/RestApi";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import StandardButton from "../../../ui/StandardButton";
 import { StorageManager } from "../../../../helpers/storageManager";
+import TopTitle from "../../../ui/TopTitle";
 
 const Quote = () => {
     const history = useHistory();
@@ -60,6 +61,7 @@ const Quote = () => {
 
     return (
         <BaseContainer>
+            <TopTitle>winning quote</TopTitle>
             <Title color="white">{StorageManager.getUsername()}</Title>
 
             <Text

@@ -1,9 +1,11 @@
 import BaseContainer from "../../ui/BaseContainer";
 import React, { useEffect, useState } from "react";
 import { handleError, RestApi } from "../../../api/RestApi";
-import { Flex, Paper, Table, Text, Title } from "@mantine/core";
+import { Flex, Table, Text, Title } from "@mantine/core";
 import StandardButton from "../../ui/StandardButton";
 import { useHistory } from "react-router-dom";
+import TopTitle from "../../ui/TopTitle";
+import PaperBox from "../../ui/PaperBox";
 
 export const StatEntry = (props) => {
     return (
@@ -51,6 +53,7 @@ const User = (props) => {
 
     return (
         <BaseContainer>
+            <TopTitle>user page</TopTitle>
             <Title
                 align="center"
                 order={1}
@@ -68,13 +71,7 @@ const User = (props) => {
             >
                 "{user.quote}"
             </Text>
-            <Paper
-                radius="md"
-                shadow="xl"
-                p="lg"
-                bg="rgba(0, 255, 0, .1)"
-                sx={{ background: "inherit", minWidth: "220px", border: "4px solid white" }}
-            >
+            <PaperBox p="xs">
                 <Table
                     sx={{ color: "white" }}
                     fontSize="lg"
@@ -124,7 +121,7 @@ const User = (props) => {
                         />
                     </tbody>
                 </Table>
-            </Paper>
+            </PaperBox>
             <Flex
                 gap="md"
                 justify="center"
