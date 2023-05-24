@@ -2,25 +2,29 @@ import BaseContainer from "../ui/BaseContainer";
 import { useHistory } from "react-router-dom";
 import { handleError, RestApi } from "../../api/RestApi";
 import React, { useEffect, useState } from "react";
-import { PinInput, Text } from "@mantine/core";
+import { Flex, Modal, PinInput, Text, Title } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
 import { StorageManager } from "../../helpers/storageManager";
 import TopTitle from "../ui/TopTitle";
+import { useDisclosure } from "@mantine/hooks";
 
 const Game = () => {
     const history = useHistory();
 
     const [pin, setPin] = useState("");
     const [rejoinGamePin, setRejoinGamePin] = useState(0);
-    const [rejoinPossible, setRejoinPossible] = useState(false);
+
+    const [opened, { toggle, close }] = useDisclosure(false);
 
     useEffect(() => {
         const fetchData = () => {
-            if (!rejoinPossible && rejoinGamePin === 0) {
+            if (rejoinGamePin === 0) {
                 RestApi.rejoinPossible()
                     .then((response) => {
-                        setRejoinPossible(response.rejoinPossible);
                         setRejoinGamePin(response.gamePin);
+                        if (response.rejoinPossible) {
+                            toggle();
+                        }
                     })
                     .catch((error) => {
                         console.error(`Something went wrong while fetching the active game data: \n${handleError(error)}`);
@@ -28,7 +32,7 @@ const Game = () => {
             }
         };
         fetchData();
-    }, [rejoinPossible, rejoinGamePin]);
+    }, [rejoinGamePin, toggle]);
 
     const handlePinChange = (newValue) => {
         setPin(newValue);
@@ -73,18 +77,6 @@ const Game = () => {
         }
     };
 
-    let rejoinButton = "";
-    if (rejoinPossible) {
-        rejoinButton = (
-            <StandardButton
-                sx={{ marginTop: "2%" }}
-                onClick={() => doRejoin(rejoinGamePin)}
-            >
-                rejoin running game
-            </StandardButton>
-        );
-    }
-
     return (
         <BaseContainer>
             <TopTitle>game center</TopTitle>
@@ -103,13 +95,57 @@ const Game = () => {
             >
                 join game
             </StandardButton>
-            {rejoinButton}
             <StandardButton
                 sx={{ marginTop: "10%" }}
                 onClick={() => history.push("/dashboard")}
             >
                 back
             </StandardButton>
+            <Modal
+                opened={opened}
+                onClose={close}
+                title={<Title order={3}>You are still in a running game!</Title>}
+                size="auto"
+                closeOnClickOutside={false}
+                closeOnEscape={false}
+                withCloseButton={false}
+                padding="xl"
+                overlayProps={{
+                    opacity: 0.55,
+                    blur: 3,
+                }}
+                transition="scale"
+                transitionDuration={300}
+                transitionTimingFunction="ease"
+                radius="md"
+                yOffset="30vh"
+                xOffset={0}
+            >
+                <Flex
+                    gap="lg"
+                    justify="center"
+                    align="center"
+                    direction="row"
+                    wrap="wrap"
+                >
+                    <StandardButton
+                        onClick={() => {
+                            RestApi.leaveGame(rejoinGamePin)
+                                .then(() => {})
+                                .catch(() => {});
+                            toggle();
+                        }}
+                    >
+                        leave game
+                    </StandardButton>
+                    <StandardButton
+                        data-autofocus
+                        onClick={() => doRejoin(rejoinGamePin)}
+                    >
+                        rejoin game
+                    </StandardButton>
+                </Flex>
+            </Modal>
         </BaseContainer>
     );
 };
