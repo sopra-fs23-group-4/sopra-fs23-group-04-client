@@ -59,6 +59,7 @@ const Board = (props) => {
     const [answers, setAnswers] = useState(StorageManager.getAnswers());
     const [answerIndex, setAnswerIndex] = useState(0);
 
+    const [errorLength, setErrorLength] = useState(null);
     const [statusView, setStatusView] = useState(false);
 
     // Websocket updates
@@ -84,6 +85,14 @@ const Board = (props) => {
         // it makes sense to disable the exhaustive dependency requirements:
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.websocketMsg]);
+
+    useEffect(() => {
+        if (answers[answerIndex]?.length > 18) {
+            setErrorLength("your answer is too long, it will be cut off");
+        } else {
+            setErrorLength(null);
+        }
+    }, [answers[answerIndex]]);
 
     const doDoneWs = async () => {
         saveAnswers();
@@ -193,6 +202,8 @@ const Board = (props) => {
         <Stack align="center">
             <Title color="white">{categories[answerIndex]}</Title>
             <TextInput
+                error={errorLength}
+                styles={{ error: { color: "white" } }}
                 value={answers[answerIndex] ? answers[answerIndex] : letter}
                 radius="xl"
                 size="lg"
