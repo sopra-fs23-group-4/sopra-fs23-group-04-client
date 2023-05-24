@@ -3,7 +3,7 @@ import { Checkbox as CheckIcon, Edit as EditIcon } from "tabler-icons-react";
 import React, { useEffect, useState } from "react";
 import BaseContainer from "../../../ui/BaseContainer";
 import StandardButton from "../../../ui/StandardButton";
-import { Button, Stack, Title, Text, TextInput, Group } from "@mantine/core";
+import { Button, Stack, Title, Text, TextInput, Group, Box, Space } from "@mantine/core";
 import { StorageManager } from "../../../../helpers/storageManager";
 import { handleError, RestApi } from "../../../../api/RestApi";
 import * as gameFunctions from "../../../../helpers/gameFunction";
@@ -153,8 +153,21 @@ const Board = (props) => {
         }
     };
 
+    let contentDone;
+    if (answers.every((value) => value !== null && value !== "" && value !== { letter }))
+        contentDone = (
+            <StandardButton
+                color="green"
+                position="center"
+                sx={{ width: "100px" }}
+                onClick={() => handleDoneButton()}
+            >
+                done
+            </StandardButton>
+        );
+
     let contentOverview = (
-        <Stack
+        <Box
             position="center"
             sx={{ marginTop: "2%" }}
         >
@@ -166,7 +179,14 @@ const Board = (props) => {
                     handleGoToAnswer={handleGoToAnswer}
                 />
             ))}
-        </Stack>
+            <Space />
+            <Box
+                align="center"
+                sx={{ marginTop: "10%" }}
+            >
+                {contentDone}
+            </Box>
+        </Box>
     );
 
     let contentAnswer = (
@@ -180,6 +200,7 @@ const Board = (props) => {
                 onKeyDown={handleKeyDown}
                 sx={{ "& .mantine-TextInput-label": { color: "white" }, marginTop: "0%" }}
             />
+
             <Stack align="center">
                 <Group sx={{ marginTop: "2%" }}>
                     <StandardButton
@@ -196,6 +217,7 @@ const Board = (props) => {
                     </StandardButton>
                 </Group>
             </Stack>
+            {contentDone}
             <StandardButton
                 align="center"
                 sx={{ marginTop: "5%" }}
@@ -223,15 +245,6 @@ const Board = (props) => {
                 {letter}
             </Title>
             {contentView}
-            <StandardButton
-                color="green"
-                position="center"
-                sx={{ marginTop: "5%", marginBottom: "5%" }}
-                disabled={!answers.every((value) => value !== null && value !== "" && value !== { letter })}
-                onClick={() => handleDoneButton()}
-            >
-                done
-            </StandardButton>
         </BaseContainer>
     );
 };
