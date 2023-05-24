@@ -97,7 +97,7 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
     game center:
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/GameCenter.png" alt="gameCenter" width="240"></a>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/gameCenter.png" alt="gameCenter" width="240"></a>
   <p> create a new game as a host or join an existing lobby by PIN<p>
 </div>
 
@@ -147,7 +147,7 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
     answer:
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/answer.png" alt="answer" width="240"></a>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/answers.png" alt="answer" width="240"></a>
   <p> type in your answer<p>
 </div>
 
