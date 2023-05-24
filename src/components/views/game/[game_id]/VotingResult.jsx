@@ -18,6 +18,7 @@ const VotingResult = (props) => {
     const [votes, setVotes] = useState([]);
     const [disableDoneButton, setDisableDoneButton] = useState(true);
     const [skipped, setSkipped] = useState(false);
+    const [continueButtonText, setContinueButtonText] = useState("continue");
 
     useEffect(() => {
         function fetchData() {
@@ -103,6 +104,7 @@ const VotingResult = (props) => {
     async function doSkipButton() {
         try {
             setSkipped(true);
+            setContinueButtonText("waiting for others");
             await RestApi.skip(gamePin);
         } catch (error) {
             console.error(`Something went wrong to skip: \n${handleError(error)}`);
@@ -171,7 +173,7 @@ const VotingResult = (props) => {
                 disabled={disableDoneButton || skipped}
                 onClick={() => doSkipButton()}
             >
-                continue
+                {continueButtonText}
             </StandardButton>
         </BaseContainer>
     );
