@@ -146,7 +146,12 @@ const Score = (props) => {
     return (
         <BaseContainer>
             <Text color="white">time remaining: {timer}</Text>
-            <TopTitle sx={{ marginTop: "-3%" }}>score</TopTitle>
+            <TopTitle
+                color="white"
+                sx={{ marginTop: "-3%" }}
+            >
+                score
+            </TopTitle>
             <Paper
                 radius="md"
                 shadow="xl"
