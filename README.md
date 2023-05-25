@@ -16,12 +16,13 @@ Connection between the front-end and back-end: REST is used to fetch and send in
 
 ## High-level components
 
-To create a new game, it is crucial to choose fitting categories. This is why several options are provided in [Categories](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/views/game/Categories.jsx): next to city and country the host can add custom categories or get random categories from the server to choose from. Once the categories are selected and settings chosen.
+Once the round starts, a short countdown appears and the round's letter is revealed. All players are sent to the [Board](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/views/game/%5Bgame_id%5D/Board.jsx) where they have to find a word for every category as fast as possible. The view can be changed from the overview to single categories and back. As soon as the player has answered all categories, a "done" button appears and they can finish the round early.
 
-Once the round starts, a short countdown appears and the round's letter is revealed. All players are sent to the [Board](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/views/game/%5Bgame_id%5D/Board.jsx) where they have to find a word for every category as fast as possible.
-When the first player is finished or the clock has run down, the [Voting](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/views/game/%5Bgame_id%5D/Voting.jsx) begins and a majority vote decides on how many points each answer gets.
+When the first player is finished or the clock has run down, the [Voting](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/views/game/%5Bgame_id%5D/Voting.jsx) begins. Players have to rate the other players' answers. A majority vote decides on how many points each answer gets. When all players have clicked the "done" button or the clock has run down, the votes are sent to the back-end by rest api request and all players are forwarded to the voting results.
 
-All in-game pages are children of the [InGameRouter](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/routing/routers/InGameRouter.jsx) which establishes a websocket connection with the back-end and passes the websocket messages as props. It also provides futher common functionalities like the blocking of backwards navigation and handling of tabcloses.  
+All in-game pages are children of the [InGameRouter](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/routing/routers/InGameRouter.jsx) which establishes a websocket connection with the back-end and passes the websocket messages as props. The single websocket makes it possible to lead all players synchronously through the gameflow. The Compontent also provides futher common functionalities like the blocking of backwards navigation and handling of tabcloses.
+
+To reduce coupling, all RestApi requests are handled by [RestApi](https://github.com/sopra-fs22-group-17/RaveWave-client/blob/master/src/api/RestApi.ts). 
 
 ## Launch & Deployment
 
