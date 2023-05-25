@@ -1,5 +1,6 @@
+<div align="center">
 <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Logo.png" alt="logo" width="240"></a>
-
+</div>
   
 # SoPra Group 04 FS23 - STADT LAND **+**
 
