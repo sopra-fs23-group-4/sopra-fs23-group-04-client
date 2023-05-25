@@ -238,10 +238,10 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
 
 ## Roadmap
 
-- categories "surprise me": instead of choosing categories manually, the host can choose the option to have the categories chosen randomly by the server 
-- Public lobbies: players can find and join lobbies without a PIN
+- Categories "surprise me": Instead of choosing categories manually, the host can choose the option to have the categories chosen randomly by the server 
+- Public lobbies: Players can find and join lobbies without a PIN
 - Sudden Death Mode: Player with the least points after a round is eliminated
-- voice chat: to discuss votings when playing remotely
+- Voice chat: To discuss votings when playing remotely
 
 ## Authors and acknowledgement
 
@@ -251,4 +251,4 @@ We want to thank our teaching assistant [Hyeongkyun (Kaden) Kim](https://github.
 
 ## License
 
-Licensed under [Apache License 2.0](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-server/blob/main/LICENSE)
+Licensed under [Apache License 2.0](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/LICENSE)
