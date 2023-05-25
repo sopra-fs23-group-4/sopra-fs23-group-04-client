@@ -54,21 +54,44 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
 <div align="center">
   <h3>
     <br>
+    login:
+  <br>
+  </h3>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Login.png" alt="login" width="240"></a>
+  <p> login as an existing user<p>
+</div>
+
+
+<div align="center">
+  <h3>
+    <br>
     registration:
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/registration.png" alt="registration" width="240"></a>
-  <p> new users can sign up<p>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Registration.png" alt="registration" width="240"></a>
+  <p> sign up as a new user<p>
+</div>
+
+
+
+<div align="center">
+  <h3>
+    <br>
+    homescreen:
+  <br>
+  </h3>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Welcome.png" alt="welcome" width="240"></a>
+  <p> start a game or choose an option from the menu<p>
 </div>
 
 <div align="center">
   <h3>
     <br>
-    landing page:
+    homescreen (open menu):
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/dashboard.png" alt="dashboard" width="240"></a>
-  <p> start a game or choose an option from the menu<p>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/WelcomeMenu.png" alt="welcomeMenu" width="240"></a>
+  <p> navigate to other pages via menu<p>
 </div>
 
 <div align="center">
@@ -77,17 +100,17 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
     game rules:
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/rules.png" alt="rules" width="240"></a>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Rules.png" alt="rules" width="240"></a>
   <p> how do I play this game?<p>
 </div>
 
 <div align="center">
   <h3>
     <br>
-    change quote:
+    change winning quote:
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/quote.png" alt="quote" width="240"></a>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Quote.png" alt="quote" width="240"></a>
   <p> write or generate a winning quote<p>
 </div>
 
@@ -97,7 +120,7 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
     game center:
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/gameCenter.png" alt="gameCenter" width="240"></a>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/GameCenter.png" alt="gameCenter" width="240"></a>
   <p> create a new game as a host or join an existing lobby by PIN<p>
 </div>
 
@@ -107,7 +130,7 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
     category selection:
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/category.png" alt="category" width="240"></a>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Category.png" alt="category" width="240"></a>
   <p> choose the categories for your game<p>
 </div>
 
@@ -117,7 +140,7 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
     game settings:
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/settings.png" alt="settings" width="240"></a>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Settings.png" alt="settings" width="240"></a>
   <p> choose the settings for your game<p>
 </div>
 
@@ -127,7 +150,7 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
     lobby:
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/lobby.png" alt="lobby" width="240"></a>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Lobby.png" alt="lobby" width="240"></a>
   <p> wait for other players and start the game<p>
 </div>
 
@@ -137,8 +160,8 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
     board:
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/board.png" alt="board" width="240"></a>
-  <p> choose a category to answer<p>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Board.png" alt="board" width="240"></a>
+  <p> choose a category to answer, see status of category<p>
 </div>
 
 <div align="center">
@@ -147,7 +170,7 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
     answer:
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/answers.png" alt="answer" width="240"></a>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Answers.png" alt="answer" width="240"></a>
   <p> type in your answer<p>
 </div>
 
@@ -157,7 +180,7 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
     voting:
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/voting.png" alt="voting" width="240"></a>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Voting.png" alt="voting" width="240"></a>
   <p> rate the other players' answers<p>
 </div>
 
@@ -167,7 +190,7 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
     voting results:
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/votingResult.png" alt="votingResults" width="240"></a>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/VotingResult.png" alt="votingResults" width="240"></a>
   <p> see the voting results (majority vote)<p>
 </div>
 
@@ -178,8 +201,8 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
     scoreboard:
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/score.png" alt="score" width="240"></a>
-  <p> see the total score and a random fact<p>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Score.png" alt="score" width="240"></a>
+  <p> see the total score, game progress and a random fact<p>
 </div>
 
 <div align="center">
@@ -188,7 +211,7 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
     winner:
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/winner.png" alt="winner" width="240"></a>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Winner.png" alt="winner" width="240"></a>
   <p> the winner is announced<p>
 </div>
 
@@ -198,7 +221,7 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
     profile page:
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/userPage.png" alt="userPage" width="240"></a>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/UserPage.png" alt="userPage" width="240"></a>
   <p> see the user's stats<p>
 </div>
 
@@ -208,7 +231,7 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
     leaderboard:
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/leaderboard.png" alt="leaderboard" width="240"></a>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Leaderboard.png" alt="leaderboard" width="240"></a>
   <p> the hall of fame<p>
 </div>
 
