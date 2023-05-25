@@ -22,7 +22,7 @@ Players have to rate the other players' answers on the [Voting](https://github.c
 
 All in-game pages are children of the [InGameRouter](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/routing/routers/InGameRouter.jsx) which establishes a websocket connection with the back-end and passes the websocket messages as props. The single websocket makes it possible to lead all players synchronously through the gameflow. The Compontent also provides further common functionalities like the blocking of backwards navigation.
 
-To reduce coupling, all REST requests are handled by [RestApi](https://github.com/sopra-fs22-group-17/RaveWave-client/blob/master/src/api/RestApi.ts). 
+To reduce coupling, all REST requests are handled by [RestApi](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/api/RestApi.jsx). 
 
 ## Launch & Deployment
 
