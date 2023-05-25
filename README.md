@@ -169,7 +169,7 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
     answer:
   <br>
   </h3>
-  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Answer.png" alt="answer" width="240"></a>
+  <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Answer.png" alt="answer" width="238"></a>
   <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/AnswerAll.png" alt="answerAll" width="240"></a>
   <p> type in your answer, <br> 
     click "done" when all categories are answered to end the round</p>
