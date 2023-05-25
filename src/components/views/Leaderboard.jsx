@@ -60,7 +60,7 @@ const Leaderboard = () => {
 
         tableBodyContent = (
             <tbody>
-                {usersWithRanks.slice(0, 10).map((user) => (
+                {usersWithRanks.slice(0, 5).map((user) => (
                     <tr key={user.username}>
                         <td>
                             <Center>{user.rank}.</Center>
@@ -79,7 +79,7 @@ const Leaderboard = () => {
                         </td>
                     </tr>
                 ))}
-                {userPosition !== null && userPosition >= 10 && (
+                {userPosition !== null && userPosition >= 5 && (
                     <>
                         <tr key={"..."}>
                             <td></td>
