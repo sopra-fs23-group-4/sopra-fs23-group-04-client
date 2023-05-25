@@ -11,7 +11,7 @@ This is the repository of the front-end part of our implementation, you will fin
 Embark on a thrilling journey with Stadt Land Plus, a captivating multiplayer word game! By brainstorming words within chosen categories and a surprise random letter, players are immersed in a realm of fast-paced learning and fun. The unique twist? A democratic voting system that brings a dash of unpredictability while guaranteeing fairness in validating answers. Get ready to ignite your mind!
 
 ## Motivation
-Our motivation behind this game was to design a multiplayer experience that not only provides entertainment but also educational value. By choosing categories and brainstorming words, players can broaden their general knowledge and improve quick thinking skills.
+Our motivation behind this project was to design a multiplayer experience that not only provides entertainment but also educational value. By choosing categories and brainstorming words, players can broaden their general knowledge and improve quick thinking skills.
 
 ## Technologies
 The client is written in JSX using React. To ensure a consistent and appealing UI, [Mantine](https://mantine.dev) components are used for styling. 
