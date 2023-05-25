@@ -20,7 +20,7 @@ Once the round starts, a short countdown appears and the round's letter is revea
 
 When the first player is finished or the clock has run down, the [Voting](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/views/game/%5Bgame_id%5D/Voting.jsx) begins. Players have to rate the other players' answers. A majority vote decides on how many points each answer gets. When all players have clicked the "done" button or the clock has run down, the votes are sent to the back-end by rest api request and all players are forwarded to the voting results.
 
-All in-game pages are children of the [InGameRouter](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/routing/routers/InGameRouter.jsx) which establishes a websocket connection with the back-end and passes the websocket messages as props. The single websocket makes it possible to lead all players synchronously through the gameflow. The Compontent also provides futher common functionalities like the blocking of backwards navigation and handling of tabcloses.
+All in-game pages are children of the [InGameRouter](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/routing/routers/InGameRouter.jsx) which establishes a websocket connection with the back-end and passes the websocket messages as props. The single websocket makes it possible to lead all players synchronously through the gameflow. The Compontent also provides further common functionalities like the blocking of backwards navigation.
 
 To reduce coupling, all RestApi requests are handled by [RestApi](https://github.com/sopra-fs22-group-17/RaveWave-client/blob/master/src/api/RestApi.ts). 
 
