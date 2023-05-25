@@ -114,7 +114,7 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
   <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/GameCenter.png" alt="gameCenter" width="240"></a>
   <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Rejoin.png" alt="rejoin" width="240"></a>
   <p> create a new game as a host or join an existing lobby by PIN. <br>
-  if you left a game by just closing the tab, you have the choice to rejoin or leave properly<p>
+  if you left a game on accident, you have the choice to rejoin or leave properly<p>
 </div>
 
 <div align="center">
@@ -156,7 +156,7 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
   <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Board.png" alt="board" width="240"></a>
     <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/BoardAll.png" alt="boardAll" width="240"></a>
   <p> choose a category to answer, see status of category <br>
-  click "don"e when all categories are answered to end the round</p>
+  click "done" when all categories are answered to end the round</p>
 </div>
 
 <div align="center">
@@ -241,7 +241,7 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
 
 ## Authors and acknowledgement
 
-SoPra Group 04 2023 consists of [Valentin Meyer](https://github.com/VaLeoMe), [Remo Wiget](https://github.com/wigeto), [Christopher Narayanan](https://github.com/Queentaker), [Lennart Tölke](https://github.com/LexuTros) and [Alexandre Bacmann](https://github.com/ABacmann).
+SoPra Group 04 2023 consists of [Valentin Meyer](https://github.com/VaLeoMe), [Remo Wiget](https://github.com/wigeto), [Christopher Narayanan](https://github.com/Queentaker), [Lennart Töllke](https://github.com/LexuTros) and [Alexandre Bacmann](https://github.com/ABacmann).
 
 We want to thank our teaching assistant [Hyeongkyun (Kaden) Kim](https://github.com/hk-kaden-kim) for his help and guidance during the project.
 
