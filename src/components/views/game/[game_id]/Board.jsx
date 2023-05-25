@@ -87,7 +87,7 @@ const Board = (props) => {
     }, [props.websocketMsg]);
 
     useEffect(() => {
-        if (answers[answerIndex]?.length > 18) {
+        if (answers[answerIndex]?.length > 25) {
             setErrorLength("your answer is too long, it will be cut off");
         } else {
             setErrorLength(null);
