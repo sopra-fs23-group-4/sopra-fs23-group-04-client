@@ -15,11 +15,10 @@ The client is written in JSX using React. To ensure a consistent and appealing U
 Connection between the front-end and back-end: REST is used to fetch and send information with requests from the front-end. When starting a new game, a stomp webstocket connection is established to ensure a synchronized gameplay for all players.
 
 ## High-level components
-To individualize the user profile (and adequately gloat in case of a win), each user can choose a winning quote on [Quote](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/views/profile/edit/Quote.jsx), those who don't feel creative can generate a quote from a variety of quote categories.
 
-A user can either create a new game lobby as a host or join an existing lobby. To create a new game, it is crucial to choose fitting categories. This is why several options are provided in [Categories](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/views/game/Categories.jsx): next to city and country the host can add custom categories or get random categories from the server to choose from. Once the categories are selected and settings chosen, the game lobby is created.
+To create a new game, it is crucial to choose fitting categories. This is why several options are provided in [Categories](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/views/game/Categories.jsx): next to city and country the host can add custom categories or get random categories from the server to choose from. Once the categories are selected and settings chosen.
 
-Once all players have joined the lobby with the PIN, the host can start the game and after a short countdown the first round begins. All players are sent to the [Board](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/views/game/%5Bgame_id%5D/Board.jsx) where they have to find a word for every category as fast as possible.
+Once the round starts, a short countdown appears and the round's letter is revealed. All players are sent to the [Board](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/views/game/%5Bgame_id%5D/Board.jsx) where they have to find a word for every category as fast as possible.
 When the first player is finished or the clock has run down, the [Voting](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/views/game/%5Bgame_id%5D/Voting.jsx) begins and a majority vote decides on how many points each answer gets.
 
 All in-game pages are children of the [InGameRouter](https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/blob/main/src/components/routing/routers/InGameRouter.jsx) which establishes a websocket connection with the back-end and passes the websocket messages as props. It also provides futher common functionalities like the blocking of backwards navigation and handling of tabcloses.  
@@ -39,13 +38,7 @@ All in-game pages are children of the [InGameRouter](https://github.com/sopra-fs
   The page will reload if you make edits.
   You will also see any lint errors in the console.
 
-- npm run build
-
-  Builds the app for production to the build folder.
-  It correctly bundles React in production mode and optimizes the build for the best performance.
-
-  The build is minified and the filenames include the hashes.
-  Your app is ready to be deployed!
+- Your app is ready to be deployed!
   
 ## Illustrations
 
@@ -61,7 +54,6 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
   <p> login as an existing user<p>
 </div>
 
-
 <div align="center">
   <h3>
     <br>
@@ -71,8 +63,6 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
   <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Registration.png" alt="registration" width="240"></a>
   <p> sign up as a new user<p>
 </div>
-
-
 
 <div align="center">
   <h3>
@@ -122,7 +112,8 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
   </h3>
   <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/GameCenter.png" alt="gameCenter" width="240"></a>
   <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Rejoin.png" alt="rejoin" width="240"></a>
-  <p> create a new game as a host or join an existing lobby by PIN<p>
+  <p> create a new game as a host or join an existing lobby by PIN. <br>
+  if you left a game by just closing the tab, you have the choice to rejoin or leave properly<p>
 </div>
 
 <div align="center">
@@ -164,7 +155,7 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
   <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Board.png" alt="board" width="240"></a>
     <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/BoardAll.png" alt="boardAll" width="240"></a>
   <p> choose a category to answer, see status of category <br>
-  click done when all categories are answered to end round</p>
+  click "don"e when all categories are answered to end the round</p>
 </div>
 
 <div align="center">
@@ -175,7 +166,8 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
   </h3>
   <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/Answer.png" alt="answer" width="240"></a>
   <a href="(https://github.com/sopra-fs23-group-4/sopra-fs23-group-04-client/tree/main/ReadMePictures)"><img src="/ReadMePictures/AnswerAll.png" alt="answerAll" width="240"></a>
-  <p> type in your answer, when all categories answered press done to end round<p>
+  <p> type in your answer, <br> 
+    click "done" when all categories are answered to end the round</p>
 </div>
 
 <div align="center">
@@ -239,13 +231,12 @@ Stand Land PLUS is optimized for mobile phones. For the perfect playing experien
   <p> the hall of fame<p>
 </div>
 
-
-
 ## Roadmap
 
-- Death Mode: Player with the least points after a round is eliminated
-- Algorithm to check certain categories for correctness e.g. city and country to improve fairness
-- Possibility to play non-synchronized
+- categories "surprise me": instead of choosing categories manually, the host can choose the option to have the categories chosen randomly by the server 
+- Public lobbies: players can find and join lobbies without a PIN
+- Sudden Death Mode: Player with the least points after a round is eliminated
+- voice chat: to discuss votings when playing remotely
 
 ## Authors and acknowledgement
 
