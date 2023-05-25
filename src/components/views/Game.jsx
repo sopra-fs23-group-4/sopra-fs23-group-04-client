@@ -2,7 +2,7 @@ import BaseContainer from "../ui/BaseContainer";
 import { useHistory } from "react-router-dom";
 import { handleError, RestApi } from "../../api/RestApi";
 import React, { useEffect, useState } from "react";
-import { Flex, Modal, PinInput, Text, Title } from "@mantine/core";
+import { Flex, Modal, PinInput, Text } from "@mantine/core";
 import StandardButton from "../ui/StandardButton";
 import { StorageManager } from "../../helpers/storageManager";
 import TopTitle from "../ui/TopTitle";
@@ -104,22 +104,31 @@ const Game = () => {
             <Modal
                 opened={opened}
                 onClose={close}
-                title={<Title order={3}>You are still in a running game!</Title>}
-                size="auto"
+                title={
+                    <Text
+                        fw={700}
+                        fz="15pt"
+                    >
+                        You are still in a running game!
+                    </Text>
+                }
                 closeOnClickOutside={false}
                 closeOnEscape={false}
                 withCloseButton={false}
+                size="auto"
                 padding="xl"
+                radius="md"
+                yOffset="30vh"
+                xOffset={0}
                 overlayProps={{
                     opacity: 0.55,
                     blur: 3,
                 }}
-                transition="scale"
-                transitionDuration={300}
-                transitionTimingFunction="ease"
-                radius="md"
-                yOffset="30vh"
-                xOffset={0}
+                transitionProps={{
+                    transition: "scale",
+                    duration: 300,
+                    timingFunction: "ease-out",
+                }}
             >
                 <Flex
                     gap="lg"
@@ -127,6 +136,7 @@ const Game = () => {
                     align="center"
                     direction="row"
                     wrap="wrap"
+                    mt="2%"
                 >
                     <StandardButton
                         onClick={() => {

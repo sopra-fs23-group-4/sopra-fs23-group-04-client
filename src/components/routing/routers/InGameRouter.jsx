@@ -90,6 +90,7 @@ const InGameRouter = () => {
         // re-routs
         else if (msg.type === "resultNextVote") {
             console.log(msg);
+            StorageManager.setLetter(msg.letter);
             StorageManager.setRound(msg.round);
             history.replace(`/game/${gamePin}/round/${msg.round}/voting/${msg.categoryIndex}`);
         } else if (msg.type === "resultScoreboard") {

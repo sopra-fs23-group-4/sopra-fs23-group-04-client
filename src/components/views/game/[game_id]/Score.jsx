@@ -1,5 +1,5 @@
 import BaseContainer from "../../../ui/BaseContainer";
-import { Title, Text, Stack, Container, Group, Dialog, Progress, Space } from "@mantine/core";
+import { Title, Text, Stack, Container, Group, Progress, Space, Modal, Flex } from "@mantine/core";
 import { useHistory } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { Player } from "./Lobby";
@@ -178,33 +178,46 @@ const Score = (props) => {
                 {StorageManager.getFact()}
             </Text>
             {leaveButton}
-            <Dialog
+            <Modal
                 opened={opened}
                 onClose={close}
-                size="lg"
+                title={
+                    <Text
+                        fw={700}
+                        fz="15pt"
+                    >
+                        Whaaat?!
+                        <br />
+                        Do you really want to be a loser?
+                    </Text>
+                }
+                withCloseButton={false}
+                size="auto"
+                padding="xl"
                 radius="md"
-                transition="scale"
-                transitionDuration={300}
-                transitionTimingFunction="ease"
-                align="center"
-                shadow="xl"
+                yOffset="30vh"
+                xOffset={0}
+                overlayProps={{
+                    opacity: 0.55,
+                    blur: 3,
+                }}
+                transitionProps={{
+                    transition: "slide-up",
+                    duration: 300,
+                    timingFunction: "ease-out",
+                }}
             >
-                <Text
-                    size="lg"
-                    mb="xs"
-                    weight={700}
-                >
-                    Whaaat?!
-                    <br />
-                    Do you really want to be a loser?
-                </Text>
-
-                <Group
-                    position="apart"
-                    sx={{ width: "80%" }}
+                <Flex
+                    gap="xl"
+                    justify="center"
+                    align="center"
+                    direction="row"
+                    wrap="wrap"
+                    mt="2%"
                 >
                     <StandardButton
                         color="green"
+                        data-autofocus
                         onClick={close}
                     >
                         stay
@@ -215,8 +228,8 @@ const Score = (props) => {
                     >
                         leave :(
                     </StandardButton>
-                </Group>
-            </Dialog>
+                </Flex>
+            </Modal>
         </BaseContainer>
     );
 };
