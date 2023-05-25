@@ -138,11 +138,11 @@ const Lobby = (props) => {
         <BaseContainer>
             <TopTitle>pin: {gamePin}</TopTitle>
             <Stack
-                align="center"
-                sx={{ maxWidth: "65%", paddingBottom: "2%" }}
+                align="stretch"
+                sx={{ maxWidth: "80%", paddingBottom: "2%" }}
             >
                 <Flex
-                    justify="flex-start"
+                    justify="center"
                     direction="row"
                     gap="xl"
                     wrap="wrap"
@@ -163,7 +163,7 @@ const Lobby = (props) => {
                     </Text>
                 </Flex>
                 <Flex
-                    justify="flex-start"
+                    justify="center"
                     direction="row"
                     gap="xs"
                     wrap="wrap"
