@@ -69,7 +69,7 @@ const User = (props) => {
                 fw={500}
                 sx={{ width: "80%", marginTop: "-1%" }}
             >
-                "{user.quote}"
+                {user.quote}
             </Text>
             <PaperBox p="xs">
                 <Table
