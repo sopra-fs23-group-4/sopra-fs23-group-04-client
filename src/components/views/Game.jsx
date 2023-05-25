@@ -105,21 +105,23 @@ const Game = () => {
                 opened={opened}
                 onClose={close}
                 title={<Title order={3}>You are still in a running game!</Title>}
-                size="auto"
                 closeOnClickOutside={false}
                 closeOnEscape={false}
                 withCloseButton={false}
+                size="auto"
                 padding="xl"
+                radius="md"
+                yOffset="30vh"
+                xOffset={0}
                 overlayProps={{
                     opacity: 0.55,
                     blur: 3,
                 }}
-                transition="scale"
-                transitionDuration={300}
-                transitionTimingFunction="ease"
-                radius="md"
-                yOffset="30vh"
-                xOffset={0}
+                transitionProps={{
+                    transition: "scale",
+                    duration: 300,
+                    timingFunction: "ease-out",
+                }}
             >
                 <Flex
                     gap="lg"
