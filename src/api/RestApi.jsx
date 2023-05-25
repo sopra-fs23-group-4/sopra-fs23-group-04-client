@@ -180,7 +180,7 @@ export const handleError = (error) => {
             info += `\nstatus code: ${response.data.status}`;
             info += `\nerror: ${response.data.error}`;
             info += `\nerror message: ${response.data.message}`;
-            notifications.show({ message: response.data.message + ".", color: "red", position: "top-center", autoClose: 4000 });
+            notifications.show({ message: response.data.message, color: "red", position: "top-center", autoClose: 4000 });
         } else {
             info += `\nstatus code: ${response.status}`;
             info += `\nerror message:\n${response.data}`;
