@@ -182,11 +182,14 @@ const Score = (props) => {
                 opened={opened}
                 onClose={close}
                 title={
-                    <Title order={3}>
+                    <Text
+                        fw={700}
+                        fz="15pt"
+                    >
                         Whaaat?!
                         <br />
                         Do you really want to be a loser?
-                    </Title>
+                    </Text>
                 }
                 withCloseButton={false}
                 size="auto"
@@ -210,6 +213,7 @@ const Score = (props) => {
                     align="center"
                     direction="row"
                     wrap="wrap"
+                    mt="2%"
                 >
                     <StandardButton
                         color="green"
